@@ -1,0 +1,264 @@
+{
+  "database": "traveltrail",
+  "collections": {
+    "users": {
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String",
+        "email": "String",
+        "password": "String",
+        "role": "user|admin",
+        "avatar": "String",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        {
+          "fields": {
+            "email": 1
+          },
+          "unique": true
+        },
+        {
+          "fields": {
+            "role": 1
+          }
+        }
+      ]
+    },
+    "customers": {
+      "fields": {
+        "_id": "ObjectId",
+        "userId": "ObjectId -> users",
+        "fullName": "String",
+        "email": "String",
+        "phone": "String",
+        "address": "String",
+        "city": "String",
+        "country": "String",
+        "idCardNumber": "String",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      }
+    },
+    "destinations": {
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String",
+        "slug": "String",
+        "region": "String",
+        "theme": "String",
+        "image": "String",
+        "location": "String",
+        "climate": "String",
+        "overview": "String",
+        "attractions": ["String"],
+        "activities": ["String"],
+        "bestSeason": "String",
+        "visitDuration": "String",
+        "budgetBand": "String",
+        "transport": "String",
+        "relatedDestinations": ["ObjectId -> destinations"],
+        "createdAt": "Date"
+      },
+      "indexes": [
+        {
+          "fields": {
+            "slug": 1
+          },
+          "unique": true
+        },
+        {
+          "fields": {
+            "name": 1
+          }
+        },
+        {
+          "fields": {
+            "region": 1
+          }
+        },
+        {
+          "fields": {
+            "theme": 1
+          }
+        },
+        {
+          "fields": {
+            "budgetBand": 1
+          }
+        },
+        {
+          "fields": {
+            "bestSeason": 1
+          }
+        },
+        {
+          "fields": {
+            "name": "text",
+            "location": "text",
+            "overview": "text"
+          }
+        }
+      ]
+    },
+    "tours": {
+      "fields": {
+        "_id": "ObjectId",
+        "destinationId": "ObjectId -> destinations",
+        "title": "String",
+        "slug": "String",
+        "duration": {
+          "days": "Number",
+          "nights": "Number",
+          "text": "String"
+        },
+        "price": "Number",
+        "departureDates": ["Date"],
+        "maxPassengers": "Number",
+        "availableSeats": "Number",
+        "itinerary": [
+          {
+            "day": "Number",
+            "title": "String",
+            "description": "String"
+          }
+        ],
+        "includes": ["String"],
+        "excludes": ["String"],
+        "status": "active|inactive",
+        "createdAt": "Date"
+      },
+      "indexes": [
+        {
+          "fields": {
+            "slug": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    "bookings": {
+      "fields": {
+        "_id": "ObjectId",
+        "userId": "ObjectId -> users",
+        "customerId": "ObjectId -> customers",
+        "tourId": "ObjectId -> tours",
+        "bookingDate": "Date",
+        "departureDate": "Date",
+        "endDate": "Date",
+        "numberOfGuests": {
+          "adults": "Number",
+          "children": "Number"
+        },
+        "totalAmount": "Number",
+        "paymentMethod": "cash|credit_card|bank_transfer|e_wallet",
+        "paymentStatus": "pending|confirmed|completed|",
+        "bookingStatus": "pending|confirmed|completed|cancelled",
+        "notes": "String",
+        "guide_id": "ObjectId -> guides",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      }
+    },
+    "bookingPlans": {
+      "fields": {
+        "_id": "ObjectId",
+        "tourId": "ObjectId -> tours",
+        "departureDate": "Date",
+        "endDate": "Date",
+        "guideId": "ObjectId -> guides",
+        "totalPassengers": "Number",
+        "bookings": ["ObjectId -> bookings"],
+        "passengersList": [
+          {
+            "bookingId": "ObjectId -> bookings",
+            "fullName": "String",
+            "gender": "male|female|other",
+            "dob": "Date",
+            "idCardNumber": "String",
+            "phone": "String"
+          }
+        ],
+        "status": "scheduled|in_progress|completed|cancelled",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      },
+      "indexes": [
+        {
+          "fields": {
+            "tourId": 1,
+            "departureDate": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    "favourites": {
+      "fields": {
+        "_id": "ObjectId",
+        "userId": "ObjectId -> users",
+        "destinationId": "ObjectId -> destinations",
+        "createdAt": "Date"
+      },
+      "indexes": [
+        {
+          "fields": {
+            "userId": 1,
+            "destinationId": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    "guides": {
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String",
+        "slug": "String",
+        "background": "String",
+        "specialisation": "String",
+        "biography": "String",
+        "languages": ["String"],
+        "destinations": ["ObjectId -> destinations"]
+      },
+      "indexes": [
+        {
+          "fields": {
+            "slug": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    "collections": {
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String",
+        "slug": "String",
+        "description": "String",
+        "destinations": ["ObjectId -> destinations"]
+      },
+      "indexes": [
+        {
+          "fields": {
+            "slug": 1
+          },
+          "unique": true
+        }
+      ]
+    },
+    "contacts": {
+      "fields": {
+        "_id": "ObjectId",
+        "name": "String",
+        "email": "String",
+        "phone": "String",
+        "message": "String",
+        "status": "new|read|resolved",
+        "createdAt": "Date",
+        "updatedAt": "Date"
+      }
+    }
+  }
+}

@@ -1,0 +1,1261 @@
+{
+  "database": "traveltrail",
+  "exportedAt": "2026-10-13T12:34:04.793Z",
+  "summary": {
+    "users": 2,
+    "customers": 1,
+    "destinations": 10,
+    "tours": 10,
+    "guides": 10,
+    "collections": 10
+  },
+  "collections": {
+    "users": [
+      {
+        "_id": "6ace1f96b0a21902e6158a6c",
+        "name": "Trần Quốc Toản (Admin)",
+        "email": "admin@traveltrail.com",
+        "password": "$2b$10$mBqXsvrbb3vO8wzGB88sRegQne1XQKKFCCDcXwluS7j9N6CL3jtH6",
+        "role": "admin",
+        "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+        "createdAt": "2026-10-13T12:09:58.986Z",
+        "updatedAt": "2026-10-13T12:09:58.986Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace1f97b0a21902e6158a6d",
+        "name": "Nguyễn Văn An",
+        "email": "customer@traveltrail.com",
+        "password": "$2b$10$7Kgl7kfH9nkdlc7OsRohWePqcXU7XAy2IddwsnwVrFMphK4wm.eqC",
+        "role": "user",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
+        "createdAt": "2026-10-13T12:09:59.063Z",
+        "updatedAt": "2026-10-13T12:09:59.063Z",
+        "__v": 0
+      }
+    ],
+    "customers": [
+      {
+        "_id": "6ace1f97b0a21902e6158a6e",
+        "userId": "6ace1f97b0a21902e6158a6d",
+        "fullName": "Nguyễn Văn An",
+        "email": "customer@traveltrail.com",
+        "phone": "0912345678",
+        "address": "Số 123 Đường Lê Lợi, Phường Bến Nghé, Quận 1",
+        "city": "TP. Hồ Chí Minh",
+        "country": "Việt Nam",
+        "idCardNumber": "079095012345",
+        "createdAt": "2026-10-13T12:09:59.138Z",
+        "updatedAt": "2026-10-13T12:09:59.138Z",
+        "__v": 0
+      }
+    ],
+    "destinations": [
+      {
+        "_id": "6ace20deb48cdedf42b8eeee",
+        "name": "Vịnh Hạ Long",
+        "slug": "vinh-ha-long",
+        "region": "Miền Bắc",
+        "theme": "Biển đảo",
+        "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80",
+        "location": "Quảng Ninh, Việt Nam",
+        "climate": "Nhiệt đới ẩm gió mùa, 4 mùa rõ rệt, mùa hè nắng đẹp, mùa đông se lạnh.",
+        "overview": "Vịnh Hạ Long là di sản thiên nhiên thế giới 2 lần được UNESCO công nhận, nổi tiếng với hàng nghìn hòn đảo đá vôi kỳ vĩ nhô lên từ làn nước màu ngọc bích.",
+        "attractions": [
+          "Đảo Ti Tốp",
+          "Hang Sửng Sốt",
+          "Làng chài Cửa Vạn",
+          "Động Thiên Cung"
+        ],
+        "activities": [
+          "Chèo kayak",
+          "Nghỉ dưỡng du thuyền 5 sao",
+          "Khám phá hang động kỳ ảo",
+          "Ngắm hoàng hôn trên vịnh"
+        ],
+        "bestSeason": "Tháng 10 - Tháng 4",
+        "visitDuration": "3 ngày 2 đêm",
+        "budgetBand": "Phổ thông",
+        "transport": "Xe Limousine hoặc cao tốc Hà Nội - Hải Phòng - Quảng Ninh (2.5 giờ)",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eeef",
+          "6ace20deb48cdedf42b8eef0"
+        ],
+        "createdAt": "2026-10-13T12:15:26.441Z",
+        "updatedAt": "2026-10-13T12:15:26.480Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eeef",
+        "name": "Sa Pa",
+        "slug": "sa-pa",
+        "region": "Miền Bắc",
+        "theme": "Núi rừng & Bản sắc",
+        "image": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=1200&q=80",
+        "location": "Lào Cai, Việt Nam",
+        "climate": "Cận nhiệt đới vùng núi cao, mát mẻ quanh năm, mùa đông thường có sương mù và băng tuyết.",
+        "overview": "Thị xã Sa Pa ẩn hiện trong mây với những thửa ruộng bậc thang tuyệt mỹ bậc nhất hành tinh và đỉnh Fansipan - nóc nhà Đông Dương huyền thoại.",
+        "attractions": [
+          "Đỉnh Fansipan",
+          "Bản Cát Cát",
+          "Thung lũng Mường Hoa",
+          "Đèo Ô Quy Hồ"
+        ],
+        "activities": [
+          "Đi cáp treo Fansipan",
+          "Trekking bản làng người H'Mông",
+          "Săn mây tại đèo Ô Quy Hồ",
+          "Thưởng thức lẩu cá hồi"
+        ],
+        "bestSeason": "Tháng 9 - Tháng 11 & Tháng 3 - Tháng 5",
+        "visitDuration": "3 ngày 2 đêm",
+        "budgetBand": "Tiết kiệm",
+        "transport": "Tàu hỏa hỏa xa hoặc xe giường nằm cao tốc Hà Nội - Lào Cai (5.5 giờ)",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef0",
+          "6ace20deb48cdedf42b8eef1"
+        ],
+        "createdAt": "2026-10-13T12:15:26.453Z",
+        "updatedAt": "2026-10-13T12:15:26.489Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef0",
+        "name": "Ninh Bình",
+        "slug": "ninh-binh",
+        "region": "Miền Bắc",
+        "theme": "Di sản & Sinh thái",
+        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1200&q=80",
+        "location": "Ninh Bình, Việt Nam",
+        "climate": "Nhiệt đới gió mùa mát mẻ, cảnh sắc non nước hữu tình quanh năm.",
+        "overview": "Quần thể danh thắng Tràng An - di sản hỗn hợp Văn hóa và Thiên nhiên thế giới của UNESCO, sở hữu vẻ đẹp non nước mây trời giao hòa tuyệt bích.",
+        "attractions": [
+          "Quần thể Tràng An",
+          "Chùa Bái Đính",
+          "Hang Múa",
+          "Tam Cốc Bích Động"
+        ],
+        "activities": [
+          "Ngồi thuyền nan ngắm cảnh Tràng An",
+          "Leo đỉnh Ngọa Long ngắm toàn cảnh Hang Múa",
+          "Viếng chùa Bái Đính",
+          "Đạp xe xuyên đồng lúa Tam Cốc"
+        ],
+        "bestSeason": "Tháng 1 - Tháng 4 & Tháng 5 - Tháng 6",
+        "visitDuration": "2 ngày 1 đêm",
+        "budgetBand": "Tiết kiệm",
+        "transport": "Xe limousine hoặc ô tô từ Hà Nội theo cao tốc Pháp Vân - Cầu Giẽ (1.5 giờ)",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef1",
+          "6ace20deb48cdedf42b8eef2"
+        ],
+        "createdAt": "2026-10-13T12:15:26.457Z",
+        "updatedAt": "2026-10-13T12:15:26.491Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef1",
+        "name": "Hà Giang",
+        "slug": "ha-giang",
+        "region": "Miền Bắc",
+        "theme": "Phượt mạo hiểm",
+        "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=80",
+        "location": "Hà Giang, Việt Nam",
+        "climate": "Khí hậu ôn đới vùng cao, không khí trong lành mát mẻ quanh năm, mùa đông se sắt lạnh.",
+        "overview": "Miền đất địa đầu Tổ quốc với Công viên Địa chất Toàn cầu Cao nguyên đá Đồng Văn hùng vĩ, hẻm vực Tu Sản sâu nhất Đông Nam Á.",
+        "attractions": [
+          "Đèo Mã Pí Lèng",
+          "Hẻm Tu Sản - Sông Nho Quế",
+          "Cột cờ Lũng Cú",
+          "Dinh họ Vương"
+        ],
+        "activities": [
+          "Đi thuyền kayak trên sông Nho Quế",
+          "Chinh phục tứ đại đỉnh đèo Mã Pí Lèng",
+          "Check-in cột cờ Lũng Cú",
+          "Ngắm mùa hoa tam giác mạch"
+        ],
+        "bestSeason": "Tháng 9 - Tháng 12",
+        "visitDuration": "4 ngày 3 đêm",
+        "budgetBand": "Phổ thông",
+        "transport": "Xe khách cabin giường nằm từ Hà Nội đi TP. Hà Giang, sau đó thuê xe máy hoặc xe bán tải",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef2",
+          "6ace20deb48cdedf42b8eef3"
+        ],
+        "createdAt": "2026-10-13T12:15:26.460Z",
+        "updatedAt": "2026-10-13T12:15:26.492Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef2",
+        "name": "Phố Cổ Hội An",
+        "slug": "pho-co-hoi-an",
+        "region": "Miền Trung",
+        "theme": "Văn hóa & Di sản",
+        "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80",
+        "location": "Quảng Nam, Việt Nam",
+        "climate": "Nhiệt đới gió mùa, ấm áp nhiều nắng, mùa khô kéo dài từ tháng 2 đến tháng 8.",
+        "overview": "Đô thị cổ Hội An giữ trọn vẹn nét kiến trúc truyền thống từ thế kỷ 16-17 với những mái ngói rêu phong, giàn hoa giấy rực rỡ và ánh đèn lồng lung linh khi đêm về.",
+        "attractions": [
+          "Chùa Cầu",
+          "Nhà cổ Tấn Ký",
+          "Hội quán Phúc Kiến",
+          "Rừng dừa Bảy Mẫu Cẩm Thanh"
+        ],
+        "activities": [
+          "Thả hoa đăng sông Hoài",
+          "Thưởng thức cao lầu và cơm gà",
+          "Trải nghiệm chèo thuyền thúng rừng dừa",
+          "May đo áo dài lấy ngay"
+        ],
+        "bestSeason": "Tháng 2 - Tháng 8",
+        "visitDuration": "2 ngày 1 đêm",
+        "budgetBand": "Phổ thông",
+        "transport": "Bay đến sân bay Đà Nẵng rồi đi taxi hoặc xe buýt du lịch 30km về Hội An",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef3",
+          "6ace20deb48cdedf42b8eef4"
+        ],
+        "createdAt": "2026-10-13T12:15:26.462Z",
+        "updatedAt": "2026-10-13T12:15:26.493Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef3",
+        "name": "Thành Phố Đà Nẵng",
+        "slug": "thanh-pho-da-nang",
+        "region": "Miền Trung",
+        "theme": "Biển & Nghỉ dưỡng hiện đại",
+        "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=80",
+        "location": "Đà Nẵng, Việt Nam",
+        "climate": "Nhiệt đới gió mùa với khí hậu ôn hòa chan hòa nắng gió biển, thời tiết biển đẹp từ tháng 4 đến tháng 8.",
+        "overview": "Thành phố đáng sống nhất Việt Nam sở hữu bãi biển Mỹ Khê lọt top đẹp nhất hành tinh, Cầu Rồng phun lửa ngoạn mục và khu du lịch đỉnh cao Sun World Ba Na Hills.",
+        "attractions": [
+          "Cầu Vàng Bà Nà Hills",
+          "Bãi biển Mỹ Khê",
+          "Bán đảo Sơn Trà & Chùa Linh Ứng",
+          "Cầu Rồng"
+        ],
+        "activities": [
+          "Dạo bước trên Cầu Vàng",
+          "Tắm biển Mỹ Khê",
+          "Ngắm Cầu Rồng phun lửa cuối tuần",
+          "Khám phá bán đảo Sơn Trà ngắm voọc chà vá chân nâu"
+        ],
+        "bestSeason": "Tháng 4 - Tháng 8",
+        "visitDuration": "3 ngày 2 đêm",
+        "budgetBand": "Phổ thông",
+        "transport": "Đường bay thẳng đến Cảng hàng không Quốc tế Đà Nẵng hoặc tàu hỏa Bắc - Nam",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef4",
+          "6ace20deb48cdedf42b8eef5"
+        ],
+        "createdAt": "2026-10-13T12:15:26.465Z",
+        "updatedAt": "2026-10-13T12:15:26.495Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef4",
+        "name": "Cố Đô Huế",
+        "slug": "co-do-hue",
+        "region": "Miền Trung",
+        "theme": "Lịch sử & Cung đình",
+        "image": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=1200&q=80",
+        "location": "Thừa Thiên Huế, Việt Nam",
+        "climate": "Nhiệt đới gió mùa chuyển tiếp, mùa nắng khô ráo từ tháng 3 đến tháng 8, mùa thu lãng mạn.",
+        "overview": "Kinh đô phong kiến cuối cùng của triều Nguyễn, nơi lưu giữ tinh hoa nhã nhạc cung đình, hệ thống lăng tẩm uy nghiêm bên dòng sông Hương thơ mộng.",
+        "attractions": [
+          "Đại Nội Hoàng Thành Huế",
+          "Lăng Khải Định",
+          "Chùa Thiên Mụ",
+          "Sông Hương & Cầu Tràng Tiền"
+        ],
+        "activities": [
+          "Du thuyền nghe Ca Huế trên sông Hương",
+          "Mặc cổ phục chụp ảnh tại Đại Nội",
+          "Thưởng thức bún bò Huế và các món bánh cung đình",
+          "Tham quan lăng tẩm các vị vua"
+        ],
+        "bestSeason": "Tháng 1 - Tháng 5",
+        "visitDuration": "2 ngày 1 đêm",
+        "budgetBand": "Tiết kiệm",
+        "transport": "Bay thẳng đến Sân bay Phú Bài hoặc đi tàu hỏa qua đèo Hải Vân từ Đà Nẵng",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef5",
+          "6ace20deb48cdedf42b8eef6"
+        ],
+        "createdAt": "2026-10-13T12:15:26.469Z",
+        "updatedAt": "2026-10-13T12:15:26.496Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef5",
+        "name": "Đà Lạt - Thành Phố Ngàn Hoa",
+        "slug": "da-lat-thanh-pho-ngan-hoa",
+        "region": "Tây Nguyên",
+        "theme": "Lãng mạn & Nghỉ dưỡng",
+        "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+        "location": "Lâm Đồng, Việt Nam",
+        "climate": "Khí hậu ôn đới núi cao mát mẻ quanh năm từ 15-24 độ C, sương mù lãng đãng mỗi sớm mai.",
+        "overview": "Xứ sở mộng mơ trên cao nguyên Lang Biang nổi danh với rừng thông bạt ngàn, những nông trại hoa bất tận và không khí se lạnh đậm chất châu Âu.",
+        "attractions": [
+          "Hồ Tuyền Lâm",
+          "Đỉnh Lang Biang",
+          "Đồi chè Cầu Đất",
+          "Quảng trường Lâm Viên"
+        ],
+        "activities": [
+          "Săn mây bình minh Đồi chè Cầu Đất",
+          "Chèo SUP trên Hồ Tuyền Lâm",
+          "Thưởng thức cà phê ngắm hoàng hôn",
+          "Khám phá ẩm thực chợ đêm Đà Lạt"
+        ],
+        "bestSeason": "Tháng 11 - Tháng 4",
+        "visitDuration": "3 ngày 2 đêm",
+        "budgetBand": "Phổ thông",
+        "transport": "Chuyến bay thẳng đến Sân bay Liên Khương hoặc xe limousine từ TP. Hồ Chí Minh (6-7 giờ)",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef6",
+          "6ace20deb48cdedf42b8eef7"
+        ],
+        "createdAt": "2026-10-13T12:15:26.472Z",
+        "updatedAt": "2026-10-13T12:15:26.499Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef6",
+        "name": "Đảo Ngọc Phú Quốc",
+        "slug": "dao-ngoc-phu-quoc",
+        "region": "Miền Nam",
+        "theme": "Biển đảo & Nghỉ dưỡng cao cấp",
+        "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
+        "location": "Kiên Giang, Việt Nam",
+        "climate": "Nhiệt đới gió mùa biển, mùa khô rực rỡ từ tháng 11 đến tháng 4 với biển êm sóng lặng.",
+        "overview": "Hòn đảo ngọc lớn nhất Việt Nam sở hữu những bãi biển cát trắng mịn như kem, làn nước trong vắt cùng quần thể giải trí - nghỉ dưỡng mang đẳng cấp quốc tế.",
+        "attractions": [
+          "Bãi Sao",
+          "Quần đảo An Thới",
+          "Grand World - Thành phố không ngủ",
+          "Cáp treo Hòn Thơm"
+        ],
+        "activities": [
+          "Tour cano 4 đảo ngắm san hô",
+          "Trải nghiệm cáp treo vượt biển 3 dây dài nhất thế giới",
+          "Thưởng thức hải sản Hàm Ninh",
+          "Ngắm hoàng hôn tại Sunset Sanato"
+        ],
+        "bestSeason": "Tháng 11 - Tháng 4",
+        "visitDuration": "4 ngày 3 đêm",
+        "budgetBand": "Cao cấp",
+        "transport": "Chuyến bay thẳng đến Cảng hàng không Quốc tế Phú Quốc hoặc tàu cao tốc từ Rạch Giá/Hà Tiên",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eef7",
+          "6ace20deb48cdedf42b8eeee"
+        ],
+        "createdAt": "2026-10-13T12:15:26.475Z",
+        "updatedAt": "2026-10-13T12:15:26.501Z",
+        "__v": 1
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eef7",
+        "name": "Cần Thơ - Thủ Phủ Miền Tây",
+        "slug": "can-tho-thu-phu-mien-tay",
+        "region": "Miền Nam",
+        "theme": "Sinh thái & Miệt vườn sông nước",
+        "image": "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1200&q=80",
+        "location": "Cần Thơ, Việt Nam",
+        "climate": "Nhiệt đới gió mùa cận xích đạo, ấm áp quanh năm, mùa nước nổi từ tháng 9 đến tháng 11.",
+        "overview": "Đô thị miền sông nước Cửu Long nức tiếng Tây Đô với nếp sống hiền hòa, nét văn hóa chợ nổi trên sông độc đáo và những miệt vườn cây trái trĩu quả trù phú.",
+        "attractions": [
+          "Chợ nổi Cái Răng",
+          "Bến Ninh Kiều",
+          "Nhà cổ Bình Thủy",
+          "Cồn Sơn miệt vườn"
+        ],
+        "activities": [
+          "Đi thuyền sáng sớm trải nghiệm chợ nổi Cái Răng",
+          "Ăn trái cây hái tại vườn",
+          "Trải nghiệm làm bánh dân gian Nam Bộ",
+          "Ngắm du thuyền Bến Ninh Kiều về đêm"
+        ],
+        "bestSeason": "Tháng 9 - Tháng 11 (Mùa nước nổi) & Tháng 5 - Tháng 8 (Mùa trái cây)",
+        "visitDuration": "2 ngày 1 đêm",
+        "budgetBand": "Tiết kiệm",
+        "transport": "Cao tốc Trung Lương - Mỹ Thuận từ TP. Hồ Chí Minh (2.5 giờ) hoặc bay tới Sân bay Trà Nóc Cần Thơ",
+        "relatedDestinations": [
+          "6ace20deb48cdedf42b8eeee",
+          "6ace20deb48cdedf42b8eeef"
+        ],
+        "createdAt": "2026-10-13T12:15:26.478Z",
+        "updatedAt": "2026-10-13T12:23:56.886Z",
+        "__v": 1
+      }
+    ],
+    "tours": [
+      {
+        "_id": "6ace20deb48cdedf42b8eef8",
+        "destinationId": "6ace20deb48cdedf42b8eeee",
+        "title": "Tour Khám Phá Vịnh Hạ Long Du Thuyền 5 Sao 3N2Đ",
+        "slug": "tour-kham-pha-vinh-ha-long-du-thuyen-5-sao-3n2d",
+        "duration": {
+          "days": 3,
+          "nights": 2,
+          "text": "3 ngày 2 đêm"
+        },
+        "price": 3850000,
+        "departureDates": [
+          "2026-10-16T12:15:26.503Z",
+          "2026-10-23T12:15:26.503Z",
+          "2026-10-30T12:15:26.503Z"
+        ],
+        "maxPassengers": 24,
+        "availableSeats": 18,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Hà Nội - Cảng Tuần Châu - Lên Du Thuyền",
+            "description": "Xe limousine đón khách từ Hà Nội đến bến Tuần Châu, thưởng thức bữa trưa hải sản thượng hạng và ngắm vịnh.",
+            "_id": "6ace20deb48cdedf42b8eef9"
+          },
+          {
+            "day": 2,
+            "title": "Hang Sửng Sốt - Đảo Ti Tốp - Chèo Kayak",
+            "description": "Thám hiểm Hang Sửng Sốt tráng lệ, leo đỉnh Ti Tốp ngắm toàn cảnh 360 độ và chèo kayak tại Hang Luồn.",
+            "_id": "6ace20deb48cdedf42b8eefa"
+          },
+          {
+            "day": 3,
+            "title": "Làng Chài Trà Báu - Tiễn Đoàn Về Hà Nội",
+            "description": "Tham gia lớp dưỡng sinh Taichi đón bình minh, dùng brunch buffet và trở về cảng chuẩn bị về Hà Nội.",
+            "_id": "6ace20deb48cdedf42b8eefb"
+          }
+        ],
+        "includes": [
+          "Du thuyền 5 sao chuẩn quốc tế",
+          "Tất cả các bữa ăn hải sản cao cấp theo tour",
+          "Vé tham quan danh thắng",
+          "Hướng dẫn viên song ngữ suốt tuyến"
+        ],
+        "excludes": [
+          "Chi phí đồ uống cá nhân",
+          "Dịch vụ spa massage trên du thuyền",
+          "Tiền tip cho thủy thủ đoàn"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.510Z",
+        "updatedAt": "2026-10-13T12:15:26.510Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8eefc",
+        "destinationId": "6ace20deb48cdedf42b8eeef",
+        "title": "Tour Sa Pa - Chinh Phục Nóc Nhà Đông Dương Fansipan 3N2Đ",
+        "slug": "tour-sa-pa-chinh-phuc-noc-nha-dong-duong-fansipan-3n2d",
+        "duration": {
+          "days": 3,
+          "nights": 2,
+          "text": "3 ngày 2 đêm"
+        },
+        "price": 2950000,
+        "departureDates": [
+          "2026-10-17T12:15:26.503Z",
+          "2026-10-24T12:15:26.503Z",
+          "2026-10-31T12:15:26.503Z"
+        ],
+        "maxPassengers": 20,
+        "availableSeats": 14,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Hà Nội - Sa Pa - Bản Cát Cát Thơ Mộng",
+            "description": "Khởi hành xe cabin cao cấp đến Sa Pa, check-in khách sạn và bách bộ khám phá bản văn hóa H'Mông Cát Cát.",
+            "_id": "6ace20deb48cdedf42b8eefd"
+          },
+          {
+            "day": 2,
+            "title": "Chinh Phục Fansipan Legend - Đèo Ô Quy Hồ",
+            "description": "Trải nghiệm cáp treo đạt kỷ lục thế giới lên đỉnh Fansipan 3.143m, chiều ngắm hoàng hôn rực rỡ tại đèo Ô Quy Hồ.",
+            "_id": "6ace20deb48cdedf42b8eefe"
+          },
+          {
+            "day": 3,
+            "title": "Thung Lũng Mường Hoa - Chợ Tình Sa Pa - Hà Nội",
+            "description": "Tản bộ qua ruộng bậc thang thung lũng Mường Hoa, mua đặc sản địa phương và lên xe về lại Hà Nội.",
+            "_id": "6ace20deb48cdedf42b8eeff"
+          }
+        ],
+        "includes": [
+          "Xe giường nằm VIP đưa đón hai chiều",
+          "Khách sạn 4 sao view núi mây",
+          "Vé cáp treo Sun World Fansipan",
+          "Các bữa ăn đặc sản Tây Bắc"
+        ],
+        "excludes": [
+          "Tàu hỏa leo núi Mường Hoa",
+          "Chi phí chi tiêu cá nhân",
+          "Tiền tip hướng dẫn viên"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.514Z",
+        "updatedAt": "2026-10-13T12:15:26.514Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef00",
+        "destinationId": "6ace20deb48cdedf42b8eef0",
+        "title": "Tour Di Sản Tràng An - Chùa Bái Đính - Tuyệt Tình Cốc 2N1Đ",
+        "slug": "tour-di-san-trang-an-chua-bai-dinh-tuyet-tinh-coc-2n1d",
+        "duration": {
+          "days": 2,
+          "nights": 1,
+          "text": "2 ngày 1 đêm"
+        },
+        "price": 1890000,
+        "departureDates": [
+          "2026-10-15T12:15:26.503Z",
+          "2026-10-20T12:15:26.503Z",
+          "2026-10-27T12:15:26.503Z"
+        ],
+        "maxPassengers": 25,
+        "availableSeats": 21,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Hà Nội - Chùa Bái Đính - Hang Múa",
+            "description": "Viếng quần thể tâm linh Bái Đính cổ tự và tân tự, buổi chiều chinh phục 500 bậc đá Hang Múa ngắm Tam Cốc mùa lúa.",
+            "_id": "6ace20deb48cdedf42b8ef01"
+          },
+          {
+            "day": 2,
+            "title": "Thuyền Nan Danh Thắng Tràng An - Về Hà Nội",
+            "description": "Xuôi thuyền khám phá các hang động xuyên thủy kỳ ảo, phim trường Kong Skull Island và trở về Hà Nội.",
+            "_id": "6ace20deb48cdedf42b8ef02"
+          }
+        ],
+        "includes": [
+          "Xe du lịch đời mới máy lạnh",
+          "Khách sạn hoặc resort boutique 3-4 sao",
+          "Vé thắng cảnh và thuyền nan Tràng An",
+          "Bữa trưa đặc sản cơm cháy thịt dê núi"
+        ],
+        "excludes": [
+          "Xe điện Bái Đính",
+          "Đồ uống gọi riêng trong bữa ăn",
+          "Bảo hiểm ngoài chương trình"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.517Z",
+        "updatedAt": "2026-10-13T12:15:26.517Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef03",
+        "destinationId": "6ace20deb48cdedf42b8eef1",
+        "title": "Tour Phượt Hùng Vĩ Cung Đường Hà Giang - Mã Pí Lèng 4N3Đ",
+        "slug": "tour-phuot-hung-vi-cung-duong-ha-giang-ma-pi-leng-4n3d",
+        "duration": {
+          "days": 4,
+          "nights": 3,
+          "text": "4 ngày 3 đêm"
+        },
+        "price": 4200000,
+        "departureDates": [
+          "2026-10-18T12:15:26.503Z",
+          "2026-10-25T12:15:26.503Z",
+          "2026-11-01T12:15:26.503Z"
+        ],
+        "maxPassengers": 16,
+        "availableSeats": 10,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Hà Nội - Cột Mốc Số 0 - Quản Bạ - Yên Minh",
+            "description": "Đến Hà Giang, dừng chân chụp ảnh Cột mốc Km0, vượt dốc Bắc Sum, ngắm Núi Đôi Quản Bạ thơ mộng.",
+            "_id": "6ace20deb48cdedf42b8ef04"
+          },
+          {
+            "day": 2,
+            "title": "Dốc Thẩm Mã - Dinh Vua Mèo - Cột Cờ Lũng Cú",
+            "description": "Chinh phục khúc cua dốc Thẩm Mã, thăm di tích Dinh thự Họ Vương và chạm tay vào lá cờ Tổ quốc tại đỉnh Lũng Cú.",
+            "_id": "6ace20deb48cdedf42b8ef05"
+          },
+          {
+            "day": 3,
+            "title": "Đèo Mã Pí Lèng - Chèo Thuyền Sông Nho Quế - Mèo Vạc",
+            "description": "Đi bộ trên con đường Hạnh Phúc, nhìn ngắm hẻm Tu Sản hùng tráng và ngồi thuyền lướt trên làn nước ngọc bích sông Nho Quế.",
+            "_id": "6ace20deb48cdedf42b8ef06"
+          },
+          {
+            "day": 4,
+            "title": "Mèo Vạc - Khúc Cua Chữ M - Hà Giang - Hà Nội",
+            "description": "Khám phá chợ phiên vùng cao rực rỡ sắc màu thổ cẩm, men theo cung đường uốn lượn trở về thành phố.",
+            "_id": "6ace20deb48cdedf42b8ef07"
+          }
+        ],
+        "includes": [
+          "Xe khách giường nằm cao cấp khứ hồi",
+          "Xe máy hoặc xe 16 chỗ bán tải tại Hà Giang",
+          "Homestay bản địa sạch sẽ view núi",
+          "Bảo hiểm du lịch mạo hiểm cao cấp"
+        ],
+        "excludes": [
+          "Xăng xe cá nhân nếu tự lái",
+          "Trang phục dân tộc chụp ảnh tự túc",
+          "Chi tiêu phát sinh ngoài lịch trình"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.519Z",
+        "updatedAt": "2026-10-13T12:15:26.519Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef08",
+        "destinationId": "6ace20deb48cdedf42b8eef2",
+        "title": "Tour Trải Nghiệm Văn Hóa Phố Cổ Hội An & Rừng Dừa Bảy Mẫu 2N1Đ",
+        "slug": "tour-trai-nghiem-van-hoa-pho-co-hoi-an-and-rung-dua-bay-mau-2n1d",
+        "duration": {
+          "days": 2,
+          "nights": 1,
+          "text": "2 ngày 1 đêm"
+        },
+        "price": 1950000,
+        "departureDates": [
+          "2026-10-16T12:15:26.503Z",
+          "2026-10-21T12:15:26.503Z",
+          "2026-10-28T12:15:26.503Z"
+        ],
+        "maxPassengers": 22,
+        "availableSeats": 16,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Đón Khách - Thăm Phố Cổ Hội An - Thả Đèn Hoa Đăng",
+            "description": "Tham quan Chùa Cầu, các hội quán cổ, làm lồng đèn truyền thống và thả hoa đăng ước nguyện trên sông Hoài rực rỡ.",
+            "_id": "6ace20deb48cdedf42b8ef09"
+          },
+          {
+            "day": 2,
+            "title": "Lắc Thuyền Thúng Rừng Dừa Bảy Mẫu - Tiễn Đoàn",
+            "description": "Thử sức trò múa thúng xoay vòng điệu nghệ tại rừng dừa nước Cẩm Thanh, thưởng thức món gỏi cuốn và bánh xèo giòn rụm.",
+            "_id": "6ace20deb48cdedf42b8ef0a"
+          }
+        ],
+        "includes": [
+          "Khách sạn 4 sao gần phố cổ",
+          "Vé tham quan di tích phố cổ và rừng dừa",
+          "Thuyền thúng tham quan và xem xiếc thúng",
+          "Ăn sáng buffet và 2 bữa chính"
+        ],
+        "excludes": [
+          "Vé máy bay đến Đà Nẵng",
+          "Dịch vụ may đo thời trang lấy gấp",
+          "Tiền tip"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.522Z",
+        "updatedAt": "2026-10-13T12:15:26.522Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef0b",
+        "destinationId": "6ace20deb48cdedf42b8eef3",
+        "title": "Tour Đà Nẵng - Cầu Vàng Bà Nà Hills - Bán Đảo Sơn Trà 3N2Đ",
+        "slug": "tour-da-nang-cau-vang-ba-na-hills-ban-dao-son-tra-3n2d",
+        "duration": {
+          "days": 3,
+          "nights": 2,
+          "text": "3 ngày 2 đêm"
+        },
+        "price": 3490000,
+        "departureDates": [
+          "2026-10-17T12:15:26.503Z",
+          "2026-10-22T12:15:26.503Z",
+          "2026-10-29T12:15:26.503Z"
+        ],
+        "maxPassengers": 30,
+        "availableSeats": 25,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Bán Đảo Sơn Trà - Chùa Linh Ứng - Biển Mỹ Khê",
+            "description": "Chiêm bái tượng Phật Bà Quán Thế Âm cao 67m hướng biển, thả mình trên bãi cát trắng mịn biển Mỹ Khê.",
+            "_id": "6ace20deb48cdedf42b8ef0c"
+          },
+          {
+            "day": 2,
+            "title": "Khu Du Lịch Bà Nà Hills - Cầu Vàng Bàn Tay Khổng Lồ",
+            "description": "Một ngày bốn mùa tại làng Pháp cổ kính, dạo bước trên kỳ quan thế giới Cầu Vàng và tham gia các trò chơi Fantasy Park.",
+            "_id": "6ace20deb48cdedf42b8ef0d"
+          },
+          {
+            "day": 3,
+            "title": "Ngũ Hành Sơn - Làng Đá Mỹ Nghệ - Cầu Rồng - Tiễn Sân Bay",
+            "description": "Khám phá Động Huyền Không kỳ bí, mua sắm đá non nước quà lưu niệm và chụp ảnh kỉ niệm tại Cầu Tình Yêu.",
+            "_id": "6ace20deb48cdedf42b8ef0e"
+          }
+        ],
+        "includes": [
+          "Khách sạn 4 sao sát biển Mỹ Khê",
+          "Vé cáp treo và buffet trưa thượng hạng tại Bà Nà Hills",
+          "Xe ô tô du lịch đời mới đưa đón suốt tuyến",
+          "Nước suối và khăn lạnh hàng ngày"
+        ],
+        "excludes": [
+          "Vé bảo tàng sáp Bà Nà Hills",
+          "Vé máy bay khứ hồi",
+          "Chi phí giặt là và điện thoại"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.525Z",
+        "updatedAt": "2026-10-13T12:15:26.525Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef0f",
+        "destinationId": "6ace20deb48cdedf42b8eef4",
+        "title": "Tour Di Sản Cố Đô Huế - Thưởng Thức Ca Huế Sông Hương 2N1Đ",
+        "slug": "tour-di-san-co-do-hue-thuong-thuc-ca-hue-song-huong-2n1d",
+        "duration": {
+          "days": 2,
+          "nights": 1,
+          "text": "2 ngày 1 đêm"
+        },
+        "price": 2150000,
+        "departureDates": [
+          "2026-10-19T12:15:26.503Z",
+          "2026-10-26T12:15:26.503Z",
+          "2026-11-02T12:15:26.503Z"
+        ],
+        "maxPassengers": 20,
+        "availableSeats": 15,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Đại Nội Huế - Chùa Thiên Mụ - Du Thuyền Ca Huế",
+            "description": "Thăm Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành. Chiều ngắm hoàng hôn chùa Thiên Mụ và tối thưởng trà nghe ca Huế trên dòng Hương giang.",
+            "_id": "6ace20deb48cdedf42b8ef10"
+          },
+          {
+            "day": 2,
+            "title": "Lăng Khải Định - Lăng Tự Đức - Làng Hương Thủy Xuân",
+            "description": "Chiêm ngưỡng kiến trúc đỉnh cao lăng tẩm triều Nguyễn, chụp ảnh lung linh giữa làng nghề làm hương truyền thống Thủy Xuân.",
+            "_id": "6ace20deb48cdedf42b8ef11"
+          }
+        ],
+        "includes": [
+          "Xe đón tiễn chất lượng cao",
+          "Khách sạn 4 sao trung tâm thành phố Huế",
+          "Vé trọn gói các điểm lăng tẩm và Đại Nội",
+          "Thuyền rồng và vé ca Huế buổi tối"
+        ],
+        "excludes": [
+          "Thuê cổ phục triều Nguyễn tự do",
+          "Tiền tip cho ca sĩ đoàn thuyền rồng",
+          "Chi phí riêng cá nhân"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.528Z",
+        "updatedAt": "2026-10-13T12:15:26.528Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef12",
+        "destinationId": "6ace20deb48cdedf42b8eef5",
+        "title": "Tour Săn Mây Đà Lạt - Check-in Đồi Chè Cầu Đất & Vườn Hoa 3N2Đ",
+        "slug": "tour-san-may-da-lat-check-in-doi-che-cau-dat-and-vuon-hoa-3n2d",
+        "duration": {
+          "days": 3,
+          "nights": 2,
+          "text": "3 ngày 2 đêm"
+        },
+        "price": 2750000,
+        "departureDates": [
+          "2026-10-16T12:15:26.503Z",
+          "2026-10-23T12:15:26.503Z",
+          "2026-10-30T12:15:26.503Z"
+        ],
+        "maxPassengers": 24,
+        "availableSeats": 19,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Đón Khách - Quảng Trường Lâm Viên - Hồ Xuân Hương",
+            "description": "Check-in nụ hoa Atiso biểu tượng, dạo bộ ngắm chiều tà lãng mạn bên hồ Xuân Hương và thưởng thức bánh tráng nướng phố đêm.",
+            "_id": "6ace20deb48cdedf42b8ef13"
+          },
+          {
+            "day": 2,
+            "title": "Săn Biển Mây Cầu Đất - Cánh Đồng Hoa Cẩm Tú Cầu",
+            "description": "Đón bình minh rực rỡ trôi giữa biển mây bồng bềnh tại đồi chè, trưa thưởng thức lẩu gà lá é trứ danh.",
+            "_id": "6ace20deb48cdedf42b8ef14"
+          },
+          {
+            "day": 3,
+            "title": "Hồ Tuyền Lâm - Thiền Viện Trúc Lâm - Ga Đà Lạt Cổ",
+            "description": "Hòa mình vào không gian thanh tịnh rừng thông, chiêm ngưỡng kiến trúc Đông Dương độc đáo tại nhà ga xe lửa cổ nhất.",
+            "_id": "6ace20deb48cdedf42b8ef15"
+          }
+        ],
+        "includes": [
+          "Khách sạn 3-4 sao phong cách châu Âu",
+          "Bữa ăn ẩm thực đặc trưng phố núi Đà Lạt",
+          "Vé vào cổng tất cả điểm tham quan trong tour",
+          "Hướng dẫn viên nhiệt tình vui vẻ"
+        ],
+        "excludes": [
+          "Máng trượt Thác Datanla",
+          "Vé máy bay đến Liên Khương",
+          "Cà phê gọi riêng tại điểm check-in"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.530Z",
+        "updatedAt": "2026-10-13T12:15:26.530Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef16",
+        "destinationId": "6ace20deb48cdedf42b8eef6",
+        "title": "Tour Nghỉ Dưỡng Thiên Đường Biển Phú Quốc & Cano 4 Đảo 4N3Đ",
+        "slug": "tour-nghi-duong-thien-duong-bien-phu-quoc-and-cano-4-dao-4n3d",
+        "duration": {
+          "days": 4,
+          "nights": 3,
+          "text": "4 ngày 3 đêm"
+        },
+        "price": 6800000,
+        "departureDates": [
+          "2026-10-20T12:15:26.503Z",
+          "2026-10-27T12:15:26.503Z",
+          "2026-11-03T12:15:26.503Z"
+        ],
+        "maxPassengers": 20,
+        "availableSeats": 12,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "Đón Sân Bay Phú Quốc - Grand World Thành Phố Không Ngủ",
+            "description": "Check-in resort biển, chiều tham quan kênh đào Venice thu nhỏ và thưởng thức show thực cảnh nhạc nước hoành tráng.",
+            "_id": "6ace20deb48cdedf42b8ef17"
+          },
+          {
+            "day": 2,
+            "title": "Tour Cano Cao Tốc 4 Đảo - Lặn Biển Ngắm San Hô",
+            "description": "Trải nghiệm Hòn Mây Rút, Hòn Gầm Ghì, Hòn Móng Tay, chụp ảnh flycam miễn phí và lặn ngắm vương quốc san hô tự nhiên.",
+            "_id": "6ace20deb48cdedf42b8ef18"
+          },
+          {
+            "day": 3,
+            "title": "Cáp Treo Hòn Thơm - Bãi Sao Biển Nắng Vàng",
+            "description": "Đi cáp treo vượt biển dài gần 8.000m, vui chơi công viên nước Aquatopia và tắm biển tại Bãi Sao cát trắng như kem.",
+            "_id": "6ace20deb48cdedf42b8ef19"
+          },
+          {
+            "day": 4,
+            "title": "Vườn Tiêu - Cơ Sở Ngọc Trai - Tiễn Sân Bay Phú Quốc",
+            "description": "Mua đặc sản hồ tiêu thơm lừng và nước mắm truyền thống làm quà trước khi ra sân bay về lại.",
+            "_id": "6ace20deb48cdedf42b8ef1a"
+          }
+        ],
+        "includes": [
+          "Resort 5 sao có bãi biển riêng và hồ bơi vô cực",
+          "Cano tốc độ cao kèm thiết bị lặn biển & quay flycam",
+          "Vé cáp treo Hòn Thơm khứ hồi",
+          "Các bữa tiệc hải sản tươi sống phong phú"
+        ],
+        "excludes": [
+          "Trải nghiệm đi bộ dưới đáy biển Seawalker",
+          "Vé máy bay khứ hồi Phú Quốc",
+          "Chi phí quầy bar cá nhân"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.533Z",
+        "updatedAt": "2026-10-13T12:15:26.533Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef1b",
+        "destinationId": "6ace20deb48cdedf42b8eef7",
+        "title": "Tour Khám Phá Sông Nước Miền Tây - Chợ Nổi Cái Răng Cần Thơ 2N1Đ",
+        "slug": "tour-kham-pha-song-nuoc-mien-tay-cho-noi-cai-rang-can-tho-2n1d",
+        "duration": {
+          "days": 2,
+          "nights": 1,
+          "text": "2 ngày 1 đêm"
+        },
+        "price": 1650000,
+        "departureDates": [
+          "2026-10-15T12:15:26.503Z",
+          "2026-10-22T12:15:26.503Z",
+          "2026-10-29T12:15:26.503Z"
+        ],
+        "maxPassengers": 28,
+        "availableSeats": 22,
+        "itinerary": [
+          {
+            "day": 1,
+            "title": "TP.HCM - Mỹ Tho - Bến Tre - Cần Thơ - Bến Ninh Kiều",
+            "description": "Ngồi thuyền ngắm 4 cù lao Long Lân Quy Phụng, uống trà mật ong, nghe đờn ca tài tử và di chuyển về Cần Thơ ăn tối du thuyền.",
+            "_id": "6ace20deb48cdedf42b8ef1c"
+          },
+          {
+            "day": 2,
+            "title": "Chợ Nổi Cái Răng - Lò Hủ Tiếu Truyền Thống - Cồn Sơn",
+            "description": "Dậy sớm đi thuyền ngắm cảnh buôn bán cây bẹo trên sông, ăn tô bún riêu nổi tiếng, chiều xem cá lóc bay độc đáo tại Cồn Sơn.",
+            "_id": "6ace20deb48cdedf42b8ef1d"
+          }
+        ],
+        "includes": [
+          "Xe du lịch tiện nghi đưa đón từ TP.HCM",
+          "Khách sạn 4 sao trung tâm TP Cần Thơ",
+          "Tàu tham quan chợ nổi và các cù lao",
+          "Trái cây miệt vườn và tiệc tối du thuyền Ninh Kiều"
+        ],
+        "excludes": [
+          "Tiền boa hướng dẫn và tài xế",
+          "Chi phí mua trái cây mang về",
+          "Đồ uống cá nhân ngoài thực đơn"
+        ],
+        "status": "active",
+        "createdAt": "2026-10-13T12:15:26.536Z",
+        "updatedAt": "2026-10-13T12:15:26.536Z",
+        "__v": 0
+      }
+    ],
+    "guides": [
+      {
+        "_id": "6ace20deb48cdedf42b8ef1e",
+        "name": "Trần Minh Khoa",
+        "slug": "tran-minh-khoa",
+        "background": "Tốt nghiệp xuất sắc khoa Du lịch học - Đại học Quốc gia Hà Nội. Đạt chứng chỉ Hướng dẫn viên Quốc tế thẻ xanh.",
+        "specialisation": "Chuyên gia tour Du thuyền vịnh biển & Di sản miền Bắc",
+        "biography": "Hơn 8 năm kinh nghiệm dẫn các đoàn khách VIP khám phá kỳ quan Vịnh Hạ Long và Cát Bà. Phong cách giao tiếp nhiệt huyết, am hiểu sâu sắc về kiến tạo địa chất và sinh thái biển đảo.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eeee",
+          "6ace20deb48cdedf42b8eef0"
+        ],
+        "createdAt": "2026-10-13T12:15:26.539Z",
+        "updatedAt": "2026-10-13T12:15:26.539Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef1f",
+        "name": "Giàng A Vừ",
+        "slug": "giang-a-vu",
+        "background": "Người con của núi rừng Sa Pa thuộc dân tộc H'Mông, được đào tạo bài bản nghiệp vụ du lịch sinh thái cộng đồng.",
+        "specialisation": "Chuyên gia văn hóa bản địa Tây Bắc & Trekking Fansipan",
+        "biography": "Sinh ra và lớn lên dưới chân núi Hoàng Liên Sơn, A Vừ nắm giữ mọi câu chuyện huyền thoại của những bản làng người Dao, người H'Mông và những cung đường mây tuyệt đẹp.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh",
+          "Tiếng Pháp"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eeef",
+          "6ace20deb48cdedf42b8eef1"
+        ],
+        "createdAt": "2026-10-13T12:15:26.542Z",
+        "updatedAt": "2026-10-13T12:15:26.542Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef20",
+        "name": "Lê Hoàng Nam",
+        "slug": "le-hoang-nam",
+        "background": "Cựu phượt thủ chuyên nghiệp với 10 năm kinh nghiệm dẫn tour caravan và xe máy mạo hiểm toàn quốc.",
+        "specialisation": "Chinh phục cung đường đèo hiểm trở & Du lịch trải nghiệm mạo hiểm",
+        "biography": "Hoàng Nam nổi tiếng với kỹ năng sơ cấp cứu vững vàng, đam mê vô tận với cảnh sắc Hà Giang và khả năng truyền cảm hứng cho những du khách ưa thử thách.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef1",
+          "6ace20deb48cdedf42b8eeef"
+        ],
+        "createdAt": "2026-10-13T12:15:26.543Z",
+        "updatedAt": "2026-10-13T12:15:26.543Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef21",
+        "name": "Phạm Thị Thu Trang",
+        "slug": "pham-thi-thu-trang",
+        "background": "Cử nhân Lịch sử - Khảo cổ học Đại học Sư phạm Hà Nội. Thạc sĩ Văn hóa dân gian.",
+        "specialisation": "Thuyết minh viên chuyên sâu lịch sử Đinh - Lê và Quần thể Tràng An",
+        "biography": "Với chất giọng truyền cảm ấm áp, Thu Trang biến mỗi chuyến đi về vùng đất cố đô Hoa Lư - Ninh Bình thành một hành trình sống dậy lịch sử ngàn năm hào hùng.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef0",
+          "6ace20deb48cdedf42b8eef4"
+        ],
+        "createdAt": "2026-10-13T12:15:26.545Z",
+        "updatedAt": "2026-10-13T12:15:26.545Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef22",
+        "name": "Nguyễn Phúc Bảo Long",
+        "slug": "nguyen-phuc-bao-long",
+        "background": "Hậu duệ dòng dõi hoàng tộc triều Nguyễn, cử nhân Di sản học Đại học Khoa học Huế.",
+        "specialisation": "Chuyên gia văn hóa Cung đình Huế & Kiến trúc cổ truyền",
+        "biography": "Bảo Long mang đến cho du khách những góc nhìn độc bản và chiều sâu hiếm có về nếp sống, nhã nhạc, mỹ thuật và ẩm thực cung đình triều Nguyễn tại Cố Đô.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Pháp",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef4",
+          "6ace20deb48cdedf42b8eef2"
+        ],
+        "createdAt": "2026-10-13T12:15:26.547Z",
+        "updatedAt": "2026-10-13T12:15:26.547Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef23",
+        "name": "Đặng Thị Mai Phương",
+        "slug": "dang-thi-mai-phuong",
+        "background": "Tốt nghiệp khoa Du lịch Đại học Ngoại ngữ Đà Nẵng, 7 năm đồng hành cùng du khách phố cổ.",
+        "specialisation": "Khám phá làng nghề truyền thống & Ẩm thực đường phố Hội An",
+        "biography": "Mai Phương sở hữu nụ cười rạng rỡ và sự tinh tế, luôn biết cách dẫn du khách đến những góc nhỏ bình yên nhất của Hội An và thưởng thức những món ngon gia truyền nức tiếng.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh",
+          "Tiếng Hàn"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef2",
+          "6ace20deb48cdedf42b8eef3"
+        ],
+        "createdAt": "2026-10-13T12:15:26.549Z",
+        "updatedAt": "2026-10-13T12:15:26.549Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef24",
+        "name": "Trương Vĩnh Phát",
+        "slug": "truong-vinh-phat",
+        "background": "Được trao giải Hướng dẫn viên năng động xuất sắc thành phố Đà Nẵng năm 2024.",
+        "specialisation": "Tour gia đình nghỉ dưỡng, teambuilding & Khám phá Bà Nà Hills",
+        "biography": "Vĩnh Phát có khả năng kết nối tuyệt vời, tạo tiếng cười sảng khoái và chăm sóc chu đáo từng thành viên từ người cao tuổi đến các em nhỏ trong chuyến đi.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh",
+          "Tiếng Trung"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef3",
+          "6ace20deb48cdedf42b8eef4"
+        ],
+        "createdAt": "2026-10-13T12:15:26.550Z",
+        "updatedAt": "2026-10-13T12:15:26.550Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef25",
+        "name": "Vũ Đình Khang",
+        "slug": "vu-dinh-khang",
+        "background": "Nhiếp ảnh gia phong cảnh chuyên nghiệp kiêm hướng dẫn viên du lịch tự do tại Đà Lạt.",
+        "specialisation": "Tour săn mây bình minh, cắm trại đồi thông & Nhiếp ảnh lãng mạn",
+        "biography": "Khang không chỉ là người dẫn đường tận tâm mà còn là người ghi lại những khung hình nghệ thuật lung linh để đời cho các cặp đôi và bạn trẻ khi đến với xứ sở ngàn hoa.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef5"
+        ],
+        "createdAt": "2026-10-13T12:15:26.552Z",
+        "updatedAt": "2026-10-13T12:15:26.552Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef26",
+        "name": "Bùi Hải Đăng",
+        "slug": "bui-hai-dang",
+        "background": "Huấn luyện viên lặn biển quốc tế PADI Master Scuba Diver Trainer, gắn bó với Phú Quốc hơn 6 năm.",
+        "specialisation": "Sinh thái biển đảo, lặn ngắm san hô & Chèo kayak đại dương",
+        "biography": "Hải Đăng am hiểu tường tận từng rạn san hô nguyên sơ của quần đảo An Thới. Anh là đại sứ tích cực truyền cảm hứng bảo vệ môi trường biển tới mọi du khách.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh",
+          "Tiếng Nga"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef6"
+        ],
+        "createdAt": "2026-10-13T12:15:26.554Z",
+        "updatedAt": "2026-10-13T12:15:26.554Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef27",
+        "name": "Nguyễn Thị Kim Loan",
+        "slug": "nguyen-thi-kim-loan",
+        "background": "Sinh ra và lớn lên tại xứ Cần Thơ gạo trắng nước trong, cử nhân Lữ hành Đại học Cần Thơ.",
+        "specialisation": "Du lịch sinh thái miệt vườn & Văn hóa sông nước đồng bằng sông Cửu Long",
+        "biography": "Với tính cách hào sảng, chân chất và duyên dáng đúng điệu miền Tây, Kim Loan giúp du khách cảm nhận trọn vẹn sự hiếu khách, ấm áp của đất và người phương Nam.",
+        "languages": [
+          "Tiếng Việt",
+          "Tiếng Anh"
+        ],
+        "destinations": [
+          "6ace20deb48cdedf42b8eef7"
+        ],
+        "createdAt": "2026-10-13T12:15:26.556Z",
+        "updatedAt": "2026-10-13T12:15:26.556Z",
+        "__v": 0
+      }
+    ],
+    "collections": [
+      {
+        "_id": "6ace20deb48cdedf42b8ef28",
+        "name": "Di Sản Thiên Nhiên & Văn Hóa Thế Giới UNESCO",
+        "slug": "di-san-thien-nhien-and-van-hoa-the-gioi-unesco",
+        "description": "Tuyển tập những kiệt tác địa chất và di sản văn minh ngàn năm của Việt Nam được thế giới vinh danh, từ Vịnh Hạ Long kỳ vĩ đến Hoàng thành Huế cổ kính.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eeee",
+          "6ace20deb48cdedf42b8eef0",
+          "6ace20deb48cdedf42b8eef4",
+          "6ace20deb48cdedf42b8eef2"
+        ],
+        "createdAt": "2026-10-13T12:15:26.559Z",
+        "updatedAt": "2026-10-13T12:15:26.559Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef29",
+        "name": "Thiên Đường Biển Đảo Nắng Vàng Hè 2026",
+        "slug": "thien-duong-bien-dao-nang-vang-he-2026",
+        "description": "Tận hưởng làn nước xanh ngọc bích, bờ cát trắng phau và những khu nghỉ dưỡng bờ biển sang trọng bậc nhất tại Đà Nẵng, Phú Quốc và Vịnh Hạ Long.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef6",
+          "6ace20deb48cdedf42b8eef3",
+          "6ace20deb48cdedf42b8eeee"
+        ],
+        "createdAt": "2026-10-13T12:15:26.562Z",
+        "updatedAt": "2026-10-13T12:15:26.562Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2a",
+        "name": "Chinh Phục Cung Đường Đông Tây Bắc Kỳ Vĩ",
+        "slug": "chinh-phuc-cung-duong-dong-tay-bac-ky-vi",
+        "description": "Dành riêng cho những trái tim mê xê dịch: uốn lượn qua tứ đại đỉnh đèo, ngắm ruộng bậc thang mùa vàng và hòa mình vào nhịp sống đồng bào miền sơn cước.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef1",
+          "6ace20deb48cdedf42b8eeef"
+        ],
+        "createdAt": "2026-10-13T12:15:26.564Z",
+        "updatedAt": "2026-10-13T12:15:26.564Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2b",
+        "name": "Kỳ Nghỉ Lãng Mạn Dành Cho Cặp Đôi",
+        "slug": "ky-nghi-lang-man-danh-cho-cap-doi",
+        "description": "Những góc phố ngập tràn ánh đèn hoa đăng, không khí se lạnh ôm trọn đồi thông và những chiều hoàng hôn tím biếc bên biển dành trọn cho tình yêu thăng hoa.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef5",
+          "6ace20deb48cdedf42b8eef2",
+          "6ace20deb48cdedf42b8eef6"
+        ],
+        "createdAt": "2026-10-13T12:15:26.566Z",
+        "updatedAt": "2026-10-13T12:15:26.566Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2c",
+        "name": "Du Lịch Xanh & Chữa Lành Thân Tâm",
+        "slug": "du-lich-xanh-and-chua-lanh-than-tam",
+        "description": "Rời xa khói bụi thành thị để trở về với mẹ thiên nhiên, hít thở không khí trong lành của núi non đại ngàn và tìm lại sự an yên trong tâm hồn.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eeef",
+          "6ace20deb48cdedf42b8eef0",
+          "6ace20deb48cdedf42b8eef5"
+        ],
+        "createdAt": "2026-10-13T12:15:26.568Z",
+        "updatedAt": "2026-10-13T12:15:26.568Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2d",
+        "name": "Hành Trình Tinh Hoa Ẩm Thực Ba Miền",
+        "slug": "hanh-trinh-tinh-hoa-am-thuc-ba-mien",
+        "description": "Khám phá văn hóa qua vị giác: từ thắng cố vùng cao, bún bò xứ Huế, cao lầu phố Hội đến nồi lẩu mắm đậm đà của miền Tây sông nước.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef1",
+          "6ace20deb48cdedf42b8eef4",
+          "6ace20deb48cdedf42b8eef2",
+          "6ace20deb48cdedf42b8eef7"
+        ],
+        "createdAt": "2026-10-13T12:15:26.570Z",
+        "updatedAt": "2026-10-13T12:15:26.570Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2e",
+        "name": "Kỳ Nghỉ Gia Đình Tiện Nghi & Gắn Kết",
+        "slug": "ky-nghi-gia-dinh-tien-nghi-and-gan-ket",
+        "description": "Hành trình được thiết kế với nhịp độ thư thái, an toàn, khách sạn chuẩn mực và dịch vụ hoàn hảo để mọi thế hệ trong gia đình đều có kỷ niệm đáng nhớ.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef3",
+          "6ace20deb48cdedf42b8eeee",
+          "6ace20deb48cdedf42b8eef0"
+        ],
+        "createdAt": "2026-10-13T12:15:26.572Z",
+        "updatedAt": "2026-10-13T12:15:26.572Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef2f",
+        "name": "Khám Phá Sông Nước & Miệt Vườn Phương Nam",
+        "slug": "kham-pha-song-nuoc-and-miet-vuon-phuong-nam",
+        "description": "Cảm nhận nét phóng khoáng, mộc mạc của người miền Tây: dậy sớm theo ghe đi chợ nổi Cái Răng và thưởng thức trái cây ngọt lịm hái tận cành.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef7"
+        ],
+        "createdAt": "2026-10-13T12:15:26.574Z",
+        "updatedAt": "2026-10-13T12:15:26.574Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef30",
+        "name": "Mùa Vàng Vùng Cao & Săn Mây Tuyệt Sắc",
+        "slug": "mua-vang-vung-cao-and-san-may-tuyet-sac",
+        "description": "Bộ sưu tập dành riêng cho những mùa săn ảnh đẹp nhất trong năm: sắc vàng óng ả của lúa chín Sa Pa, đồi chè mờ sương Đà Lạt và tam giác mạch Hà Giang.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eeef",
+          "6ace20deb48cdedf42b8eef1",
+          "6ace20deb48cdedf42b8eef5"
+        ],
+        "createdAt": "2026-10-13T12:15:26.577Z",
+        "updatedAt": "2026-10-13T12:15:26.577Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ace20deb48cdedf42b8ef31",
+        "name": "Du Lịch Trải Nghiệm Tiết Kiệm Cho Giới Trẻ",
+        "slug": "du-lich-trai-nghiem-tiet-kiem-cho-gioi-tre",
+        "description": "Khám phá tối đa trải nghiệm văn hóa và cảnh sắc với mức ngân sách cực kỳ hợp lý, tối ưu chi phí lưu trú và phương tiện di chuyển linh hoạt.",
+        "destinations": [
+          "6ace20deb48cdedf42b8eef0",
+          "6ace20deb48cdedf42b8eef7",
+          "6ace20deb48cdedf42b8eef2"
+        ],
+        "createdAt": "2026-10-13T12:15:26.579Z",
+        "updatedAt": "2026-10-13T12:15:26.579Z",
+        "__v": 0
+      }
+    ]
+  }
+}
