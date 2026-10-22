@@ -47,7 +47,7 @@ const benefits = [
 export const About = () => {
   return (
     <div className="w-full bg-[#f8fafc] pt-[72px]">
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-sky-700 via-sky-600 to-blue-700 px-4 py-20 text-white sm:py-28">
+      <section className="relative isolate overflow-hidden bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 px-4 py-20 text-white sm:py-28">
         <div className="absolute -right-20 -top-24 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-cyan-300/10 blur-3xl" />
         <div className="relative mx-auto max-w-5xl text-center">
