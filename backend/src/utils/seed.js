@@ -905,122 +905,21 @@ const seedData = async () => {
       }
     }
 
-    // 5.4 Seed Sample Bookings if less than 5 exist
-    const bookingCount = await Booking.countDocuments();
-    if (bookingCount < 5) {
-      console.log('\n--- 5.4 SEEDING INITIAL SAMPLE BOOKINGS ---');
-      const allRegisteredUsers = await User.find({ role: 'user' });
-      const mainUser = allRegisteredUsers[0] || (await User.findOne({ email: 'customer@traveltrail.com' }));
-      const allCustomersInDb = await Customer.find({});
-      const mainCustomer = allCustomersInDb[0];
-
-      const toursInDb = await Tour.find({});
-      const guidesInDb = await Guide.find({});
-
-      const sampleBookings = [
-        {
-          tourSlug: 'tour-nghi-duong-thien-duong-bien-phu-quoc-cano-4-dao-4n3d',
-          selectedDuration: { days: 4, nights: 3, price: 6800000 },
-          departureOffsetDays: 5,
-          numberOfGuests: { adults: 2, children: 1 },
-          totalAmount: 18700000,
-          paymentMethod: 'bank_transfer',
-          paymentStatus: 'confirmed',
-          bookingStatus: 'confirmed',
-          notes: 'Yêu cầu phòng tầng cao view biển, chuẩn bị thêm áo phao trẻ em',
-          guideSlug: 'bui-hai-dang',
-        },
-        {
-          tourSlug: 'tour-kham-pha-da-nang-ba-na-hills-cau-vang-4n3d',
-          selectedDuration: { days: 4, nights: 3, price: 4800000 },
-          departureOffsetDays: 3,
-          numberOfGuests: { adults: 2, children: 0 },
-          totalAmount: 9600000,
-          paymentMethod: 'credit_card',
-          paymentStatus: 'confirmed',
-          bookingStatus: 'confirmed',
-          notes: 'Kỷ niệm ngày cưới, chuẩn bị giường đôi phòng không hút thuốc',
-          guideSlug: 'truong-vinh-phat',
-        },
-        {
-          tourSlug: 'tour-san-may-da-lat-check-in-doi-che-cau-dat-vuon-hoa-3n2d',
-          selectedDuration: { days: 3, nights: 2, price: 2750000 },
-          departureOffsetDays: 7,
-          numberOfGuests: { adults: 1, children: 0 },
-          totalAmount: 2750000,
-          paymentMethod: 'e_wallet',
-          paymentStatus: 'pending',
-          bookingStatus: 'pending',
-          notes: 'Khách muốn phòng view đồi thông gần trung tâm',
-          guideSlug: 'vu-dinh-khang',
-        },
-        {
-          tourSlug: 'tour-di-san-co-do-hue-thuong-thuc-ca-hue-song-huong-2n1d',
-          selectedDuration: { days: 2, nights: 1, price: 2150000 },
-          departureOffsetDays: 9,
-          numberOfGuests: { adults: 3, children: 0 },
-          totalAmount: 6450000,
-          paymentMethod: 'cash',
-          paymentStatus: 'pending',
-          bookingStatus: 'pending',
-          notes: 'Thanh toán tiền mặt trực tiếp tại văn phòng trước ngày đi',
-          guideSlug: 'nguyen-phuc-bao-long',
-        },
-        {
-          tourSlug: 'tour-kham-pha-song-nuoc-mien-tay-cho-noi-cai-rang-can-tho-2n1d',
-          selectedDuration: { days: 2, nights: 1, price: 1650000 },
-          departureOffsetDays: 2,
-          numberOfGuests: { adults: 2, children: 0 },
-          totalAmount: 3300000,
-          paymentMethod: 'bank_transfer',
-          paymentStatus: 'completed',
-          bookingStatus: 'completed',
-          notes: 'Chuyến đi đã hoàn thành xuất sắc',
-          guideSlug: 'nguyen-thi-kim-loan',
-        },
-      ];
-
-      for (const sb of sampleBookings) {
-        const t = toursInDb.find((x) => x.slug === sb.tourSlug) || toursInDb[0];
-        const g = guidesInDb.find((x) => x.slug === sb.guideSlug) || guidesInDb[0];
-        const depDate = new Date(Date.now() + sb.departureOffsetDays * 86400000);
-        depDate.setUTCHours(0, 0, 0, 0);
-        const endDate = new Date(depDate);
-        endDate.setDate(depDate.getDate() + Math.max(sb.selectedDuration.days - 1, 0));
-
-        await Booking.create({
-          userId: mainUser._id,
-          customerId: mainCustomer?._id || null,
-          tourId: t._id,
-          selectedDuration: sb.selectedDuration,
-          departureDate: depDate,
-          endDate,
-          numberOfGuests: sb.numberOfGuests,
-          totalAmount: sb.totalAmount,
-          paymentMethod: sb.paymentMethod,
-          paymentStatus: sb.paymentStatus,
-          bookingStatus: sb.bookingStatus,
-          notes: sb.notes,
-          guide_id: g?._id || null,
-        });
-      }
-      console.log(`[Seed] Created ${sampleBookings.length} initial sample bookings successfully!`);
-
-      // Recalculate available seats for tours
-      for (const t of toursInDb) {
-        const activeBookings = await Booking.find({
-          tourId: t._id,
-          bookingStatus: { $ne: 'cancelled' },
-        });
-        const bookedCount = activeBookings.reduce((sum, b) => {
-          const adults = b.numberOfGuests?.adults || 0;
-          const children = b.numberOfGuests?.children || 0;
-          return sum + adults + children;
-        }, 0);
-        const max = t.maxPassengers || 20;
-        t.availableSeats = Math.max(0, max - bookedCount);
-        await t.save();
-      }
+    // 5.4 Ensure availableSeats for all tours based on current bookings
+    const toursInDb = await Tour.find({});
+    for (const t of toursInDb) {
+      const activeBookings = await Booking.find({
+        tourId: t._id,
+        bookingStatus: { $ne: 'cancelled' },
+      });
+      const bookedCount = activeBookings.reduce((sum, b) => {
+        const adults = b.numberOfGuests?.adults || 0;
+        const children = b.numberOfGuests?.children || 0;
+        return sum + adults + children;
+      }, 0);
+      const max = t.maxPassengers || 20;
+      t.availableSeats = Math.max(0, max - bookedCount);
+      await t.save();
     }
 
     // 5.5 Sync Booking Plans
