@@ -16,6 +16,7 @@ import FavouritesList from '../features/user/favourite/pages/FavouritesList';
 import TourBooking from '../features/user/booking/pages/TourBooking';
 import MyBookings from '../features/user/booking/pages/MyBookings';
 import MyProfile from '../features/user/profile/pages/MyProfile';
+import About from '../features/user/static/pages/About';
 import Login from '../features/auth/pages/Login';
 import Register from '../features/auth/pages/Register';
 
@@ -76,7 +77,7 @@ export const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
 
         {/* Static fallback */}
-        <Route path="/about" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Home />} />
       </Route>
 
