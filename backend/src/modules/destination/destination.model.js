@@ -71,6 +71,14 @@ const destinationSchema = new mongoose.Schema(
       trim: true,
       default: '',
     },
+    gallery: [
+      {
+        url: { type: String, required: true },
+        caption: { type: String, default: '' },
+        alt: { type: String, default: '' },
+        credit: { type: String, default: '' },
+      },
+    ],
     relatedDestinations: [
       {
         type: mongoose.Schema.Types.ObjectId,

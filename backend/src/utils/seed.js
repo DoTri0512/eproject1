@@ -8,6 +8,8 @@ const Destination = require('../modules/destination/destination.model');
 const Tour = require('../modules/tour/tour.model');
 const Guide = require('../modules/guide/guide.model');
 const Collection = require('../modules/collection/collection.model');
+const Booking = require('../modules/booking/booking.model');
+const BookingPlan = require('../modules/bookingPlan/bookingPlan.model');
 
 const destinationsData = [
   {
@@ -25,6 +27,14 @@ const destinationsData = [
     visitDuration: '3 ngày 2 đêm',
     budgetBand: 'Phổ thông',
     transport: 'Xe Limousine hoặc cao tốc Hà Nội - Hải Phòng - Quảng Ninh (2.5 giờ)',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=85', caption: 'Toàn cảnh Vịnh Hạ Long từ trên cao', alt: 'Vịnh Hạ Long nhìn từ flycam', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1567604130959-7d9c6f8b9e73?auto=format&fit=crop&w=1400&q=85', caption: 'Thuyền kayak khám phá các hang động', alt: 'Chèo kayak Vịnh Hạ Long', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1578836537282-3171d77f8632?auto=format&fit=crop&w=1400&q=85', caption: 'Làn nước ngọc bích và đảo đá vôi', alt: 'Đảo đá vôi Vịnh Hạ Long', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1400&q=85', caption: 'Hoàng hôn huyền ảo trên mặt vịnh', alt: 'Hoàng hôn Vịnh Hạ Long', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1552055901-5da45a4ed3a8?auto=format&fit=crop&w=1400&q=85', caption: 'Du thuyền đêm dưới ánh trăng', alt: 'Du thuyền đêm Hạ Long', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1400&q=85', caption: 'Hang Sửng Sốt kỳ vĩ bên trong', alt: 'Hang Sửng Sốt Hạ Long', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Sa Pa',
@@ -41,6 +51,13 @@ const destinationsData = [
     visitDuration: '3 ngày 2 đêm',
     budgetBand: 'Tiết kiệm',
     transport: 'Tàu hỏa hỏa xa hoặc xe giường nằm cao tốc Hà Nội - Lào Cai (5.5 giờ)',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=1400&q=85', caption: 'Ruộng bậc thang Sa Pa mùa lúa vàng', alt: 'Ruộng bậc thang Sa Pa', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=85', caption: 'Biển mây bồng bềnh trên đỉnh Fansipan', alt: 'Biển mây Fansipan', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85', caption: 'Bản làng H\'Mông truyền thống', alt: 'Bản H\'Mông Sa Pa', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1400&q=85', caption: 'Sương mù bao phủ thị trấn Sa Pa', alt: 'Sương mù Sa Pa', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85', caption: 'Thung lũng Mường Hoa xanh mướt', alt: 'Thung lũng Mường Hoa', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Ninh Bình',
@@ -57,6 +74,13 @@ const destinationsData = [
     visitDuration: '2 ngày 1 đêm',
     budgetBand: 'Tiết kiệm',
     transport: 'Xe limousine hoặc ô tô từ Hà Nội theo cao tốc Pháp Vân - Cầu Giẽ (1.5 giờ)',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1400&q=85', caption: 'Thuyền nan xuôi dòng qua Tràng An', alt: 'Thuyền nan Tràng An Ninh Bình', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=85', caption: 'Hang Múa - bậc thang lên đỉnh Ngọa Long', alt: 'Hang Múa Ninh Bình', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1400&q=85', caption: 'Chùa Bái Đính uy nghiêm giữa non nước', alt: 'Chùa Bái Đính Ninh Bình', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1400&q=85', caption: 'Đồng lúa Tam Cốc mùa vàng', alt: 'Đồng lúa Tam Cốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1519684139555-11dc2a2ff27f?auto=format&fit=crop&w=1400&q=85', caption: 'Bình minh huyền ảo trên sông Ngô Đồng', alt: 'Bình minh Ninh Bình', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Hà Giang',
@@ -73,6 +97,13 @@ const destinationsData = [
     visitDuration: '4 ngày 3 đêm',
     budgetBand: 'Phổ thông',
     transport: 'Xe khách cabin giường nằm từ Hà Nội đi TP. Hà Giang, sau đó thuê xe máy hoặc xe bán tải',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85', caption: 'Đèo Mã Pí Lèng hùng vĩ giữa trời xanh', alt: 'Đèo Mã Pí Lèng Hà Giang', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1537796645959-d7a8fe696e03?auto=format&fit=crop&w=1400&q=85', caption: 'Hẻm Tu Sản & sông Nho Quế xanh thẳm', alt: 'Hẻm Tu Sản sông Nho Quế', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?auto=format&fit=crop&w=1400&q=85', caption: 'Hoa tam giác mạch nở rộ tháng 10', alt: 'Hoa tam giác mạch Hà Giang', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85', caption: 'Cột cờ Lũng Cú - địa đầu Tổ quốc', alt: 'Cột cờ Lũng Cú', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85', caption: 'Bình minh trên cao nguyên đá Đồng Văn', alt: 'Cao nguyên đá Đồng Văn', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Phố Cổ Hội An',
@@ -89,6 +120,14 @@ const destinationsData = [
     visitDuration: '2 ngày 1 đêm',
     budgetBand: 'Phổ thông',
     transport: 'Bay đến sân bay Đà Nẵng rồi đi taxi hoặc xe buýt du lịch 30km về Hội An',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85', caption: 'Phố đèn lồng lung linh về đêm', alt: 'Phố đèn lồng Hội An', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1571591091674-a1d0c4484264?auto=format&fit=crop&w=1400&q=85', caption: 'Chùa Cầu - biểu tượng ngàn năm Hội An', alt: 'Chùa Cầu Hội An', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1400&q=85', caption: 'Hoa đăng thả trên sông Hoài', alt: 'Hoa đăng sông Hoài Hội An', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1531219572328-a0171b4448a3?auto=format&fit=crop&w=1400&q=85', caption: 'Rừng dừa nước Bảy Mẫu Cẩm Thanh', alt: 'Rừng dừa nước Hội An', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1400&q=85', caption: 'Mái ngói rêu phong phố cổ', alt: 'Phố cổ mái ngói Hội An', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=1400&q=85', caption: 'Áo dài truyền thống rực rỡ giữa phố', alt: 'Áo dài Hội An', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Thành Phố Đà Nẵng',
@@ -105,6 +144,13 @@ const destinationsData = [
     visitDuration: '3 ngày 2 đêm',
     budgetBand: 'Phổ thông',
     transport: 'Đường bay thẳng đến Cảng hàng không Quốc tế Đà Nẵng hoặc tàu hỏa Bắc - Nam',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=85', caption: 'Cầu Vàng - biểu tượng kỳ quan Bà Nà Hills', alt: 'Cầu Vàng Đà Nẵng', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1571768576226-e6dfb6bd72b8?auto=format&fit=crop&w=1400&q=85', caption: 'Bãi biển Mỹ Khê cát trắng nước xanh', alt: 'Bãi biển Mỹ Khê Đà Nẵng', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?auto=format&fit=crop&w=1400&q=85', caption: 'Cầu Rồng phun lửa về đêm ngoạn mục', alt: 'Cầu Rồng Đà Nẵng', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=85', caption: 'Bán đảo Sơn Trà nhìn từ trên cao', alt: 'Bán đảo Sơn Trà Đà Nẵng', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85', caption: 'Đà Nẵng skyline rực rỡ ánh đèn', alt: 'Skyline Đà Nẵng về đêm', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Cố Đô Huế',
@@ -121,6 +167,13 @@ const destinationsData = [
     visitDuration: '2 ngày 1 đêm',
     budgetBand: 'Tiết kiệm',
     transport: 'Bay thẳng đến Sân bay Phú Bài hoặc đi tàu hỏa qua đèo Hải Vân từ Đà Nẵng',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=1400&q=85', caption: 'Đại Nội Hoàng Thành uy nghiêm triều Nguyễn', alt: 'Đại Nội Huế', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1400&q=85', caption: 'Chùa Thiên Mụ bên bờ sông Hương', alt: 'Chùa Thiên Mụ Huế', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1400&q=85', caption: 'Lăng Khải Định kiến trúc độc đáo', alt: 'Lăng Khải Định Huế', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1400&q=85', caption: 'Du thuyền nghe Ca Huế trên sông Hương', alt: 'Thuyền rồng sông Hương Huế', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1519684139555-11dc2a2ff27f?auto=format&fit=crop&w=1400&q=85', caption: 'Cầu Tràng Tiền - duyên dáng sáu nhịp hai thành', alt: 'Cầu Tràng Tiền Huế', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Đà Lạt - Thành Phố Ngàn Hoa',
@@ -137,6 +190,13 @@ const destinationsData = [
     visitDuration: '3 ngày 2 đêm',
     budgetBand: 'Phổ thông',
     transport: 'Chuyến bay thẳng đến Sân bay Liên Khương hoặc xe limousine từ TP. Hồ Chí Minh (6-7 giờ)',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85', caption: 'Hồ Tuyền Lâm thơ mộng giữa rừng thông', alt: 'Hồ Tuyền Lâm Đà Lạt', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1400&q=85', caption: 'Đồi chè Cầu Đất giữa biển mây', alt: 'Đồi chè Cầu Đất Đà Lạt', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=1400&q=85', caption: 'Vườn hoa cẩm tú cầu rực rỡ', alt: 'Hoa cẩm tú cầu Đà Lạt', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1400&q=85', caption: 'Sương mù lãng đãng phủ rừng thông', alt: 'Rừng thông Đà Lạt sương mù', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1414609245224-aea10f43a3c8?auto=format&fit=crop&w=1400&q=85', caption: 'Hoàng hôn tím biếc trên Quảng trường Lâm Viên', alt: 'Quảng trường Lâm Viên Đà Lạt', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Đảo Ngọc Phú Quốc',
@@ -153,6 +213,14 @@ const destinationsData = [
     visitDuration: '4 ngày 3 đêm',
     budgetBand: 'Cao cấp',
     transport: 'Chuyến bay thẳng đến Cảng hàng không Quốc tế Phú Quốc hoặc tàu cao tốc từ Rạch Giá/Hà Tiên',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1400&q=85', caption: 'Bãi Sao - bãi biển đẹp nhất Phú Quốc', alt: 'Bãi Sao Phú Quốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85', caption: 'Hoàng hôn rực lửa trên đảo ngọc', alt: 'Hoàng hôn Phú Quốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=85', caption: 'San hô đầy màu sắc dưới lòng biển', alt: 'San hô Phú Quốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1520454974749-611d7d931db0?auto=format&fit=crop&w=1400&q=85', caption: 'Cáp treo Hòn Thơm vượt biển ngoạn mục', alt: 'Cáp treo Hòn Thơm Phú Quốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1400&q=85', caption: 'Grand World về đêm lung linh', alt: 'Grand World Phú Quốc', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1400&q=85', caption: 'Resort bãi biển riêng đẳng cấp', alt: 'Resort Phú Quốc', credit: 'Unsplash' },
+    ],
   },
   {
     name: 'Cần Thơ - Thủ Phủ Miền Tây',
@@ -169,6 +237,13 @@ const destinationsData = [
     visitDuration: '2 ngày 1 đêm',
     budgetBand: 'Tiết kiệm',
     transport: 'Cao tốc Trung Lương - Mỹ Thuận từ TP. Hồ Chí Minh (2.5 giờ) hoặc bay tới Sân bay Trà Nóc Cần Thơ',
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1400&q=85', caption: 'Chợ nổi Cái Răng sáng sớm tấp nập', alt: 'Chợ nổi Cái Răng Cần Thơ', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=85', caption: 'Bến Ninh Kiều lung linh về đêm', alt: 'Bến Ninh Kiều Cần Thơ', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=85', caption: 'Miệt vườn sông nước Cồn Sơn', alt: 'Miệt vườn Cần Thơ', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?auto=format&fit=crop&w=1400&q=85', caption: 'Trái cây miền Tây trĩu nặng tại vườn', alt: 'Trái cây miền Tây Cần Thơ', credit: 'Unsplash' },
+      { url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85', caption: 'Bình minh trên sông Hậu thơ mộng', alt: 'Bình minh sông Hậu Cần Thơ', credit: 'Unsplash' },
+    ],
   },
 ];
 
@@ -236,8 +311,9 @@ const seedData = async () => {
         dest = await Destination.create(d);
         console.log(`[Seed] Created Destination: ${dest.name} (${dest.slug})`);
       } else {
-        if (dest.image !== d.image) {
+        if (dest.image !== d.image || !dest.gallery || dest.gallery.length === 0) {
           dest.image = d.image;
+          dest.gallery = d.gallery || [];
           await dest.save();
         }
         console.log(`[Seed] Destination already exists: ${dest.name}`);
@@ -273,15 +349,25 @@ const seedData = async () => {
         destSlug: 'vinh-ha-long',
         title: 'Tour Khám Phá Vịnh Hạ Long Du Thuyền 5 Sao 3N2Đ',
         slug: 'tour-kham-pha-vinh-ha-long-du-thuyen-5-sao-3n2d',
-        duration: { days: 3, nights: 2, text: '3 ngày 2 đêm' },
-        price: 3850000,
-        departureDates: [new Date(now + 3 * dayMs), new Date(now + 10 * dayMs), new Date(now + 17 * dayMs)],
+        overview: 'Hành trình nghỉ dưỡng 5 sao thượng hạng ngắm kỳ quan Vịnh Hạ Long, khám phá hang Sửng Sốt, chèo kayak và thưởng thức tiệc hải sản.',
+        durationOptions: [
+          { days: 2, nights: 1, price: 2650000 },
+          { days: 3, nights: 2, price: 3850000 },
+          { days: 4, nights: 3, price: 5100000 },
+        ],
+        departureDates: [
+          new Date(now + 3 * dayMs),
+          new Date(now + 7 * dayMs),
+          new Date(now + 14 * dayMs),
+          new Date(now + 21 * dayMs),
+        ],
         maxPassengers: 24,
         availableSeats: 18,
         itinerary: [
           { day: 1, title: 'Hà Nội - Cảng Tuần Châu - Lên Du Thuyền', description: 'Xe limousine đón khách từ Hà Nội đến bến Tuần Châu, thưởng thức bữa trưa hải sản thượng hạng và ngắm vịnh.' },
           { day: 2, title: 'Hang Sửng Sốt - Đảo Ti Tốp - Chèo Kayak', description: 'Thám hiểm Hang Sửng Sốt tráng lệ, leo đỉnh Ti Tốp ngắm toàn cảnh 360 độ và chèo kayak tại Hang Luồn.' },
-          { day: 3, title: 'Làng Chài Trà Báu - Tiễn Đoàn Về Hà Nội', description: 'Tham gia lớp dưỡng sinh Taichi đón bình minh, dùng brunch buffet và trở về cảng chuẩn bị về Hà Nội.' },
+          { day: 3, title: 'Làng Chài Trà Báu - Hang Sáng Tối', description: 'Tham gia lớp dưỡng sinh Taichi đón bình minh, khám phá hang Sáng Tối bằng thuyền nan và ngắm cảnh thiên nhiên thanh bình.' },
+          { day: 4, title: 'Vịnh Lan Hạ - Làng Cổ Việt Hải - Về Hà Nội', description: 'Đạp xe khám phá làng cổ Việt Hải biệt lập giữa thung lũng rừng quốc gia Cát Bà, dùng buffet trưa và trở về Hà Nội.' },
         ],
         includes: ['Du thuyền 5 sao chuẩn quốc tế', 'Tất cả các bữa ăn hải sản cao cấp theo tour', 'Vé tham quan danh thắng', 'Hướng dẫn viên song ngữ suốt tuyến'],
         excludes: ['Chi phí đồ uống cá nhân', 'Dịch vụ spa massage trên du thuyền', 'Tiền tip cho thủy thủ đoàn'],
@@ -291,15 +377,24 @@ const seedData = async () => {
         destSlug: 'sa-pa',
         title: 'Tour Sa Pa - Chinh Phục Nóc Nhà Đông Dương Fansipan 3N2Đ',
         slug: 'tour-sa-pa-chinh-phuc-noc-nha-dong-duong-fansipan-3n2d',
-        duration: { days: 3, nights: 2, text: '3 ngày 2 đêm' },
-        price: 2950000,
-        departureDates: [new Date(now + 4 * dayMs), new Date(now + 11 * dayMs), new Date(now + 18 * dayMs)],
+        overview: 'Chinh phục nóc nhà Đông Dương Fansipan hùng vĩ, chiêm ngưỡng biển mây ngút ngàn và hòa mình vào sắc màu văn hóa Tây Bắc mộc mạc.',
+        durationOptions: [
+          { days: 2, nights: 1, price: 1950000 },
+          { days: 3, nights: 2, price: 2950000 },
+          { days: 4, nights: 3, price: 3900000 },
+        ],
+        departureDates: [
+          new Date(now + 4 * dayMs),
+          new Date(now + 10 * dayMs),
+          new Date(now + 17 * dayMs),
+        ],
         maxPassengers: 20,
         availableSeats: 14,
         itinerary: [
           { day: 1, title: 'Hà Nội - Sa Pa - Bản Cát Cát Thơ Mộng', description: 'Khởi hành xe cabin cao cấp đến Sa Pa, check-in khách sạn và bách bộ khám phá bản văn hóa H\'Mông Cát Cát.' },
           { day: 2, title: 'Chinh Phục Fansipan Legend - Đèo Ô Quy Hồ', description: 'Trải nghiệm cáp treo đạt kỷ lục thế giới lên đỉnh Fansipan 3.143m, chiều ngắm hoàng hôn rực rỡ tại đèo Ô Quy Hồ.' },
-          { day: 3, title: 'Thung Lũng Mường Hoa - Chợ Tình Sa Pa - Hà Nội', description: 'Tản bộ qua ruộng bậc thang thung lũng Mường Hoa, mua đặc sản địa phương và lên xe về lại Hà Nội.' },
+          { day: 3, title: 'Thung Lũng Mường Hoa - Bản Tả Van - Cầu Mây', description: 'Tản bộ qua ruộng bậc thang thung lũng Mường Hoa, giao lưu với đồng bào Giáy tại bản Tả Van và check-in Cầu Mây cổ kính.' },
+          { day: 4, title: 'Núi Hàm Rồng - Chợ Tình Sa Pa - Về Hà Nội', description: 'Chinh phục cổng trời Hàm Rồng ngắm toàn cảnh thị xã Sa Pa trong sương, mua sắm thổ cẩm đặc sản và lên xe trở về Hà Nội.' },
         ],
         includes: ['Xe giường nằm VIP đưa đón hai chiều', 'Khách sạn 4 sao view núi mây', 'Vé cáp treo Sun World Fansipan', 'Các bữa ăn đặc sản Tây Bắc'],
         excludes: ['Tàu hỏa leo núi Mường Hoa', 'Chi phí chi tiêu cá nhân', 'Tiền tip hướng dẫn viên'],
@@ -309,14 +404,24 @@ const seedData = async () => {
         destSlug: 'ninh-binh',
         title: 'Tour Di Sản Tràng An - Chùa Bái Đính - Tuyệt Tình Cốc 2N1Đ',
         slug: 'tour-di-san-trang-an-chua-bai-dinh-tuyet-tinh-coc-2n1d',
-        duration: { days: 2, nights: 1, text: '2 ngày 1 đêm' },
-        price: 1890000,
-        departureDates: [new Date(now + 2 * dayMs), new Date(now + 7 * dayMs), new Date(now + 14 * dayMs)],
+        overview: 'Khám phá quần thể di sản thế giới Tràng An, chiêm bái đại tự Bái Đính và ngắm toàn cảnh Tam Cốc tuyệt mỹ từ đỉnh Hang Múa.',
+        durationOptions: [
+          { days: 1, nights: 0, price: 950000 },
+          { days: 2, nights: 1, price: 1890000 },
+          { days: 3, nights: 2, price: 2850000 },
+        ],
+        departureDates: [
+          new Date(now + 2 * dayMs),
+          new Date(now + 6 * dayMs),
+          new Date(now + 12 * dayMs),
+          new Date(now + 19 * dayMs),
+        ],
         maxPassengers: 25,
         availableSeats: 21,
         itinerary: [
           { day: 1, title: 'Hà Nội - Chùa Bái Đính - Hang Múa', description: 'Viếng quần thể tâm linh Bái Đính cổ tự và tân tự, buổi chiều chinh phục 500 bậc đá Hang Múa ngắm Tam Cốc mùa lúa.' },
-          { day: 2, title: 'Thuyền Nan Danh Thắng Tràng An - Về Hà Nội', description: 'Xuôi thuyền khám phá các hang động xuyên thủy kỳ ảo, phim trường Kong Skull Island và trở về Hà Nội.' },
+          { day: 2, title: 'Thuyền Nan Danh Thắng Tràng An - Cố Đô Hoa Lư', description: 'Xuôi thuyền khám phá các hang động xuyên thủy kỳ ảo, phim trường Kong Skull Island và viếng đền vua Đinh - vua Lê.' },
+          { day: 3, title: 'Đầm Sinh Thái Vân Long - Tuyệt Tình Cốc - Hà Nội', description: 'Ngồi thuyền nan trên đầm ngập nước Vân Long ngắm voọc quần đùi trắng quý hiếm, ghé Động Am Tiên và trở về thủ đô.' },
         ],
         includes: ['Xe du lịch đời mới máy lạnh', 'Khách sạn hoặc resort boutique 3-4 sao', 'Vé thắng cảnh và thuyền nan Tràng An', 'Bữa trưa đặc sản cơm cháy thịt dê núi'],
         excludes: ['Xe điện Bái Đính', 'Đồ uống gọi riêng trong bữa ăn', 'Bảo hiểm ngoài chương trình'],
@@ -326,16 +431,25 @@ const seedData = async () => {
         destSlug: 'ha-giang',
         title: 'Tour Phượt Hùng Vĩ Cung Đường Hà Giang - Mã Pí Lèng 4N3Đ',
         slug: 'tour-phuot-hung-vi-cung-duong-ha-giang-ma-pi-leng-4n3d',
-        duration: { days: 4, nights: 3, text: '4 ngày 3 đêm' },
-        price: 4200000,
-        departureDates: [new Date(now + 5 * dayMs), new Date(now + 12 * dayMs), new Date(now + 19 * dayMs)],
+        overview: 'Chinh phục con đường Hạnh Phúc, uốn lượn qua đèo Mã Pí Lèng huyền thoại và xuôi thuyền hẻm vực Tu Sản trên dòng sông Nho Quế xanh biếc.',
+        durationOptions: [
+          { days: 3, nights: 2, price: 3150000 },
+          { days: 4, nights: 3, price: 4200000 },
+          { days: 5, nights: 4, price: 5400000 },
+        ],
+        departureDates: [
+          new Date(now + 5 * dayMs),
+          new Date(now + 12 * dayMs),
+          new Date(now + 20 * dayMs),
+        ],
         maxPassengers: 16,
         availableSeats: 10,
         itinerary: [
           { day: 1, title: 'Hà Nội - Cột Mốc Số 0 - Quản Bạ - Yên Minh', description: 'Đến Hà Giang, dừng chân chụp ảnh Cột mốc Km0, vượt dốc Bắc Sum, ngắm Núi Đôi Quản Bạ thơ mộng.' },
           { day: 2, title: 'Dốc Thẩm Mã - Dinh Vua Mèo - Cột Cờ Lũng Cú', description: 'Chinh phục khúc cua dốc Thẩm Mã, thăm di tích Dinh thự Họ Vương và chạm tay vào lá cờ Tổ quốc tại đỉnh Lũng Cú.' },
           { day: 3, title: 'Đèo Mã Pí Lèng - Chèo Thuyền Sông Nho Quế - Mèo Vạc', description: 'Đi bộ trên con đường Hạnh Phúc, nhìn ngắm hẻm Tu Sản hùng tráng và ngồi thuyền lướt trên làn nước ngọc bích sông Nho Quế.' },
-          { day: 4, title: 'Mèo Vạc - Khúc Cua Chữ M - Hà Giang - Hà Nội', description: 'Khám phá chợ phiên vùng cao rực rỡ sắc màu thổ cẩm, men theo cung đường uốn lượn trở về thành phố.' },
+          { day: 4, title: 'Mèo Vạc - Khúc Cua Chữ M - Bản Du Già Thơ Mộng', description: 'Khám phá cung đường chữ M ngoạn mục, đắm mình bên thác nước xanh biếc và giao lưu lửa trại cùng đồng bào Tày Du Già.' },
+          { day: 5, title: 'Du Già - Đường Thượng - Làng Dệt Lanh Lùng Tám - Hà Nội', description: 'Trải nghiệm văn hóa dệt lanh thủ công độc đáo của người Mông tại thung lũng Lùng Tám và lên xe trở về Hà Nội.' },
         ],
         includes: ['Xe khách giường nằm cao cấp khứ hồi', 'Xe máy hoặc xe 16 chỗ bán tải tại Hà Giang', 'Homestay bản địa sạch sẽ view núi', 'Bảo hiểm du lịch mạo hiểm cao cấp'],
         excludes: ['Xăng xe cá nhân nếu tự lái', 'Trang phục dân tộc chụp ảnh tự túc', 'Chi tiêu phát sinh ngoài lịch trình'],
@@ -345,14 +459,24 @@ const seedData = async () => {
         destSlug: 'pho-co-hoi-an',
         title: 'Tour Trải Nghiệm Văn Hóa Phố Cổ Hội An & Rừng Dừa Bảy Mẫu 2N1Đ',
         slug: 'tour-trai-nghiem-van-hoa-pho-co-hoi-an-rung-dua-bay-mau-2n1d',
-        duration: { days: 2, nights: 1, text: '2 ngày 1 đêm' },
-        price: 1950000,
-        departureDates: [new Date(now + 3 * dayMs), new Date(now + 8 * dayMs), new Date(now + 15 * dayMs)],
+        overview: 'Trải nghiệm nét hoài cổ phố Hội rực rỡ đèn hoa đăng, thưởng thức ẩm thực đặc sắc và vui chơi múa thuyền thúng tại rừng dừa Bảy Mẫu.',
+        durationOptions: [
+          { days: 1, nights: 0, price: 990000 },
+          { days: 2, nights: 1, price: 1950000 },
+          { days: 3, nights: 2, price: 2900000 },
+        ],
+        departureDates: [
+          new Date(now + 3 * dayMs),
+          new Date(now + 8 * dayMs),
+          new Date(now + 15 * dayMs),
+          new Date(now + 22 * dayMs),
+        ],
         maxPassengers: 22,
         availableSeats: 16,
         itinerary: [
           { day: 1, title: 'Đón Khách - Thăm Phố Cổ Hội An - Thả Đèn Hoa Đăng', description: 'Tham quan Chùa Cầu, các hội quán cổ, làm lồng đèn truyền thống và thả hoa đăng ước nguyện trên sông Hoài rực rỡ.' },
-          { day: 2, title: 'Lắc Thuyền Thúng Rừng Dừa Bảy Mẫu - Tiễn Đoàn', description: 'Thử sức trò múa thúng xoay vòng điệu nghệ tại rừng dừa nước Cẩm Thanh, thưởng thức món gỏi cuốn và bánh xèo giòn rụm.' },
+          { day: 2, title: 'Lắc Thuyền Thúng Rừng Dừa Bảy Mẫu - Làng Gốm Thanh Hà', description: 'Thử sức trò múa thúng xoay vòng điệu nghệ tại rừng dừa nước Cẩm Thanh, trải nghiệm chuốt gốm tại làng cổ Thanh Hà.' },
+          { day: 3, title: 'Làng Rau Trà Quế - Tắm Biển An Bàng - Tiễn Đoàn', description: 'Hóa thân làm nông dân tưới rau tại Trà Quế, thưởng thức ẩm thực đồng quê, thư giãn ngắm biển An Bàng và tiễn khách.' },
         ],
         includes: ['Khách sạn 4 sao gần phố cổ', 'Vé tham quan di tích phố cổ và rừng dừa', 'Thuyền thúng tham quan và xem xiếc thúng', 'Ăn sáng buffet và 2 bữa chính'],
         excludes: ['Vé máy bay đến Đà Nẵng', 'Dịch vụ may đo thời trang lấy gấp', 'Tiền tip'],
@@ -362,15 +486,26 @@ const seedData = async () => {
         destSlug: 'thanh-pho-da-nang',
         title: 'Tour Đà Nẵng - Cầu Vàng Bà Nà Hills - Bán Đảo Sơn Trà 3N2Đ',
         slug: 'tour-da-nang-cau-vang-ba-na-hills-ban-dao-son-tra-3n2d',
-        duration: { days: 3, nights: 2, text: '3 ngày 2 đêm' },
-        price: 3490000,
-        departureDates: [new Date(now + 4 * dayMs), new Date(now + 9 * dayMs), new Date(now + 16 * dayMs)],
+        overview: 'Check-in Cầu Vàng Bà Nà Hills bồng bềnh mây gió, thư giãn tại bãi biển Mỹ Khê và chiêm ngưỡng cầu Rồng phun lửa ngoạn mục về đêm.',
+        durationOptions: [
+          { days: 3, nights: 2, price: 3490000 },
+          { days: 4, nights: 3, price: 4690000 },
+          { days: 5, nights: 4, price: 5890000 },
+        ],
+        departureDates: [
+          new Date(now + 4 * dayMs),
+          new Date(now + 11 * dayMs),
+          new Date(now + 18 * dayMs),
+          new Date(now + 25 * dayMs),
+        ],
         maxPassengers: 30,
         availableSeats: 25,
         itinerary: [
           { day: 1, title: 'Bán Đảo Sơn Trà - Chùa Linh Ứng - Biển Mỹ Khê', description: 'Chiêm bái tượng Phật Bà Quán Thế Âm cao 67m hướng biển, thả mình trên bãi cát trắng mịn biển Mỹ Khê.' },
           { day: 2, title: 'Khu Du Lịch Bà Nà Hills - Cầu Vàng Bàn Tay Khổng Lồ', description: 'Một ngày bốn mùa tại làng Pháp cổ kính, dạo bước trên kỳ quan thế giới Cầu Vàng và tham gia các trò chơi Fantasy Park.' },
-          { day: 3, title: 'Ngũ Hành Sơn - Làng Đá Mỹ Nghệ - Cầu Rồng - Tiễn Sân Bay', description: 'Khám phá Động Huyền Không kỳ bí, mua sắm đá non nước quà lưu niệm và chụp ảnh kỉ niệm tại Cầu Tình Yêu.' },
+          { day: 3, title: 'Ngũ Hành Sơn - Làng Đá Mỹ Nghệ - Cầu Rồng Phun Lửa', description: 'Khám phá Động Huyền Không kỳ bí, mua sắm đá non nước quà lưu niệm và chiêm ngưỡng Cầu Rồng phun lửa về đêm.' },
+          { day: 4, title: 'Công Viên Suối Khoáng Nóng Núi Thần Tài - Tắm Bùn Khoáng', description: 'Thư giãn ngâm mình trong dòng khoáng nóng thiên nhiên, trải nghiệm tắm Osen Nhật Bản và công viên nước trên núi.' },
+          { day: 5, title: 'Chợ Hàn - Mua Sắm Đặc Sản Đà Nẵng - Tiễn Sân Bay', description: 'Tự do dạo chợ Hàn mua chả bò, mực rim me, bánh khô mè làm quà và tiễn đoàn ra sân bay Đà Nẵng.' },
         ],
         includes: ['Khách sạn 4 sao sát biển Mỹ Khê', 'Vé cáp treo và buffet trưa thượng hạng tại Bà Nà Hills', 'Xe ô tô du lịch đời mới đưa đón suốt tuyến', 'Nước suối và khăn lạnh hàng ngày'],
         excludes: ['Vé bảo tàng sáp Bà Nà Hills', 'Vé máy bay khứ hồi', 'Chi phí giặt là và điện thoại'],
@@ -380,14 +515,22 @@ const seedData = async () => {
         destSlug: 'co-do-hue',
         title: 'Tour Di Sản Cố Đô Huế - Thưởng Thức Ca Huế Sông Hương 2N1Đ',
         slug: 'tour-di-san-co-do-hue-thuong-thuc-ca-hue-song-huong-2n1d',
-        duration: { days: 2, nights: 1, text: '2 ngày 1 đêm' },
-        price: 2150000,
-        departureDates: [new Date(now + 6 * dayMs), new Date(now + 13 * dayMs), new Date(now + 20 * dayMs)],
+        overview: 'Hành trình di sản trầm mặc xứ kinh kỳ: khám phá Đại Nội triều Nguyễn, lăng tẩm uy nghiêm và thưởng thức nhã nhạc ca Huế trên sông Hương.',
+        durationOptions: [
+          { days: 2, nights: 1, price: 2150000 },
+          { days: 3, nights: 2, price: 3100000 },
+        ],
+        departureDates: [
+          new Date(now + 3 * dayMs),
+          new Date(now + 9 * dayMs),
+          new Date(now + 16 * dayMs),
+        ],
         maxPassengers: 20,
         availableSeats: 15,
         itinerary: [
           { day: 1, title: 'Đại Nội Huế - Chùa Thiên Mụ - Du Thuyền Ca Huế', description: 'Thăm Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành. Chiều ngắm hoàng hôn chùa Thiên Mụ và tối thưởng trà nghe ca Huế trên dòng Hương giang.' },
           { day: 2, title: 'Lăng Khải Định - Lăng Tự Đức - Làng Hương Thủy Xuân', description: 'Chiêm ngưỡng kiến trúc đỉnh cao lăng tẩm triều Nguyễn, chụp ảnh lung linh giữa làng nghề làm hương truyền thống Thủy Xuân.' },
+          { day: 3, title: 'Đầm Chuồn Phá Tam Giang - Cầu Ngói Thanh Toàn - Chợ Đông Ba', description: 'Ngắm bình minh sông nước Phá Tam Giang lớn nhất Đông Nam Á, ăn bánh khoái cá kình, ghé chợ Đông Ba mua mè xửng.' },
         ],
         includes: ['Xe đón tiễn chất lượng cao', 'Khách sạn 4 sao trung tâm thành phố Huế', 'Vé trọn gói các điểm lăng tẩm và Đại Nội', 'Thuyền rồng và vé ca Huế buổi tối'],
         excludes: ['Thuê cổ phục triều Nguyễn tự do', 'Tiền tip cho ca sĩ đoàn thuyền rồng', 'Chi phí riêng cá nhân'],
@@ -397,15 +540,25 @@ const seedData = async () => {
         destSlug: 'da-lat-thanh-pho-ngan-hoa',
         title: 'Tour Săn Mây Đà Lạt - Check-in Đồi Chè Cầu Đất & Vườn Hoa 3N2Đ',
         slug: 'tour-san-may-da-lat-check-in-doi-che-cau-dat-vuon-hoa-3n2d',
-        duration: { days: 3, nights: 2, text: '3 ngày 2 đêm' },
-        price: 2750000,
-        departureDates: [new Date(now + 3 * dayMs), new Date(now + 10 * dayMs), new Date(now + 17 * dayMs)],
+        overview: 'Thư giãn trong khí trời se lạnh lãng mạn, săn biển mây bình minh Cầu Đất, dạo chơi đồi thông và thưởng ngoạn muôn hoa rực rỡ.',
+        durationOptions: [
+          { days: 2, nights: 1, price: 1850000 },
+          { days: 3, nights: 2, price: 2750000 },
+          { days: 4, nights: 3, price: 3650000 },
+        ],
+        departureDates: [
+          new Date(now + 2 * dayMs),
+          new Date(now + 7 * dayMs),
+          new Date(now + 14 * dayMs),
+          new Date(now + 21 * dayMs),
+        ],
         maxPassengers: 24,
         availableSeats: 19,
         itinerary: [
           { day: 1, title: 'Đón Khách - Quảng Trường Lâm Viên - Hồ Xuân Hương', description: 'Check-in nụ hoa Atiso biểu tượng, dạo bộ ngắm chiều tà lãng mạn bên hồ Xuân Hương và thưởng thức bánh tráng nướng phố đêm.' },
           { day: 2, title: 'Săn Biển Mây Cầu Đất - Cánh Đồng Hoa Cẩm Tú Cầu', description: 'Đón bình minh rực rỡ trôi giữa biển mây bồng bềnh tại đồi chè, trưa thưởng thức lẩu gà lá é trứ danh.' },
           { day: 3, title: 'Hồ Tuyền Lâm - Thiền Viện Trúc Lâm - Ga Đà Lạt Cổ', description: 'Hòa mình vào không gian thanh tịnh rừng thông, chiêm ngưỡng kiến trúc Đông Dương độc đáo tại nhà ga xe lửa cổ nhất.' },
+          { day: 4, title: 'Thác Datanla Trải Nghiệm Máng Trượt - Chợ Đà Lạt Mua Quà', description: 'Chinh phục hệ thống máng trượt xuyên rừng thông dài nhất Đông Nam Á, mua mứt hoa quả đặc sản và tiễn sân bay.' },
         ],
         includes: ['Khách sạn 3-4 sao phong cách châu Âu', 'Bữa ăn ẩm thực đặc trưng phố núi Đà Lạt', 'Vé vào cổng tất cả điểm tham quan trong tour', 'Hướng dẫn viên nhiệt tình vui vẻ'],
         excludes: ['Máng trượt Thác Datanla', 'Vé máy bay đến Liên Khương', 'Cà phê gọi riêng tại điểm check-in'],
@@ -415,16 +568,26 @@ const seedData = async () => {
         destSlug: 'dao-ngoc-phu-quoc',
         title: 'Tour Nghỉ Dưỡng Thiên Đường Biển Phú Quốc & Cano 4 Đảo 4N3Đ',
         slug: 'tour-nghi-duong-thien-duong-bien-phu-quoc-cano-4-dao-4n3d',
-        duration: { days: 4, nights: 3, text: '4 ngày 3 đêm' },
-        price: 6800000,
-        departureDates: [new Date(now + 7 * dayMs), new Date(now + 14 * dayMs), new Date(now + 21 * dayMs)],
+        overview: 'Thiên đường nghỉ dưỡng biển đảo đảo ngọc: cano vi vu 4 đảo, lặn ngắm san hô nhiều sắc màu, cáp treo Hòn Thơm vượt biển và ngắm hoàng hôn rực lửa.',
+        durationOptions: [
+          { days: 3, nights: 2, price: 4950000 },
+          { days: 4, nights: 3, price: 6800000 },
+          { days: 5, nights: 4, price: 8600000 },
+        ],
+        departureDates: [
+          new Date(now + 5 * dayMs),
+          new Date(now + 12 * dayMs),
+          new Date(now + 19 * dayMs),
+          new Date(now + 26 * dayMs),
+        ],
         maxPassengers: 20,
         availableSeats: 12,
         itinerary: [
           { day: 1, title: 'Đón Sân Bay Phú Quốc - Grand World Thành Phố Không Ngủ', description: 'Check-in resort biển, chiều tham quan kênh đào Venice thu nhỏ và thưởng thức show thực cảnh nhạc nước hoành tráng.' },
           { day: 2, title: 'Tour Cano Cao Tốc 4 Đảo - Lặn Biển Ngắm San Hô', description: 'Trải nghiệm Hòn Mây Rút, Hòn Gầm Ghì, Hòn Móng Tay, chụp ảnh flycam miễn phí và lặn ngắm vương quốc san hô tự nhiên.' },
           { day: 3, title: 'Cáp Treo Hòn Thơm - Bãi Sao Biển Nắng Vàng', description: 'Đi cáp treo vượt biển dài gần 8.000m, vui chơi công viên nước Aquatopia và tắm biển tại Bãi Sao cát trắng như kem.' },
-          { day: 4, title: 'Vườn Tiêu - Cơ Sở Ngọc Trai - Tiễn Sân Bay Phú Quốc', description: 'Mua đặc sản hồ tiêu thơm lừng và nước mắm truyền thống làm quà trước khi ra sân bay về lại.' },
+          { day: 4, title: 'Vườn Thú Mở Vinpearl Safari - Làng Chài Rạch Vẹm', description: 'Ngồi xe bus chuyên dụng ngắm động vật hoang dã tại Safari, check-in vương quốc sao biển tuyệt đẹp tại Rạch Vẹm.' },
+          { day: 5, title: 'Vườn Tiêu - Cơ Sở Ngọc Trai - Sunset Town - Tiễn Sân Bay', description: 'Chiêm ngưỡng thị trấn Hoàng Hôn Địa Trung Hải, mua hồ tiêu và nước mắm truyền thống trước khi tiễn sân bay.' },
         ],
         includes: ['Resort 5 sao có bãi biển riêng và hồ bơi vô cực', 'Cano tốc độ cao kèm thiết bị lặn biển & quay flycam', 'Vé cáp treo Hòn Thơm khứ hồi', 'Các bữa tiệc hải sản tươi sống phong phú'],
         excludes: ['Trải nghiệm đi bộ dưới đáy biển Seawalker', 'Vé máy bay khứ hồi Phú Quốc', 'Chi phí quầy bar cá nhân'],
@@ -434,20 +597,35 @@ const seedData = async () => {
         destSlug: 'can-tho-thu-phu-mien-tay',
         title: 'Tour Khám Phá Sông Nước Miền Tây - Chợ Nổi Cái Răng Cần Thơ 2N1Đ',
         slug: 'tour-kham-pha-song-nuoc-mien-tay-cho-noi-cai-rang-can-tho-2n1d',
-        duration: { days: 2, nights: 1, text: '2 ngày 1 đêm' },
-        price: 1650000,
-        departureDates: [new Date(now + 2 * dayMs), new Date(now + 9 * dayMs), new Date(now + 16 * dayMs)],
+        overview: 'Hành trình sông nước miệt vườn miền Tây Nam Bộ: khám phá chợ nổi Cái Răng tấp nập buổi sớm, ăn trái cây miệt vườn và du ngoạn sông Hậu.',
+        durationOptions: [
+          { days: 2, nights: 1, price: 1650000 },
+          { days: 3, nights: 2, price: 2450000 },
+        ],
+        departureDates: [
+          new Date(now + 2 * dayMs),
+          new Date(now + 6 * dayMs),
+          new Date(now + 13 * dayMs),
+          new Date(now + 20 * dayMs),
+        ],
         maxPassengers: 28,
         availableSeats: 22,
         itinerary: [
           { day: 1, title: 'TP.HCM - Mỹ Tho - Bến Tre - Cần Thơ - Bến Ninh Kiều', description: 'Ngồi thuyền ngắm 4 cù lao Long Lân Quy Phụng, uống trà mật ong, nghe đờn ca tài tử và di chuyển về Cần Thơ ăn tối du thuyền.' },
           { day: 2, title: 'Chợ Nổi Cái Răng - Lò Hủ Tiếu Truyền Thống - Cồn Sơn', description: 'Dậy sớm đi thuyền ngắm cảnh buôn bán cây bẹo trên sông, ăn tô bún riêu nổi tiếng, chiều xem cá lóc bay độc đáo tại Cồn Sơn.' },
+          { day: 3, title: 'Thiền Viện Trúc Lâm Phương Nam - Làng Du Lịch Mỹ Khánh - Trở Về TP.HCM', description: 'Chiêm bái thiền viện lớn nhất miền Tây, trải nghiệm bơi xuồng chèo và thưởng thức bánh xèo miền Tây giòn rụm trước khi khởi hành về lại TP.HCM.' },
         ],
         includes: ['Xe du lịch tiện nghi đưa đón từ TP.HCM', 'Khách sạn 4 sao trung tâm TP Cần Thơ', 'Tàu tham quan chợ nổi và các cù lao', 'Trái cây miệt vườn và tiệc tối du thuyền Ninh Kiều'],
         excludes: ['Tiền boa hướng dẫn và tài xế', 'Chi phí mua trái cây mang về', 'Đồ uống cá nhân ngoài thực đơn'],
         status: 'active',
       },
     ];
+
+    // Remove legacy duration and price fields from all tours in DB
+    await mongoose.connection.collection('tours').updateMany(
+      {},
+      { $unset: { duration: 1, price: 1 } }
+    );
 
     for (const t of toursData) {
       const dest = destMap[t.destSlug];
@@ -458,8 +636,8 @@ const seedData = async () => {
           destinationId: dest._id,
           title: t.title,
           slug: t.slug,
-          duration: t.duration,
-          price: t.price,
+          overview: t.overview,
+          durationOptions: t.durationOptions,
           departureDates: t.departureDates,
           maxPassengers: t.maxPassengers,
           availableSeats: t.availableSeats,
@@ -470,8 +648,62 @@ const seedData = async () => {
         });
         console.log(`[Seed] Created Tour: ${tour.title} (${tour.slug})`);
       } else {
-        console.log(`[Seed] Tour already exists: ${tour.title}`);
+        await Tour.updateOne(
+          { _id: tour._id },
+          {
+            $set: {
+              overview: t.overview,
+              durationOptions: t.durationOptions,
+              departureDates: t.departureDates,
+              maxPassengers: t.maxPassengers,
+              availableSeats: t.availableSeats,
+              itinerary: t.itinerary,
+              includes: t.includes,
+              excludes: t.excludes,
+              status: t.status,
+            },
+            $unset: { duration: 1, price: 1 },
+          }
+        );
+        console.log(`[Seed] Tour updated with durationOptions & departureDates: ${tour.title}`);
       }
+    }
+
+    // 3.5 Ensure bookings have selectedDuration
+    const existingBookings = await Booking.find({});
+    for (const b of existingBookings) {
+      if (!b.selectedDuration || !b.selectedDuration.price) {
+        const tour = await Tour.findById(b.tourId);
+        if (tour && tour.durationOptions && tour.durationOptions.length > 0) {
+          b.selectedDuration = {
+            days: tour.durationOptions[0].days,
+            nights: tour.durationOptions[0].nights,
+            price: tour.durationOptions[0].price,
+          };
+          await b.save();
+          console.log(`[Seed] Backfilled selectedDuration for booking: ${b._id}`);
+        }
+      }
+    }
+
+    // 3.6 Recalculate availableSeats for all tours based on actual bookings:
+    // neu ban dau chua co ai dat tour: availableSeats = maxPassengers
+    // neu khach hang da dat tour: availableSeats = maxPassengers - so luong nguoi da dat trong tour do
+    const allDbTours = await Tour.find({});
+    for (const t of allDbTours) {
+      const activeBookings = await Booking.find({
+        tourId: t._id,
+        bookingStatus: { $ne: 'cancelled' },
+      });
+      const bookedCount = activeBookings.reduce((sum, b) => {
+        const adults = b.numberOfGuests?.adults || 0;
+        const children = b.numberOfGuests?.children || 0;
+        return sum + adults + children;
+      }, 0);
+      const max = t.maxPassengers || 20;
+      t.availableSeats = Math.max(0, max - bookedCount);
+      await t.save();
+      console.log(`[Seed] Synced tour ${t.title}: maxPassengers=${max}, booked=${bookedCount}, availableSeats=${t.availableSeats}`);
     }
 
     // 4. Seed 10 Guides
@@ -673,6 +905,131 @@ const seedData = async () => {
       }
     }
 
+    // 5.4 Seed Sample Bookings if less than 5 exist
+    const bookingCount = await Booking.countDocuments();
+    if (bookingCount < 5) {
+      console.log('\n--- 5.4 SEEDING INITIAL SAMPLE BOOKINGS ---');
+      const allRegisteredUsers = await User.find({ role: 'user' });
+      const mainUser = allRegisteredUsers[0] || (await User.findOne({ email: 'customer@traveltrail.com' }));
+      const allCustomersInDb = await Customer.find({});
+      const mainCustomer = allCustomersInDb[0];
+
+      const toursInDb = await Tour.find({});
+      const guidesInDb = await Guide.find({});
+
+      const sampleBookings = [
+        {
+          tourSlug: 'tour-nghi-duong-thien-duong-bien-phu-quoc-cano-4-dao-4n3d',
+          selectedDuration: { days: 4, nights: 3, price: 6800000 },
+          departureOffsetDays: 5,
+          numberOfGuests: { adults: 2, children: 1 },
+          totalAmount: 18700000,
+          paymentMethod: 'bank_transfer',
+          paymentStatus: 'confirmed',
+          bookingStatus: 'confirmed',
+          notes: 'Yêu cầu phòng tầng cao view biển, chuẩn bị thêm áo phao trẻ em',
+          guideSlug: 'bui-hai-dang',
+        },
+        {
+          tourSlug: 'tour-kham-pha-da-nang-ba-na-hills-cau-vang-4n3d',
+          selectedDuration: { days: 4, nights: 3, price: 4800000 },
+          departureOffsetDays: 3,
+          numberOfGuests: { adults: 2, children: 0 },
+          totalAmount: 9600000,
+          paymentMethod: 'credit_card',
+          paymentStatus: 'confirmed',
+          bookingStatus: 'confirmed',
+          notes: 'Kỷ niệm ngày cưới, chuẩn bị giường đôi phòng không hút thuốc',
+          guideSlug: 'truong-vinh-phat',
+        },
+        {
+          tourSlug: 'tour-san-may-da-lat-check-in-doi-che-cau-dat-vuon-hoa-3n2d',
+          selectedDuration: { days: 3, nights: 2, price: 2750000 },
+          departureOffsetDays: 7,
+          numberOfGuests: { adults: 1, children: 0 },
+          totalAmount: 2750000,
+          paymentMethod: 'e_wallet',
+          paymentStatus: 'pending',
+          bookingStatus: 'pending',
+          notes: 'Khách muốn phòng view đồi thông gần trung tâm',
+          guideSlug: 'vu-dinh-khang',
+        },
+        {
+          tourSlug: 'tour-di-san-co-do-hue-thuong-thuc-ca-hue-song-huong-2n1d',
+          selectedDuration: { days: 2, nights: 1, price: 2150000 },
+          departureOffsetDays: 9,
+          numberOfGuests: { adults: 3, children: 0 },
+          totalAmount: 6450000,
+          paymentMethod: 'cash',
+          paymentStatus: 'pending',
+          bookingStatus: 'pending',
+          notes: 'Thanh toán tiền mặt trực tiếp tại văn phòng trước ngày đi',
+          guideSlug: 'nguyen-phuc-bao-long',
+        },
+        {
+          tourSlug: 'tour-kham-pha-song-nuoc-mien-tay-cho-noi-cai-rang-can-tho-2n1d',
+          selectedDuration: { days: 2, nights: 1, price: 1650000 },
+          departureOffsetDays: 2,
+          numberOfGuests: { adults: 2, children: 0 },
+          totalAmount: 3300000,
+          paymentMethod: 'bank_transfer',
+          paymentStatus: 'completed',
+          bookingStatus: 'completed',
+          notes: 'Chuyến đi đã hoàn thành xuất sắc',
+          guideSlug: 'nguyen-thi-kim-loan',
+        },
+      ];
+
+      for (const sb of sampleBookings) {
+        const t = toursInDb.find((x) => x.slug === sb.tourSlug) || toursInDb[0];
+        const g = guidesInDb.find((x) => x.slug === sb.guideSlug) || guidesInDb[0];
+        const depDate = new Date(Date.now() + sb.departureOffsetDays * 86400000);
+        depDate.setUTCHours(0, 0, 0, 0);
+        const endDate = new Date(depDate);
+        endDate.setDate(depDate.getDate() + Math.max(sb.selectedDuration.days - 1, 0));
+
+        await Booking.create({
+          userId: mainUser._id,
+          customerId: mainCustomer?._id || null,
+          tourId: t._id,
+          selectedDuration: sb.selectedDuration,
+          departureDate: depDate,
+          endDate,
+          numberOfGuests: sb.numberOfGuests,
+          totalAmount: sb.totalAmount,
+          paymentMethod: sb.paymentMethod,
+          paymentStatus: sb.paymentStatus,
+          bookingStatus: sb.bookingStatus,
+          notes: sb.notes,
+          guide_id: g?._id || null,
+        });
+      }
+      console.log(`[Seed] Created ${sampleBookings.length} initial sample bookings successfully!`);
+
+      // Recalculate available seats for tours
+      for (const t of toursInDb) {
+        const activeBookings = await Booking.find({
+          tourId: t._id,
+          bookingStatus: { $ne: 'cancelled' },
+        });
+        const bookedCount = activeBookings.reduce((sum, b) => {
+          const adults = b.numberOfGuests?.adults || 0;
+          const children = b.numberOfGuests?.children || 0;
+          return sum + adults + children;
+        }, 0);
+        const max = t.maxPassengers || 20;
+        t.availableSeats = Math.max(0, max - bookedCount);
+        await t.save();
+      }
+    }
+
+    // 5.5 Sync Booking Plans
+    try {
+      const bpService = require('../modules/bookingPlan/bookingPlan.service');
+      const synced = await bpService.syncFromBookings();
+      console.log('[Seed] Synced booking plans:', synced.length);
+    } catch (e) { console.warn('[Seed] BookingPlan sync warning:', e.message); }
+
     // 6. Export database/sample_data.json
     console.log('\n--- 6. GENERATING DATABASE EXPORT FILE ---');
     const allUsers = await User.find({}).select('+password').lean();
@@ -681,6 +1038,8 @@ const seedData = async () => {
     const allTours = await Tour.find({}).lean();
     const allGuides = await Guide.find({}).lean();
     const allCollections = await Collection.find({}).lean();
+    const allBookings = await Booking.find({}).lean();
+    const allBookingPlans = await BookingPlan.find({}).lean();
 
     const exportPayload = {
       database: 'traveltrail',
@@ -692,6 +1051,8 @@ const seedData = async () => {
         tours: allTours.length,
         guides: allGuides.length,
         collections: allCollections.length,
+        bookings: allBookings.length,
+        bookingPlans: allBookingPlans.length,
       },
       collections: {
         users: allUsers,
@@ -700,6 +1061,8 @@ const seedData = async () => {
         tours: allTours,
         guides: allGuides,
         collections: allCollections,
+        bookings: allBookings,
+        bookingPlans: allBookingPlans,
       },
     };
 

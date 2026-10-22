@@ -25,6 +25,42 @@ export const fetchDestinationDetail = createAsyncThunk(
   }
 );
 
+export const createDestination = createAsyncThunk(
+  'destination/createDestination',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const data = await destinationApi.create(formData);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateDestination = createAsyncThunk(
+  'destination/updateDestination',
+  async ({ id, data: formData }, { rejectWithValue }) => {
+    try {
+      const data = await destinationApi.update(id, formData);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteDestination = createAsyncThunk(
+  'destination/deleteDestination',
+  async (id, { rejectWithValue }) => {
+    try {
+      const data = await destinationApi.delete(id);
+      return { id, data };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const destinationSlice = createSlice({
   name: 'destination',
   initialState: {

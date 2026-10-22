@@ -58,6 +58,14 @@
         "visitDuration": "String",
         "budgetBand": "String",
         "transport": "String",
+        "gallery": [
+          {
+            "url": "String",
+            "caption": "String",
+            "alt": "String",
+            "credit": "String"
+          }
+        ],
         "relatedDestinations": ["ObjectId -> destinations"],
         "createdAt": "Date"
       },
@@ -108,12 +116,14 @@
         "destinationId": "ObjectId -> destinations",
         "title": "String",
         "slug": "String",
-        "duration": {
-          "days": "Number",
-          "nights": "Number",
-          "text": "String"
-        },
-        "price": "Number",
+        "overview": "String",
+        "durationOptions": [
+          {
+            "days": "Number",
+            "nights": "Number",
+            "price": "Number"
+          }
+        ],
         "departureDates": ["Date"],
         "maxPassengers": "Number",
         "availableSeats": "Number",
@@ -144,6 +154,11 @@
         "userId": "ObjectId -> users",
         "customerId": "ObjectId -> customers",
         "tourId": "ObjectId -> tours",
+        "selectedDuration": {
+          "days": "Number",
+          "nights": "Number",
+          "price": "Number"
+        },
         "bookingDate": "Date",
         "departureDate": "Date",
         "endDate": "Date",
@@ -153,7 +168,7 @@
         },
         "totalAmount": "Number",
         "paymentMethod": "cash|credit_card|bank_transfer|e_wallet",
-        "paymentStatus": "pending|confirmed|completed|",
+        "paymentStatus": "pending|confirmed|completed",
         "bookingStatus": "pending|confirmed|completed|cancelled",
         "notes": "String",
         "guide_id": "ObjectId -> guides",
@@ -165,6 +180,10 @@
       "fields": {
         "_id": "ObjectId",
         "tourId": "ObjectId -> tours",
+        "duration": {
+          "days": "Number",
+          "nights": "Number"
+        },
         "departureDate": "Date",
         "endDate": "Date",
         "guideId": "ObjectId -> guides",
@@ -177,6 +196,7 @@
             "gender": "male|female|other",
             "dob": "Date",
             "idCardNumber": "String",
+            "passengerType": "adult|child|infant",
             "phone": "String"
           }
         ],

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 export const Modal = ({
   isOpen,
@@ -6,33 +6,48 @@ export const Modal = ({
   title,
   subtitle,
   children,
-  maxWidth = 'max-w-xl',
+  size,
+  maxWidth,
   showClose = true,
+  className = "",
 }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
+  // Map semantic sizes to Tailwind max-width classes
+  const sizeMap = {
+    sm: "max-w-md",
+    md: "max-w-2xl",
+    lg: "max-w-4xl",
+    xl: "max-w-5xl",
+    "2xl": "max-w-6xl",
+    "3xl": "max-w-7xl",
+    full: "max-w-[96vw]",
+  };
+
+  const resolvedMaxWidth = maxWidth || (size ? sizeMap[size] || size : "max-w-2xl");
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"
@@ -42,15 +57,17 @@ export const Modal = ({
 
       {/* Modal Dialog */}
       <div
-        className={`relative w-full ${maxWidth} bg-white rounded-2xl shadow-modal overflow-hidden z-10 transform transition-all animate-in fade-in zoom-in-95 duration-200 border border-slate-100 my-8`}
+        className={`relative w-full ${resolvedMaxWidth} bg-white rounded-2xl shadow-modal overflow-hidden z-10 transform transition-all animate-in fade-in zoom-in-95 duration-200 border border-slate-100 my-auto flex flex-col max-h-[92vh] ${className}`}
         role="dialog"
         aria-modal="true"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4.5 border-b border-slate-100 bg-slate-50/50">
+        <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/80">
           <div>
             {title && (
-              <h3 className="text-lg font-bold text-slate-900 tracking-tight">{title}</h3>
+              <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                {title}
+              </h3>
             )}
             {subtitle && (
               <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>
@@ -63,13 +80,17 @@ export const Modal = ({
               className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 transition-colors"
               aria-label="Đóng"
             >
-              <span className="material-symbols-outlined text-[20px]">close</span>
+              <span className="material-symbols-outlined text-[20px]">
+                close
+              </span>
             </button>
           )}
         </div>
 
         {/* Content */}
-        <div className="px-6 py-5 max-h-[calc(85vh-120px)] overflow-y-auto">{children}</div>
+        <div className="px-6 py-5 overflow-y-auto flex-1">
+          {children}
+        </div>
       </div>
     </div>
   );

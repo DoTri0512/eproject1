@@ -47,7 +47,7 @@ class AdminService {
       ]),
       Booking.find()
         .populate('userId', 'name email avatar')
-        .populate('tourId', 'title slug price')
+        .populate('tourId', 'title slug price duration durationOptions overview')
         .populate('customerId')
         .sort({ createdAt: -1 })
         .limit(5),

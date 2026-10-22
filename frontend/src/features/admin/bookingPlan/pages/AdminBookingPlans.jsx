@@ -1,7 +1,8 @@
-﻿import React from 'react';
+import React from 'react';
 import useAdminBookingPlans from '../hooks/useAdminBookingPlans';
 import AssignGuideModal from '../components/AssignGuideModal';
 import PassengersListModal from '../components/PassengersListModal';
+import CreateBookingPlanModal from '../components/CreateBookingPlanModal';
 import Badge from '../../../../components/common/Badge';
 import formatDate from '../../../../utils/formatDate';
 
@@ -12,6 +13,7 @@ export const AdminBookingPlans = () => {
     guides,
     stats,
     isLoading,
+    isSyncing,
     selectedTourId,
     setSelectedTourId,
     selectedStatus,
@@ -25,12 +27,17 @@ export const AdminBookingPlans = () => {
     setIsPassengersModalOpen,
     isAssignGuideModalOpen,
     setIsAssignGuideModalOpen,
+    isCreateModalOpen,
+    setIsCreateModalOpen,
     isSubmitting,
     toastMessage,
     handleOpenPassengers,
     handleOpenAssignGuide,
     handleAssignGuide,
     handleUpdateStatus,
+    handleSyncPlans,
+    handleCreatePlan,
+    handleDeletePlan,
   } = useAdminBookingPlans();
 
   const getStatusBadge = (status) => {
@@ -84,7 +91,7 @@ export const AdminBookingPlans = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
           <button
             type="button"
             onClick={() => alert('Đang xuất danh sách các đợt khởi hành ra file Excel...')}
@@ -98,7 +105,7 @@ export const AdminBookingPlans = () => {
 
       {/* 2. Metric Quick Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">groups</span>
           </div>
@@ -108,7 +115,7 @@ export const AdminBookingPlans = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">schedule</span>
           </div>
@@ -118,7 +125,7 @@ export const AdminBookingPlans = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">directions_bus</span>
           </div>
@@ -128,7 +135,7 @@ export const AdminBookingPlans = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4 relative overflow-hidden">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4 relative overflow-hidden">
           {stats.unassignedGuides > 0 && (
             <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" />
           )}
@@ -213,7 +220,30 @@ export const AdminBookingPlans = () => {
               <span className="material-symbols-outlined text-[32px]">group_off</span>
             </div>
             <h3 className="text-base font-bold text-slate-700">Chưa có đoàn khởi hành nào phù hợp</h3>
-            <p className="text-xs text-slate-400 mt-1">Hệ thống sẽ tự động tạo đoàn khi khách hàng đặt tour</p>
+            <p className="text-xs text-slate-400 mt-1 max-w-md mx-auto">
+              Hệ thống có thể tự động gom các đơn đặt tour theo cùng ngày khởi hành thành từng đoàn, hoặc bạn có thể lập đoàn thủ công.
+            </p>
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <button
+                type="button"
+                onClick={handleSyncPlans}
+                disabled={isSyncing}
+                className="px-4 py-2.5 rounded-xl bg-primary hover:bg-primary-dark text-white text-xs font-bold inline-flex items-center gap-2 shadow-sm transition-colors disabled:opacity-50"
+              >
+                <span className={`material-symbols-outlined text-[18px] ${isSyncing ? 'animate-spin' : ''}`}>
+                  sync
+                </span>
+                <span>{isSyncing ? 'Đang đồng bộ...' : 'Đồng bộ từ đơn đặt tour'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsCreateModalOpen(true)}
+                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold inline-flex items-center gap-2 transition-colors"
+              >
+                <span className="material-symbols-outlined text-[18px]">add</span>
+                <span>Lập đoàn mới</span>
+              </button>
+            </div>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -242,11 +272,19 @@ export const AdminBookingPlans = () => {
                         <div className="font-bold text-slate-900 line-clamp-1 max-w-[240px]">
                           {tour.title || 'Tour du lịch'}
                         </div>
-                        <div className="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
-                          <span className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[10px]">
+                        <div className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-1">
+                          <span className="px-1.5 py-0.5 rounded bg-slate-100 font-mono text-[10px] text-slate-600 font-semibold">
                             {bookingsCount} đơn đặt
                           </span>
-                          <span>{tour.duration?.text || '—'}</span>
+                          {plan.duration?.days ? (
+                            <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 font-bold text-[10px]">
+                              {plan.duration.days}N{plan.duration.nights}Đ
+                            </span>
+                          ) : tour.durationOptions?.length > 0 ? (
+                            <span className="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 font-bold text-[10px]">
+                              {tour.durationOptions[0].days}N{tour.durationOptions[0].nights}Đ
+                            </span>
+                          ) : null}
                         </div>
                       </td>
 
@@ -332,6 +370,15 @@ export const AdminBookingPlans = () => {
                           >
                             <span className="material-symbols-outlined text-[17px]">person_pin</span>
                           </button>
+
+                          <button
+                            type="button"
+                            onClick={() => handleDeletePlan(plan._id)}
+                            title="Xóa đợt đoàn này"
+                            className="w-8 h-8 rounded-lg bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-400 flex items-center justify-center transition-colors"
+                          >
+                            <span className="material-symbols-outlined text-[17px]">delete</span>
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -362,6 +409,18 @@ export const AdminBookingPlans = () => {
           plan={selectedPlan}
           guides={guides}
           onAssign={handleAssignGuide}
+          isSubmitting={isSubmitting}
+        />
+      )}
+
+      {/* Create Booking Plan Modal */}
+      {isCreateModalOpen && (
+        <CreateBookingPlanModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(false)}
+          tours={tours}
+          guides={guides}
+          onSubmit={handleCreatePlan}
           isSubmitting={isSubmitting}
         />
       )}

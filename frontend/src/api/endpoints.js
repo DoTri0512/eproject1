@@ -24,6 +24,7 @@ export const ENDPOINTS = {
   },
   BOOKING_PLANS: {
     BASE: '/booking-plans',
+    SYNC: '/booking-plans/sync',
     DETAIL: (id) => `/booking-plans/${id}`,
     ASSIGN_GUIDE: (id) => `/booking-plans/${id}/assign-guide`,
     STATUS: (id) => `/booking-plans/${id}/status`,
@@ -57,6 +58,13 @@ export const ENDPOINTS = {
   UPLOAD: {
     SINGLE: '/upload/single',
     MULTIPLE: '/upload/multiple',
+  },
+  CHATBOT: {
+    MESSAGE: '/chatbot/message',
+    SUGGESTIONS: '/chatbot/suggestions',
+    SESSION: (sessionId) => `/chatbot/session/${sessionId}`,
+    CLEAR_SESSION: (sessionId) => `/chatbot/session/${sessionId}`,
+    USER_SESSIONS: '/chatbot/user-sessions',
   },
 };
 

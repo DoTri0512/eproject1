@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import useAdminTours from '../hooks/useAdminTours';
 import TourFormModal from '../components/TourFormModal';
 import TourDeleteModal from '../components/TourDeleteModal';
@@ -93,7 +93,7 @@ export const AdminTours = () => {
 
       {/* 2. Metric Quick Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">calendar_month</span>
           </div>
@@ -103,7 +103,7 @@ export const AdminTours = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">check_circle</span>
           </div>
@@ -113,7 +113,7 @@ export const AdminTours = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">event_seat</span>
           </div>
@@ -123,7 +123,7 @@ export const AdminTours = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">payments</span>
           </div>
@@ -249,23 +249,56 @@ export const AdminTours = () => {
                         </div>
                       </td>
 
-                      {/* Duration */}
-                      <td className="py-3.5 px-4 text-slate-600 font-semibold whitespace-nowrap">
-                        {tour.duration?.text || `${tour.duration?.days || 1} ngày`}
+                      {/* Duration options with prices */}
+                      <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap">
+                        {tour.durationOptions?.length > 0 ? (
+                          <div className="flex flex-col gap-1">
+                            {tour.durationOptions.map((opt, i) => (
+                              <span key={i} className="text-[11px] px-2 py-0.5 rounded-md bg-sky-50 text-sky-800 font-semibold inline-flex items-center gap-1.5 border border-sky-100/80">
+                                <span className="font-bold text-sky-700">{opt.days}N{opt.nights}Đ:</span>
+                                <span className="font-mono text-slate-700">{formatCurrency(opt.price)}</span>
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-slate-400">—</span>
+                        )}
                       </td>
 
-                      {/* Price */}
+                      {/* Price Range */}
                       <td className="py-3.5 px-4 whitespace-nowrap font-black text-primary">
-                        {formatCurrency(tour.price)}
+                        {tour.durationOptions?.length > 0 ? (
+                          <div>
+                            <div className="text-xs font-bold text-primary">
+                              Từ {formatCurrency(Math.min(...tour.durationOptions.map(o => o.price)))}
+                            </div>
+                            {tour.durationOptions.length > 1 && (
+                              <div className="text-[10px] text-slate-400 font-medium">
+                                Đến {formatCurrency(Math.max(...tour.durationOptions.map(o => o.price)))}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-slate-400 font-normal">Liên hệ</span>
+                        )}
                       </td>
 
                       {/* Seats & progress */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <span className="font-bold text-slate-800">
+                          <span
+                            className={`font-bold ${
+                              available <= 0 ? 'text-rose-600 font-extrabold' : 'text-slate-800'
+                            }`}
+                          >
                             {available} / {max}
                           </span>
                           <span className="text-[10px] text-slate-400">chỗ</span>
+                          {available <= 0 && (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-50 text-rose-600">
+                              Hết chỗ
+                            </span>
+                          )}
                         </div>
                         <div className="w-24 h-1.5 bg-slate-100 rounded-full overflow-hidden mt-1">
                           <div

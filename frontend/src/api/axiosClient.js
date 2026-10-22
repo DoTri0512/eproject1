@@ -1,12 +1,12 @@
-import axios from 'axios';
-import { storage } from '../utils/storage';
+import axios from "axios";
+import { storage } from "../utils/storage";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
-
+const baseURL = import.meta.env.VITE_API_BASE_URL || "/api/v1";
+console.log(baseURL);
 const axiosClient = axios.create({
   baseURL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   withCredentials: true,
   timeout: 15000,
@@ -23,7 +23,7 @@ axiosClient.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response interceptor to handle errors and 401
@@ -37,13 +37,17 @@ axiosClient.interceptors.response.use(
       // Auto clear auth if unauthorized
       storage.clearAuth();
     }
+    const errorsList = error.response?.data?.errors;
     const message =
+      (Array.isArray(errorsList) && errorsList.length > 0 ? errorsList.join(' • ') : null) ||
       error.response?.data?.message ||
       error.response?.data?.error ||
       error.message ||
-      'Đã có lỗi xảy ra. Vui lòng thử lại!';
-    return Promise.reject(new Error(message));
-  }
+      "Đã có lỗi xảy ra. Vui lòng thử lại!";
+    const customError = new Error(message);
+    customError.response = error.response;
+    return Promise.reject(customError);
+  },
 );
 
 export default axiosClient;

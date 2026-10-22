@@ -19,27 +19,34 @@ const tourSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
     },
-    duration: {
-      days: { type: Number, default: 1 },
-      nights: { type: Number, default: 0 },
-      text: { type: String, default: '1 ngày' },
+    overview: {
+      type: String,
+      trim: true,
+      default: '',
     },
-    price: {
-      type: Number,
-      required: [true, 'Price is required'],
-      min: [0, 'Price must be non-negative'],
-    },
+    durationOptions: [
+      {
+        days: { type: Number, required: true, min: 1 },
+        nights: { type: Number, required: true, min: 0 },
+        price: { type: Number, required: true, min: 0 },
+      },
+    ],
     departureDates: {
       type: [Date],
       default: [],
     },
     maxPassengers: {
       type: Number,
+      required: [true, 'Max passengers is required'],
       default: 20,
+      min: 1,
     },
     availableSeats: {
       type: Number,
-      default: 20,
+      default: function () {
+        return this.maxPassengers || 20;
+      },
+      min: 0,
     },
     itinerary: [
       {
@@ -68,12 +75,15 @@ const tourSchema = new mongoose.Schema(
 );
 
 tourSchema.index({ destinationId: 1 });
-tourSchema.index({ price: 1 });
+tourSchema.index({ 'durationOptions.price': 1 });
 tourSchema.index({ status: 1 });
 
 tourSchema.pre('save', function () {
   if (!this.slug) {
     this.slug = slugify(this.title, { lower: true, strict: true, locale: 'vi' });
+  }
+  if (this.isNew && (this.availableSeats === undefined || this.availableSeats === null)) {
+    this.availableSeats = this.maxPassengers || 20;
   }
 });
 

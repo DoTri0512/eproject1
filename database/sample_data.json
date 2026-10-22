@@ -1,43 +1,56 @@
 {
   "database": "traveltrail",
-  "exportedAt": "2026-10-13T12:34:04.793Z",
+  "exportedAt": "2026-10-22T11:34:02.318Z",
   "summary": {
-    "users": 2,
-    "customers": 1,
+    "users": 3,
+    "customers": 3,
     "destinations": 10,
     "tours": 10,
     "guides": 10,
-    "collections": 10
+    "collections": 10,
+    "bookings": 7,
+    "bookingPlans": 6
   },
   "collections": {
     "users": [
       {
-        "_id": "6ace1f96b0a21902e6158a6c",
+        "_id": "6ad59b96ad4a8b3d27fa9fdf",
         "name": "Trần Quốc Toản (Admin)",
         "email": "admin@traveltrail.com",
-        "password": "$2b$10$mBqXsvrbb3vO8wzGB88sRegQne1XQKKFCCDcXwluS7j9N6CL3jtH6",
+        "password": "$2b$10$NitmdidrjJtRGDrTAExVlutyAuH5MBezEhpfjQaIlpCX8KiWz6B4q",
         "role": "admin",
         "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-        "createdAt": "2026-10-13T12:09:58.986Z",
-        "updatedAt": "2026-10-13T12:09:58.986Z",
+        "createdAt": "2026-10-19T04:24:54.322Z",
+        "updatedAt": "2026-10-19T04:24:54.322Z",
         "__v": 0
       },
       {
-        "_id": "6ace1f97b0a21902e6158a6d",
+        "_id": "6ad59b96ad4a8b3d27fa9fe0",
         "name": "Nguyễn Văn An",
         "email": "customer@traveltrail.com",
-        "password": "$2b$10$7Kgl7kfH9nkdlc7OsRohWePqcXU7XAy2IddwsnwVrFMphK4wm.eqC",
+        "password": "$2b$10$.ccTu1fsIZ12TZxL9T.0wupXFbGIqzTmWPNgvG.CAfm.qRBB.ZUKy",
         "role": "user",
         "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80",
-        "createdAt": "2026-10-13T12:09:59.063Z",
-        "updatedAt": "2026-10-13T12:09:59.063Z",
+        "createdAt": "2026-10-19T04:24:54.394Z",
+        "updatedAt": "2026-10-20T08:57:55.013Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad75d97133af7e63c9872d7",
+        "name": "Do Cao Tri",
+        "email": "tridocao0512@gmail.com",
+        "password": "$2b$10$d5Jd91moEeUZxTURDjB3I.C2heCr3yO15ZZr/2o0X5zS/srVu2RYu",
+        "role": "user",
+        "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80",
+        "createdAt": "2026-10-20T12:24:55.053Z",
+        "updatedAt": "2026-10-20T12:24:55.053Z",
         "__v": 0
       }
     ],
     "customers": [
       {
-        "_id": "6ace1f97b0a21902e6158a6e",
-        "userId": "6ace1f97b0a21902e6158a6d",
+        "_id": "6ad59b96ad4a8b3d27fa9fe1",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
         "fullName": "Nguyễn Văn An",
         "email": "customer@traveltrail.com",
         "phone": "0912345678",
@@ -45,14 +58,42 @@
         "city": "TP. Hồ Chí Minh",
         "country": "Việt Nam",
         "idCardNumber": "079095012345",
-        "createdAt": "2026-10-13T12:09:59.138Z",
-        "updatedAt": "2026-10-13T12:09:59.138Z",
+        "createdAt": "2026-10-19T04:24:54.457Z",
+        "updatedAt": "2026-10-19T04:24:54.457Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad6dc90990a187d2773fd13",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "fullName": "Nguyễn Văn An",
+        "email": "customer@traveltrail.com",
+        "phone": "0912345678",
+        "address": "hcm",
+        "city": "",
+        "country": "Việt Nam",
+        "idCardNumber": "0007070505",
+        "createdAt": "2026-10-20T03:14:24.895Z",
+        "updatedAt": "2026-10-20T03:14:24.895Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad75e04133af7e63c9873b7",
+        "userId": "6ad75d97133af7e63c9872d7",
+        "fullName": "Do Cao Tri",
+        "email": "tridocao0512@gmail.com",
+        "phone": "038805305",
+        "address": "Ha Noi",
+        "city": "",
+        "country": "Việt Nam",
+        "idCardNumber": "001202020909",
+        "createdAt": "2026-10-20T12:26:44.196Z",
+        "updatedAt": "2026-10-20T12:26:44.196Z",
         "__v": 0
       }
     ],
     "destinations": [
       {
-        "_id": "6ace20deb48cdedf42b8eeee",
+        "_id": "6ad59b96ad4a8b3d27fa9fe2",
         "name": "Vịnh Hạ Long",
         "slug": "vinh-ha-long",
         "region": "Miền Bắc",
@@ -77,16 +118,60 @@
         "visitDuration": "3 ngày 2 đêm",
         "budgetBand": "Phổ thông",
         "transport": "Xe Limousine hoặc cao tốc Hà Nội - Hải Phòng - Quảng Ninh (2.5 giờ)",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eeef",
-          "6ace20deb48cdedf42b8eef0"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Toàn cảnh Vịnh Hạ Long từ trên cao",
+            "alt": "Vịnh Hạ Long nhìn từ flycam",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe3"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1567604130959-7d9c6f8b9e73?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Thuyền kayak khám phá các hang động",
+            "alt": "Chèo kayak Vịnh Hạ Long",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe4"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1578836537282-3171d77f8632?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Làn nước ngọc bích và đảo đá vôi",
+            "alt": "Đảo đá vôi Vịnh Hạ Long",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe5"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hoàng hôn huyền ảo trên mặt vịnh",
+            "alt": "Hoàng hôn Vịnh Hạ Long",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe6"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1552055901-5da45a4ed3a8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Du thuyền đêm dưới ánh trăng",
+            "alt": "Du thuyền đêm Hạ Long",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe7"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hang Sửng Sốt kỳ vĩ bên trong",
+            "alt": "Hang Sửng Sốt Hạ Long",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fe8"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.441Z",
-        "updatedAt": "2026-10-13T12:15:26.480Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27fa9fe9",
+          "6ad59b96ad4a8b3d27fa9fef"
+        ],
+        "createdAt": "2026-10-19T04:24:54.464Z",
+        "updatedAt": "2026-10-19T04:24:54.504Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eeef",
+        "_id": "6ad59b96ad4a8b3d27fa9fe9",
         "name": "Sa Pa",
         "slug": "sa-pa",
         "region": "Miền Bắc",
@@ -111,16 +196,53 @@
         "visitDuration": "3 ngày 2 đêm",
         "budgetBand": "Tiết kiệm",
         "transport": "Tàu hỏa hỏa xa hoặc xe giường nằm cao tốc Hà Nội - Lào Cai (5.5 giờ)",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef0",
-          "6ace20deb48cdedf42b8eef1"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Ruộng bậc thang Sa Pa mùa lúa vàng",
+            "alt": "Ruộng bậc thang Sa Pa",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fea"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Biển mây bồng bềnh trên đỉnh Fansipan",
+            "alt": "Biển mây Fansipan",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9feb"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bản làng H'Mông truyền thống",
+            "alt": "Bản H'Mông Sa Pa",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fec"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Sương mù bao phủ thị trấn Sa Pa",
+            "alt": "Sương mù Sa Pa",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fed"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Thung lũng Mường Hoa xanh mướt",
+            "alt": "Thung lũng Mường Hoa",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fee"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.453Z",
-        "updatedAt": "2026-10-13T12:15:26.489Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27fa9fef",
+          "6ad59b96ad4a8b3d27fa9ff5"
+        ],
+        "createdAt": "2026-10-19T04:24:54.472Z",
+        "updatedAt": "2026-10-19T04:24:54.509Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef0",
+        "_id": "6ad59b96ad4a8b3d27fa9fef",
         "name": "Ninh Bình",
         "slug": "ninh-binh",
         "region": "Miền Bắc",
@@ -145,16 +267,53 @@
         "visitDuration": "2 ngày 1 đêm",
         "budgetBand": "Tiết kiệm",
         "transport": "Xe limousine hoặc ô tô từ Hà Nội theo cao tốc Pháp Vân - Cầu Giẽ (1.5 giờ)",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef1",
-          "6ace20deb48cdedf42b8eef2"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Thuyền nan xuôi dòng qua Tràng An",
+            "alt": "Thuyền nan Tràng An Ninh Bình",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff0"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hang Múa - bậc thang lên đỉnh Ngọa Long",
+            "alt": "Hang Múa Ninh Bình",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff1"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Chùa Bái Đính uy nghiêm giữa non nước",
+            "alt": "Chùa Bái Đính Ninh Bình",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff2"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Đồng lúa Tam Cốc mùa vàng",
+            "alt": "Đồng lúa Tam Cốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff3"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1519684139555-11dc2a2ff27f?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bình minh huyền ảo trên sông Ngô Đồng",
+            "alt": "Bình minh Ninh Bình",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff4"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.457Z",
-        "updatedAt": "2026-10-13T12:15:26.491Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27fa9ff5",
+          "6ad59b96ad4a8b3d27fa9ffb"
+        ],
+        "createdAt": "2026-10-19T04:24:54.476Z",
+        "updatedAt": "2026-10-19T04:24:54.511Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef1",
+        "_id": "6ad59b96ad4a8b3d27fa9ff5",
         "name": "Hà Giang",
         "slug": "ha-giang",
         "region": "Miền Bắc",
@@ -179,16 +338,53 @@
         "visitDuration": "4 ngày 3 đêm",
         "budgetBand": "Phổ thông",
         "transport": "Xe khách cabin giường nằm từ Hà Nội đi TP. Hà Giang, sau đó thuê xe máy hoặc xe bán tải",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef2",
-          "6ace20deb48cdedf42b8eef3"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Đèo Mã Pí Lèng hùng vĩ giữa trời xanh",
+            "alt": "Đèo Mã Pí Lèng Hà Giang",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff6"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1537796645959-d7a8fe696e03?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hẻm Tu Sản & sông Nho Quế xanh thẳm",
+            "alt": "Hẻm Tu Sản sông Nho Quế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff7"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1605130284535-11dd9eedc58a?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hoa tam giác mạch nở rộ tháng 10",
+            "alt": "Hoa tam giác mạch Hà Giang",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff8"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Cột cờ Lũng Cú - địa đầu Tổ quốc",
+            "alt": "Cột cờ Lũng Cú",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ff9"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bình minh trên cao nguyên đá Đồng Văn",
+            "alt": "Cao nguyên đá Đồng Văn",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ffa"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.460Z",
-        "updatedAt": "2026-10-13T12:15:26.492Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27fa9ffb",
+          "6ad59b96ad4a8b3d27faa002"
+        ],
+        "createdAt": "2026-10-19T04:24:54.480Z",
+        "updatedAt": "2026-10-19T04:24:54.512Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef2",
+        "_id": "6ad59b96ad4a8b3d27fa9ffb",
         "name": "Phố Cổ Hội An",
         "slug": "pho-co-hoi-an",
         "region": "Miền Trung",
@@ -213,16 +409,60 @@
         "visitDuration": "2 ngày 1 đêm",
         "budgetBand": "Phổ thông",
         "transport": "Bay đến sân bay Đà Nẵng rồi đi taxi hoặc xe buýt du lịch 30km về Hội An",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef3",
-          "6ace20deb48cdedf42b8eef4"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Phố đèn lồng lung linh về đêm",
+            "alt": "Phố đèn lồng Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ffc"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1571591091674-a1d0c4484264?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Chùa Cầu - biểu tượng ngàn năm Hội An",
+            "alt": "Chùa Cầu Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ffd"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hoa đăng thả trên sông Hoài",
+            "alt": "Hoa đăng sông Hoài Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9ffe"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1531219572328-a0171b4448a3?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Rừng dừa nước Bảy Mẫu Cẩm Thanh",
+            "alt": "Rừng dừa nước Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27fa9fff"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Mái ngói rêu phong phố cổ",
+            "alt": "Phố cổ mái ngói Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa000"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1486299267070-83823f5448dd?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Áo dài truyền thống rực rỡ giữa phố",
+            "alt": "Áo dài Hội An",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa001"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.462Z",
-        "updatedAt": "2026-10-13T12:15:26.493Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27faa002",
+          "6ad59b96ad4a8b3d27faa008"
+        ],
+        "createdAt": "2026-10-19T04:24:54.484Z",
+        "updatedAt": "2026-10-19T04:24:54.514Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef3",
+        "_id": "6ad59b96ad4a8b3d27faa002",
         "name": "Thành Phố Đà Nẵng",
         "slug": "thanh-pho-da-nang",
         "region": "Miền Trung",
@@ -247,16 +487,53 @@
         "visitDuration": "3 ngày 2 đêm",
         "budgetBand": "Phổ thông",
         "transport": "Đường bay thẳng đến Cảng hàng không Quốc tế Đà Nẵng hoặc tàu hỏa Bắc - Nam",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef4",
-          "6ace20deb48cdedf42b8eef5"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Cầu Vàng - biểu tượng kỳ quan Bà Nà Hills",
+            "alt": "Cầu Vàng Đà Nẵng",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa003"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1571768576226-e6dfb6bd72b8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bãi biển Mỹ Khê cát trắng nước xanh",
+            "alt": "Bãi biển Mỹ Khê Đà Nẵng",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa004"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1598133894008-61f7fdb8cc3a?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Cầu Rồng phun lửa về đêm ngoạn mục",
+            "alt": "Cầu Rồng Đà Nẵng",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa005"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bán đảo Sơn Trà nhìn từ trên cao",
+            "alt": "Bán đảo Sơn Trà Đà Nẵng",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa006"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Đà Nẵng skyline rực rỡ ánh đèn",
+            "alt": "Skyline Đà Nẵng về đêm",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa007"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.465Z",
-        "updatedAt": "2026-10-13T12:15:26.495Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27faa008",
+          "6ad59b96ad4a8b3d27faa00e"
+        ],
+        "createdAt": "2026-10-19T04:24:54.488Z",
+        "updatedAt": "2026-10-19T04:24:54.516Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef4",
+        "_id": "6ad59b96ad4a8b3d27faa008",
         "name": "Cố Đô Huế",
         "slug": "co-do-hue",
         "region": "Miền Trung",
@@ -281,16 +558,53 @@
         "visitDuration": "2 ngày 1 đêm",
         "budgetBand": "Tiết kiệm",
         "transport": "Bay thẳng đến Sân bay Phú Bài hoặc đi tàu hỏa qua đèo Hải Vân từ Đà Nẵng",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef5",
-          "6ace20deb48cdedf42b8eef6"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Đại Nội Hoàng Thành uy nghiêm triều Nguyễn",
+            "alt": "Đại Nội Huế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa009"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Chùa Thiên Mụ bên bờ sông Hương",
+            "alt": "Chùa Thiên Mụ Huế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa00a"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Lăng Khải Định kiến trúc độc đáo",
+            "alt": "Lăng Khải Định Huế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa00b"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Du thuyền nghe Ca Huế trên sông Hương",
+            "alt": "Thuyền rồng sông Hương Huế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa00c"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1519684139555-11dc2a2ff27f?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Cầu Tràng Tiền - duyên dáng sáu nhịp hai thành",
+            "alt": "Cầu Tràng Tiền Huế",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa00d"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.469Z",
-        "updatedAt": "2026-10-13T12:15:26.496Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27faa00e",
+          "6ad59b96ad4a8b3d27faa014"
+        ],
+        "createdAt": "2026-10-19T04:24:54.491Z",
+        "updatedAt": "2026-10-19T04:24:54.517Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef5",
+        "_id": "6ad59b96ad4a8b3d27faa00e",
         "name": "Đà Lạt - Thành Phố Ngàn Hoa",
         "slug": "da-lat-thanh-pho-ngan-hoa",
         "region": "Tây Nguyên",
@@ -315,16 +629,53 @@
         "visitDuration": "3 ngày 2 đêm",
         "budgetBand": "Phổ thông",
         "transport": "Chuyến bay thẳng đến Sân bay Liên Khương hoặc xe limousine từ TP. Hồ Chí Minh (6-7 giờ)",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef6",
-          "6ace20deb48cdedf42b8eef7"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hồ Tuyền Lâm thơ mộng giữa rừng thông",
+            "alt": "Hồ Tuyền Lâm Đà Lạt",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa00f"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Đồi chè Cầu Đất giữa biển mây",
+            "alt": "Đồi chè Cầu Đất Đà Lạt",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa010"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1474511320723-9a56873867b5?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Vườn hoa cẩm tú cầu rực rỡ",
+            "alt": "Hoa cẩm tú cầu Đà Lạt",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa011"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Sương mù lãng đãng phủ rừng thông",
+            "alt": "Rừng thông Đà Lạt sương mù",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa012"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1414609245224-aea10f43a3c8?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hoàng hôn tím biếc trên Quảng trường Lâm Viên",
+            "alt": "Quảng trường Lâm Viên Đà Lạt",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa013"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.472Z",
-        "updatedAt": "2026-10-13T12:15:26.499Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27faa014",
+          "6ad59b96ad4a8b3d27faa01b"
+        ],
+        "createdAt": "2026-10-19T04:24:54.495Z",
+        "updatedAt": "2026-10-19T04:24:54.519Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef6",
+        "_id": "6ad59b96ad4a8b3d27faa014",
         "name": "Đảo Ngọc Phú Quốc",
         "slug": "dao-ngoc-phu-quoc",
         "region": "Miền Nam",
@@ -349,16 +700,60 @@
         "visitDuration": "4 ngày 3 đêm",
         "budgetBand": "Cao cấp",
         "transport": "Chuyến bay thẳng đến Cảng hàng không Quốc tế Phú Quốc hoặc tàu cao tốc từ Rạch Giá/Hà Tiên",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eef7",
-          "6ace20deb48cdedf42b8eeee"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bãi Sao - bãi biển đẹp nhất Phú Quốc",
+            "alt": "Bãi Sao Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa015"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Hoàng hôn rực lửa trên đảo ngọc",
+            "alt": "Hoàng hôn Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa016"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=85",
+            "caption": "San hô đầy màu sắc dưới lòng biển",
+            "alt": "San hô Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa017"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1520454974749-611d7d931db0?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Cáp treo Hòn Thơm vượt biển ngoạn mục",
+            "alt": "Cáp treo Hòn Thơm Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa018"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Grand World về đêm lung linh",
+            "alt": "Grand World Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa019"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Resort bãi biển riêng đẳng cấp",
+            "alt": "Resort Phú Quốc",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa01a"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.475Z",
-        "updatedAt": "2026-10-13T12:15:26.501Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27faa01b",
+          "6ad59b96ad4a8b3d27fa9fe2"
+        ],
+        "createdAt": "2026-10-19T04:24:54.498Z",
+        "updatedAt": "2026-10-19T04:24:54.521Z",
         "__v": 1
       },
       {
-        "_id": "6ace20deb48cdedf42b8eef7",
+        "_id": "6ad59b96ad4a8b3d27faa01b",
         "name": "Cần Thơ - Thủ Phủ Miền Tây",
         "slug": "can-tho-thu-phu-mien-tay",
         "region": "Miền Nam",
@@ -381,54 +776,113 @@
         ],
         "bestSeason": "Tháng 9 - Tháng 11 (Mùa nước nổi) & Tháng 5 - Tháng 8 (Mùa trái cây)",
         "visitDuration": "2 ngày 1 đêm",
-        "budgetBand": "Tiết kiệm",
+        "budgetBand": "Trung bình",
         "transport": "Cao tốc Trung Lương - Mỹ Thuận từ TP. Hồ Chí Minh (2.5 giờ) hoặc bay tới Sân bay Trà Nóc Cần Thơ",
-        "relatedDestinations": [
-          "6ace20deb48cdedf42b8eeee",
-          "6ace20deb48cdedf42b8eeef"
+        "gallery": [
+          {
+            "url": "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Chợ nổi Cái Răng sáng sớm tấp nập",
+            "alt": "Chợ nổi Cái Răng Cần Thơ",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa01c"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bến Ninh Kiều lung linh về đêm",
+            "alt": "Bến Ninh Kiều Cần Thơ",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa01d"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Miệt vườn sông nước Cồn Sơn",
+            "alt": "Miệt vườn Cần Thơ",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa01e"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1440342359743-84fcb8c21f21?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Trái cây miền Tây trĩu nặng tại vườn",
+            "alt": "Trái cây miền Tây Cần Thơ",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa01f"
+          },
+          {
+            "url": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85",
+            "caption": "Bình minh trên sông Hậu thơ mộng",
+            "alt": "Bình minh sông Hậu Cần Thơ",
+            "credit": "Unsplash",
+            "_id": "6ad59b96ad4a8b3d27faa020"
+          }
         ],
-        "createdAt": "2026-10-13T12:15:26.478Z",
-        "updatedAt": "2026-10-13T12:23:56.886Z",
+        "relatedDestinations": [
+          "6ad59b96ad4a8b3d27fa9fe2",
+          "6ad59b96ad4a8b3d27fa9fe9"
+        ],
+        "createdAt": "2026-10-19T04:24:54.502Z",
+        "updatedAt": "2026-10-20T12:20:45.687Z",
         "__v": 1
       }
     ],
     "tours": [
       {
-        "_id": "6ace20deb48cdedf42b8eef8",
-        "destinationId": "6ace20deb48cdedf42b8eeee",
+        "_id": "6ad59b96ad4a8b3d27faa021",
+        "destinationId": "6ad59b96ad4a8b3d27fa9fe2",
         "title": "Tour Khám Phá Vịnh Hạ Long Du Thuyền 5 Sao 3N2Đ",
         "slug": "tour-kham-pha-vinh-ha-long-du-thuyen-5-sao-3n2d",
-        "duration": {
-          "days": 3,
-          "nights": 2,
-          "text": "3 ngày 2 đêm"
-        },
-        "price": 3850000,
+        "overview": "Hành trình nghỉ dưỡng 5 sao thượng hạng ngắm kỳ quan Vịnh Hạ Long, khám phá hang Sửng Sốt, chèo kayak và thưởng thức tiệc hải sản.",
+        "durationOptions": [
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 2650000,
+            "_id": "6ad9f4aa88a617c1db7c1b10"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 3850000,
+            "_id": "6ad9f4aa88a617c1db7c1b11"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 5100000,
+            "_id": "6ad9f4aa88a617c1db7c1b12"
+          }
+        ],
         "departureDates": [
-          "2026-10-16T12:15:26.503Z",
-          "2026-10-23T12:15:26.503Z",
-          "2026-10-30T12:15:26.503Z"
+          "2026-10-25T11:34:02.087Z",
+          "2026-10-29T11:34:02.087Z",
+          "2026-11-05T11:34:02.087Z",
+          "2026-11-12T11:34:02.087Z"
         ],
         "maxPassengers": 24,
-        "availableSeats": 18,
+        "availableSeats": 22,
         "itinerary": [
           {
             "day": 1,
             "title": "Hà Nội - Cảng Tuần Châu - Lên Du Thuyền",
             "description": "Xe limousine đón khách từ Hà Nội đến bến Tuần Châu, thưởng thức bữa trưa hải sản thượng hạng và ngắm vịnh.",
-            "_id": "6ace20deb48cdedf42b8eef9"
+            "_id": "6ad9f4aa88a617c1db7c1b0c"
           },
           {
             "day": 2,
             "title": "Hang Sửng Sốt - Đảo Ti Tốp - Chèo Kayak",
             "description": "Thám hiểm Hang Sửng Sốt tráng lệ, leo đỉnh Ti Tốp ngắm toàn cảnh 360 độ và chèo kayak tại Hang Luồn.",
-            "_id": "6ace20deb48cdedf42b8eefa"
+            "_id": "6ad9f4aa88a617c1db7c1b0d"
           },
           {
             "day": 3,
-            "title": "Làng Chài Trà Báu - Tiễn Đoàn Về Hà Nội",
-            "description": "Tham gia lớp dưỡng sinh Taichi đón bình minh, dùng brunch buffet và trở về cảng chuẩn bị về Hà Nội.",
-            "_id": "6ace20deb48cdedf42b8eefb"
+            "title": "Làng Chài Trà Báu - Hang Sáng Tối",
+            "description": "Tham gia lớp dưỡng sinh Taichi đón bình minh, khám phá hang Sáng Tối bằng thuyền nan và ngắm cảnh thiên nhiên thanh bình.",
+            "_id": "6ad9f4aa88a617c1db7c1b0e"
+          },
+          {
+            "day": 4,
+            "title": "Vịnh Lan Hạ - Làng Cổ Việt Hải - Về Hà Nội",
+            "description": "Đạp xe khám phá làng cổ Việt Hải biệt lập giữa thung lũng rừng quốc gia Cát Bà, dùng buffet trưa và trở về Hà Nội.",
+            "_id": "6ad9f4aa88a617c1db7c1b0f"
           }
         ],
         "includes": [
@@ -443,46 +897,67 @@
           "Tiền tip cho thủy thủ đoàn"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.510Z",
-        "updatedAt": "2026-10-13T12:15:26.510Z",
+        "createdAt": "2026-10-19T04:24:54.529Z",
+        "updatedAt": "2026-10-22T11:34:02.255Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8eefc",
-        "destinationId": "6ace20deb48cdedf42b8eeef",
+        "_id": "6ad59b96ad4a8b3d27faa028",
+        "destinationId": "6ad59b96ad4a8b3d27fa9fe9",
         "title": "Tour Sa Pa - Chinh Phục Nóc Nhà Đông Dương Fansipan 3N2Đ",
         "slug": "tour-sa-pa-chinh-phuc-noc-nha-dong-duong-fansipan-3n2d",
-        "duration": {
-          "days": 3,
-          "nights": 2,
-          "text": "3 ngày 2 đêm"
-        },
-        "price": 2950000,
+        "overview": "Chinh phục nóc nhà Đông Dương Fansipan hùng vĩ, chiêm ngưỡng biển mây ngút ngàn và hòa mình vào sắc màu văn hóa Tây Bắc mộc mạc.",
+        "durationOptions": [
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 1950000,
+            "_id": "6ad9f4aa88a617c1db7c1b1e"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 2950000,
+            "_id": "6ad9f4aa88a617c1db7c1b1f"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 3900000,
+            "_id": "6ad9f4aa88a617c1db7c1b20"
+          }
+        ],
         "departureDates": [
-          "2026-10-17T12:15:26.503Z",
-          "2026-10-24T12:15:26.503Z",
-          "2026-10-31T12:15:26.503Z"
+          "2026-10-26T11:34:02.087Z",
+          "2026-11-01T11:34:02.087Z",
+          "2026-11-08T11:34:02.087Z"
         ],
         "maxPassengers": 20,
-        "availableSeats": 14,
+        "availableSeats": 20,
         "itinerary": [
           {
             "day": 1,
             "title": "Hà Nội - Sa Pa - Bản Cát Cát Thơ Mộng",
             "description": "Khởi hành xe cabin cao cấp đến Sa Pa, check-in khách sạn và bách bộ khám phá bản văn hóa H'Mông Cát Cát.",
-            "_id": "6ace20deb48cdedf42b8eefd"
+            "_id": "6ad9f4aa88a617c1db7c1b1a"
           },
           {
             "day": 2,
             "title": "Chinh Phục Fansipan Legend - Đèo Ô Quy Hồ",
             "description": "Trải nghiệm cáp treo đạt kỷ lục thế giới lên đỉnh Fansipan 3.143m, chiều ngắm hoàng hôn rực rỡ tại đèo Ô Quy Hồ.",
-            "_id": "6ace20deb48cdedf42b8eefe"
+            "_id": "6ad9f4aa88a617c1db7c1b1b"
           },
           {
             "day": 3,
-            "title": "Thung Lũng Mường Hoa - Chợ Tình Sa Pa - Hà Nội",
-            "description": "Tản bộ qua ruộng bậc thang thung lũng Mường Hoa, mua đặc sản địa phương và lên xe về lại Hà Nội.",
-            "_id": "6ace20deb48cdedf42b8eeff"
+            "title": "Thung Lũng Mường Hoa - Bản Tả Van - Cầu Mây",
+            "description": "Tản bộ qua ruộng bậc thang thung lũng Mường Hoa, giao lưu với đồng bào Giáy tại bản Tả Van và check-in Cầu Mây cổ kính.",
+            "_id": "6ad9f4aa88a617c1db7c1b1c"
+          },
+          {
+            "day": 4,
+            "title": "Núi Hàm Rồng - Chợ Tình Sa Pa - Về Hà Nội",
+            "description": "Chinh phục cổng trời Hàm Rồng ngắm toàn cảnh thị xã Sa Pa trong sương, mua sắm thổ cẩm đặc sản và lên xe trở về Hà Nội.",
+            "_id": "6ad9f4aa88a617c1db7c1b1d"
           }
         ],
         "includes": [
@@ -497,40 +972,62 @@
           "Tiền tip hướng dẫn viên"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.514Z",
-        "updatedAt": "2026-10-13T12:15:26.514Z",
+        "createdAt": "2026-10-19T04:24:54.533Z",
+        "updatedAt": "2026-10-22T11:34:02.154Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef00",
-        "destinationId": "6ace20deb48cdedf42b8eef0",
+        "_id": "6ad59b96ad4a8b3d27faa02f",
+        "destinationId": "6ad59b96ad4a8b3d27fa9fef",
         "title": "Tour Di Sản Tràng An - Chùa Bái Đính - Tuyệt Tình Cốc 2N1Đ",
         "slug": "tour-di-san-trang-an-chua-bai-dinh-tuyet-tinh-coc-2n1d",
-        "duration": {
-          "days": 2,
-          "nights": 1,
-          "text": "2 ngày 1 đêm"
-        },
-        "price": 1890000,
+        "overview": "Khám phá quần thể di sản thế giới Tràng An, chiêm bái đại tự Bái Đính và ngắm toàn cảnh Tam Cốc tuyệt mỹ từ đỉnh Hang Múa.",
+        "durationOptions": [
+          {
+            "days": 1,
+            "nights": 0,
+            "price": 950000,
+            "_id": "6ad9f4aa88a617c1db7c1b2a"
+          },
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 1890000,
+            "_id": "6ad9f4aa88a617c1db7c1b2b"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 2850000,
+            "_id": "6ad9f4aa88a617c1db7c1b2c"
+          }
+        ],
         "departureDates": [
-          "2026-10-15T12:15:26.503Z",
-          "2026-10-20T12:15:26.503Z",
-          "2026-10-27T12:15:26.503Z"
+          "2026-10-24T11:34:02.087Z",
+          "2026-10-28T11:34:02.087Z",
+          "2026-11-03T11:34:02.087Z",
+          "2026-11-10T11:34:02.087Z"
         ],
         "maxPassengers": 25,
-        "availableSeats": 21,
+        "availableSeats": 25,
         "itinerary": [
           {
             "day": 1,
             "title": "Hà Nội - Chùa Bái Đính - Hang Múa",
             "description": "Viếng quần thể tâm linh Bái Đính cổ tự và tân tự, buổi chiều chinh phục 500 bậc đá Hang Múa ngắm Tam Cốc mùa lúa.",
-            "_id": "6ace20deb48cdedf42b8ef01"
+            "_id": "6ad9f4aa88a617c1db7c1b27"
           },
           {
             "day": 2,
-            "title": "Thuyền Nan Danh Thắng Tràng An - Về Hà Nội",
-            "description": "Xuôi thuyền khám phá các hang động xuyên thủy kỳ ảo, phim trường Kong Skull Island và trở về Hà Nội.",
-            "_id": "6ace20deb48cdedf42b8ef02"
+            "title": "Thuyền Nan Danh Thắng Tràng An - Cố Đô Hoa Lư",
+            "description": "Xuôi thuyền khám phá các hang động xuyên thủy kỳ ảo, phim trường Kong Skull Island và viếng đền vua Đinh - vua Lê.",
+            "_id": "6ad9f4aa88a617c1db7c1b28"
+          },
+          {
+            "day": 3,
+            "title": "Đầm Sinh Thái Vân Long - Tuyệt Tình Cốc - Hà Nội",
+            "description": "Ngồi thuyền nan trên đầm ngập nước Vân Long ngắm voọc quần đùi trắng quý hiếm, ghé Động Am Tiên và trở về thủ đô.",
+            "_id": "6ad9f4aa88a617c1db7c1b29"
           }
         ],
         "includes": [
@@ -545,52 +1042,73 @@
           "Bảo hiểm ngoài chương trình"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.517Z",
-        "updatedAt": "2026-10-13T12:15:26.517Z",
+        "createdAt": "2026-10-19T04:24:54.536Z",
+        "updatedAt": "2026-10-22T11:34:02.157Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef03",
-        "destinationId": "6ace20deb48cdedf42b8eef1",
+        "_id": "6ad59b96ad4a8b3d27faa035",
+        "destinationId": "6ad59b96ad4a8b3d27fa9ff5",
         "title": "Tour Phượt Hùng Vĩ Cung Đường Hà Giang - Mã Pí Lèng 4N3Đ",
         "slug": "tour-phuot-hung-vi-cung-duong-ha-giang-ma-pi-leng-4n3d",
-        "duration": {
-          "days": 4,
-          "nights": 3,
-          "text": "4 ngày 3 đêm"
-        },
-        "price": 4200000,
+        "overview": "Chinh phục con đường Hạnh Phúc, uốn lượn qua đèo Mã Pí Lèng huyền thoại và xuôi thuyền hẻm vực Tu Sản trên dòng sông Nho Quế xanh biếc.",
+        "durationOptions": [
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 3150000,
+            "_id": "6ad9f4aa88a617c1db7c1b3a"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 4200000,
+            "_id": "6ad9f4aa88a617c1db7c1b3b"
+          },
+          {
+            "days": 5,
+            "nights": 4,
+            "price": 5400000,
+            "_id": "6ad9f4aa88a617c1db7c1b3c"
+          }
+        ],
         "departureDates": [
-          "2026-10-18T12:15:26.503Z",
-          "2026-10-25T12:15:26.503Z",
-          "2026-11-01T12:15:26.503Z"
+          "2026-10-27T11:34:02.087Z",
+          "2026-11-03T11:34:02.087Z",
+          "2026-11-11T11:34:02.087Z"
         ],
         "maxPassengers": 16,
-        "availableSeats": 10,
+        "availableSeats": 16,
         "itinerary": [
           {
             "day": 1,
             "title": "Hà Nội - Cột Mốc Số 0 - Quản Bạ - Yên Minh",
             "description": "Đến Hà Giang, dừng chân chụp ảnh Cột mốc Km0, vượt dốc Bắc Sum, ngắm Núi Đôi Quản Bạ thơ mộng.",
-            "_id": "6ace20deb48cdedf42b8ef04"
+            "_id": "6ad9f4aa88a617c1db7c1b35"
           },
           {
             "day": 2,
             "title": "Dốc Thẩm Mã - Dinh Vua Mèo - Cột Cờ Lũng Cú",
             "description": "Chinh phục khúc cua dốc Thẩm Mã, thăm di tích Dinh thự Họ Vương và chạm tay vào lá cờ Tổ quốc tại đỉnh Lũng Cú.",
-            "_id": "6ace20deb48cdedf42b8ef05"
+            "_id": "6ad9f4aa88a617c1db7c1b36"
           },
           {
             "day": 3,
             "title": "Đèo Mã Pí Lèng - Chèo Thuyền Sông Nho Quế - Mèo Vạc",
             "description": "Đi bộ trên con đường Hạnh Phúc, nhìn ngắm hẻm Tu Sản hùng tráng và ngồi thuyền lướt trên làn nước ngọc bích sông Nho Quế.",
-            "_id": "6ace20deb48cdedf42b8ef06"
+            "_id": "6ad9f4aa88a617c1db7c1b37"
           },
           {
             "day": 4,
-            "title": "Mèo Vạc - Khúc Cua Chữ M - Hà Giang - Hà Nội",
-            "description": "Khám phá chợ phiên vùng cao rực rỡ sắc màu thổ cẩm, men theo cung đường uốn lượn trở về thành phố.",
-            "_id": "6ace20deb48cdedf42b8ef07"
+            "title": "Mèo Vạc - Khúc Cua Chữ M - Bản Du Già Thơ Mộng",
+            "description": "Khám phá cung đường chữ M ngoạn mục, đắm mình bên thác nước xanh biếc và giao lưu lửa trại cùng đồng bào Tày Du Già.",
+            "_id": "6ad9f4aa88a617c1db7c1b38"
+          },
+          {
+            "day": 5,
+            "title": "Du Già - Đường Thượng - Làng Dệt Lanh Lùng Tám - Hà Nội",
+            "description": "Trải nghiệm văn hóa dệt lanh thủ công độc đáo của người Mông tại thung lũng Lùng Tám và lên xe trở về Hà Nội.",
+            "_id": "6ad9f4aa88a617c1db7c1b39"
           }
         ],
         "includes": [
@@ -605,40 +1123,62 @@
           "Chi tiêu phát sinh ngoài lịch trình"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.519Z",
-        "updatedAt": "2026-10-13T12:15:26.519Z",
+        "createdAt": "2026-10-19T04:24:54.539Z",
+        "updatedAt": "2026-10-22T11:34:02.160Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef08",
-        "destinationId": "6ace20deb48cdedf42b8eef2",
+        "_id": "6ad59b96ad4a8b3d27faa03d",
+        "destinationId": "6ad59b96ad4a8b3d27fa9ffb",
         "title": "Tour Trải Nghiệm Văn Hóa Phố Cổ Hội An & Rừng Dừa Bảy Mẫu 2N1Đ",
-        "slug": "tour-trai-nghiem-van-hoa-pho-co-hoi-an-and-rung-dua-bay-mau-2n1d",
-        "duration": {
-          "days": 2,
-          "nights": 1,
-          "text": "2 ngày 1 đêm"
-        },
-        "price": 1950000,
+        "slug": "tour-trai-nghiem-van-hoa-pho-co-hoi-an-rung-dua-bay-mau-2n1d",
+        "overview": "Trải nghiệm nét hoài cổ phố Hội rực rỡ đèn hoa đăng, thưởng thức ẩm thực đặc sắc và vui chơi múa thuyền thúng tại rừng dừa Bảy Mẫu.",
+        "durationOptions": [
+          {
+            "days": 1,
+            "nights": 0,
+            "price": 990000,
+            "_id": "6ad9f4aa88a617c1db7c1b46"
+          },
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 1950000,
+            "_id": "6ad9f4aa88a617c1db7c1b47"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 2900000,
+            "_id": "6ad9f4aa88a617c1db7c1b48"
+          }
+        ],
         "departureDates": [
-          "2026-10-16T12:15:26.503Z",
-          "2026-10-21T12:15:26.503Z",
-          "2026-10-28T12:15:26.503Z"
+          "2026-10-25T11:34:02.087Z",
+          "2026-10-30T11:34:02.087Z",
+          "2026-11-06T11:34:02.087Z",
+          "2026-11-13T11:34:02.087Z"
         ],
         "maxPassengers": 22,
-        "availableSeats": 16,
+        "availableSeats": 22,
         "itinerary": [
           {
             "day": 1,
             "title": "Đón Khách - Thăm Phố Cổ Hội An - Thả Đèn Hoa Đăng",
             "description": "Tham quan Chùa Cầu, các hội quán cổ, làm lồng đèn truyền thống và thả hoa đăng ước nguyện trên sông Hoài rực rỡ.",
-            "_id": "6ace20deb48cdedf42b8ef09"
+            "_id": "6ad9f4aa88a617c1db7c1b43"
           },
           {
             "day": 2,
-            "title": "Lắc Thuyền Thúng Rừng Dừa Bảy Mẫu - Tiễn Đoàn",
-            "description": "Thử sức trò múa thúng xoay vòng điệu nghệ tại rừng dừa nước Cẩm Thanh, thưởng thức món gỏi cuốn và bánh xèo giòn rụm.",
-            "_id": "6ace20deb48cdedf42b8ef0a"
+            "title": "Lắc Thuyền Thúng Rừng Dừa Bảy Mẫu - Làng Gốm Thanh Hà",
+            "description": "Thử sức trò múa thúng xoay vòng điệu nghệ tại rừng dừa nước Cẩm Thanh, trải nghiệm chuốt gốm tại làng cổ Thanh Hà.",
+            "_id": "6ad9f4aa88a617c1db7c1b44"
+          },
+          {
+            "day": 3,
+            "title": "Làng Rau Trà Quế - Tắm Biển An Bàng - Tiễn Đoàn",
+            "description": "Hóa thân làm nông dân tưới rau tại Trà Quế, thưởng thức ẩm thực đồng quê, thư giãn ngắm biển An Bàng và tiễn khách.",
+            "_id": "6ad9f4aa88a617c1db7c1b45"
           }
         ],
         "includes": [
@@ -653,46 +1193,74 @@
           "Tiền tip"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.522Z",
-        "updatedAt": "2026-10-13T12:15:26.522Z",
+        "createdAt": "2026-10-19T04:24:54.542Z",
+        "updatedAt": "2026-10-22T11:34:02.162Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef0b",
-        "destinationId": "6ace20deb48cdedf42b8eef3",
+        "_id": "6ad59b96ad4a8b3d27faa043",
+        "destinationId": "6ad59b96ad4a8b3d27faa002",
         "title": "Tour Đà Nẵng - Cầu Vàng Bà Nà Hills - Bán Đảo Sơn Trà 3N2Đ",
         "slug": "tour-da-nang-cau-vang-ba-na-hills-ban-dao-son-tra-3n2d",
-        "duration": {
-          "days": 3,
-          "nights": 2,
-          "text": "3 ngày 2 đêm"
-        },
-        "price": 3490000,
+        "overview": "Check-in Cầu Vàng Bà Nà Hills bồng bềnh mây gió, thư giãn tại bãi biển Mỹ Khê và chiêm ngưỡng cầu Rồng phun lửa ngoạn mục về đêm.",
+        "durationOptions": [
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 3490000,
+            "_id": "6ad9f4aa88a617c1db7c1b56"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 4690000,
+            "_id": "6ad9f4aa88a617c1db7c1b57"
+          },
+          {
+            "days": 5,
+            "nights": 4,
+            "price": 5890000,
+            "_id": "6ad9f4aa88a617c1db7c1b58"
+          }
+        ],
         "departureDates": [
-          "2026-10-17T12:15:26.503Z",
-          "2026-10-22T12:15:26.503Z",
-          "2026-10-29T12:15:26.503Z"
+          "2026-10-26T11:34:02.087Z",
+          "2026-11-02T11:34:02.087Z",
+          "2026-11-09T11:34:02.087Z",
+          "2026-11-16T11:34:02.087Z"
         ],
         "maxPassengers": 30,
-        "availableSeats": 25,
+        "availableSeats": 30,
         "itinerary": [
           {
             "day": 1,
             "title": "Bán Đảo Sơn Trà - Chùa Linh Ứng - Biển Mỹ Khê",
             "description": "Chiêm bái tượng Phật Bà Quán Thế Âm cao 67m hướng biển, thả mình trên bãi cát trắng mịn biển Mỹ Khê.",
-            "_id": "6ace20deb48cdedf42b8ef0c"
+            "_id": "6ad9f4aa88a617c1db7c1b51"
           },
           {
             "day": 2,
             "title": "Khu Du Lịch Bà Nà Hills - Cầu Vàng Bàn Tay Khổng Lồ",
             "description": "Một ngày bốn mùa tại làng Pháp cổ kính, dạo bước trên kỳ quan thế giới Cầu Vàng và tham gia các trò chơi Fantasy Park.",
-            "_id": "6ace20deb48cdedf42b8ef0d"
+            "_id": "6ad9f4aa88a617c1db7c1b52"
           },
           {
             "day": 3,
-            "title": "Ngũ Hành Sơn - Làng Đá Mỹ Nghệ - Cầu Rồng - Tiễn Sân Bay",
-            "description": "Khám phá Động Huyền Không kỳ bí, mua sắm đá non nước quà lưu niệm và chụp ảnh kỉ niệm tại Cầu Tình Yêu.",
-            "_id": "6ace20deb48cdedf42b8ef0e"
+            "title": "Ngũ Hành Sơn - Làng Đá Mỹ Nghệ - Cầu Rồng Phun Lửa",
+            "description": "Khám phá Động Huyền Không kỳ bí, mua sắm đá non nước quà lưu niệm và chiêm ngưỡng Cầu Rồng phun lửa về đêm.",
+            "_id": "6ad9f4aa88a617c1db7c1b53"
+          },
+          {
+            "day": 4,
+            "title": "Công Viên Suối Khoáng Nóng Núi Thần Tài - Tắm Bùn Khoáng",
+            "description": "Thư giãn ngâm mình trong dòng khoáng nóng thiên nhiên, trải nghiệm tắm Osen Nhật Bản và công viên nước trên núi.",
+            "_id": "6ad9f4aa88a617c1db7c1b54"
+          },
+          {
+            "day": 5,
+            "title": "Chợ Hàn - Mua Sắm Đặc Sản Đà Nẵng - Tiễn Sân Bay",
+            "description": "Tự do dạo chợ Hàn mua chả bò, mực rim me, bánh khô mè làm quà và tiễn đoàn ra sân bay Đà Nẵng.",
+            "_id": "6ad9f4aa88a617c1db7c1b55"
           }
         ],
         "includes": [
@@ -707,40 +1275,55 @@
           "Chi phí giặt là và điện thoại"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.525Z",
-        "updatedAt": "2026-10-13T12:15:26.525Z",
+        "createdAt": "2026-10-19T04:24:54.547Z",
+        "updatedAt": "2026-10-22T11:34:02.165Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef0f",
-        "destinationId": "6ace20deb48cdedf42b8eef4",
+        "_id": "6ad59b96ad4a8b3d27faa04a",
+        "destinationId": "6ad59b96ad4a8b3d27faa008",
         "title": "Tour Di Sản Cố Đô Huế - Thưởng Thức Ca Huế Sông Hương 2N1Đ",
         "slug": "tour-di-san-co-do-hue-thuong-thuc-ca-hue-song-huong-2n1d",
-        "duration": {
-          "days": 2,
-          "nights": 1,
-          "text": "2 ngày 1 đêm"
-        },
-        "price": 2150000,
+        "overview": "Hành trình di sản trầm mặc xứ kinh kỳ: khám phá Đại Nội triều Nguyễn, lăng tẩm uy nghiêm và thưởng thức nhã nhạc ca Huế trên sông Hương.",
+        "durationOptions": [
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 2150000,
+            "_id": "6ad9f4aa88a617c1db7c1b61"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 3100000,
+            "_id": "6ad9f4aa88a617c1db7c1b62"
+          }
+        ],
         "departureDates": [
-          "2026-10-19T12:15:26.503Z",
-          "2026-10-26T12:15:26.503Z",
-          "2026-11-02T12:15:26.503Z"
+          "2026-10-25T11:34:02.087Z",
+          "2026-10-31T11:34:02.087Z",
+          "2026-11-07T11:34:02.087Z"
         ],
         "maxPassengers": 20,
-        "availableSeats": 15,
+        "availableSeats": 17,
         "itinerary": [
           {
             "day": 1,
             "title": "Đại Nội Huế - Chùa Thiên Mụ - Du Thuyền Ca Huế",
             "description": "Thăm Ngọ Môn, Điện Thái Hòa, Tử Cấm Thành. Chiều ngắm hoàng hôn chùa Thiên Mụ và tối thưởng trà nghe ca Huế trên dòng Hương giang.",
-            "_id": "6ace20deb48cdedf42b8ef10"
+            "_id": "6ad9f4aa88a617c1db7c1b5e"
           },
           {
             "day": 2,
             "title": "Lăng Khải Định - Lăng Tự Đức - Làng Hương Thủy Xuân",
             "description": "Chiêm ngưỡng kiến trúc đỉnh cao lăng tẩm triều Nguyễn, chụp ảnh lung linh giữa làng nghề làm hương truyền thống Thủy Xuân.",
-            "_id": "6ace20deb48cdedf42b8ef11"
+            "_id": "6ad9f4aa88a617c1db7c1b5f"
+          },
+          {
+            "day": 3,
+            "title": "Đầm Chuồn Phá Tam Giang - Cầu Ngói Thanh Toàn - Chợ Đông Ba",
+            "description": "Ngắm bình minh sông nước Phá Tam Giang lớn nhất Đông Nam Á, ăn bánh khoái cá kình, ghé chợ Đông Ba mua mè xửng.",
+            "_id": "6ad9f4aa88a617c1db7c1b60"
           }
         ],
         "includes": [
@@ -755,46 +1338,68 @@
           "Chi phí riêng cá nhân"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.528Z",
-        "updatedAt": "2026-10-13T12:15:26.528Z",
+        "createdAt": "2026-10-19T04:24:54.550Z",
+        "updatedAt": "2026-10-22T11:34:02.267Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef12",
-        "destinationId": "6ace20deb48cdedf42b8eef5",
+        "_id": "6ad59b96ad4a8b3d27faa04f",
+        "destinationId": "6ad59b96ad4a8b3d27faa00e",
         "title": "Tour Săn Mây Đà Lạt - Check-in Đồi Chè Cầu Đất & Vườn Hoa 3N2Đ",
-        "slug": "tour-san-may-da-lat-check-in-doi-che-cau-dat-and-vuon-hoa-3n2d",
-        "duration": {
-          "days": 3,
-          "nights": 2,
-          "text": "3 ngày 2 đêm"
-        },
-        "price": 2750000,
+        "slug": "tour-san-may-da-lat-check-in-doi-che-cau-dat-vuon-hoa-3n2d",
+        "overview": "Thư giãn trong khí trời se lạnh lãng mạn, săn biển mây bình minh Cầu Đất, dạo chơi đồi thông và thưởng ngoạn muôn hoa rực rỡ.",
+        "durationOptions": [
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 1850000,
+            "_id": "6ad9f4aa88a617c1db7c1b6e"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 2750000,
+            "_id": "6ad9f4aa88a617c1db7c1b6f"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 3650000,
+            "_id": "6ad9f4aa88a617c1db7c1b70"
+          }
+        ],
         "departureDates": [
-          "2026-10-16T12:15:26.503Z",
-          "2026-10-23T12:15:26.503Z",
-          "2026-10-30T12:15:26.503Z"
+          "2026-10-24T11:34:02.087Z",
+          "2026-10-29T11:34:02.087Z",
+          "2026-11-05T11:34:02.087Z",
+          "2026-11-12T11:34:02.087Z"
         ],
         "maxPassengers": 24,
-        "availableSeats": 19,
+        "availableSeats": 23,
         "itinerary": [
           {
             "day": 1,
             "title": "Đón Khách - Quảng Trường Lâm Viên - Hồ Xuân Hương",
             "description": "Check-in nụ hoa Atiso biểu tượng, dạo bộ ngắm chiều tà lãng mạn bên hồ Xuân Hương và thưởng thức bánh tráng nướng phố đêm.",
-            "_id": "6ace20deb48cdedf42b8ef13"
+            "_id": "6ad9f4aa88a617c1db7c1b6a"
           },
           {
             "day": 2,
             "title": "Săn Biển Mây Cầu Đất - Cánh Đồng Hoa Cẩm Tú Cầu",
             "description": "Đón bình minh rực rỡ trôi giữa biển mây bồng bềnh tại đồi chè, trưa thưởng thức lẩu gà lá é trứ danh.",
-            "_id": "6ace20deb48cdedf42b8ef14"
+            "_id": "6ad9f4aa88a617c1db7c1b6b"
           },
           {
             "day": 3,
             "title": "Hồ Tuyền Lâm - Thiền Viện Trúc Lâm - Ga Đà Lạt Cổ",
             "description": "Hòa mình vào không gian thanh tịnh rừng thông, chiêm ngưỡng kiến trúc Đông Dương độc đáo tại nhà ga xe lửa cổ nhất.",
-            "_id": "6ace20deb48cdedf42b8ef15"
+            "_id": "6ad9f4aa88a617c1db7c1b6c"
+          },
+          {
+            "day": 4,
+            "title": "Thác Datanla Trải Nghiệm Máng Trượt - Chợ Đà Lạt Mua Quà",
+            "description": "Chinh phục hệ thống máng trượt xuyên rừng thông dài nhất Đông Nam Á, mua mứt hoa quả đặc sản và tiễn sân bay.",
+            "_id": "6ad9f4aa88a617c1db7c1b6d"
           }
         ],
         "includes": [
@@ -809,52 +1414,74 @@
           "Cà phê gọi riêng tại điểm check-in"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.530Z",
-        "updatedAt": "2026-10-13T12:15:26.530Z",
+        "createdAt": "2026-10-19T04:24:54.554Z",
+        "updatedAt": "2026-10-22T11:34:02.270Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef16",
-        "destinationId": "6ace20deb48cdedf42b8eef6",
+        "_id": "6ad59b96ad4a8b3d27faa056",
+        "destinationId": "6ad59b96ad4a8b3d27faa014",
         "title": "Tour Nghỉ Dưỡng Thiên Đường Biển Phú Quốc & Cano 4 Đảo 4N3Đ",
-        "slug": "tour-nghi-duong-thien-duong-bien-phu-quoc-and-cano-4-dao-4n3d",
-        "duration": {
-          "days": 4,
-          "nights": 3,
-          "text": "4 ngày 3 đêm"
-        },
-        "price": 6800000,
+        "slug": "tour-nghi-duong-thien-duong-bien-phu-quoc-cano-4-dao-4n3d",
+        "overview": "Thiên đường nghỉ dưỡng biển đảo đảo ngọc: cano vi vu 4 đảo, lặn ngắm san hô nhiều sắc màu, cáp treo Hòn Thơm vượt biển và ngắm hoàng hôn rực lửa.",
+        "durationOptions": [
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 4950000,
+            "_id": "6ad9f4aa88a617c1db7c1b7e"
+          },
+          {
+            "days": 4,
+            "nights": 3,
+            "price": 6800000,
+            "_id": "6ad9f4aa88a617c1db7c1b7f"
+          },
+          {
+            "days": 5,
+            "nights": 4,
+            "price": 8600000,
+            "_id": "6ad9f4aa88a617c1db7c1b80"
+          }
+        ],
         "departureDates": [
-          "2026-10-20T12:15:26.503Z",
-          "2026-10-27T12:15:26.503Z",
-          "2026-11-03T12:15:26.503Z"
+          "2026-10-27T11:34:02.087Z",
+          "2026-11-03T11:34:02.087Z",
+          "2026-11-10T11:34:02.087Z",
+          "2026-11-17T11:34:02.087Z"
         ],
         "maxPassengers": 20,
-        "availableSeats": 12,
+        "availableSeats": 17,
         "itinerary": [
           {
             "day": 1,
             "title": "Đón Sân Bay Phú Quốc - Grand World Thành Phố Không Ngủ",
             "description": "Check-in resort biển, chiều tham quan kênh đào Venice thu nhỏ và thưởng thức show thực cảnh nhạc nước hoành tráng.",
-            "_id": "6ace20deb48cdedf42b8ef17"
+            "_id": "6ad9f4aa88a617c1db7c1b79"
           },
           {
             "day": 2,
             "title": "Tour Cano Cao Tốc 4 Đảo - Lặn Biển Ngắm San Hô",
             "description": "Trải nghiệm Hòn Mây Rút, Hòn Gầm Ghì, Hòn Móng Tay, chụp ảnh flycam miễn phí và lặn ngắm vương quốc san hô tự nhiên.",
-            "_id": "6ace20deb48cdedf42b8ef18"
+            "_id": "6ad9f4aa88a617c1db7c1b7a"
           },
           {
             "day": 3,
             "title": "Cáp Treo Hòn Thơm - Bãi Sao Biển Nắng Vàng",
             "description": "Đi cáp treo vượt biển dài gần 8.000m, vui chơi công viên nước Aquatopia và tắm biển tại Bãi Sao cát trắng như kem.",
-            "_id": "6ace20deb48cdedf42b8ef19"
+            "_id": "6ad9f4aa88a617c1db7c1b7b"
           },
           {
             "day": 4,
-            "title": "Vườn Tiêu - Cơ Sở Ngọc Trai - Tiễn Sân Bay Phú Quốc",
-            "description": "Mua đặc sản hồ tiêu thơm lừng và nước mắm truyền thống làm quà trước khi ra sân bay về lại.",
-            "_id": "6ace20deb48cdedf42b8ef1a"
+            "title": "Vườn Thú Mở Vinpearl Safari - Làng Chài Rạch Vẹm",
+            "description": "Ngồi xe bus chuyên dụng ngắm động vật hoang dã tại Safari, check-in vương quốc sao biển tuyệt đẹp tại Rạch Vẹm.",
+            "_id": "6ad9f4aa88a617c1db7c1b7c"
+          },
+          {
+            "day": 5,
+            "title": "Vườn Tiêu - Cơ Sở Ngọc Trai - Sunset Town - Tiễn Sân Bay",
+            "description": "Chiêm ngưỡng thị trấn Hoàng Hôn Địa Trung Hải, mua hồ tiêu và nước mắm truyền thống trước khi tiễn sân bay.",
+            "_id": "6ad9f4aa88a617c1db7c1b7d"
           }
         ],
         "includes": [
@@ -869,40 +1496,56 @@
           "Chi phí quầy bar cá nhân"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.533Z",
-        "updatedAt": "2026-10-13T12:15:26.533Z",
+        "createdAt": "2026-10-19T04:24:54.557Z",
+        "updatedAt": "2026-10-22T11:34:02.272Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef1b",
-        "destinationId": "6ace20deb48cdedf42b8eef7",
+        "_id": "6ad59b96ad4a8b3d27faa05e",
+        "destinationId": "6ad59b96ad4a8b3d27faa01b",
         "title": "Tour Khám Phá Sông Nước Miền Tây - Chợ Nổi Cái Răng Cần Thơ 2N1Đ",
         "slug": "tour-kham-pha-song-nuoc-mien-tay-cho-noi-cai-rang-can-tho-2n1d",
-        "duration": {
-          "days": 2,
-          "nights": 1,
-          "text": "2 ngày 1 đêm"
-        },
-        "price": 1650000,
+        "overview": "Hành trình sông nước miệt vườn miền Tây Nam Bộ: khám phá chợ nổi Cái Răng tấp nập buổi sớm, ăn trái cây miệt vườn và du ngoạn sông Hậu.",
+        "durationOptions": [
+          {
+            "days": 2,
+            "nights": 1,
+            "price": 1650000,
+            "_id": "6ad9f4aa88a617c1db7c1b89"
+          },
+          {
+            "days": 3,
+            "nights": 2,
+            "price": 2450000,
+            "_id": "6ad9f4aa88a617c1db7c1b8a"
+          }
+        ],
         "departureDates": [
-          "2026-10-15T12:15:26.503Z",
-          "2026-10-22T12:15:26.503Z",
-          "2026-10-29T12:15:26.503Z"
+          "2026-10-24T11:34:02.087Z",
+          "2026-10-28T11:34:02.087Z",
+          "2026-11-04T11:34:02.087Z",
+          "2026-11-11T11:34:02.087Z"
         ],
         "maxPassengers": 28,
-        "availableSeats": 22,
+        "availableSeats": 20,
         "itinerary": [
           {
             "day": 1,
             "title": "TP.HCM - Mỹ Tho - Bến Tre - Cần Thơ - Bến Ninh Kiều",
             "description": "Ngồi thuyền ngắm 4 cù lao Long Lân Quy Phụng, uống trà mật ong, nghe đờn ca tài tử và di chuyển về Cần Thơ ăn tối du thuyền.",
-            "_id": "6ace20deb48cdedf42b8ef1c"
+            "_id": "6ad9f4aa88a617c1db7c1b86"
           },
           {
             "day": 2,
             "title": "Chợ Nổi Cái Răng - Lò Hủ Tiếu Truyền Thống - Cồn Sơn",
             "description": "Dậy sớm đi thuyền ngắm cảnh buôn bán cây bẹo trên sông, ăn tô bún riêu nổi tiếng, chiều xem cá lóc bay độc đáo tại Cồn Sơn.",
-            "_id": "6ace20deb48cdedf42b8ef1d"
+            "_id": "6ad9f4aa88a617c1db7c1b87"
+          },
+          {
+            "day": 3,
+            "title": "Thiền Viện Trúc Lâm Phương Nam - Làng Du Lịch Mỹ Khánh - Trở Về TP.HCM",
+            "description": "Chiêm bái thiền viện lớn nhất miền Tây, trải nghiệm bơi xuồng chèo và thưởng thức bánh xèo miền Tây giòn rụm trước khi khởi hành về lại TP.HCM.",
+            "_id": "6ad9f4aa88a617c1db7c1b88"
           }
         ],
         "includes": [
@@ -917,14 +1560,14 @@
           "Đồ uống cá nhân ngoài thực đơn"
         ],
         "status": "active",
-        "createdAt": "2026-10-13T12:15:26.536Z",
-        "updatedAt": "2026-10-13T12:15:26.536Z",
+        "createdAt": "2026-10-19T04:24:54.560Z",
+        "updatedAt": "2026-10-22T11:34:02.274Z",
         "__v": 0
       }
     ],
     "guides": [
       {
-        "_id": "6ace20deb48cdedf42b8ef1e",
+        "_id": "6ad59b96ad4a8b3d27faa063",
         "name": "Trần Minh Khoa",
         "slug": "tran-minh-khoa",
         "background": "Tốt nghiệp xuất sắc khoa Du lịch học - Đại học Quốc gia Hà Nội. Đạt chứng chỉ Hướng dẫn viên Quốc tế thẻ xanh.",
@@ -935,15 +1578,15 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eeee",
-          "6ace20deb48cdedf42b8eef0"
+          "6ad59b96ad4a8b3d27fa9fe2",
+          "6ad59b96ad4a8b3d27fa9fef"
         ],
-        "createdAt": "2026-10-13T12:15:26.539Z",
-        "updatedAt": "2026-10-13T12:15:26.539Z",
+        "createdAt": "2026-10-19T04:24:54.566Z",
+        "updatedAt": "2026-10-19T04:24:54.566Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef1f",
+        "_id": "6ad59b96ad4a8b3d27faa064",
         "name": "Giàng A Vừ",
         "slug": "giang-a-vu",
         "background": "Người con của núi rừng Sa Pa thuộc dân tộc H'Mông, được đào tạo bài bản nghiệp vụ du lịch sinh thái cộng đồng.",
@@ -955,15 +1598,15 @@
           "Tiếng Pháp"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eeef",
-          "6ace20deb48cdedf42b8eef1"
+          "6ad59b96ad4a8b3d27fa9fe9",
+          "6ad59b96ad4a8b3d27fa9ff5"
         ],
-        "createdAt": "2026-10-13T12:15:26.542Z",
-        "updatedAt": "2026-10-13T12:15:26.542Z",
+        "createdAt": "2026-10-19T04:24:54.568Z",
+        "updatedAt": "2026-10-19T04:24:54.568Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef20",
+        "_id": "6ad59b96ad4a8b3d27faa065",
         "name": "Lê Hoàng Nam",
         "slug": "le-hoang-nam",
         "background": "Cựu phượt thủ chuyên nghiệp với 10 năm kinh nghiệm dẫn tour caravan và xe máy mạo hiểm toàn quốc.",
@@ -974,15 +1617,15 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef1",
-          "6ace20deb48cdedf42b8eeef"
+          "6ad59b96ad4a8b3d27fa9ff5",
+          "6ad59b96ad4a8b3d27fa9fe9"
         ],
-        "createdAt": "2026-10-13T12:15:26.543Z",
-        "updatedAt": "2026-10-13T12:15:26.543Z",
+        "createdAt": "2026-10-19T04:24:54.570Z",
+        "updatedAt": "2026-10-19T04:24:54.570Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef21",
+        "_id": "6ad59b96ad4a8b3d27faa066",
         "name": "Phạm Thị Thu Trang",
         "slug": "pham-thi-thu-trang",
         "background": "Cử nhân Lịch sử - Khảo cổ học Đại học Sư phạm Hà Nội. Thạc sĩ Văn hóa dân gian.",
@@ -993,15 +1636,15 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef0",
-          "6ace20deb48cdedf42b8eef4"
+          "6ad59b96ad4a8b3d27fa9fef",
+          "6ad59b96ad4a8b3d27faa008"
         ],
-        "createdAt": "2026-10-13T12:15:26.545Z",
-        "updatedAt": "2026-10-13T12:15:26.545Z",
+        "createdAt": "2026-10-19T04:24:54.572Z",
+        "updatedAt": "2026-10-19T04:24:54.572Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef22",
+        "_id": "6ad59b96ad4a8b3d27faa067",
         "name": "Nguyễn Phúc Bảo Long",
         "slug": "nguyen-phuc-bao-long",
         "background": "Hậu duệ dòng dõi hoàng tộc triều Nguyễn, cử nhân Di sản học Đại học Khoa học Huế.",
@@ -1013,15 +1656,15 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef4",
-          "6ace20deb48cdedf42b8eef2"
+          "6ad59b96ad4a8b3d27faa008",
+          "6ad59b96ad4a8b3d27fa9ffb"
         ],
-        "createdAt": "2026-10-13T12:15:26.547Z",
-        "updatedAt": "2026-10-13T12:15:26.547Z",
+        "createdAt": "2026-10-19T04:24:54.573Z",
+        "updatedAt": "2026-10-19T04:24:54.573Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef23",
+        "_id": "6ad59b96ad4a8b3d27faa068",
         "name": "Đặng Thị Mai Phương",
         "slug": "dang-thi-mai-phuong",
         "background": "Tốt nghiệp khoa Du lịch Đại học Ngoại ngữ Đà Nẵng, 7 năm đồng hành cùng du khách phố cổ.",
@@ -1033,15 +1676,15 @@
           "Tiếng Hàn"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef2",
-          "6ace20deb48cdedf42b8eef3"
+          "6ad59b96ad4a8b3d27fa9ffb",
+          "6ad59b96ad4a8b3d27faa002"
         ],
-        "createdAt": "2026-10-13T12:15:26.549Z",
-        "updatedAt": "2026-10-13T12:15:26.549Z",
+        "createdAt": "2026-10-19T04:24:54.575Z",
+        "updatedAt": "2026-10-19T04:24:54.575Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef24",
+        "_id": "6ad59b96ad4a8b3d27faa069",
         "name": "Trương Vĩnh Phát",
         "slug": "truong-vinh-phat",
         "background": "Được trao giải Hướng dẫn viên năng động xuất sắc thành phố Đà Nẵng năm 2024.",
@@ -1053,15 +1696,15 @@
           "Tiếng Trung"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef3",
-          "6ace20deb48cdedf42b8eef4"
+          "6ad59b96ad4a8b3d27faa002",
+          "6ad59b96ad4a8b3d27faa008"
         ],
-        "createdAt": "2026-10-13T12:15:26.550Z",
-        "updatedAt": "2026-10-13T12:15:26.550Z",
+        "createdAt": "2026-10-19T04:24:54.577Z",
+        "updatedAt": "2026-10-19T04:24:54.577Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef25",
+        "_id": "6ad59b96ad4a8b3d27faa06a",
         "name": "Vũ Đình Khang",
         "slug": "vu-dinh-khang",
         "background": "Nhiếp ảnh gia phong cảnh chuyên nghiệp kiêm hướng dẫn viên du lịch tự do tại Đà Lạt.",
@@ -1072,14 +1715,14 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef5"
+          "6ad59b96ad4a8b3d27faa00e"
         ],
-        "createdAt": "2026-10-13T12:15:26.552Z",
-        "updatedAt": "2026-10-13T12:15:26.552Z",
+        "createdAt": "2026-10-19T04:24:54.580Z",
+        "updatedAt": "2026-10-19T04:24:54.580Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef26",
+        "_id": "6ad59b96ad4a8b3d27faa06b",
         "name": "Bùi Hải Đăng",
         "slug": "bui-hai-dang",
         "background": "Huấn luyện viên lặn biển quốc tế PADI Master Scuba Diver Trainer, gắn bó với Phú Quốc hơn 6 năm.",
@@ -1091,14 +1734,14 @@
           "Tiếng Nga"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef6"
+          "6ad59b96ad4a8b3d27faa014"
         ],
-        "createdAt": "2026-10-13T12:15:26.554Z",
-        "updatedAt": "2026-10-13T12:15:26.554Z",
+        "createdAt": "2026-10-19T04:24:54.582Z",
+        "updatedAt": "2026-10-19T04:24:54.582Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef27",
+        "_id": "6ad59b96ad4a8b3d27faa06c",
         "name": "Nguyễn Thị Kim Loan",
         "slug": "nguyen-thi-kim-loan",
         "background": "Sinh ra và lớn lên tại xứ Cần Thơ gạo trắng nước trong, cử nhân Lữ hành Đại học Cần Thơ.",
@@ -1109,151 +1752,624 @@
           "Tiếng Anh"
         ],
         "destinations": [
-          "6ace20deb48cdedf42b8eef7"
+          "6ad59b96ad4a8b3d27faa01b"
         ],
-        "createdAt": "2026-10-13T12:15:26.556Z",
-        "updatedAt": "2026-10-13T12:15:26.556Z",
+        "createdAt": "2026-10-19T04:24:54.584Z",
+        "updatedAt": "2026-10-19T04:24:54.584Z",
         "__v": 0
       }
     ],
     "collections": [
       {
-        "_id": "6ace20deb48cdedf42b8ef28",
+        "_id": "6ad59b96ad4a8b3d27faa06d",
         "name": "Di Sản Thiên Nhiên & Văn Hóa Thế Giới UNESCO",
-        "slug": "di-san-thien-nhien-and-van-hoa-the-gioi-unesco",
+        "slug": "di-san-thien-nhien-van-hoa-the-gioi-unesco",
         "description": "Tuyển tập những kiệt tác địa chất và di sản văn minh ngàn năm của Việt Nam được thế giới vinh danh, từ Vịnh Hạ Long kỳ vĩ đến Hoàng thành Huế cổ kính.",
         "destinations": [
-          "6ace20deb48cdedf42b8eeee",
-          "6ace20deb48cdedf42b8eef0",
-          "6ace20deb48cdedf42b8eef4",
-          "6ace20deb48cdedf42b8eef2"
+          "6ad59b96ad4a8b3d27fa9fe2",
+          "6ad59b96ad4a8b3d27fa9fef",
+          "6ad59b96ad4a8b3d27faa008",
+          "6ad59b96ad4a8b3d27fa9ffb"
         ],
-        "createdAt": "2026-10-13T12:15:26.559Z",
-        "updatedAt": "2026-10-13T12:15:26.559Z",
+        "createdAt": "2026-10-19T04:24:54.587Z",
+        "updatedAt": "2026-10-19T04:24:54.587Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef29",
+        "_id": "6ad59b96ad4a8b3d27faa06e",
         "name": "Thiên Đường Biển Đảo Nắng Vàng Hè 2026",
         "slug": "thien-duong-bien-dao-nang-vang-he-2026",
         "description": "Tận hưởng làn nước xanh ngọc bích, bờ cát trắng phau và những khu nghỉ dưỡng bờ biển sang trọng bậc nhất tại Đà Nẵng, Phú Quốc và Vịnh Hạ Long.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef6",
-          "6ace20deb48cdedf42b8eef3",
-          "6ace20deb48cdedf42b8eeee"
+          "6ad59b96ad4a8b3d27faa014",
+          "6ad59b96ad4a8b3d27faa002",
+          "6ad59b96ad4a8b3d27fa9fe2"
         ],
-        "createdAt": "2026-10-13T12:15:26.562Z",
-        "updatedAt": "2026-10-13T12:15:26.562Z",
+        "createdAt": "2026-10-19T04:24:54.589Z",
+        "updatedAt": "2026-10-19T04:24:54.589Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2a",
+        "_id": "6ad59b96ad4a8b3d27faa06f",
         "name": "Chinh Phục Cung Đường Đông Tây Bắc Kỳ Vĩ",
         "slug": "chinh-phuc-cung-duong-dong-tay-bac-ky-vi",
         "description": "Dành riêng cho những trái tim mê xê dịch: uốn lượn qua tứ đại đỉnh đèo, ngắm ruộng bậc thang mùa vàng và hòa mình vào nhịp sống đồng bào miền sơn cước.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef1",
-          "6ace20deb48cdedf42b8eeef"
+          "6ad59b96ad4a8b3d27fa9ff5",
+          "6ad59b96ad4a8b3d27fa9fe9"
         ],
-        "createdAt": "2026-10-13T12:15:26.564Z",
-        "updatedAt": "2026-10-13T12:15:26.564Z",
+        "createdAt": "2026-10-19T04:24:54.592Z",
+        "updatedAt": "2026-10-19T04:24:54.592Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2b",
+        "_id": "6ad59b96ad4a8b3d27faa070",
         "name": "Kỳ Nghỉ Lãng Mạn Dành Cho Cặp Đôi",
         "slug": "ky-nghi-lang-man-danh-cho-cap-doi",
         "description": "Những góc phố ngập tràn ánh đèn hoa đăng, không khí se lạnh ôm trọn đồi thông và những chiều hoàng hôn tím biếc bên biển dành trọn cho tình yêu thăng hoa.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef5",
-          "6ace20deb48cdedf42b8eef2",
-          "6ace20deb48cdedf42b8eef6"
+          "6ad59b96ad4a8b3d27faa00e",
+          "6ad59b96ad4a8b3d27fa9ffb",
+          "6ad59b96ad4a8b3d27faa014"
         ],
-        "createdAt": "2026-10-13T12:15:26.566Z",
-        "updatedAt": "2026-10-13T12:15:26.566Z",
+        "createdAt": "2026-10-19T04:24:54.596Z",
+        "updatedAt": "2026-10-19T04:24:54.596Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2c",
+        "_id": "6ad59b96ad4a8b3d27faa071",
         "name": "Du Lịch Xanh & Chữa Lành Thân Tâm",
-        "slug": "du-lich-xanh-and-chua-lanh-than-tam",
+        "slug": "du-lich-xanh-chua-lanh-than-tam",
         "description": "Rời xa khói bụi thành thị để trở về với mẹ thiên nhiên, hít thở không khí trong lành của núi non đại ngàn và tìm lại sự an yên trong tâm hồn.",
         "destinations": [
-          "6ace20deb48cdedf42b8eeef",
-          "6ace20deb48cdedf42b8eef0",
-          "6ace20deb48cdedf42b8eef5"
+          "6ad59b96ad4a8b3d27fa9fe9",
+          "6ad59b96ad4a8b3d27fa9fef",
+          "6ad59b96ad4a8b3d27faa00e"
         ],
-        "createdAt": "2026-10-13T12:15:26.568Z",
-        "updatedAt": "2026-10-13T12:15:26.568Z",
+        "createdAt": "2026-10-19T04:24:54.599Z",
+        "updatedAt": "2026-10-19T04:24:54.599Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2d",
+        "_id": "6ad59b96ad4a8b3d27faa072",
         "name": "Hành Trình Tinh Hoa Ẩm Thực Ba Miền",
         "slug": "hanh-trinh-tinh-hoa-am-thuc-ba-mien",
         "description": "Khám phá văn hóa qua vị giác: từ thắng cố vùng cao, bún bò xứ Huế, cao lầu phố Hội đến nồi lẩu mắm đậm đà của miền Tây sông nước.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef1",
-          "6ace20deb48cdedf42b8eef4",
-          "6ace20deb48cdedf42b8eef2",
-          "6ace20deb48cdedf42b8eef7"
+          "6ad59b96ad4a8b3d27fa9ff5",
+          "6ad59b96ad4a8b3d27faa008",
+          "6ad59b96ad4a8b3d27fa9ffb",
+          "6ad59b96ad4a8b3d27faa01b"
         ],
-        "createdAt": "2026-10-13T12:15:26.570Z",
-        "updatedAt": "2026-10-13T12:15:26.570Z",
+        "createdAt": "2026-10-19T04:24:54.601Z",
+        "updatedAt": "2026-10-19T04:24:54.601Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2e",
+        "_id": "6ad59b96ad4a8b3d27faa073",
         "name": "Kỳ Nghỉ Gia Đình Tiện Nghi & Gắn Kết",
-        "slug": "ky-nghi-gia-dinh-tien-nghi-and-gan-ket",
+        "slug": "ky-nghi-gia-dinh-tien-nghi-gan-ket",
         "description": "Hành trình được thiết kế với nhịp độ thư thái, an toàn, khách sạn chuẩn mực và dịch vụ hoàn hảo để mọi thế hệ trong gia đình đều có kỷ niệm đáng nhớ.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef3",
-          "6ace20deb48cdedf42b8eeee",
-          "6ace20deb48cdedf42b8eef0"
+          "6ad59b96ad4a8b3d27faa002",
+          "6ad59b96ad4a8b3d27fa9fe2",
+          "6ad59b96ad4a8b3d27fa9fef"
         ],
-        "createdAt": "2026-10-13T12:15:26.572Z",
-        "updatedAt": "2026-10-13T12:15:26.572Z",
+        "createdAt": "2026-10-19T04:24:54.604Z",
+        "updatedAt": "2026-10-19T04:24:54.604Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef2f",
+        "_id": "6ad59b96ad4a8b3d27faa074",
         "name": "Khám Phá Sông Nước & Miệt Vườn Phương Nam",
-        "slug": "kham-pha-song-nuoc-and-miet-vuon-phuong-nam",
+        "slug": "kham-pha-song-nuoc-miet-vuon-phuong-nam",
         "description": "Cảm nhận nét phóng khoáng, mộc mạc của người miền Tây: dậy sớm theo ghe đi chợ nổi Cái Răng và thưởng thức trái cây ngọt lịm hái tận cành.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef7"
+          "6ad59b96ad4a8b3d27faa01b"
         ],
-        "createdAt": "2026-10-13T12:15:26.574Z",
-        "updatedAt": "2026-10-13T12:15:26.574Z",
+        "createdAt": "2026-10-19T04:24:54.606Z",
+        "updatedAt": "2026-10-19T04:24:54.606Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef30",
+        "_id": "6ad59b96ad4a8b3d27faa075",
         "name": "Mùa Vàng Vùng Cao & Săn Mây Tuyệt Sắc",
-        "slug": "mua-vang-vung-cao-and-san-may-tuyet-sac",
+        "slug": "mua-vang-vung-cao-san-may-tuyet-sac",
         "description": "Bộ sưu tập dành riêng cho những mùa săn ảnh đẹp nhất trong năm: sắc vàng óng ả của lúa chín Sa Pa, đồi chè mờ sương Đà Lạt và tam giác mạch Hà Giang.",
         "destinations": [
-          "6ace20deb48cdedf42b8eeef",
-          "6ace20deb48cdedf42b8eef1",
-          "6ace20deb48cdedf42b8eef5"
+          "6ad59b96ad4a8b3d27fa9fe9",
+          "6ad59b96ad4a8b3d27fa9ff5",
+          "6ad59b96ad4a8b3d27faa00e"
         ],
-        "createdAt": "2026-10-13T12:15:26.577Z",
-        "updatedAt": "2026-10-13T12:15:26.577Z",
+        "createdAt": "2026-10-19T04:24:54.609Z",
+        "updatedAt": "2026-10-19T04:24:54.609Z",
         "__v": 0
       },
       {
-        "_id": "6ace20deb48cdedf42b8ef31",
+        "_id": "6ad59b96ad4a8b3d27faa076",
         "name": "Du Lịch Trải Nghiệm Tiết Kiệm Cho Giới Trẻ",
         "slug": "du-lich-trai-nghiem-tiet-kiem-cho-gioi-tre",
         "description": "Khám phá tối đa trải nghiệm văn hóa và cảnh sắc với mức ngân sách cực kỳ hợp lý, tối ưu chi phí lưu trú và phương tiện di chuyển linh hoạt.",
         "destinations": [
-          "6ace20deb48cdedf42b8eef0",
-          "6ace20deb48cdedf42b8eef7",
-          "6ace20deb48cdedf42b8eef2"
+          "6ad59b96ad4a8b3d27fa9fef",
+          "6ad59b96ad4a8b3d27faa01b",
+          "6ad59b96ad4a8b3d27fa9ffb"
         ],
-        "createdAt": "2026-10-13T12:15:26.579Z",
-        "updatedAt": "2026-10-13T12:15:26.579Z",
+        "createdAt": "2026-10-19T04:24:54.612Z",
+        "updatedAt": "2026-10-19T04:24:54.612Z",
+        "__v": 0
+      }
+    ],
+    "bookings": [
+      {
+        "_id": "6ad6dc90990a187d2773fd14",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad6dc90990a187d2773fd13",
+        "tourId": "6ad59b96ad4a8b3d27faa05e",
+        "selectedDuration": {
+          "days": 3,
+          "nights": 2,
+          "price": 2450000
+        },
+        "departureDate": "2026-10-21T10:32:35.210Z",
+        "endDate": "2026-10-23T10:32:35.210Z",
+        "numberOfGuests": {
+          "adults": 2,
+          "children": 1
+        },
+        "totalAmount": 6737500,
+        "paymentMethod": "bank_transfer",
+        "paymentStatus": "confirmed",
+        "bookingStatus": "confirmed",
+        "notes": "",
+        "guide_id": "6ad59b96ad4a8b3d27faa06c",
+        "bookingDate": "2026-10-20T03:14:24.898Z",
+        "createdAt": "2026-10-20T03:14:24.899Z",
+        "updatedAt": "2026-10-22T09:05:34.146Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad75e04133af7e63c9873b8",
+        "userId": "6ad75d97133af7e63c9872d7",
+        "customerId": "6ad75e04133af7e63c9873b7",
+        "tourId": "6ad59b96ad4a8b3d27faa05e",
+        "selectedDuration": {
+          "days": 3,
+          "nights": 2,
+          "price": 2450000
+        },
+        "departureDate": "2026-10-21T10:32:35.210Z",
+        "endDate": "2026-10-23T10:32:35.210Z",
+        "numberOfGuests": {
+          "adults": 2,
+          "children": 1
+        },
+        "totalAmount": 6737500,
+        "paymentMethod": "bank_transfer",
+        "paymentStatus": "confirmed",
+        "bookingStatus": "confirmed",
+        "notes": "",
+        "guide_id": "6ad59b96ad4a8b3d27faa06c",
+        "bookingDate": "2026-10-20T12:26:44.200Z",
+        "createdAt": "2026-10-20T12:26:44.201Z",
+        "updatedAt": "2026-10-22T09:05:35.952Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c11",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
+        "tourId": "6ad59b96ad4a8b3d27faa056",
+        "selectedDuration": {
+          "days": 4,
+          "nights": 3,
+          "price": 6800000
+        },
+        "departureDate": "2026-10-27T00:00:00.000Z",
+        "endDate": "2026-10-30T00:00:00.000Z",
+        "numberOfGuests": {
+          "adults": 2,
+          "children": 1
+        },
+        "totalAmount": 18700000,
+        "paymentMethod": "bank_transfer",
+        "paymentStatus": "confirmed",
+        "bookingStatus": "confirmed",
+        "notes": "Yêu cầu phòng tầng cao view biển, chuẩn bị thêm áo phao trẻ em",
+        "guide_id": "6ad59b96ad4a8b3d27faa06b",
+        "bookingDate": "2026-10-22T11:34:02.236Z",
+        "createdAt": "2026-10-22T11:34:02.236Z",
+        "updatedAt": "2026-10-22T11:34:02.236Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c12",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
+        "tourId": "6ad59b96ad4a8b3d27faa021",
+        "selectedDuration": {
+          "days": 4,
+          "nights": 3,
+          "price": 4800000
+        },
+        "departureDate": "2026-10-25T00:00:00.000Z",
+        "endDate": "2026-10-28T00:00:00.000Z",
+        "numberOfGuests": {
+          "adults": 2,
+          "children": 0
+        },
+        "totalAmount": 9600000,
+        "paymentMethod": "credit_card",
+        "paymentStatus": "confirmed",
+        "bookingStatus": "confirmed",
+        "notes": "Kỷ niệm ngày cưới, chuẩn bị giường đôi phòng không hút thuốc",
+        "guide_id": "6ad59b96ad4a8b3d27faa069",
+        "bookingDate": "2026-10-22T11:34:02.247Z",
+        "createdAt": "2026-10-22T11:34:02.248Z",
+        "updatedAt": "2026-10-22T11:34:02.248Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c13",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
+        "tourId": "6ad59b96ad4a8b3d27faa04f",
+        "selectedDuration": {
+          "days": 3,
+          "nights": 2,
+          "price": 2750000
+        },
+        "departureDate": "2026-10-29T00:00:00.000Z",
+        "endDate": "2026-10-31T00:00:00.000Z",
+        "numberOfGuests": {
+          "adults": 1,
+          "children": 0
+        },
+        "totalAmount": 2750000,
+        "paymentMethod": "e_wallet",
+        "paymentStatus": "pending",
+        "bookingStatus": "pending",
+        "notes": "Khách muốn phòng view đồi thông gần trung tâm",
+        "guide_id": "6ad59b96ad4a8b3d27faa06a",
+        "bookingDate": "2026-10-22T11:34:02.249Z",
+        "createdAt": "2026-10-22T11:34:02.250Z",
+        "updatedAt": "2026-10-22T11:34:02.250Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c14",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
+        "tourId": "6ad59b96ad4a8b3d27faa04a",
+        "selectedDuration": {
+          "days": 2,
+          "nights": 1,
+          "price": 2150000
+        },
+        "departureDate": "2026-10-31T00:00:00.000Z",
+        "endDate": "2026-11-01T00:00:00.000Z",
+        "numberOfGuests": {
+          "adults": 3,
+          "children": 0
+        },
+        "totalAmount": 6450000,
+        "paymentMethod": "cash",
+        "paymentStatus": "pending",
+        "bookingStatus": "pending",
+        "notes": "Thanh toán tiền mặt trực tiếp tại văn phòng trước ngày đi",
+        "guide_id": "6ad59b96ad4a8b3d27faa067",
+        "bookingDate": "2026-10-22T11:34:02.251Z",
+        "createdAt": "2026-10-22T11:34:02.251Z",
+        "updatedAt": "2026-10-22T11:34:02.251Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c15",
+        "userId": "6ad59b96ad4a8b3d27fa9fe0",
+        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
+        "tourId": "6ad59b96ad4a8b3d27faa05e",
+        "selectedDuration": {
+          "days": 2,
+          "nights": 1,
+          "price": 1650000
+        },
+        "departureDate": "2026-10-24T00:00:00.000Z",
+        "endDate": "2026-10-25T00:00:00.000Z",
+        "numberOfGuests": {
+          "adults": 2,
+          "children": 0
+        },
+        "totalAmount": 3300000,
+        "paymentMethod": "bank_transfer",
+        "paymentStatus": "completed",
+        "bookingStatus": "completed",
+        "notes": "Chuyến đi đã hoàn thành xuất sắc",
+        "guide_id": "6ad59b96ad4a8b3d27faa06c",
+        "bookingDate": "2026-10-22T11:34:02.252Z",
+        "createdAt": "2026-10-22T11:34:02.252Z",
+        "updatedAt": "2026-10-22T11:34:02.252Z",
+        "__v": 0
+      }
+    ],
+    "bookingPlans": [
+      {
+        "_id": "6ad6dc90990a187d2773fd1a",
+        "tourId": "6ad59b96ad4a8b3d27faa05e",
+        "duration": {
+          "days": 3,
+          "nights": 2
+        },
+        "departureDate": "2026-10-21T00:00:00.000Z",
+        "endDate": "2026-10-23T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa06c",
+        "totalPassengers": 6,
+        "bookings": [
+          "6ad6dc90990a187d2773fd14",
+          "6ad75e04133af7e63c9873b8"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad6dc90990a187d2773fd14",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "0007070505",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c3f"
+          },
+          {
+            "bookingId": "6ad6dc90990a187d2773fd14",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c40"
+          },
+          {
+            "bookingId": "6ad6dc90990a187d2773fd14",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "child",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c41"
+          },
+          {
+            "bookingId": "6ad75e04133af7e63c9873b8",
+            "fullName": "Do Cao Tri",
+            "gender": "other",
+            "idCardNumber": "001202020909",
+            "passengerType": "adult",
+            "phone": "038805305",
+            "_id": "6ad9f4aa88a617c1db7c1c42"
+          },
+          {
+            "bookingId": "6ad75e04133af7e63c9873b8",
+            "fullName": "Do Cao Tri (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "038805305",
+            "_id": "6ad9f4aa88a617c1db7c1c43"
+          },
+          {
+            "bookingId": "6ad75e04133af7e63c9873b8",
+            "fullName": "Do Cao Tri (Khách đi kèm 3)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "child",
+            "phone": "038805305",
+            "_id": "6ad9f4aa88a617c1db7c1c44"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-20T03:14:24.908Z",
+        "updatedAt": "2026-10-22T11:34:02.297Z",
+        "__v": 3
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c36",
+        "tourId": "6ad59b96ad4a8b3d27faa05e",
+        "duration": {
+          "days": 2,
+          "nights": 1
+        },
+        "departureDate": "2026-10-24T00:00:00.000Z",
+        "endDate": "2026-10-25T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa06c",
+        "totalPassengers": 2,
+        "bookings": [
+          "6ad9f4aa88a617c1db7c1c15"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c15",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "079095012345",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c37"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c15",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c38"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-22T11:34:02.293Z",
+        "updatedAt": "2026-10-22T11:34:02.293Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c45",
+        "tourId": "6ad59b96ad4a8b3d27faa056",
+        "duration": {
+          "days": 4,
+          "nights": 3
+        },
+        "departureDate": "2026-10-27T00:00:00.000Z",
+        "endDate": "2026-10-30T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa06b",
+        "totalPassengers": 3,
+        "bookings": [
+          "6ad9f4aa88a617c1db7c1c11"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c11",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "079095012345",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c46"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c11",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c47"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c11",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "child",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c48"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-22T11:34:02.301Z",
+        "updatedAt": "2026-10-22T11:34:02.301Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c49",
+        "tourId": "6ad59b96ad4a8b3d27faa021",
+        "duration": {
+          "days": 4,
+          "nights": 3
+        },
+        "departureDate": "2026-10-25T00:00:00.000Z",
+        "endDate": "2026-10-28T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa069",
+        "totalPassengers": 2,
+        "bookings": [
+          "6ad9f4aa88a617c1db7c1c12"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c12",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "079095012345",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c4a"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c12",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c4b"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-22T11:34:02.303Z",
+        "updatedAt": "2026-10-22T11:34:02.303Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c4c",
+        "tourId": "6ad59b96ad4a8b3d27faa04f",
+        "duration": {
+          "days": 3,
+          "nights": 2
+        },
+        "departureDate": "2026-10-29T00:00:00.000Z",
+        "endDate": "2026-10-31T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa06a",
+        "totalPassengers": 1,
+        "bookings": [
+          "6ad9f4aa88a617c1db7c1c13"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c13",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "079095012345",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c4d"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-22T11:34:02.306Z",
+        "updatedAt": "2026-10-22T11:34:02.306Z",
+        "__v": 0
+      },
+      {
+        "_id": "6ad9f4aa88a617c1db7c1c4e",
+        "tourId": "6ad59b96ad4a8b3d27faa04a",
+        "duration": {
+          "days": 2,
+          "nights": 1
+        },
+        "departureDate": "2026-10-31T00:00:00.000Z",
+        "endDate": "2026-11-01T00:00:00.000Z",
+        "guideId": "6ad59b96ad4a8b3d27faa067",
+        "totalPassengers": 3,
+        "bookings": [
+          "6ad9f4aa88a617c1db7c1c14"
+        ],
+        "passengersList": [
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c14",
+            "fullName": "Nguyễn Văn An",
+            "gender": "other",
+            "idCardNumber": "079095012345",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c4f"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c14",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c50"
+          },
+          {
+            "bookingId": "6ad9f4aa88a617c1db7c1c14",
+            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
+            "gender": "other",
+            "idCardNumber": "",
+            "passengerType": "adult",
+            "phone": "0912345678",
+            "_id": "6ad9f4aa88a617c1db7c1c51"
+          }
+        ],
+        "status": "scheduled",
+        "createdAt": "2026-10-22T11:34:02.308Z",
+        "updatedAt": "2026-10-22T11:34:02.308Z",
         "__v": 0
       }
     ]

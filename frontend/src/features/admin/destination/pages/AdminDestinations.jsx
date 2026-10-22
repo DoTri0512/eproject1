@@ -96,7 +96,7 @@ export const AdminDestinations = () => {
 
       {/* 2. Metric Quick Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">map</span>
           </div>
@@ -105,50 +105,56 @@ export const AdminDestinations = () => {
               Tổng điểm đến
             </span>
             <span className="text-xl font-extrabold text-slate-900">
-              {destinations.length || 64} Địa danh
+              {destinations.length} Địa danh
             </span>
             <span className="text-[11px] text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[12px]">trending_up</span> +4 địa danh mới
+              <span className="material-symbols-outlined text-[12px]">check</span> Đồng bộ MongoDB
             </span>
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">verified</span>
           </div>
           <div>
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-              Di sản UNESCO
+              Vùng Miền Phủ Sóng
             </span>
-            <span className="text-xl font-extrabold text-slate-900">12 Điểm</span>
-            <span className="text-[11px] text-slate-500">Phủ sóng 3 miền</span>
+            <span className="text-xl font-extrabold text-slate-900">
+              {new Set(destinations.map((d) => d.region).filter(Boolean)).size} Miền
+            </span>
+            <span className="text-[11px] text-slate-500">Bắc • Trung • Nam • Tây Nguyên</span>
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">tour</span>
+            <span className="material-symbols-outlined text-[26px]">category</span>
           </div>
           <div>
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-              Tours Khai Thác
+              Chủ Đề Du Lịch
             </span>
-            <span className="text-xl font-extrabold text-slate-900">184 Lịch trình</span>
-            <span className="text-[11px] text-blue-600 font-semibold">92% hoạt động</span>
+            <span className="text-xl font-extrabold text-slate-900">
+              {new Set(destinations.map((d) => d.theme).filter(Boolean)).size || 6} Chủ đề
+            </span>
+            <span className="text-[11px] text-blue-600 font-semibold">Đa dạng trải nghiệm</span>
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">photo_camera</span>
           </div>
           <div>
             <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-              Kho Ảnh & Media
+              Kho Ảnh & Gallery
             </span>
-            <span className="text-xl font-extrabold text-slate-900">1.420 Media</span>
-            <span className="text-[11px] text-slate-500">Đồng bộ Cloud</span>
+            <span className="text-xl font-extrabold text-slate-900">
+              {destinations.reduce((acc, d) => acc + (d.gallery?.length || 0) + (d.image ? 1 : 0), 0)} Media
+            </span>
+            <span className="text-[11px] text-slate-500">Đồng bộ Cloud/CDN</span>
           </div>
         </div>
       </div>
@@ -219,7 +225,7 @@ export const AdminDestinations = () => {
                 <th className="py-3.5 px-4">Vùng Miền</th>
                 <th className="py-3.5 px-4">Chủ Đề</th>
                 <th className="py-3.5 px-4">Ngân Sách</th>
-                <th className="py-3.5 px-4">Mùa Đẹp Nhất</th>
+                <th className="py-3.5 px-4">Thời Lượng & Mùa Đi</th>
                 <th className="py-3.5 px-4 text-right">Thao Tác</th>
               </tr>
             </thead>
@@ -264,6 +270,11 @@ export const AdminDestinations = () => {
                         <span className="material-symbols-outlined text-[13px]">location_on</span>
                         <span>{dest.location || dest.region}</span>
                       </div>
+                      {dest.slug && (
+                        <div className="text-[10px] text-sky-600 font-mono mt-0.5">
+                          /destinations/{dest.slug}
+                        </div>
+                      )}
                     </td>
 
                     {/* Region */}
@@ -279,13 +290,27 @@ export const AdminDestinations = () => {
                     </td>
 
                     {/* Budget Band */}
-                    <td className="py-3 px-4 font-semibold text-slate-700">
-                      {dest.budgetBand || 'Trung bình'}
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2 py-0.5 rounded-md font-semibold text-xs ${
+                        dest.budgetBand === 'Cao cấp'
+                          ? 'bg-purple-50 text-purple-700 border border-purple-200'
+                          : dest.budgetBand === 'Tiết kiệm'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-amber-50 text-amber-700 border border-amber-200'
+                      }`}>
+                        {dest.budgetBand || 'Phổ thông'}
+                      </span>
                     </td>
 
-                    {/* Best Season */}
-                    <td className="py-3 px-4 text-slate-500">
-                      {dest.bestSeason || 'Quanh năm'}
+                    {/* Visit Duration & Best Season */}
+                    <td className="py-3 px-4">
+                      <div className="font-semibold text-slate-800 flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[14px] text-primary">schedule</span>
+                        <span>{dest.visitDuration || '2 - 3 ngày'}</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">
+                        Mùa đẹp: {dest.bestSeason || 'Quanh năm'}
+                      </div>
                     </td>
 
                     {/* Actions */}
@@ -332,6 +357,7 @@ export const AdminDestinations = () => {
         isOpen={isFormModalOpen}
         onClose={() => setIsFormModalOpen(false)}
         destination={selectedDestination}
+        allDestinations={destinations}
         onSave={handleSaveDestination}
         isLoading={isSubmitting}
       />

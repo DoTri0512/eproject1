@@ -141,9 +141,9 @@ Tất cả các tính năng chính được đóng gói độc lập theo cấu 
 1. **`auth/`**: Xử lý đăng ký, đăng nhập, đăng xuất, lấy thông tin cá nhân (Profile) và cấp lại token (RefreshToken / AccessToken).
 2. **`customer/`**: Quản lý thông tin cá nhân khách hàng thanh toán (Họ tên, Email, SĐT, Địa chỉ, CMND/CCCD).
 3. **`destination/`**: Xử lý xem danh sách điểm đến, chi tiết điểm đến, tìm kiếm, lọc theo Vùng miền (Region) và Chủ đề (Theme), CRUD điểm đến (Admin).
-4. **`tour/`**: Quản lý danh sách các gói tour du lịch, xem chi tiết lịch trình, giá bán, độ dài chuyến đi (`duration`), danh sách ngày khởi hành (`departureDates`), CRUD tour mở bán (Admin).
-5. **`booking/`**: Xử lý đặt chuyến du lịch (Booking), tự động tính ngày kết thúc (`endDate`), xem lịch sử đơn đặt tour cá nhân (`My Bookings`) và hủy đơn đặt tour đang chờ duyệt.
-6. **`bookingPlan/`**: Quản lý danh sách đoàn khởi hành gom tất cả hành khách đặt tour đi cùng ngày (`departureDate`), phân công Hướng dẫn viên (`Guide`) phụ trách đoàn và điểm danh (dành cho Admin).
+4. **`tour/`**: Quản lý danh sách các gói tour du lịch, bài giới thiệu tổng quan (`overview`), danh sách tùy chọn thời lượng và giá vé linh hoạt (`durationOptions`), danh sách ngày khởi hành tự chọn (`departureDates`), chi tiết lịch trình theo ngày, CRUD tour mở bán (Admin).
+5. **`booking/`**: Xử lý đặt chuyến du lịch (Booking) với tùy chọn thời lượng (`selectedDuration`), ngày khởi hành tự chọn (`departureDate`), tự động tính ngày kết thúc (`endDate`) và tổng tiền (`totalAmount`), xem lịch sử đơn đặt tour cá nhân (`My Bookings`) và hủy đơn đặt tour đang chờ duyệt.
+6. **`bookingPlan/`**: Quản lý danh sách đoàn khởi hành gom tất cả hành khách đặt tour đi cùng ngày (`departureDate`) và thời lượng (`duration`), phân công Hướng dẫn viên (`Guide`) phụ trách đoàn và quản lý danh sách hành khách (`passengersList` kèm `passengerType`) (dành cho Admin).
 7. **`guide/`**: Quản lý thông tin hồ sơ Hướng dẫn viên du lịch (Kinh nghiệm, Chuyên môn, Ngôn ngữ, Địa điểm chuyên trách).
 8. **`favourite/`**: Quản lý danh sách địa điểm du lịch yêu thích của người dùng (Thêm, Xóa, Xem danh sách yêu thích và đồng bộ với MongoDB).
 9. **`collection/`**: Quản lý các bộ sưu tập điểm đến theo mùa và theo chủ đề du lịch (Weekend Escapes, Heritage Visits, Nature Trips...).

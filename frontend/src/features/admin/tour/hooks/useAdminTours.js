@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import adminApi from '../../adminApi';
 
 export const useAdminTours = () => {
@@ -91,7 +91,15 @@ export const useAdminTours = () => {
     );
     const avgPrice =
       total > 0
-        ? Math.round(tours.reduce((sum, t) => sum + (t.price || 0), 0) / total)
+        ? Math.round(
+            tours.reduce((sum, t) => {
+              const p =
+                t.durationOptions?.length > 0
+                  ? Math.min(...t.durationOptions.map((o) => Number(o.price) || 0))
+                  : Number(t.price) || 0;
+              return sum + p;
+            }, 0) / total
+          )
         : 0;
 
     return { total, active, totalAvailableSeats, avgPrice };
@@ -117,28 +125,19 @@ export const useAdminTours = () => {
     try {
       if (selectedTour?._id) {
         // Update
-        const res = await adminApi.updateTour(selectedTour._id, tourData);
-        const updated = res.data || res;
-        setTours((prev) =>
-          prev.map((t) => (t._id === selectedTour._id ? { ...t, ...updated } : t))
-        );
+        await adminApi.updateTour(selectedTour._id, tourData);
         showToast(`Cập nhật tour "${tourData.title}" thành công!`);
       } else {
         // Create
-        const res = await adminApi.createTour(tourData);
-        const created = res.data || res;
-        setTours((prev) => [created, ...prev]);
+        await adminApi.createTour(tourData);
         showToast(`Thêm mới tour "${tourData.title}" thành công!`);
       }
       setIsFormModalOpen(false);
       setSelectedTour(null);
+      await loadData();
       return true;
     } catch (err) {
-      const msg =
-        err.response?.data?.errors?.[0] ||
-        err.response?.data?.message ||
-        err.message ||
-        'Có lỗi xảy ra khi lưu tour';
+      const msg = err.message || 'Có lỗi xảy ra khi lưu tour';
       showToast(msg, 'error');
       return false;
     } finally {
@@ -151,15 +150,12 @@ export const useAdminTours = () => {
     setIsSubmitting(true);
     try {
       await adminApi.deleteTour(selectedTour._id);
-      setTours((prev) => prev.filter((t) => t._id !== selectedTour._id));
       showToast(`Đã xóa tour "${selectedTour.title}" khỏi hệ thống!`);
       setIsDeleteModalOpen(false);
       setSelectedTour(null);
+      await loadData();
     } catch (err) {
-      const msg =
-        err.response?.data?.message ||
-        err.message ||
-        'Không thể xóa tour này';
+      const msg = err.message || 'Không thể xóa tour này';
       showToast(msg, 'error');
     } finally {
       setIsSubmitting(false);

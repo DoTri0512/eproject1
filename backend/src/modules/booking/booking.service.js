@@ -12,8 +12,26 @@ class BookingService {
       throw error;
     }
 
+    // Determine selected duration
+    let selectedDuration = bookingData.selectedDuration;
+    if (!selectedDuration || !selectedDuration.days) {
+      if (tour.durationOptions && tour.durationOptions.length > 0) {
+        selectedDuration = {
+          days: tour.durationOptions[0].days,
+          nights: tour.durationOptions[0].nights,
+          price: tour.durationOptions[0].price,
+        };
+      } else {
+        selectedDuration = {
+          days: 1,
+          nights: 0,
+          price: 0,
+        };
+      }
+    }
+
     const departure = new Date(bookingData.departureDate);
-    const tourDays = (tour.duration && tour.duration.days) ? tour.duration.days : 1;
+    const tourDays = selectedDuration.days || 1;
     const endDate = new Date(departure);
     endDate.setDate(departure.getDate() + Math.max(tourDays - 1, 0));
 
@@ -31,23 +49,70 @@ class BookingService {
       }
     }
 
+    const adults = (bookingData.numberOfGuests && bookingData.numberOfGuests.adults) || 1;
+    const children = (bookingData.numberOfGuests && bookingData.numberOfGuests.children) || 0;
+    const totalRequestedSeats = Number(adults) + Number(children);
+
+    // Tính số khách đã đặt hiện tại trong tour này (không tính các đơn đã hủy)
+    const activeBookings = await Booking.find({
+      tourId: bookingData.tourId,
+      bookingStatus: { $ne: 'cancelled' },
+    });
+    const currentBookedCount = activeBookings.reduce((sum, b) => {
+      const a = b.numberOfGuests?.adults || 0;
+      const c = b.numberOfGuests?.children || 0;
+      return sum + a + c;
+    }, 0);
+
+    const maxPassengers = tour.maxPassengers !== undefined ? tour.maxPassengers : 20;
+    const currentAvailableSeats = Math.max(0, maxPassengers - currentBookedCount);
+
+    if (currentAvailableSeats <= 0) {
+      const error = new Error('Tour này hiện đã hết chỗ (Sold Out). Quý khách vui lòng chọn tour hoặc ngày khởi hành khác!');
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (totalRequestedSeats > currentAvailableSeats) {
+      const error = new Error(`Tour chỉ còn ${currentAvailableSeats} chỗ trống, không đủ cho ${totalRequestedSeats} khách.`);
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const computedTotal = (bookingData.totalAmount !== undefined && Number(bookingData.totalAmount) > 0)
+      ? Number(bookingData.totalAmount)
+      : (selectedDuration.price * adults + Math.round(selectedDuration.price * 0.75) * children);
+
     const booking = await Booking.create({
       userId,
       tourId: bookingData.tourId,
       customerId,
+      selectedDuration,
       departureDate: departure,
       endDate,
       numberOfGuests: bookingData.numberOfGuests || { adults: 1, children: 0 },
-      totalAmount: bookingData.totalAmount,
+      totalAmount: computedTotal,
       paymentMethod: bookingData.paymentMethod || 'cash',
       paymentStatus: 'pending',
       bookingStatus: 'pending',
       notes: bookingData.notes || '',
-      guide_id: bookingData.guide_id || null,
+      guide_id: bookingData.guide_id || bookingData.guideId || null,
     });
 
+    // Cập nhật lại availableSeats của Tour: availableSeats = maxPassengers - số lượng người đã đặt trong tour đó
+    tour.availableSeats = Math.max(0, maxPassengers - (currentBookedCount + totalRequestedSeats));
+    await tour.save();
+
+    // Automatically sync/group into BookingPlan
+    try {
+      const bookingPlanService = require('../bookingPlan/bookingPlan.service');
+      await bookingPlanService.syncBookingToPlan(booking, bookingData);
+    } catch (bpErr) {
+      console.warn('[BookingService] Non-blocking warning: Failed to sync booking plan:', bpErr.message);
+    }
+
     return booking.populate([
-      { path: 'tourId', select: 'title slug price duration destinationId' },
+      { path: 'tourId', select: 'title slug durationOptions overview destinationId' },
       { path: 'customerId' },
       { path: 'guide_id', select: 'name specialisation' },
     ]);
@@ -125,6 +190,14 @@ class BookingService {
     booking.bookingStatus = 'cancelled';
     await booking.save();
 
+    // Hoàn trả lại số chỗ còn trống cho tour
+    try {
+      const tourService = require('../tour/tour.service');
+      await tourService.recalculateAvailableSeats(booking.tourId);
+    } catch (seatErr) {
+      console.warn('[BookingService] Failed to recalculate available seats on cancel:', seatErr.message);
+    }
+
     return booking;
   }
 
@@ -142,7 +215,7 @@ class BookingService {
         .populate('customerId')
         .populate({
           path: 'tourId',
-          select: 'title slug price destinationId',
+          select: 'title slug durationOptions overview destinationId',
           populate: { path: 'destinationId', select: 'name slug' },
         })
         .populate('guide_id', 'name specialisation')
@@ -176,6 +249,16 @@ class BookingService {
       throw error;
     }
 
+    if (updateData.bookingStatus !== undefined) {
+      try {
+        const tourService = require('../tour/tour.service');
+        const tourId = booking.tourId?._id || booking.tourId;
+        await tourService.recalculateAvailableSeats(tourId);
+      } catch (seatErr) {
+        console.warn('[BookingService] Failed to recalculate available seats on status update:', seatErr.message);
+      }
+    }
+
     return booking;
   }
 
@@ -185,6 +268,14 @@ class BookingService {
       const error = new Error('Booking not found');
       error.statusCode = 404;
       throw error;
+    }
+
+    try {
+      const tourService = require('../tour/tour.service');
+      const tourId = booking.tourId?._id || booking.tourId;
+      await tourService.recalculateAvailableSeats(tourId);
+    } catch (seatErr) {
+      console.warn('[BookingService] Failed to recalculate available seats on delete:', seatErr.message);
     }
 
     return { message: 'Booking deleted successfully' };

@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import adminApi from '../../adminApi';
 
 export const useAdminBookingPlans = () => {
@@ -17,7 +17,9 @@ export const useAdminBookingPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isPassengersModalOpen, setIsPassengersModalOpen] = useState(false);
   const [isAssignGuideModalOpen, setIsAssignGuideModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   // Toast
   const [toastMessage, setToastMessage] = useState(null);
@@ -171,6 +173,53 @@ export const useAdminBookingPlans = () => {
     }
   };
 
+  // Sync booking plans from bookings
+  const handleSyncPlans = async () => {
+    try {
+      setIsSyncing(true);
+      const res = await adminApi.syncBookingPlans();
+      showToast(res.message || 'Đồng bộ đoàn khởi hành từ các đơn tour thành công!');
+      await loadAllData();
+      return true;
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Đồng bộ thất bại', 'error');
+      return false;
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  // Create Manual Plan
+  const handleCreatePlan = async (planData) => {
+    setIsSubmitting(true);
+    try {
+      await adminApi.createBookingPlan(planData);
+      showToast('Tạo đoàn khởi hành mới thành công!');
+      setIsCreateModalOpen(false);
+      await loadAllData();
+      return true;
+    } catch (err) {
+      showToast(err.response?.data?.message || err.message || 'Không thể tạo đoàn khởi hành', 'error');
+      return false;
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Delete Plan
+  const handleDeletePlan = async (planId) => {
+    if (!window.confirm('Bạn có chắc chắn muốn xóa đoàn khởi hành này?')) return false;
+    try {
+      await adminApi.deleteBookingPlan(planId);
+      showToast('Đã xóa đoàn khởi hành thành công!');
+      setPlans((prev) => prev.filter((p) => p._id !== planId));
+      return true;
+    } catch (err) {
+      showToast(err.response?.data?.message || 'Xóa đoàn khởi hành thất bại', 'error');
+      return false;
+    }
+  };
+
   return {
     plans,
     filteredPlans,
@@ -178,6 +227,7 @@ export const useAdminBookingPlans = () => {
     guides,
     stats,
     isLoading,
+    isSyncing,
     selectedTourId,
     setSelectedTourId,
     selectedStatus,
@@ -191,6 +241,8 @@ export const useAdminBookingPlans = () => {
     setIsPassengersModalOpen,
     isAssignGuideModalOpen,
     setIsAssignGuideModalOpen,
+    isCreateModalOpen,
+    setIsCreateModalOpen,
     isSubmitting,
     toastMessage,
     showToast,
@@ -198,6 +250,9 @@ export const useAdminBookingPlans = () => {
     handleOpenAssignGuide,
     handleAssignGuide,
     handleUpdateStatus,
+    handleSyncPlans,
+    handleCreatePlan,
+    handleDeletePlan,
     reloadPlans: loadAllData,
   };
 };

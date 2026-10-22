@@ -1,6 +1,8 @@
 import Home from '../features/user/home/pages/Home';
 import DestinationsList from '../features/user/destination/pages/DestinationsList';
 import DestinationDetail from '../features/user/destination/pages/DestinationDetail';
+import ToursList from '../features/user/tour/pages/ToursList';
+import TourDetail from '../features/user/tour/pages/TourDetail';
 import TravelGuides from '../features/user/guide/pages/TravelGuides';
 import SeasonalCollections from '../features/user/collection/pages/SeasonalCollections';
 import RegionExplorer from '../features/user/region/pages/RegionExplorer';
@@ -30,6 +32,14 @@ export const routesConfig = {
     {
       path: '/destinations/:idOrSlug',
       element: DestinationDetail,
+    },
+    {
+      path: '/tours',
+      element: ToursList,
+    },
+    {
+      path: '/tours/:idOrSlug',
+      element: TourDetail,
     },
     {
       path: '/regions',

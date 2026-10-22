@@ -54,8 +54,8 @@ export default {
         'ice-blue': '#f0f6fa',
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
-        outfit: ['Outfit', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', '"Segoe UI"', '"Arial Unicode MS"', 'Arial', 'system-ui', 'sans-serif'],
+        outfit: ['Outfit', '"Segoe UI"', 'sans-serif'],
       },
       borderRadius: {
         xl: '0.75rem',

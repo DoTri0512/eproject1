@@ -1,46 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import GuideCard from '../components/GuideCard';
-import useGuides from '../hooks/useGuides';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import GuideCard from "../components/GuideCard";
+import useGuides from "../hooks/useGuides";
+
+const GUIDES_PER_PAGE = 6;
 
 export const TravelGuides = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState('Tất cả');
-  const [selectedSpecialisation, setSelectedSpecialisation] = useState('Tất cả');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("Tất cả");
+  const [selectedSpecialisation, setSelectedSpecialisation] =
+    useState("Tất cả");
   const [activeGuideModal, setActiveGuideModal] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const languages = ['Tất cả', 'Tiếng Việt', 'Tiếng Anh', 'Tiếng Pháp', 'Tiếng Hàn', 'Tiếng Trung'];
-  const specialisations = ['Tất cả', 'Di sản', 'Mạo hiểm', 'Bản địa', 'Ẩm thực', 'Nghỉ dưỡng'];
+  const languages = [
+    "Tất cả",
+    "Tiếng Việt",
+    "Tiếng Anh",
+    "Tiếng Pháp",
+    "Tiếng Hàn",
+    "Tiếng Trung",
+  ];
+  const specialisations = [
+    "Tất cả",
+    "Di sản",
+    "Mạo hiểm",
+    "Bản địa",
+    "Ẩm thực",
+    "Nghỉ dưỡng",
+  ];
 
-  const { guides, isLoading } = useGuides({
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedLanguage, selectedSpecialisation]);
+
+  const { guides, pagination, isLoading } = useGuides({
     search: searchTerm,
     language: selectedLanguage,
     specialisation: selectedSpecialisation,
+    page: currentPage,
+    limit: GUIDES_PER_PAGE,
   });
 
   const handleResetFilters = () => {
-    setSearchTerm('');
-    setSelectedLanguage('Tất cả');
-    setSelectedSpecialisation('Tất cả');
+    setSearchTerm("");
+    setSelectedLanguage("Tất cả");
+    setSelectedSpecialisation("Tất cả");
+    setCurrentPage(1);
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-24 pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pt-[115px] pb-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* 1. HERO SECTION */}
-        <div className="relative rounded-3xl overflow-hidden mb-10 bg-gradient-to-r from-sky-950 via-slate-900 to-sky-900 text-white p-8 sm:p-12 shadow-md">
+        <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]" />
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-sky-300 text-xs font-semibold mb-3">
-              <span className="material-symbols-outlined text-[16px]">support_agent</span>
+              <span className="material-symbols-outlined text-[16px]">
+                support_agent
+              </span>
               <span>ĐỘI NGŨ CHUYÊN GIA BẢN ĐỊA</span>
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
               Đội Ngũ Hướng Dẫn Viên Đồng Hành
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto">
-              Gặp gỡ những người con bản địa giàu kinh nghiệm, nhiệt huyết và am hiểu từng nét văn hóa, con người trên mọi nẻo đường Việt Nam.
+              Gặp gỡ những người con bản địa giàu kinh nghiệm, nhiệt huyết và am
+              hiểu từng nét văn hóa, con người trên mọi nẻo đường Việt Nam.
             </p>
 
             {/* Search Input */}
@@ -58,10 +87,12 @@ export const TravelGuides = () => {
               {searchTerm && (
                 <button
                   type="button"
-                  onClick={() => setSearchTerm('')}
+                  onClick={() => setSearchTerm("")}
                   className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600"
                 >
-                  <span className="material-symbols-outlined text-[18px]">close</span>
+                  <span className="material-symbols-outlined text-[18px]">
+                    close
+                  </span>
                 </button>
               )}
             </div>
@@ -73,7 +104,9 @@ export const TravelGuides = () => {
           <div className="flex flex-wrap items-center gap-3">
             {/* Language filter */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Ngôn ngữ:</span>
+              <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                Ngôn ngữ:
+              </span>
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
@@ -89,7 +122,9 @@ export const TravelGuides = () => {
 
             {/* Specialisation filter */}
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Chuyên môn:</span>
+              <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">
+                Chuyên môn:
+              </span>
               <select
                 value={selectedSpecialisation}
                 onChange={(e) => setSelectedSpecialisation(e.target.value)}
@@ -106,16 +141,21 @@ export const TravelGuides = () => {
 
           <div className="flex items-center justify-between md:justify-end gap-3">
             <span className="text-xs font-semibold text-slate-500">
-              Có <span className="text-primary font-bold">{guides.length}</span> hướng dẫn viên
+              Có <span className="text-primary font-bold">{pagination.totalItems ?? guides.length}</span>{" "}
+              hướng dẫn viên
             </span>
 
-            {(searchTerm || selectedLanguage !== 'Tất cả' || selectedSpecialisation !== 'Tất cả') && (
+            {(searchTerm ||
+              selectedLanguage !== "Tất cả" ||
+              selectedSpecialisation !== "Tất cả") && (
               <button
                 type="button"
                 onClick={handleResetFilters}
                 className="text-xs font-semibold text-rose-500 hover:text-rose-600 flex items-center gap-1"
               >
-                <span className="material-symbols-outlined text-[15px]">restart_alt</span>
+                <span className="material-symbols-outlined text-[15px]">
+                  restart_alt
+                </span>
                 <span>Đặt lại</span>
               </button>
             )}
@@ -146,7 +186,9 @@ export const TravelGuides = () => {
         ) : guides.length === 0 ? (
           <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-12 text-center max-w-lg mx-auto my-12">
             <div className="w-16 h-16 rounded-full bg-sky-50 text-sky-500 flex items-center justify-center mx-auto mb-4">
-              <span className="material-symbols-outlined text-[32px]">person_search</span>
+              <span className="material-symbols-outlined text-[32px]">
+                person_search
+              </span>
             </div>
             <h3 className="text-lg font-bold text-slate-800 mb-2">
               Không tìm thấy hướng dẫn viên phù hợp
@@ -173,9 +215,51 @@ export const TravelGuides = () => {
             ))}
           </div>
         )}
+
+        {/* 4. PAGINATION CONTROLS */}
+        {!isLoading && pagination.totalPages > 1 && (
+          <div className="mt-10 flex items-center justify-center gap-2">
+            <button
+              type="button"
+              disabled={!pagination.hasPrevPage}
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+            >
+              <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+              Trước
+            </button>
+
+            <div className="flex items-center gap-1">
+              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-9 h-9 rounded-xl text-sm font-bold transition-colors ${
+                    page === currentPage
+                      ? "bg-primary text-white shadow-sm"
+                      : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              disabled={!pagination.hasNextPage}
+              onClick={() => setCurrentPage((p) => p + 1)}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+            >
+              Tiếp
+              <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* 4. GUIDE DETAIL MODAL */}
+      {/* 5. GUIDE DETAIL MODAL */}
       {activeGuideModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
@@ -190,7 +274,7 @@ export const TravelGuides = () => {
                   <img
                     src={
                       activeGuideModal.avatar ||
-                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'
+                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
                     }
                     alt={activeGuideModal.name}
                     className="w-full h-full object-cover"
@@ -198,11 +282,16 @@ export const TravelGuides = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5 text-xs text-amber-500 font-bold mb-1">
-                    <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                    <span
+                      className="material-symbols-outlined text-[16px]"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
                       star
                     </span>
-                    <span>{activeGuideModal.rating || '4.9'}</span>
-                    <span className="text-slate-400 font-normal">({activeGuideModal.reviewCount || 120} đánh giá)</span>
+                    <span>{activeGuideModal.rating || "4.9"}</span>
+                    <span className="text-slate-400 font-normal">
+                      ({activeGuideModal.reviewCount || 120} đánh giá)
+                    </span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
                     {activeGuideModal.name}
@@ -230,7 +319,8 @@ export const TravelGuides = () => {
                   Quá trình học vấn & Kinh nghiệm
                 </h4>
                 <p className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
-                  {activeGuideModal.background || 'Nhiều năm kinh nghiệm dẫn dắt các đoàn khách trong và ngoài nước.'}
+                  {activeGuideModal.background ||
+                    "Nhiều năm kinh nghiệm dẫn dắt các đoàn khách trong và ngoài nước."}
                 </p>
               </div>
 
@@ -240,14 +330,17 @@ export const TravelGuides = () => {
                   Tiểu sử & Phong cách dẫn đoàn
                 </h4>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  {activeGuideModal.biography || 'Đồng hành với tâm thế cởi mở, thân thiện và đem lại trải nghiệm du lịch đáng nhớ.'}
+                  {activeGuideModal.biography ||
+                    "Đồng hành với tâm thế cởi mở, thân thiện và đem lại trải nghiệm du lịch đáng nhớ."}
                 </p>
               </div>
 
               {/* Languages & Destinations */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <h5 className="text-xs font-bold text-slate-700 mb-2">Ngôn ngữ giao tiếp</h5>
+                  <h5 className="text-xs font-bold text-slate-700 mb-2">
+                    Ngôn ngữ giao tiếp
+                  </h5>
                   <div className="flex flex-wrap gap-1.5">
                     {activeGuideModal.languages?.map((lang, idx) => (
                       <span
@@ -261,10 +354,12 @@ export const TravelGuides = () => {
                 </div>
 
                 <div className="p-4 rounded-xl bg-slate-50 border border-slate-100">
-                  <h5 className="text-xs font-bold text-slate-700 mb-2">Điểm đến chuyên trách</h5>
+                  <h5 className="text-xs font-bold text-slate-700 mb-2">
+                    Điểm đến chuyên trách
+                  </h5>
                   <div className="flex flex-wrap gap-1.5">
                     {activeGuideModal.destinations?.map((dest, idx) => {
-                      const name = typeof dest === 'object' ? dest.name : dest;
+                      const name = typeof dest === "object" ? dest.name : dest;
                       return (
                         <span
                           key={idx}
@@ -292,11 +387,13 @@ export const TravelGuides = () => {
                 type="button"
                 onClick={() => {
                   setActiveGuideModal(null);
-                  navigate('/destinations');
+                  navigate("/destinations");
                 }}
                 className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-sm hover:bg-primary-dark transition-colors shadow-sm flex items-center justify-center gap-2"
               >
-                <span className="material-symbols-outlined text-[18px]">travel_explore</span>
+                <span className="material-symbols-outlined text-[18px]">
+                  travel_explore
+                </span>
                 <span>Khám phá Tour cùng hướng dẫn viên</span>
               </button>
             </div>

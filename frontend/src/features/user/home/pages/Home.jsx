@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import formatCurrency from "../../../../utils/formatCurrency";
 import destinationApi from "../../destination/destinationApi";
+import tourApi from "../../tour/tourApi";
+import TourCard from "../../tour/components/TourCard";
 import useAuth from "../../../../hooks/useAuth";
 
 export const Home = () => {
@@ -16,6 +18,8 @@ export const Home = () => {
   // Destination & Tour state
   const [featuredDestinations, setFeaturedDestinations] = useState([]);
   const [isLoadingDestinations, setIsLoadingDestinations] = useState(true);
+  const [hotTours, setHotTours] = useState([]);
+  const [isLoadingHotTours, setIsLoadingHotTours] = useState(true);
   const [savedFavorites, setSavedFavorites] = useState({});
 
   useEffect(() => {
@@ -42,6 +46,23 @@ export const Home = () => {
     };
 
     loadDestinations();
+
+    const loadHotTours = async () => {
+      try {
+        setIsLoadingHotTours(true);
+        const res = await tourApi.getAll({ limit: 3, status: "active" });
+        const items = res.items || (Array.isArray(res) ? res : []);
+        if (items.length > 0) {
+          setHotTours(items);
+        }
+      } catch {
+        setHotTours([]);
+      } finally {
+        setIsLoadingHotTours(false);
+      }
+    };
+
+    loadHotTours();
   }, []);
 
   const handleSearchSubmit = (e) => {
@@ -61,7 +82,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex flex-col w-full bg-[#f8fafc]">
+    <div className="flex flex-col w-full bg-[#f8fafc] pt-[72px]">
       {/* 1. HERO SECTION */}
       <section className="relative isolate w-full pt-20 pb-28 min-h-[620px] flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         {/* Background Image */}
@@ -227,11 +248,11 @@ export const Home = () => {
               <span className="material-symbols-outlined text-base">
                 explore
               </span>
-              <span>Điểm Đến Hấp Dẫn</span>
+              <h3>Điểm Đến Hấp Dẫn</h3>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Điểm Đến Nổi Bật Được Yêu Thích
-            </h2>
+            </h3>
             <p className="text-sm text-slate-500 mt-1 max-w-xl">
               Khám phá những vùng đất tuyệt mỹ, từ vịnh biển ngọc ngà đến núi
               cao mây phủ tại Việt Nam
@@ -278,14 +299,9 @@ export const Home = () => {
 
                     {/* Top Badges */}
                     <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                      <span className="px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-slate-800 text-[11px] font-bold shadow-xs">
+                      <span className="px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-primary text-[11px] font-bold shadow-xs">
                         {dest.region}
                       </span>
-                      {dest.theme && (
-                        <span className="px-2.5 py-0.5 rounded-full bg-sky-500 text-white text-[11px] font-bold shadow-xs">
-                          {dest.theme}
-                        </span>
-                      )}
                     </div>
 
                     {/* Favorite Toggle Button */}
@@ -325,7 +341,7 @@ export const Home = () => {
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-4.5 flex-1 flex flex-col justify-between">
+                  <div className="p-4 flex-1 flex flex-col justify-between ">
                     <div>
                       <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1">
                         {dest.name}
@@ -375,7 +391,7 @@ export const Home = () => {
               </p>
             </div>
             <Link
-              to="/destinations"
+              to="/tours"
               className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:text-primary-dark transition-colors self-start md:self-auto"
             >
               <span>Xem tất cả tour</span>
@@ -387,7 +403,11 @@ export const Home = () => {
 
           {/* Tours Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockHotTours.map((tour) => (
+            {hotTours.length > 0
+              ? hotTours.map((tour) => (
+                  <TourCard key={tour._id} tour={tour} />
+                ))
+              : mockHotTours.map((tour) => (
               <div
                 key={tour.id}
                 className="bg-white rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-hover transition-all duration-300 overflow-hidden flex flex-col group"
@@ -445,7 +465,7 @@ export const Home = () => {
                     </div>
                     <button
                       type="button"
-                      onClick={() => navigate("/destinations")}
+                      onClick={() => navigate("/tours")}
                       className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-bold text-xs hover:opacity-95 shadow-sm transition-all"
                     >
                       Đặt Tour ngay
@@ -581,42 +601,50 @@ export const Home = () => {
       </section>
 
       {/* 6. CALL TO ACTION BANNER */}
+
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-[1360px] mx-auto w-full">
-        <div className="relative rounded-3xl overflow-hidden shadow-hover p-8 sm:p-14 lg:p-16 flex flex-col items-center text-center text-white">
-          <div
-            className="absolute inset-0 bg-cover bg-center -z-10"
-            style={{
-              backgroundImage: `url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80')`,
-            }}
+        <div className="relative isolate rounded-3xl overflow-hidden shadow-hover p-8 sm:p-14 lg:p-16 flex flex-col items-center text-center text-white">
+          {/* 1. Ảnh nền */}
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80"
+            alt=""
+            className="absolute inset-0 z-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/80 to-primary/80 -z-10" />
 
-          <span className="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-cyan-300 font-bold text-xs uppercase tracking-wider mb-4 border border-white/30">
-            Khởi Đầu Hành Trình Ngay Hôm Nay
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl tracking-tight leading-tight mb-4">
-            Sẵn Sàng Cho Chuyến Phiêu Lưu Kỳ Diệu?
-          </h2>
-          <p className="text-sm sm:text-base text-slate-200 max-w-xl leading-relaxed mb-8">
-            Đăng ký thành viên TravelTrail để nhận voucher giảm 300.000₫ cho đơn
-            đặt tour đầu tiên cùng nhiều ưu đãi hấp dẫn.
-          </p>
+          {/* 2. Lớp phủ tối để chữ dễ đọc */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-slate-950/30 via-slate-900/20 to-cyan-900/30" />
+          {/* 3. Nội dung */}
+          <div className="relative z-20 flex flex-col items-center w-full">
+            <span className="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-cyan-300 font-bold text-xs uppercase tracking-wider mb-4 border border-white/30">
+              Khởi Đầu Hành Trình Ngay Hôm Nay
+            </span>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3.5">
-            {!isAuthenticated ? (
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold max-w-2xl tracking-tight leading-tight mb-4">
+              Sẵn Sàng Cho Chuyến Phiêu Lưu Kỳ Diệu?
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-200 max-w-xl leading-relaxed mb-8">
+              Đăng ký thành viên TravelTrail để nhận voucher giảm 300.000₫ cho
+              đơn đặt tour đầu tiên cùng nhiều ưu đãi hấp dẫn.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto">
+              {!isAuthenticated && (
+                <Link
+                  to="/register"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-primary to-cyan-500 text-white font-bold text-sm shadow-md hover:opacity-95 transition-all"
+                >
+                  Đăng Ký Tài Khoản Ngay
+                </Link>
+              )}
+
               <Link
-                to="/register"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-primary to-cyan-500 text-white font-bold text-sm shadow-md hover:opacity-95 transition-all"
+                to="/destinations"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold text-sm border border-white/30 transition-all"
               >
-                Đăng Ký Tài Khoản Ngay
+                Khám Phá Tất Cả Điểm Đến
               </Link>
-            ) : null}
-            <Link
-              to="/destinations"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold text-sm border border-white/30 transition-all"
-            >
-              Khám Phá Tất Cả Điểm Đến
-            </Link>
+            </div>
           </div>
         </div>
       </section>

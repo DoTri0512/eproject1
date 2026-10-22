@@ -17,6 +17,11 @@ const bookingSchema = new mongoose.Schema(
       ref: 'Tour',
       required: [true, 'Tour ID is required'],
     },
+    selectedDuration: {
+      days: { type: Number, default: 1 },
+      nights: { type: Number, default: 0 },
+      price: { type: Number, default: 0 },
+    },
     bookingDate: {
       type: Date,
       default: Date.now,

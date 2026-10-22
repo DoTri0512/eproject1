@@ -11,6 +11,7 @@ const { authenticate, authorize } = require('../../middlewares/auth.middleware')
 router.use(authenticate, authorize('admin'));
 
 router.get('/', bookingPlanController.getAllPlans);
+router.post('/sync', bookingPlanController.syncPlansFromBookings);
 router.post('/', validateBookingPlan, bookingPlanController.createPlan);
 router.get('/:id', bookingPlanController.getPlanById);
 router.put('/:id/assign-guide', validateAssignGuide, bookingPlanController.assignGuide);

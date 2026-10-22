@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
 export const Input = forwardRef(
   (
     {
       label,
-      type = 'text',
+      type = "text",
       id,
       name,
       value,
@@ -16,11 +16,11 @@ export const Input = forwardRef(
       endIcon,
       required = false,
       disabled = false,
-      className = '',
-      inputClassName = '',
+      className = "",
+      inputClassName = "",
       ...props
     },
-    ref
+    ref,
   ) => {
     const inputId = id || name;
 
@@ -52,14 +52,14 @@ export const Input = forwardRef(
             disabled={disabled}
             placeholder={placeholder}
             className={`w-full h-11 px-3.5 text-sm rounded-lg bg-white border transition-all duration-200 outline-none text-on-surface placeholder:text-outline/70
-              ${startIcon ? 'pl-10' : ''}
-              ${endIcon ? 'pr-10' : ''}
+              ${startIcon ? "pl-10" : ""}
+              ${endIcon ? "pr-10" : ""}
               ${
                 error
-                  ? 'border-error focus:border-error focus:ring-2 focus:ring-error/20 bg-red-50/10'
-                  : 'border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 hover:border-slate-400'
+                  ? "border-error focus:border-error focus:ring-2 focus:ring-error/20 bg-red-50/10"
+                  : "border-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 hover:border-slate-400"
               }
-              ${disabled ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : ''}
+              ${disabled ? "bg-slate-100 text-slate-400 cursor-not-allowed" : ""}
               ${inputClassName}
             `}
             {...props}
@@ -70,15 +70,19 @@ export const Input = forwardRef(
             </div>
           )}
         </div>
-        {error && <span className="text-xs font-medium text-error mt-0.5">{error}</span>}
+        {error && (
+          <span className="text-xs font-medium text-error mt-0.5">{error}</span>
+        )}
         {!error && helperText && (
-          <span className="text-xs text-on-surface-variant mt-0.5">{helperText}</span>
+          <span className="text-xs text-on-surface-variant mt-0.5">
+            {helperText}
+          </span>
         )}
       </div>
     );
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export default Input;

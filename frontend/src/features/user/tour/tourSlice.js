@@ -37,6 +37,42 @@ export const fetchToursByDestination = createAsyncThunk(
   }
 );
 
+export const createTour = createAsyncThunk(
+  'tour/createTour',
+  async (tourData, { rejectWithValue }) => {
+    try {
+      const data = await tourApi.create(tourData);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateTour = createAsyncThunk(
+  'tour/updateTour',
+  async ({ id, data: tourData }, { rejectWithValue }) => {
+    try {
+      const data = await tourApi.update(id, tourData);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteTour = createAsyncThunk(
+  'tour/deleteTour',
+  async (id, { rejectWithValue }) => {
+    try {
+      const data = await tourApi.delete(id);
+      return { id, data };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const tourSlice = createSlice({
   name: 'tour',
   initialState: {

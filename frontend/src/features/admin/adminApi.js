@@ -1,4 +1,4 @@
-﻿import axiosClient from '../../api/axiosClient';
+import axiosClient from '../../api/axiosClient';
 import { ENDPOINTS } from '../../api/endpoints';
 
 export const adminApi = {
@@ -63,6 +63,11 @@ export const adminApi = {
 
   createBookingPlan: async (planData) => {
     const response = await axiosClient.post(ENDPOINTS.BOOKING_PLANS.BASE, planData);
+    return response.data || response;
+  },
+
+  syncBookingPlans: async () => {
+    const response = await axiosClient.post(ENDPOINTS.BOOKING_PLANS.SYNC);
     return response.data || response;
   },
 

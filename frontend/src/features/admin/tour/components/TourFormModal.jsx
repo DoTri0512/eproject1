@@ -1,5 +1,19 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
+
+/**
+ * TourFormModal – Admin form tạo / chỉnh sửa Tour.
+ * Schema khớp 100% với backend Tour model:
+ *  - durationOptions: [{ days, nights, price }]  (thay thế price + duration cũ)
+ *  - departureDates: Date[]
+ *  - itinerary: [{ day, title, description }]
+ *  - includes, excludes, maxPassengers, availableSeats, status
+ */
+const DEFAULT_DURATION_OPTIONS = [
+  { days: 2, nights: 1, price: 2000000 },
+  { days: 3, nights: 2, price: 3500000 },
+  { days: 4, nights: 3, price: 5000000 },
+];
 
 export const TourFormModal = ({
   isOpen,
@@ -14,14 +28,10 @@ export const TourFormModal = ({
   const [formData, setFormData] = useState({
     title: '',
     destinationId: '',
-    price: 1500000,
-    duration: {
-      days: 3,
-      nights: 2,
-      text: '3 ngày 2 đêm',
-    },
-    maxPassengers: 20,
-    availableSeats: 20,
+    overview: '',
+    durationOptions: DEFAULT_DURATION_OPTIONS,
+    maxPassengers: 25,
+    availableSeats: 25,
     status: 'active',
     departureDates: [],
     itinerary: [
@@ -36,8 +46,10 @@ export const TourFormModal = ({
   const [newDateInput, setNewDateInput] = useState('');
   const [newIncludeInput, setNewIncludeInput] = useState('');
   const [newExcludeInput, setNewExcludeInput] = useState('');
+  const [formError, setFormError] = useState(null);
 
   useEffect(() => {
+    setFormError(null);
     if (tour) {
       setFormData({
         title: tour.title || '',
@@ -45,12 +57,16 @@ export const TourFormModal = ({
           typeof tour.destinationId === 'object'
             ? tour.destinationId?._id
             : tour.destinationId || '',
-        price: tour.price || 0,
-        duration: {
-          days: tour.duration?.days || 1,
-          nights: tour.duration?.nights || 0,
-          text: tour.duration?.text || `${tour.duration?.days || 1} ngày`,
-        },
+        overview: tour.overview || '',
+        // Map durationOptions từ backend, fallback về array mặc định nếu chưa có
+        durationOptions:
+          tour.durationOptions?.length > 0
+            ? tour.durationOptions.map((opt) => ({
+                days: opt.days,
+                nights: opt.nights,
+                price: opt.price,
+              }))
+            : DEFAULT_DURATION_OPTIONS,
         maxPassengers: tour.maxPassengers || 20,
         availableSeats: tour.availableSeats ?? tour.maxPassengers ?? 20,
         status: tour.status || 'active',
@@ -58,11 +74,9 @@ export const TourFormModal = ({
           typeof d === 'string' ? d.slice(0, 10) : new Date(d).toISOString().slice(0, 10)
         ),
         itinerary:
-          tour.itinerary && tour.itinerary.length > 0
+          tour.itinerary?.length > 0
             ? tour.itinerary
-            : [
-                { day: 1, title: 'Khởi hành', description: 'Bắt đầu hành trình' },
-              ],
+            : [{ day: 1, title: 'Khởi hành', description: 'Bắt đầu hành trình' }],
         includes: tour.includes || [],
         excludes: tour.excludes || [],
       });
@@ -70,12 +84,8 @@ export const TourFormModal = ({
       setFormData({
         title: '',
         destinationId: destinations[0]?._id || '',
-        price: 2500000,
-        duration: {
-          days: 3,
-          nights: 2,
-          text: '3 ngày 2 đêm',
-        },
+        overview: '',
+        durationOptions: DEFAULT_DURATION_OPTIONS,
         maxPassengers: 25,
         availableSeats: 25,
         status: 'active',
@@ -99,15 +109,33 @@ export const TourFormModal = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleDurationChange = (field, val) => {
+  // ========== durationOptions handlers ==========
+  const handleDurationOptionChange = (idx, field, val) => {
     setFormData((prev) => {
-      const updated = { ...prev.duration, [field]: val };
-      updated.text = `${updated.days} ngày ${updated.nights} đêm`;
-      return { ...prev, duration: updated };
+      const opts = [...prev.durationOptions];
+      opts[idx] = { ...opts[idx], [field]: field === 'price' ? Number(val) : Number(val) };
+      return { ...prev, durationOptions: opts };
     });
   };
 
-  // Departure dates
+  const handleAddDurationOption = () => {
+    setFormData((prev) => ({
+      ...prev,
+      durationOptions: [
+        ...prev.durationOptions,
+        { days: prev.durationOptions.length + 2, nights: prev.durationOptions.length + 1, price: 0 },
+      ],
+    }));
+  };
+
+  const handleRemoveDurationOption = (idx) => {
+    setFormData((prev) => ({
+      ...prev,
+      durationOptions: prev.durationOptions.filter((_, i) => i !== idx),
+    }));
+  };
+
+  // ========== Departure dates handlers ==========
   const handleAddDate = () => {
     if (!newDateInput) return;
     if (!formData.departureDates.includes(newDateInput)) {
@@ -126,7 +154,7 @@ export const TourFormModal = ({
     }));
   };
 
-  // Itinerary items
+  // ========== Itinerary handlers ==========
   const handleItineraryChange = (idx, field, value) => {
     setFormData((prev) => {
       const list = [...prev.itinerary];
@@ -152,11 +180,32 @@ export const TourFormModal = ({
   const handleRemoveItineraryDay = (idx) => {
     setFormData((prev) => ({
       ...prev,
-      itinerary: prev.itinerary.filter((_, i) => i !== idx).map((item, i) => ({ ...item, day: i + 1 })),
+      itinerary: prev.itinerary
+        .filter((_, i) => i !== idx)
+        .map((item, i) => ({ ...item, day: i + 1 })),
     }));
   };
 
-  // Includes / Excludes
+  const maxDurationDays = formData.durationOptions?.length > 0
+    ? Math.max(...formData.durationOptions.map((o) => Number(o.days) || 1))
+    : 1;
+
+  const handleAutoFillMissingDays = () => {
+    setFormData((prev) => {
+      const list = [...prev.itinerary];
+      while (list.length < maxDurationDays) {
+        const nextDay = list.length + 1;
+        list.push({
+          day: nextDay,
+          title: `Ngày ${nextDay}: Tham quan & Trải nghiệm`,
+          description: 'Khám phá danh lam thắng cảnh, trải nghiệm văn hóa ẩm thực địa phương và nghỉ ngơi tại khách sạn.',
+        });
+      }
+      return { ...prev, itinerary: list };
+    });
+  };
+
+  // ========== Includes / Excludes handlers ==========
   const handleAddInclude = () => {
     if (newIncludeInput.trim()) {
       setFormData((prev) => ({ ...prev, includes: [...prev.includes, newIncludeInput.trim()] }));
@@ -181,11 +230,59 @@ export const TourFormModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormError(null);
+
+    if (!formData.title.trim()) {
+      setFormError('Vui lòng nhập tên / tiêu đề tour du lịch.');
+      return;
+    }
+    if (!formData.destinationId) {
+      setFormError('Vui lòng chọn điểm đến liên kết cho tour này.');
+      return;
+    }
+    if (!formData.durationOptions || formData.durationOptions.length === 0) {
+      setFormError('Tour phải có ít nhất một gói thời lượng (durationOptions).');
+      return;
+    }
+    for (let i = 0; i < formData.durationOptions.length; i++) {
+      const opt = formData.durationOptions[i];
+      if (!opt.days || Number(opt.days) < 1) {
+        setFormError(`Gói thời lượng thứ ${i + 1}: Số ngày phải lớn hơn hoặc bằng 1.`);
+        return;
+      }
+      if (opt.nights === undefined || Number(opt.nights) < 0) {
+        setFormError(`Gói thời lượng thứ ${i + 1}: Số đêm phải lớn hơn hoặc bằng 0.`);
+        return;
+      }
+      if (opt.price === undefined || Number(opt.price) < 0) {
+        setFormError(`Gói thời lượng thứ ${i + 1}: Mức giá vé phải lớn hơn hoặc bằng 0.`);
+        return;
+      }
+    }
+
+    const maxP = Math.max(1, Number(formData.maxPassengers) || 20);
+    // Theo logic analyst.md: nếu ban đầu chưa có ai đặt tour maxPassengers = availableSeats
+    const availSeats = isEdit
+      ? Math.min(maxP, Math.max(0, Number(formData.availableSeats ?? maxP)))
+      : maxP;
+
+    const sanitizedItinerary = (formData.itinerary || []).map((item, idx) => ({
+      day: Number(item.day) || idx + 1,
+      title: (item.title || '').trim() || `Ngày ${idx + 1}: Hoạt động tham quan`,
+      description: (item.description || '').trim(),
+    }));
+
     onSubmit({
       ...formData,
-      price: Number(formData.price),
-      maxPassengers: Number(formData.maxPassengers),
-      availableSeats: Number(formData.availableSeats),
+      title: formData.title.trim(),
+      maxPassengers: maxP,
+      availableSeats: availSeats,
+      itinerary: sanitizedItinerary,
+      durationOptions: formData.durationOptions.map((opt) => ({
+        days: Number(opt.days),
+        nights: Number(opt.nights),
+        price: Number(opt.price),
+      })),
     });
   };
 
@@ -194,14 +291,23 @@ export const TourFormModal = ({
       isOpen={isOpen}
       onClose={onClose}
       title={isEdit ? 'Chỉnh Sửa Thông Tin Tour Du Lịch' : 'Thêm Mới Tour Du Lịch'}
-      size="xl"
+      size="2xl"
     >
-      <form onSubmit={handleSubmit} className="space-y-6 max-h-[80vh] overflow-y-auto px-1 pr-2">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {formError && (
+          <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold flex items-center gap-2 animate-in fade-in">
+            <span className="material-symbols-outlined text-[18px] shrink-0 text-rose-500">
+              error
+            </span>
+            <span>{formError}</span>
+          </div>
+        )}
+
         {/* Section 1: Basic Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+          <div className="md:col-span-8">
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Tên / Tiêu đề Tour du lịch <span className="text-rose-500">*</span>
+              Tên / Tiêu đề Tour <span className="text-rose-500">*</span>
             </label>
             <input
               type="text"
@@ -214,7 +320,7 @@ export const TourFormModal = ({
             />
           </div>
 
-          <div>
+          <div className="md:col-span-4">
             <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
               Điểm đến liên kết <span className="text-rose-500">*</span>
             </label>
@@ -234,68 +340,139 @@ export const TourFormModal = ({
             </select>
           </div>
 
-          <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-              Giá vé niêm yết (VNĐ / khách) <span className="text-rose-500">*</span>
+          <div className="md:col-span-4">
+            <label className="block text-xs font-semibold text-slate-600 mb-1">
+              Số chỗ tối đa (Sức chứa)
             </label>
-            <input
-              type="number"
-              name="price"
-              min={0}
-              step={100000}
-              value={formData.price}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-            />
-          </div>
-        </div>
-
-        {/* Section 2: Duration & Passengers */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-          <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Số ngày</label>
-            <input
-              type="number"
-              min={1}
-              value={formData.duration.days}
-              onChange={(e) => handleDurationChange('days', Number(e.target.value))}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Số đêm</label>
-            <input
-              type="number"
-              min={0}
-              value={formData.duration.nights}
-              onChange={(e) => handleDurationChange('nights', Number(e.target.value))}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white"
-            />
-          </div>
-          <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Số chỗ tối đa</label>
             <input
               type="number"
               name="maxPassengers"
               min={1}
               value={formData.maxPassengers}
               onChange={handleChange}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm"
             />
+            <span className="text-[10px] text-slate-400 mt-1 block">
+              {isEdit
+                ? `Chỗ trống hiện tại: ${formData.availableSeats ?? formData.maxPassengers} (tự động tính)`
+                : `Chỗ trống ban đầu = ${formData.maxPassengers || 20}`}
+            </span>
           </div>
-          <div>
+
+          <div className="md:col-span-4">
             <label className="block text-xs font-semibold text-slate-600 mb-1">Trạng thái bán</label>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white font-semibold text-primary"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white font-semibold text-primary"
             >
               <option value="active">Đang mở bán</option>
               <option value="inactive">Tạm ngưng</option>
             </select>
           </div>
+
+          <div className="md:col-span-12">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              Tổng quan tour (Overview)
+            </label>
+            <textarea
+              name="overview"
+              rows={3}
+              value={formData.overview}
+              onChange={handleChange}
+              placeholder="Mô tả ngắn gọn về điểm đặc sắc và trải nghiệm nổi bật của tour..."
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none"
+            />
+          </div>
+        </div>
+
+        {/* Section 2: Duration Options (durationOptions[]) — Đây là thay đổi cốt lõi */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+              Gói thời lượng & Giá vé (durationOptions)
+              <span className="text-rose-500 ml-1">*</span>
+            </label>
+            <button
+              type="button"
+              onClick={handleAddDurationOption}
+              className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined text-[16px]">add_circle</span>
+              Thêm gói mới
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {formData.durationOptions.map((opt, idx) => (
+              <div
+                key={idx}
+                className="grid grid-cols-4 gap-3 p-4 rounded-2xl bg-sky-50/60 border border-sky-100 items-end"
+              >
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">
+                    Số ngày <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    value={opt.days}
+                    onChange={(e) => handleDurationOptionChange(idx, 'days', e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">
+                    Số đêm <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={opt.nights}
+                    onChange={(e) => handleDurationOptionChange(idx, 'nights', e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1">
+                    Giá (VNĐ/khách) <span className="text-rose-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    step={100000}
+                    value={opt.price}
+                    onChange={(e) => handleDurationOptionChange(idx, 'price', e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white font-bold text-primary"
+                    required
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-slate-500 font-semibold">
+                    {opt.days}N{opt.nights}Đ
+                  </div>
+                  {formData.durationOptions.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveDurationOption(idx)}
+                      className="text-slate-400 hover:text-rose-500 transition-colors p-1"
+                    >
+                      <span className="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {formData.durationOptions.length === 0 && (
+            <p className="text-xs text-rose-500 font-medium mt-1">
+              Tour phải có ít nhất 1 gói thời lượng.
+            </p>
+          )}
         </div>
 
         {/* Section 3: Departure Dates Picker */}
@@ -354,6 +531,24 @@ export const TourFormModal = ({
               <span>Thêm ngày mới</span>
             </button>
           </div>
+
+          {maxDurationDays > formData.itinerary.length && (
+            <div className="mb-3 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[18px] text-amber-600 shrink-0">info</span>
+                <span>
+                  Gói tour dài nhất bạn vừa thiết lập là <strong>{maxDurationDays} ngày</strong>, nhưng danh sách lịch trình mới có <strong>{formData.itinerary.length} ngày</strong>.
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={handleAutoFillMissingDays}
+                className="px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shrink-0 transition-colors"
+              >
+                + Bổ sung ngày còn thiếu
+              </button>
+            </div>
+          )}
 
           <div className="space-y-3">
             {formData.itinerary.map((item, idx) => (
@@ -467,7 +662,7 @@ export const TourFormModal = ({
           </div>
         </div>
 
-        {/* Modal Footer Actions */}
+        {/* Modal Footer */}
         <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
           <button
             type="button"
@@ -478,7 +673,7 @@ export const TourFormModal = ({
           </button>
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || formData.durationOptions.length === 0}
             className="px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-xs sm:text-sm shadow-md shadow-sky-500/25 hover:bg-primary-dark transition-all flex items-center gap-2 disabled:opacity-50"
           >
             {isSubmitting ? (

@@ -29,6 +29,19 @@ class BookingPlanController {
     }
   }
 
+  async syncPlansFromBookings(req, res, next) {
+    try {
+      const plans = await bookingPlanService.syncFromBookings();
+      return successResponse(
+        res,
+        plans,
+        'Đã đồng bộ thành công ' + plans.length + ' đoàn khởi hành từ các đơn đặt tour'
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async assignGuide(req, res, next) {
     try {
       const plan = await bookingPlanService.assignGuide(req.params.id, req.body.guideId);

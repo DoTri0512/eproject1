@@ -16,6 +16,21 @@ export const tourApi = {
     const response = await axiosClient.get(ENDPOINTS.TOURS.BY_DESTINATION(destinationId));
     return response.data || response;
   },
+
+  create: async (data) => {
+    const response = await axiosClient.post(ENDPOINTS.TOURS.BASE, data);
+    return response.data || response;
+  },
+
+  update: async (id, data) => {
+    const response = await axiosClient.put(ENDPOINTS.TOURS.DETAIL(id), data);
+    return response.data || response;
+  },
+
+  delete: async (id) => {
+    const response = await axiosClient.delete(ENDPOINTS.TOURS.DETAIL(id));
+    return response.data || response;
+  },
 };
 
 export default tourApi;

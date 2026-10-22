@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
 import formatDate from '../../../../utils/formatDate';
 
@@ -10,8 +10,6 @@ export const AssignGuideModal = ({
   onAssign,
   isSubmitting = false,
 }) => {
-  if (!plan) return null;
-
   const [selectedGuideId, setSelectedGuideId] = useState('');
 
   useEffect(() => {
@@ -20,6 +18,8 @@ export const AssignGuideModal = ({
       setSelectedGuideId(gId || '');
     }
   }, [plan]);
+
+  if (!plan) return null;
 
   const currentGuide = guides.find((g) => g._id === selectedGuideId);
 
@@ -37,7 +37,7 @@ export const AssignGuideModal = ({
       isOpen={isOpen}
       onClose={onClose}
       title="Phân Công Hướng Dẫn Viên Cho Đoàn"
-      size="md"
+      size="lg"
     >
       <form onSubmit={handleSubmit} className="space-y-5">
         {/* Departure Plan Summary */}
@@ -110,7 +110,7 @@ export const AssignGuideModal = ({
                 </span>
               </div>
               <p className="text-slate-500">
-                Chuyên môn: <strong className="text-slate-700">{currentGuide.specialty || 'Văn hóa & Lịch sử'}</strong>
+                Chuyên môn: <strong className="text-slate-700">{currentGuide.specialisation || currentGuide.specialty || 'Văn hóa & Lịch sử'}</strong>
               </p>
               <p className="text-slate-500">
                 Ngôn ngữ: <span className="text-sky-700 font-semibold">{currentGuide.languages?.join(', ') || 'Tiếng Việt, Tiếng Anh'}</span>

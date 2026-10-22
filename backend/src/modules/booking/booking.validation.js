@@ -1,7 +1,7 @@
 const { errorResponse } = require('../../utils/response');
 
 const validateCreateBooking = (req, res, next) => {
-  const { tourId, departureDate, numberOfGuests, totalAmount } = req.body;
+  const { tourId, departureDate, numberOfGuests, totalAmount, selectedDuration } = req.body;
   const errors = [];
 
   if (!tourId) {
@@ -12,7 +12,19 @@ const validateCreateBooking = (req, res, next) => {
     errors.push('Departure date is required');
   }
 
-  if (totalAmount === undefined || totalAmount === null || Number(totalAmount) <= 0) {
+  if (selectedDuration) {
+    if (selectedDuration.days === undefined || Number(selectedDuration.days) < 1) {
+      errors.push('selectedDuration.days must be a number >= 1');
+    }
+    if (selectedDuration.nights === undefined || Number(selectedDuration.nights) < 0) {
+      errors.push('selectedDuration.nights must be a number >= 0');
+    }
+    if (selectedDuration.price === undefined || Number(selectedDuration.price) < 0) {
+      errors.push('selectedDuration.price must be a valid positive number');
+    }
+  }
+
+  if (totalAmount !== undefined && (totalAmount === null || Number(totalAmount) <= 0)) {
     errors.push('A valid total amount is required');
   }
 

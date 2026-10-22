@@ -7,6 +7,10 @@ const bookingPlanSchema = new mongoose.Schema(
       ref: 'Tour',
       required: [true, 'Tour ID is required'],
     },
+    duration: {
+      days: { type: Number, default: 1 },
+      nights: { type: Number, default: 0 },
+    },
     departureDate: {
       type: Date,
       required: [true, 'Departure date is required'],
@@ -50,6 +54,11 @@ const bookingPlanSchema = new mongoose.Schema(
         idCardNumber: {
           type: String,
           default: '',
+        },
+        passengerType: {
+          type: String,
+          enum: ['adult', 'child', 'infant'],
+          default: 'adult',
         },
         phone: {
           type: String,

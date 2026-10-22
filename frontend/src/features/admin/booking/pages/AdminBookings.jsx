@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import useAdminBookings from '../hooks/useAdminBookings';
 import BookingStatusControl from '../components/BookingStatusControl';
 import BookingDetailModal from '../components/BookingDetailModal';
@@ -98,7 +98,7 @@ export const AdminBookings = () => {
 
       {/* 2. Metric Quick Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">receipt_long</span>
           </div>
@@ -108,7 +108,7 @@ export const AdminBookings = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4 relative overflow-hidden">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4 relative overflow-hidden">
           {stats.pending > 0 && (
             <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" />
           )}
@@ -121,7 +121,7 @@ export const AdminBookings = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">paid</span>
           </div>
@@ -131,7 +131,7 @@ export const AdminBookings = () => {
           </div>
         </div>
 
-        <div className="bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">task_alt</span>
           </div>
@@ -208,7 +208,7 @@ export const AdminBookings = () => {
         {isLoading ? (
           <div className="p-8 text-center text-slate-400 animate-pulse">
             <span className="material-symbols-outlined text-[36px] animate-spin mb-2">progress_activity</span>
-            <p className="text-sm font-semibold">Đang tải danh sách Đơn đặt tour...</p>
+            <p className="text-sm font-semibold">Đang tải danh sách đơn đặt tour...</p>
           </div>
         ) : filteredBookings.length === 0 ? (
           <div className="p-12 text-center">
@@ -223,11 +223,11 @@ export const AdminBookings = () => {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead className="bg-slate-50 border-b border-slate-200/80 text-[11px] font-extrabold uppercase text-slate-500 tracking-wider">
                 <tr>
-                  <th className="py-3.5 px-4">Mã Đơn & Ngày Đặt</th>
+                  <th className="py-3.5 px-4">Mã Đơn &amp; Ngày Đặt</th>
                   <th className="py-3.5 px-4">Khách Hàng</th>
-                  <th className="py-3.5 px-4">Tour & Ngày Khởi Hành</th>
+                  <th className="py-3.5 px-4">Tour &amp; Lịch Trình</th>
                   <th className="py-3.5 px-4">Hành Khách</th>
-                  <th className="py-3.5 px-4">Tổng Thanh Toán</th>
+                  <th className="py-3.5 px-4">Tổng Tiền</th>
                   <th className="py-3.5 px-4">Thanh Toán</th>
                   <th className="py-3.5 px-4">Trạng Thái Đơn</th>
                   <th className="py-3.5 px-4 text-right">Thao Tác</th>
@@ -240,8 +240,24 @@ export const AdminBookings = () => {
                   const user = b.userId || {};
                   const tour = b.tourId || {};
                   const isPending = (b.bookingStatus || 'pending') === 'pending';
-                  const totalGuests =
-                    (b.numberOfGuests?.adults || 1) + (b.numberOfGuests?.children || 0);
+                  const adults = b.numberOfGuests?.adults || 1;
+                  const children = b.numberOfGuests?.children || 0;
+                  const totalGuests = adults + children;
+
+                  const getMethodLabel = (method) => {
+                    switch (method) {
+                      case 'cash':
+                        return 'Tiền mặt';
+                      case 'credit_card':
+                        return 'Thẻ tín dụng';
+                      case 'bank_transfer':
+                        return 'Chuyển khoản';
+                      case 'e_wallet':
+                        return 'Ví điện tử';
+                      default:
+                        return method || 'Chuyển khoản';
+                    }
+                  };
 
                   return (
                     <tr key={b._id} className="hover:bg-slate-50/80 transition-colors">
@@ -270,31 +286,54 @@ export const AdminBookings = () => {
                         </div>
                       </td>
 
-                      {/* Tour & Departure */}
+                      {/* Tour, Selected Duration & Departure / End Date */}
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-slate-900 line-clamp-1 max-w-[220px]">
+                        <div className="font-semibold text-slate-900 line-clamp-1 max-w-[240px]">
                           {tour.title || 'Tour du lịch'}
                         </div>
-                        <div className="text-[11px] text-sky-800 font-medium flex items-center gap-1 mt-0.5">
-                          <span className="material-symbols-outlined text-[13px]">event</span>
-                          <span>{formatDate(b.departureDate)}</span>
+                        <div className="flex flex-wrap items-center gap-1.5 mt-1">
+                          {b.selectedDuration?.days && (
+                            <span className="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 font-bold text-[10px]">
+                              {b.selectedDuration.days}N{b.selectedDuration.nights}Đ
+                            </span>
+                          )}
+                          <span className="text-[11px] text-sky-800 font-medium flex items-center gap-0.5">
+                            <span className="material-symbols-outlined text-[13px]">event</span>
+                            <span>{formatDate(b.departureDate)}</span>
+                            {b.endDate && (
+                              <span className="text-slate-400">→ {formatDate(b.endDate)}</span>
+                            )}
+                          </span>
                         </div>
                       </td>
 
-                      {/* Passengers */}
+                      {/* Passengers Breakdown */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        <span className="font-bold text-slate-800">{totalGuests}</span>{' '}
-                        <span className="text-[11px] text-slate-400">người</span>
+                        <div className="font-bold text-slate-800">{totalGuests} người</div>
+                        <div className="text-[10px] text-slate-400">
+                          {adults} lớn{children > 0 ? `, ${children} trẻ` : ''}
+                        </div>
                       </td>
 
                       {/* Total Amount */}
-                      <td className="py-3.5 px-4 whitespace-nowrap font-black text-primary">
-                        {formatCurrency(b.totalAmount)}
+                      <td className="py-3.5 px-4 whitespace-nowrap">
+                        <div className="font-black text-primary text-sm">
+                          {formatCurrency(b.totalAmount)}
+                        </div>
+                        {b.selectedDuration?.price && (
+                          <div className="text-[10px] text-slate-400">
+                            {formatCurrency(b.selectedDuration.price)}/khách
+                          </div>
+                        )}
                       </td>
 
-                      {/* Payment Status */}
+                      {/* Payment Method & Status */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        {getPaymentBadge(b.paymentStatus)}
+                        <div>{getPaymentBadge(b.paymentStatus)}</div>
+                        <div className="text-[10px] text-slate-500 font-semibold mt-1 flex items-center gap-1">
+                          <span className="material-symbols-outlined text-[12px]">payments</span>
+                          <span>{getMethodLabel(b.paymentMethod)}</span>
+                        </div>
                       </td>
 
                       {/* Booking Status Control */}

@@ -10,4 +10,5 @@ module.exports = {
     process.env.JWT_SECRET || "traveltrail_super_secret_jwt_key_2026_dev",
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "7d",
   CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || "",
 };

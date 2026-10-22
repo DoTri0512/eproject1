@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from '../../../../components/common/Modal';
 import formatCurrency from '../../../../utils/formatCurrency';
 import formatDate from '../../../../utils/formatDate';
@@ -10,10 +10,8 @@ export const BookingDetailModal = ({
   onUpdateStatus,
   isSubmitting = false,
 }) => {
-  if (!booking) return null;
-
-  const [bookingStatus, setBookingStatus] = useState(booking.bookingStatus || 'pending');
-  const [paymentStatus, setPaymentStatus] = useState(booking.paymentStatus || 'pending');
+  const [bookingStatus, setBookingStatus] = useState('pending');
+  const [paymentStatus, setPaymentStatus] = useState('pending');
 
   useEffect(() => {
     if (booking) {
@@ -21,6 +19,8 @@ export const BookingDetailModal = ({
       setPaymentStatus(booking.paymentStatus || 'pending');
     }
   }, [booking]);
+
+  if (!booking) return null;
 
   const bookingCode = `#BK-${(booking._id || '').slice(-6).toUpperCase()}`;
   const tour = booking.tourId || {};
@@ -36,9 +36,9 @@ export const BookingDetailModal = ({
       isOpen={isOpen}
       onClose={onClose}
       title={`Chi Tiết Đơn Đặt Tour • ${bookingCode}`}
-      size="xl"
+      size="2xl"
     >
-      <div className="space-y-6 max-h-[80vh] overflow-y-auto px-1 pr-2">
+      <div className="space-y-6">
         {/* Top Header Card */}
         <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-sky-950 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
@@ -61,7 +61,15 @@ export const BookingDetailModal = ({
               {formatCurrency(booking.totalAmount)}
             </div>
             <div className="text-xs text-sky-200 mt-1 uppercase font-bold">
-              {booking.paymentMethod?.replace('_', ' ') || 'Chuyển khoản'}
+              {booking.paymentMethod === 'cash'
+                ? 'Tiền mặt tại quầy'
+                : booking.paymentMethod === 'credit_card'
+                ? 'Thẻ tín dụng / Ghi nợ'
+                : booking.paymentMethod === 'bank_transfer'
+                ? 'Chuyển khoản ngân hàng'
+                : booking.paymentMethod === 'e_wallet'
+                ? 'Ví điện tử (MoMo/ZaloPay)'
+                : booking.paymentMethod || 'Chuyển khoản'}
             </div>
           </div>
         </div>
@@ -200,12 +208,28 @@ export const BookingDetailModal = ({
               <p className="font-bold text-slate-900 text-sm line-clamp-1">
                 {tour.title || 'Tour Du Lịch Trọn Gói'}
               </p>
+              {booking.selectedDuration && (
+                <p>
+                  Gói thời lượng:{' '}
+                  <strong className="text-sky-700 font-bold">
+                    {booking.selectedDuration.days} ngày {booking.selectedDuration.nights} đêm
+                  </strong>
+                  {booking.selectedDuration.price ? (
+                    <span className="text-slate-400 ml-1">
+                      ({formatCurrency(booking.selectedDuration.price)}/khách)
+                    </span>
+                  ) : null}
+                </p>
+              )}
               <p>
                 Khởi hành:{' '}
                 <strong className="text-sky-800 font-bold">{formatDate(booking.departureDate)}</strong>
-              </p>
-              <p>
-                Thời lượng: <strong className="text-slate-800">{tour.duration?.text || '—'}</strong>
+                {booking.endDate && (
+                  <>
+                    {' '}— Kết thúc:{' '}
+                    <strong className="text-sky-800 font-bold">{formatDate(booking.endDate)}</strong>
+                  </>
+                )}
               </p>
               <p>
                 Số lượng khách:{' '}
@@ -214,9 +238,17 @@ export const BookingDetailModal = ({
                   ({booking.numberOfGuests?.adults || 1} lớn, {booking.numberOfGuests?.children || 0} trẻ em)
                 </strong>
               </p>
-              {booking.specialRequests && (
-                <div className="p-2 rounded-lg bg-amber-50 text-amber-800 text-[11px] mt-2">
-                  <strong>Yêu cầu đặc biệt:</strong> {booking.specialRequests}
+              {booking.guide_id && (
+                <p>
+                  Hướng dẫn viên mong muốn:{' '}
+                  <strong className="text-slate-800">
+                    {typeof booking.guide_id === 'object' ? booking.guide_id.name : 'Đã chọn HDV'}
+                  </strong>
+                </p>
+              )}
+              {(booking.notes || booking.specialRequests) && (
+                <div className="p-2.5 rounded-lg bg-amber-50 text-amber-800 text-[11px] mt-2 border border-amber-200/80">
+                  <strong>Ghi chú đơn hàng:</strong> {booking.notes || booking.specialRequests}
                 </div>
               )}
             </div>
@@ -224,10 +256,10 @@ export const BookingDetailModal = ({
         </div>
 
         {/* Section: Passengers List if exists */}
-        {booking.passengers && booking.passengers.length > 0 && (
+        {((booking.passengers && booking.passengers.length > 0) || (booking.passengersList && booking.passengersList.length > 0)) && (
           <div>
             <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-              Danh Sách Hành Khách Đi Cùng ({booking.passengers.length} người)
+              Danh Sách Hành Khách Đi Cùng ({(booking.passengers || booking.passengersList).length} người)
             </h4>
             <div className="overflow-x-auto rounded-xl border border-slate-200">
               <table className="w-full text-left text-xs">
@@ -236,18 +268,26 @@ export const BookingDetailModal = ({
                     <th className="py-2 px-3">STT</th>
                     <th className="py-2 px-3">Họ và tên</th>
                     <th className="py-2 px-3">Giới tính</th>
+                    <th className="py-2 px-3">Phân loại</th>
                     <th className="py-2 px-3">Ngày sinh</th>
                     <th className="py-2 px-3">Số CCCD / Hộ chiếu</th>
+                    <th className="py-2 px-3">Điện thoại</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {booking.passengers.map((p, i) => (
+                  {(booking.passengers || booking.passengersList).map((p, i) => (
                     <tr key={i} className="hover:bg-slate-50">
                       <td className="py-2 px-3 font-mono">{i + 1}</td>
                       <td className="py-2 px-3 font-bold text-slate-800">{p.fullName}</td>
                       <td className="py-2 px-3 capitalize">{p.gender === 'male' ? 'Nam' : p.gender === 'female' ? 'Nữ' : 'Khác'}</td>
+                      <td className="py-2 px-3">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">
+                          {p.passengerType === 'child' ? 'Trẻ em' : p.passengerType === 'infant' ? 'Em bé' : 'Người lớn'}
+                        </span>
+                      </td>
                       <td className="py-2 px-3">{p.dob ? formatDate(p.dob) : '—'}</td>
                       <td className="py-2 px-3 font-mono">{p.idCardNumber || '—'}</td>
+                      <td className="py-2 px-3">{p.phone || '—'}</td>
                     </tr>
                   ))}
                 </tbody>

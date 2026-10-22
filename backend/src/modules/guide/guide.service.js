@@ -12,11 +12,22 @@ class GuideService {
       filter.destinations = query.destinationId;
     }
 
+    if (query.language && query.language !== 'Tất cả') {
+      filter.languages = { $regex: query.language, $options: 'i' };
+    }
+
+    if (query.specialisation && query.specialisation !== 'Tất cả') {
+      filter.specialisation = { $regex: query.specialisation, $options: 'i' };
+    }
+
     if (query.search) {
+      const searchRegex = { $regex: query.search, $options: 'i' };
       filter.$or = [
-        { name: { $regex: query.search, $options: 'i' } },
-        { specialisation: { $regex: query.search, $options: 'i' } },
-        { languages: { $regex: query.search, $options: 'i' } },
+        { name: searchRegex },
+        { specialisation: searchRegex },
+        { languages: searchRegex },
+        { biography: searchRegex },
+        { background: searchRegex },
       ];
     }
 

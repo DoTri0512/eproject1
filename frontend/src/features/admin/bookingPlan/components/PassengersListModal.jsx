@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '../../../../components/common/Modal';
 import formatDate from '../../../../utils/formatDate';
 
@@ -9,9 +9,9 @@ export const PassengersListModal = ({
   onOpenAssignGuide,
   onUpdateStatus,
 }) => {
-  if (!plan) return null;
-
   const [checkedInIds, setCheckedInIds] = useState({});
+
+  if (!plan) return null;
 
   const passengers = plan.passengersList || [];
   const guide = plan.guideId || null;
@@ -31,9 +31,9 @@ export const PassengersListModal = ({
       isOpen={isOpen}
       onClose={onClose}
       title="Danh Sách Hành Khách & Điểm Danh Đoàn Khởi Hành"
-      size="xl"
+      size="2xl"
     >
-      <div className="space-y-6 max-h-[80vh] overflow-y-auto px-1 pr-2">
+      <div className="space-y-6">
         {/* Top Header Card */}
         <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
@@ -136,6 +136,7 @@ export const PassengersListModal = ({
                   <th className="py-2.5 px-3">STT</th>
                   <th className="py-2.5 px-3">Họ và tên hành khách</th>
                   <th className="py-2.5 px-3">Giới tính</th>
+                  <th className="py-2.5 px-3">Phân loại</th>
                   <th className="py-2.5 px-3">Ngày sinh</th>
                   <th className="py-2.5 px-3">Số CCCD / Hộ chiếu</th>
                   <th className="py-2.5 px-3">Số điện thoại</th>
@@ -170,6 +171,11 @@ export const PassengersListModal = ({
                       </td>
                       <td className="py-2.5 px-3 capitalize text-slate-600">
                         {p.gender === 'male' ? 'Nam' : p.gender === 'female' ? 'Nữ' : 'Khác'}
+                      </td>
+                      <td className="py-2.5 px-3">
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-100 text-slate-700">
+                          {p.passengerType === 'child' ? 'Trẻ em' : p.passengerType === 'infant' ? 'Em bé' : 'Người lớn'}
+                        </span>
                       </td>
                       <td className="py-2.5 px-3 text-slate-600">
                         {p.dob ? formatDate(p.dob) : '—'}

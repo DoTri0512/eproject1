@@ -13,6 +13,7 @@ const collectionRoute = require("../modules/collection/collection.route");
 const contactRoute = require("../modules/contact/contact.route");
 const adminRoute = require("../modules/admin/admin.route");
 const uploadRoute = require("../modules/upload/upload.route");
+const chatbotRoute = require("../modules/chatbot/chatbot.route");
 
 // API Health Check
 router.get("/health", (req, res) => {
@@ -36,5 +37,6 @@ router.use("/collections", collectionRoute);
 router.use("/contacts", contactRoute);
 router.use("/admin", adminRoute);
 router.use("/upload", uploadRoute);
+router.use("/chatbot", chatbotRoute);
 
 module.exports = router;
