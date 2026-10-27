@@ -1,14 +1,23 @@
-﻿import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import adminApi from '../../adminApi';
 
 export const useAdminBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
   // Filters & Tabs
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'pending' | 'confirmed' | 'completed' | 'cancelled'
   const [searchTerm, setSearchTerm] = useState('');
   const [paymentFilter, setPaymentFilter] = useState('all');
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, searchTerm, paymentFilter, limit]);
 
   // Modals & Details
   const [selectedBooking, setSelectedBooking] = useState(null);
@@ -26,7 +35,7 @@ export const useAdminBookings = () => {
   const loadBookings = useCallback(async () => {
     try {
       setIsLoading(true);
-      const res = await adminApi.getBookings();
+      const res = await adminApi.getBookings({ limit: 1000 });
       const items = Array.isArray(res)
         ? res
         : res.data || res.bookings || res.items || [];
@@ -93,6 +102,14 @@ export const useAdminBookings = () => {
     });
   }, [bookings, activeTab, paymentFilter, searchTerm]);
 
+  // Paginated bookings
+  const totalItems = filteredBookings.length;
+  const totalPages = Math.ceil(totalItems / limit) || 1;
+  const paginatedBookings = useMemo(() => {
+    const start = (currentPage - 1) * limit;
+    return filteredBookings.slice(start, start + limit);
+  }, [filteredBookings, currentPage, limit]);
+
   // Open Details Modal
   const handleOpenDetail = (booking) => {
     setSelectedBooking(booking);
@@ -149,9 +166,16 @@ export const useAdminBookings = () => {
 
   return {
     bookings,
-    filteredBookings,
+    filteredBookings: paginatedBookings,
+    allFilteredCount: filteredBookings.length,
     stats,
     isLoading,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalItems,
+    limit,
+    setLimit,
     activeTab,
     setActiveTab,
     searchTerm,

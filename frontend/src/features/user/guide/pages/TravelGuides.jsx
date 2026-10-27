@@ -52,22 +52,22 @@ export const TravelGuides = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-[115px] pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pt-[110px] pb-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* 1. HERO SECTION */}
         <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]" />
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-sky-300 text-xs font-semibold mb-3">
-              <span className="material-symbols-outlined text-[16px]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md text-white font-medium mb-3">
+              <span className="material-symbols-outlined text-[14px]">
                 support_agent
               </span>
-              <span>ĐỘI NGŨ CHUYÊN GIA BẢN ĐỊA</span>
+              <span className="text-[14px]">ĐỘI NGŨ CHUYÊN GIA BẢN ĐỊA</span>
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-white">
               Đội Ngũ Hướng Dẫn Viên Đồng Hành
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl mx-auto">
               Gặp gỡ những người con bản địa giàu kinh nghiệm, nhiệt huyết và am
               hiểu từng nét văn hóa, con người trên mọi nẻo đường Việt Nam.
             </p>
@@ -141,7 +141,10 @@ export const TravelGuides = () => {
 
           <div className="flex items-center justify-between md:justify-end gap-3">
             <span className="text-xs font-semibold text-slate-500">
-              Có <span className="text-primary font-bold">{pagination.totalItems ?? guides.length}</span>{" "}
+              Có{" "}
+              <span className="text-primary font-bold">
+                {pagination.totalItems ?? guides.length}
+              </span>{" "}
               hướng dẫn viên
             </span>
 
@@ -225,12 +228,17 @@ export const TravelGuides = () => {
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
-              <span className="material-symbols-outlined text-[18px]">chevron_left</span>
+              <span className="material-symbols-outlined text-[18px]">
+                chevron_left
+              </span>
               Trước
             </button>
 
             <div className="flex items-center gap-1">
-              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => (
+              {Array.from(
+                { length: pagination.totalPages },
+                (_, i) => i + 1,
+              ).map((page) => (
                 <button
                   key={page}
                   type="button"
@@ -253,7 +261,9 @@ export const TravelGuides = () => {
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
               Tiếp
-              <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+              <span className="material-symbols-outlined text-[18px]">
+                chevron_right
+              </span>
             </button>
           </div>
         )}

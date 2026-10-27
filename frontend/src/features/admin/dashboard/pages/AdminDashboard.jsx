@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import StatCard from '../components/StatCard';
-import AnalyticsChart from '../components/AnalyticsChart';
-import useAdminStats from '../hooks/useAdminStats';
-import formatCurrency from '../../../../utils/formatCurrency';
+import React, { useState } from "react";
+import StatCard from "../components/StatCard";
+import AnalyticsChart from "../components/AnalyticsChart";
+import useAdminStats from "../hooks/useAdminStats";
+import formatCurrency from "../../../../utils/formatCurrency";
 
 export const AdminDashboard = () => {
   const { stats, isLoading, refetch } = useAdminStats();
-  const [activeRange, setActiveRange] = useState('month');
+  const [activeRange, setActiveRange] = useState("month");
 
   const kpi = stats?.kpi || {
     totalUsers: 24,
@@ -39,19 +39,20 @@ export const AdminDashboard = () => {
             Thống Kê & Tổng Quan Hệ Thống
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Báo cáo tổng hợp số liệu vận hành, doanh thu tài chính và hoạt động đặt tour thời gian thực.
+            Báo cáo tổng hợp số liệu vận hành, doanh thu tài chính và hoạt động
+            đặt tour thời gian thực.
           </p>
         </div>
 
         {/* Range Filters & Actions */}
         <div className="flex flex-wrap items-center gap-2.5">
           <div className="inline-flex p-1 rounded-xl bg-slate-200/70 border border-slate-200">
-            {['today', '7days', 'month', 'year'].map((rangeKey) => {
+            {["today", "7days", "month", "year"].map((rangeKey) => {
               const label = {
-                today: 'Hôm nay',
-                '7days': '7 ngày',
-                month: 'Tháng này',
-                year: 'Năm 2026',
+                today: "Hôm nay",
+                "7days": "7 ngày",
+                month: "Tháng này",
+                year: "Năm 2026",
               }[rangeKey];
               return (
                 <button
@@ -60,8 +61,8 @@ export const AdminDashboard = () => {
                   onClick={() => setActiveRange(rangeKey)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     activeRange === rangeKey
-                      ? 'bg-white text-primary shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
+                      ? "bg-white text-primary shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   {label}
@@ -75,7 +76,9 @@ export const AdminDashboard = () => {
             onClick={refetch}
             className="h-9.5 px-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
           >
-            <span className="material-symbols-outlined text-[18px] text-primary">sync</span>
+            <span className="material-symbols-outlined text-[18px] text-primary">
+              sync
+            </span>
             <span>Làm mới</span>
           </button>
         </div>
@@ -134,4 +137,3 @@ export const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-

@@ -39,10 +39,14 @@ export const ENDPOINTS = {
   COLLECTIONS: {
     BASE: '/collections',
     DETAIL: (idOrSlug) => `/collections/${idOrSlug}`,
+    DESTINATIONS: (idOrSlug) => `/collections/${idOrSlug}/destinations`,
+    REMOVE_DESTINATION: (id, destinationId) => `/collections/${id}/destinations/${destinationId}`,
   },
   GUIDES: {
     BASE: '/guides',
     DETAIL: (idOrSlug) => `/guides/${idOrSlug}`,
+    DESTINATIONS: (idOrSlug) => `/guides/${idOrSlug}/destinations`,
+    REMOVE_DESTINATION: (id, destinationId) => `/guides/${id}/destinations/${destinationId}`,
   },
   FAVOURITES: {
     BASE: '/favourites',
@@ -65,6 +69,15 @@ export const ENDPOINTS = {
     SESSION: (sessionId) => `/chatbot/session/${sessionId}`,
     CLEAR_SESSION: (sessionId) => `/chatbot/session/${sessionId}`,
     USER_SESSIONS: '/chatbot/user-sessions',
+  },
+  CONTACTS: {
+    BASE: '/contacts',
+    DETAIL: (id) => `/contacts/${id}`,
+    
+    UPDATE_STATUS: (id) => `/contacts/${id}/status`,
+  },
+  STATS: {
+    SUMMARY: '/stats/summary',
   },
 };
 

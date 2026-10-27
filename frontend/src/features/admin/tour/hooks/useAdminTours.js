@@ -6,10 +6,22 @@ export const useAdminTours = () => {
   const [destinations, setDestinations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [allToursForStats, setAllToursForStats] = useState([]);
+
   // Filters & search
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDestinationId, setSelectedDestinationId] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedDestinationId, selectedStatus, limit]);
 
   // Modals
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -28,16 +40,30 @@ export const useAdminTours = () => {
   const loadData = useCallback(async () => {
     try {
       setIsLoading(true);
-      const [toursRes, destsRes] = await Promise.allSettled([
-        adminApi.getTours(),
-        adminApi.getDestinations(),
+      const params = {
+        page: currentPage,
+        limit,
+      };
+      if (searchTerm.trim()) params.search = searchTerm.trim();
+      if (selectedDestinationId !== 'all') params.destinationId = selectedDestinationId;
+      if (selectedStatus !== 'all') params.status = selectedStatus;
+
+      const [toursRes, destsRes, allToursRes] = await Promise.allSettled([
+        adminApi.getTours(params),
+        adminApi.getDestinations({ limit: 100 }),
+        adminApi.getTours({ limit: 1000 }),
       ]);
 
       if (toursRes.status === 'fulfilled' && toursRes.value) {
-        const items = Array.isArray(toursRes.value)
-          ? toursRes.value
-          : toursRes.value.items || toursRes.value.data || [];
+        const val = toursRes.value;
+        const items = Array.isArray(val)
+          ? val
+          : val.items || val.data?.items || val.data || [];
+        const paginationInfo = val.pagination || val.data?.pagination;
+
         setTours(items);
+        setTotalItems(paginationInfo?.totalItems ?? val.totalItems ?? items.length);
+        setTotalPages(paginationInfo?.totalPages ?? (Math.ceil((items.length) / limit) || 1));
       }
 
       if (destsRes.status === 'fulfilled' && destsRes.value) {
@@ -46,64 +72,52 @@ export const useAdminTours = () => {
           : destsRes.value.items || destsRes.value.data || [];
         setDestinations(destItems);
       }
+
+      if (allToursRes.status === 'fulfilled' && allToursRes.value) {
+        const allItems = Array.isArray(allToursRes.value)
+          ? allToursRes.value
+          : allToursRes.value.items || allToursRes.value.data || [];
+        setAllToursForStats(allItems);
+      }
     } catch (err) {
       console.error('Error loading tours data:', err);
       showToast('Không thể tải dữ liệu tours từ server', 'error');
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [currentPage, limit, searchTerm, selectedDestinationId, selectedStatus]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  // Filtered tours list
-  const filteredTours = useMemo(() => {
-    return tours.filter((tour) => {
-      const titleMatch =
-        !searchTerm.trim() ||
-        tour.title?.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
-        tour.slug?.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
-        tour.destinationId?.name?.toLowerCase().includes(searchTerm.trim().toLowerCase());
+  // Filtered tours list (server-side already filtered, fallback client guard)
+  const filteredTours = tours;
 
-      const destId =
-        typeof tour.destinationId === 'object'
-          ? tour.destinationId?._id
-          : tour.destinationId;
-      const destMatch =
-        selectedDestinationId === 'all' || destId === selectedDestinationId;
-
-      const statusMatch =
-        selectedStatus === 'all' || (tour.status || 'active') === selectedStatus;
-
-      return titleMatch && destMatch && statusMatch;
-    });
-  }, [tours, searchTerm, selectedDestinationId, selectedStatus]);
-
-  // Statistics
+  // Statistics from all tours
   const stats = useMemo(() => {
-    const total = tours.length;
-    const active = tours.filter((t) => (t.status || 'active') === 'active').length;
-    const totalAvailableSeats = tours.reduce(
+    const list = allToursForStats.length > 0 ? allToursForStats : tours;
+    const total = totalItems || list.length;
+    const active = list.filter((t) => (t.status || 'active') === 'active').length;
+    const totalAvailableSeats = list.reduce(
       (sum, t) => sum + (t.availableSeats ?? t.maxPassengers ?? 0),
       0
     );
     const avgPrice =
-      total > 0
+      list.length > 0
         ? Math.round(
-            tours.reduce((sum, t) => {
+            list.reduce((sum, t) => {
               const p =
                 t.durationOptions?.length > 0
                   ? Math.min(...t.durationOptions.map((o) => Number(o.price) || 0))
                   : Number(t.price) || 0;
               return sum + p;
-            }, 0) / total
+            }, 0) / list.length
           )
         : 0;
 
     return { total, active, totalAvailableSeats, avgPrice };
-  }, [tours]);
+  }, [allToursForStats, tours, totalItems]);
 
   const handleOpenCreate = () => {
     setSelectedTour(null);
@@ -184,6 +198,12 @@ export const useAdminTours = () => {
     filteredTours,
     stats,
     isLoading,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalItems,
+    limit,
+    setLimit,
     searchTerm,
     setSearchTerm,
     selectedDestinationId,

@@ -32,7 +32,7 @@ Phân loại các đối tượng người dùng chính trong hệ thống:
 - Đặt chuyến du lịch (Tour Booking) trực tuyến: Lựa chọn gói thời lượng (Duration: ví dụ 2N1Đ, 3N2Đ, 4N3Đ) phù hợp với nhu cầu, chủ động chọn ngày khởi hành linh hoạt (Flexible Departure Date) bằng Date Picker và xem lịch trình chi tiết tương ứng.
 - Quản lý lịch sử đặt chuyến (Booking History), xem thông tin vé và trạng thái đơn đặt (Pending, Confirmed, Completed, Cancelled).
 - Lưu địa điểm yêu thích (Favourites) được đồng bộ với MongoDB qua REST API.
-- Lập kế hoạch chuyến đi (Trip Planner) lưu trữ trên hệ thống.
+- Trip Planner: Khách hàng (Customer) xem thông tin chi tiết tour đã đặt và xem thông tin lịch trình chuyến đi trong tour đó.
 
 ### 2.3. Quản trị viên (Admin)
 
@@ -126,18 +126,21 @@ Hiển thị:
 
 ### 3.11. Contact
 
-- Form liên hệ gồm: Name, Email, Phone, Message.
-- Validate required fields và email format.
-- Gửi yêu cầu liên hệ về Backend API lưu dữ liệu.
-- Hiển thị thông báo xác nhận đã gửi thành công.
+- Form liên hệ gồm: Họ và tên, Email, Số điện thoại, Chủ đề (Subject), Nội dung tin nhắn (Message).
+- Validate required fields (Tên, Email, Nội dung bắt buộc) và định dạng email.
+- Gửi yêu cầu liên hệ về Backend REST API (`POST /api/v1/contacts`) để lưu vào MongoDB collection `contacts`.
+- Hiển thị thông báo xác nhận gửi thành công (Toast / Success Message) sau khi gửi.
+- Hiển thị thông tin liên hệ trực tiếp (địa chỉ, email hỗ trợ, số điện thoại hotline, giờ làm việc).
+- Hiển thị bản đồ hoặc thông tin vị trí văn phòng.
+- Trạng thái loading trong lúc gửi, disable form khi đang submit.
+- Reset form sau khi gửi thành công.
 
 ### 3.12. Trip Planner
 
-- Thêm/xóa destination vào kế hoạch chuyến đi.
-- Sắp xếp thứ tự hành trình.
-- Đề xuất visit duration.
-- Lưu và đồng bộ kế hoạch với cơ sở dữ liệu MongoDB (và lưu cache Local Storage).
-- Có xử lý các trạng thái rỗng, validation.
+- Khách hàng (Customer) xem thông tin chi tiết tour đã đặt.
+- Trong giao diện xem chi tiết:
+  - Hiển thị thông tin lịch trình chuyến đi trong tour đó (lịch trình chi tiết theo từng ngày, thời gian và các hoạt động trải nghiệm).
+  - Hiển thị đầy đủ thông tin chuyến đi đã đặt: Tên tour, gói thời lượng (số ngày / số đêm), ngày khởi hành, ngày kết thúc, số lượng hành khách, phương thức thanh toán và trạng thái đơn đặt tour.
 
 ### 3.13. Common UI & Modern Design System
 
@@ -210,9 +213,23 @@ Hiển thị:
   - Xem tất cả đơn đặt tour của mọi khách hàng trong hệ thống.
   - Lọc đơn theo trạng thái (`Pending`, `Confirmed`, `Completed`, `Cancelled`).
   - Phê duyệt đơn (`Pending` -> `Confirmed`), cập nhật đơn hủy hoặc hoàn tất.
-- **Quản lý Users (Users Management):**
-  - Xem danh sách người dùng.
-  - Cập nhật vai trò (`user` <-> `admin`).
+- **Quản lý Contacts (Contacts Management):**
+  - Xem danh sách liên hệ từ form liên hệ.
+  - Cập nhật trạng thái liên hệ (`new`, `read`, `resolved`).
+  - Xem chi tiết thông tin liên hệ.
+- **Quản lý Guides (Guides Management):**
+  - Xem danh sách guide.
+  - Xem chi tiết thông tin guide
+  - Thêm mới, Chỉnh sửa thông tin guide, Xóa guide.
+  - Trong phần xem chi tiết guide, thêm danh sách điểm đến guide phụ trách
+- **Quản lý bookingplans (Booking Plans Management):**
+  - Xem danh sách các gói thời gian của tour.
+  - Xem thông tin chi tiết của booking plan.
+- **Quản lý collection:**
+  - Xem danh sách các collection.
+  - Xem thông tin các điểm đến trong collection.
+  - Thêm danh sách điểm đến vào collection (nếu chưa có trong collection khác).
+  - Xóa điểm đến khỏi collection.
 
 ### 3.17. AI Travel Assistant (Trợ lý Chatbot AI Tư vấn Du lịch)
 
@@ -227,15 +244,15 @@ Hiển thị:
     - Hiệu ứng phản hồi đang nhập liệu (Typing / Loading indicator) sinh động trong lúc AI xử lý.
   - **Gợi ý câu hỏi nhanh (Quick Suggestion Chips / Prompts):**
     - Hiển thị danh sách câu hỏi mẫu phổ biến khi người dùng mới mở chatbox:
-      - *"Gợi ý tour biển 3 ngày 2 đêm dưới 5 triệu"*
-      - *"Mùa này nên đi du lịch ở đâu đẹp nhất?"*
-      - *"Lên lịch trình khám phá Đà Nẵng 4N3Đ cho gia đình có trẻ nhỏ"*
-      - *"Có tour trekking mạo hiểm nào dành cho người mới không?"*
+      - _"Gợi ý tour biển 3 ngày 2 đêm dưới 5 triệu"_
+      - _"Mùa này nên đi du lịch ở đâu đẹp nhất?"_
+      - _"Lên lịch trình khám phá Đà Nẵng 4N3Đ cho gia đình có trẻ nhỏ"_
+      - _"Có tour trekking mạo hiểm nào dành cho người mới không?"_
     - Người dùng chỉ cần click vào chip gợi ý để gửi câu hỏi ngay lập tức.
   - **Thẻ Tour & Điểm đến tương tác nhúng trực tiếp (Rich Cards UI):**
     - Khi AI tư vấn về các tour hoặc điểm đến có sẵn trong hệ thống, tin nhắn phản hồi sẽ hiển thị kèm thẻ tương tác (Card) có ảnh đại diện, tên tour/điểm đến, giá tham khảo, thời lượng và nút bấm:
-      - Nút *"Xem chi tiết"*: Điều hướng trực tiếp đến trang `/tours/:slug` hoặc `/destinations/:slug`.
-      - Nút *"Đặt ngay"*: Mở trực tiếp form đặt tour với thông tin được điền sẵn.
+      - Nút _"Xem chi tiết"_: Điều hướng trực tiếp đến trang `/tours/:slug` hoặc `/destinations/:slug`.
+      - Nút _"Đặt ngay"_: Mở trực tiếp form đặt tour với thông tin được điền sẵn.
 - **Khả năng tư vấn & Kịch bản thông minh:**
   - **Tư vấn theo ngân sách (Budget-based Consultation):** Tiếp nhận mức kinh phí của khách hàng (ví dụ: 3 triệu, 5 triệu, 10 triệu/người) và đề xuất các tour hoặc điểm đến phù hợp nhất với túi tiền.
   - **Tư vấn theo thời gian & mùa (Seasonal & Duration Advice):** Đưa ra lời khuyên về thời điểm lý tưởng để ghé thăm từng vùng miền (mùa lúa chín Tây Bắc, mùa biển hè Miền Trung, mùa hoa tam giác mạch Hà Giang,...), đồng thời khớp với số ngày rảnh rỗi của khách (2N1Đ, 3N2Đ, 4N3Đ).
@@ -315,6 +332,7 @@ Lưu trữ thông tin các gói tour du lịch được thiết kế và mở b�
 - `slug`: String (Required, Unique) – Chuỗi định danh thân thiện URL, tự động sinh từ `title` (ví dụ: `"tour-kham-pha-vinh-ha-long"`). Dùng để xây dựng đường dẫn trang chi tiết `/tours/:slug`.
 - `overview`: String – Giới thiệu tổng quan về hành trình và điểm đặc sắc của tour.
 - `durationOptions`: Array of Objects (Required) – Danh sách các tùy chọn thời lượng và mức giá tương ứng để khách hàng lựa chọn:
+
   ```json
   "durationOptions": [
     {
@@ -338,6 +356,7 @@ Lưu trữ thông tin các gói tour du lịch được thiết kế và mở b�
   - `days`: Number (Required) – Số ngày của chuyến đi (ví dụ: 2, 3, 4).
   - `nights`: Number (Required) – Số đêm của chuyến đi (ví dụ: 1, 2, 3).
   - `price`: Number (Required) – Mức giá vé niêm yết cho 1 khách hàng áp dụng cho thời lượng này (đơn vị: VNĐ).
+
 - `departureDates`: Array of Dates – Danh sách các ngày khởi hành dự kiến mở bán của tour để khách hàng tự do lựa chọn khi đặt tour (hoặc chọn ngày phù hợp).
 - `itinerary`: Array of Objects `{ day: Number, title: String, description: String }` – Lịch trình chi tiết các hoạt động diễn ra theo từng ngày (Day 1, Day 2, Day 3,...). Khi khách hàng chọn tùy chọn trong `durationOptions` (ví dụ: 2 ngày 1 đêm), hệ thống sẽ hiển thị lịch trình tương ứng trong số ngày của duration đó (Day 1 đến Day 2).
 - `maxPassengers`: Number (Required) – Số lượng hành khách tối đa nhận phục vụ trong một đợt khởi hành (sức chứa của tour).
@@ -447,6 +466,27 @@ Lưu trữ các phiên hội thoại tư vấn du lịch giữa người dùng v
 - `createdAt`: Date – Thời điểm khởi tạo cuộc trò chuyện.
 - `updatedAt`: Date – Thời điểm gửi tin nhắn gần nhất.
 
+### 4.11. Contact Schema (Yêu cầu liên hệ)
+
+Lưu trữ các yêu cầu liên hệ do người dùng/khách truy cập gửi qua form liên hệ trên website.
+
+- `_id`: ObjectId – Khóa chính, mã định danh duy nhất của yêu cầu liên hệ.
+- `name`: String (Required) – Họ và tên người gửi yêu cầu liên hệ.
+- `email`: String (Required) – Địa chỉ email để nhận phản hồi, phải đúng định dạng email hợp lệ.
+- `phone`: String (Optional) – Số điện thoại liên hệ (không bắt buộc).
+- `subject`: String (Optional) – Chủ đề / tiêu đề của yêu cầu liên hệ (ví dụ: "Hỏi về tour Đà Lạt", "Báo lỗi hệ thống").
+- `message`: String (Required) – Nội dung chi tiết của tin nhắn liên hệ.
+- `status`: String (Enum: `'new'`, `'read'`, `'resolved'`, Default: `'new'`) – Trạng thái xử lý yêu cầu (`new`: chưa đọc, `read`: đã đọc, `resolved`: đã giải quyết).
+- `createdAt`: Date – Thời điểm gửi yêu cầu liên hệ.
+- `updatedAt`: Date – Thời điểm cập nhật trạng thái xử lý gần nhất.
+
+**API Endpoints (Contact):**
+
+- `POST /api/v1/contacts` – Gửi yêu cầu liên hệ mới (Public, không cần xác thực).
+- `GET /api/v1/contacts` – Xem danh sách yêu cầu liên hệ (Admin only, hỗ trợ filter theo `status`, tìm kiếm `search`, phân trang).
+- `PUT /api/v1/contacts/:id/status` – Cập nhật trạng thái xử lý yêu cầu liên hệ (Admin only).
+- `DELETE /api/v1/contacts/:id` – Xóa yêu cầu liên hệ (Admin only).
+
 ---
 
 ## 5. Lưu trữ dữ liệu & Cơ sở dữ liệu (Storage & Database)
@@ -523,7 +563,7 @@ Yêu cầu kĩ thuật:
 - Chi tiết điểm đến (Destination Details) & Chi tiết tour (Tour Details).
 - Bộ sưu tập (Collections), Bộ ảnh (Gallery), Hướng dẫn viên (Travel Guides).
 - Yêu thích (Favourites) đồng bộ MongoDB REST API.
-- Lập kế hoạch chuyến đi (Trip Planner).
+- Xem chi tiết tour đã đặt & lịch trình chuyến đi (Trip Planner).
 - Trang Contact & About.
 - Responsive UI hoàn chỉnh trên Desktop, Tablet, Mobile.
 - Quản lý phiên làm việc Client với Cookie & JWT Token.

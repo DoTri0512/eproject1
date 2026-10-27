@@ -46,6 +46,51 @@ class CollectionController {
       next(error);
     }
   }
+
+  async getCollectionDestinations(req, res, next) {
+    try {
+      const destinations = await collectionService.getCollectionDestinations(req.params.idOrSlug);
+      return successResponse(res, destinations, 'Collection destinations retrieved successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addDestinations(req, res, next) {
+    try {
+      const collection = await collectionService.addDestinationsToCollection(
+        req.params.id,
+        req.body.destinationIds
+      );
+      return successResponse(res, collection, 'Destinations added to collection successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeDestination(req, res, next) {
+    try {
+      const collection = await collectionService.removeDestinationFromCollection(
+        req.params.id,
+        req.params.destinationId
+      );
+      return successResponse(res, collection, 'Destination removed from collection successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeDestinations(req, res, next) {
+    try {
+      const collection = await collectionService.removeDestinationsFromCollection(
+        req.params.id,
+        req.body.destinationIds
+      );
+      return successResponse(res, collection, 'Destinations removed from collection successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new CollectionController();

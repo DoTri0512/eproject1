@@ -1,6 +1,6 @@
 {
   "database": "traveltrail",
-  "exportedAt": "2026-10-22T11:34:02.318Z",
+  "exportedAt": "2026-10-22T11:57:55.212Z",
   "summary": {
     "users": 3,
     "customers": 3,
@@ -8,8 +8,8 @@
     "tours": 10,
     "guides": 10,
     "collections": 10,
-    "bookings": 7,
-    "bookingPlans": 6
+    "bookings": 0,
+    "bookingPlans": 0
   },
   "collections": {
     "users": [
@@ -858,7 +858,7 @@
           "2026-11-12T11:34:02.087Z"
         ],
         "maxPassengers": 24,
-        "availableSeats": 22,
+        "availableSeats": 24,
         "itinerary": [
           {
             "day": 1,
@@ -898,7 +898,7 @@
         ],
         "status": "active",
         "createdAt": "2026-10-19T04:24:54.529Z",
-        "updatedAt": "2026-10-22T11:34:02.255Z",
+        "updatedAt": "2026-10-22T11:57:55.180Z",
         "__v": 0
       },
       {
@@ -1305,7 +1305,7 @@
           "2026-11-07T11:34:02.087Z"
         ],
         "maxPassengers": 20,
-        "availableSeats": 17,
+        "availableSeats": 20,
         "itinerary": [
           {
             "day": 1,
@@ -1339,7 +1339,7 @@
         ],
         "status": "active",
         "createdAt": "2026-10-19T04:24:54.550Z",
-        "updatedAt": "2026-10-22T11:34:02.267Z",
+        "updatedAt": "2026-10-22T11:57:55.194Z",
         "__v": 0
       },
       {
@@ -1375,7 +1375,7 @@
           "2026-11-12T11:34:02.087Z"
         ],
         "maxPassengers": 24,
-        "availableSeats": 23,
+        "availableSeats": 24,
         "itinerary": [
           {
             "day": 1,
@@ -1415,7 +1415,7 @@
         ],
         "status": "active",
         "createdAt": "2026-10-19T04:24:54.554Z",
-        "updatedAt": "2026-10-22T11:34:02.270Z",
+        "updatedAt": "2026-10-22T11:57:55.196Z",
         "__v": 0
       },
       {
@@ -1451,7 +1451,7 @@
           "2026-11-17T11:34:02.087Z"
         ],
         "maxPassengers": 20,
-        "availableSeats": 17,
+        "availableSeats": 20,
         "itinerary": [
           {
             "day": 1,
@@ -1497,7 +1497,7 @@
         ],
         "status": "active",
         "createdAt": "2026-10-19T04:24:54.557Z",
-        "updatedAt": "2026-10-22T11:34:02.272Z",
+        "updatedAt": "2026-10-22T11:57:55.198Z",
         "__v": 0
       },
       {
@@ -1527,7 +1527,7 @@
           "2026-11-11T11:34:02.087Z"
         ],
         "maxPassengers": 28,
-        "availableSeats": 20,
+        "availableSeats": 28,
         "itinerary": [
           {
             "day": 1,
@@ -1561,7 +1561,7 @@
         ],
         "status": "active",
         "createdAt": "2026-10-19T04:24:54.560Z",
-        "updatedAt": "2026-10-22T11:34:02.274Z",
+        "updatedAt": "2026-10-22T11:57:55.200Z",
         "__v": 0
       }
     ],
@@ -1900,478 +1900,7 @@
         "__v": 0
       }
     ],
-    "bookings": [
-      {
-        "_id": "6ad6dc90990a187d2773fd14",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad6dc90990a187d2773fd13",
-        "tourId": "6ad59b96ad4a8b3d27faa05e",
-        "selectedDuration": {
-          "days": 3,
-          "nights": 2,
-          "price": 2450000
-        },
-        "departureDate": "2026-10-21T10:32:35.210Z",
-        "endDate": "2026-10-23T10:32:35.210Z",
-        "numberOfGuests": {
-          "adults": 2,
-          "children": 1
-        },
-        "totalAmount": 6737500,
-        "paymentMethod": "bank_transfer",
-        "paymentStatus": "confirmed",
-        "bookingStatus": "confirmed",
-        "notes": "",
-        "guide_id": "6ad59b96ad4a8b3d27faa06c",
-        "bookingDate": "2026-10-20T03:14:24.898Z",
-        "createdAt": "2026-10-20T03:14:24.899Z",
-        "updatedAt": "2026-10-22T09:05:34.146Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad75e04133af7e63c9873b8",
-        "userId": "6ad75d97133af7e63c9872d7",
-        "customerId": "6ad75e04133af7e63c9873b7",
-        "tourId": "6ad59b96ad4a8b3d27faa05e",
-        "selectedDuration": {
-          "days": 3,
-          "nights": 2,
-          "price": 2450000
-        },
-        "departureDate": "2026-10-21T10:32:35.210Z",
-        "endDate": "2026-10-23T10:32:35.210Z",
-        "numberOfGuests": {
-          "adults": 2,
-          "children": 1
-        },
-        "totalAmount": 6737500,
-        "paymentMethod": "bank_transfer",
-        "paymentStatus": "confirmed",
-        "bookingStatus": "confirmed",
-        "notes": "",
-        "guide_id": "6ad59b96ad4a8b3d27faa06c",
-        "bookingDate": "2026-10-20T12:26:44.200Z",
-        "createdAt": "2026-10-20T12:26:44.201Z",
-        "updatedAt": "2026-10-22T09:05:35.952Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c11",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
-        "tourId": "6ad59b96ad4a8b3d27faa056",
-        "selectedDuration": {
-          "days": 4,
-          "nights": 3,
-          "price": 6800000
-        },
-        "departureDate": "2026-10-27T00:00:00.000Z",
-        "endDate": "2026-10-30T00:00:00.000Z",
-        "numberOfGuests": {
-          "adults": 2,
-          "children": 1
-        },
-        "totalAmount": 18700000,
-        "paymentMethod": "bank_transfer",
-        "paymentStatus": "confirmed",
-        "bookingStatus": "confirmed",
-        "notes": "Yêu cầu phòng tầng cao view biển, chuẩn bị thêm áo phao trẻ em",
-        "guide_id": "6ad59b96ad4a8b3d27faa06b",
-        "bookingDate": "2026-10-22T11:34:02.236Z",
-        "createdAt": "2026-10-22T11:34:02.236Z",
-        "updatedAt": "2026-10-22T11:34:02.236Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c12",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
-        "tourId": "6ad59b96ad4a8b3d27faa021",
-        "selectedDuration": {
-          "days": 4,
-          "nights": 3,
-          "price": 4800000
-        },
-        "departureDate": "2026-10-25T00:00:00.000Z",
-        "endDate": "2026-10-28T00:00:00.000Z",
-        "numberOfGuests": {
-          "adults": 2,
-          "children": 0
-        },
-        "totalAmount": 9600000,
-        "paymentMethod": "credit_card",
-        "paymentStatus": "confirmed",
-        "bookingStatus": "confirmed",
-        "notes": "Kỷ niệm ngày cưới, chuẩn bị giường đôi phòng không hút thuốc",
-        "guide_id": "6ad59b96ad4a8b3d27faa069",
-        "bookingDate": "2026-10-22T11:34:02.247Z",
-        "createdAt": "2026-10-22T11:34:02.248Z",
-        "updatedAt": "2026-10-22T11:34:02.248Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c13",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
-        "tourId": "6ad59b96ad4a8b3d27faa04f",
-        "selectedDuration": {
-          "days": 3,
-          "nights": 2,
-          "price": 2750000
-        },
-        "departureDate": "2026-10-29T00:00:00.000Z",
-        "endDate": "2026-10-31T00:00:00.000Z",
-        "numberOfGuests": {
-          "adults": 1,
-          "children": 0
-        },
-        "totalAmount": 2750000,
-        "paymentMethod": "e_wallet",
-        "paymentStatus": "pending",
-        "bookingStatus": "pending",
-        "notes": "Khách muốn phòng view đồi thông gần trung tâm",
-        "guide_id": "6ad59b96ad4a8b3d27faa06a",
-        "bookingDate": "2026-10-22T11:34:02.249Z",
-        "createdAt": "2026-10-22T11:34:02.250Z",
-        "updatedAt": "2026-10-22T11:34:02.250Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c14",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
-        "tourId": "6ad59b96ad4a8b3d27faa04a",
-        "selectedDuration": {
-          "days": 2,
-          "nights": 1,
-          "price": 2150000
-        },
-        "departureDate": "2026-10-31T00:00:00.000Z",
-        "endDate": "2026-11-01T00:00:00.000Z",
-        "numberOfGuests": {
-          "adults": 3,
-          "children": 0
-        },
-        "totalAmount": 6450000,
-        "paymentMethod": "cash",
-        "paymentStatus": "pending",
-        "bookingStatus": "pending",
-        "notes": "Thanh toán tiền mặt trực tiếp tại văn phòng trước ngày đi",
-        "guide_id": "6ad59b96ad4a8b3d27faa067",
-        "bookingDate": "2026-10-22T11:34:02.251Z",
-        "createdAt": "2026-10-22T11:34:02.251Z",
-        "updatedAt": "2026-10-22T11:34:02.251Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c15",
-        "userId": "6ad59b96ad4a8b3d27fa9fe0",
-        "customerId": "6ad59b96ad4a8b3d27fa9fe1",
-        "tourId": "6ad59b96ad4a8b3d27faa05e",
-        "selectedDuration": {
-          "days": 2,
-          "nights": 1,
-          "price": 1650000
-        },
-        "departureDate": "2026-10-24T00:00:00.000Z",
-        "endDate": "2026-10-25T00:00:00.000Z",
-        "numberOfGuests": {
-          "adults": 2,
-          "children": 0
-        },
-        "totalAmount": 3300000,
-        "paymentMethod": "bank_transfer",
-        "paymentStatus": "completed",
-        "bookingStatus": "completed",
-        "notes": "Chuyến đi đã hoàn thành xuất sắc",
-        "guide_id": "6ad59b96ad4a8b3d27faa06c",
-        "bookingDate": "2026-10-22T11:34:02.252Z",
-        "createdAt": "2026-10-22T11:34:02.252Z",
-        "updatedAt": "2026-10-22T11:34:02.252Z",
-        "__v": 0
-      }
-    ],
-    "bookingPlans": [
-      {
-        "_id": "6ad6dc90990a187d2773fd1a",
-        "tourId": "6ad59b96ad4a8b3d27faa05e",
-        "duration": {
-          "days": 3,
-          "nights": 2
-        },
-        "departureDate": "2026-10-21T00:00:00.000Z",
-        "endDate": "2026-10-23T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa06c",
-        "totalPassengers": 6,
-        "bookings": [
-          "6ad6dc90990a187d2773fd14",
-          "6ad75e04133af7e63c9873b8"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad6dc90990a187d2773fd14",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "0007070505",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c3f"
-          },
-          {
-            "bookingId": "6ad6dc90990a187d2773fd14",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c40"
-          },
-          {
-            "bookingId": "6ad6dc90990a187d2773fd14",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "child",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c41"
-          },
-          {
-            "bookingId": "6ad75e04133af7e63c9873b8",
-            "fullName": "Do Cao Tri",
-            "gender": "other",
-            "idCardNumber": "001202020909",
-            "passengerType": "adult",
-            "phone": "038805305",
-            "_id": "6ad9f4aa88a617c1db7c1c42"
-          },
-          {
-            "bookingId": "6ad75e04133af7e63c9873b8",
-            "fullName": "Do Cao Tri (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "038805305",
-            "_id": "6ad9f4aa88a617c1db7c1c43"
-          },
-          {
-            "bookingId": "6ad75e04133af7e63c9873b8",
-            "fullName": "Do Cao Tri (Khách đi kèm 3)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "child",
-            "phone": "038805305",
-            "_id": "6ad9f4aa88a617c1db7c1c44"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-20T03:14:24.908Z",
-        "updatedAt": "2026-10-22T11:34:02.297Z",
-        "__v": 3
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c36",
-        "tourId": "6ad59b96ad4a8b3d27faa05e",
-        "duration": {
-          "days": 2,
-          "nights": 1
-        },
-        "departureDate": "2026-10-24T00:00:00.000Z",
-        "endDate": "2026-10-25T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa06c",
-        "totalPassengers": 2,
-        "bookings": [
-          "6ad9f4aa88a617c1db7c1c15"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c15",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "079095012345",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c37"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c15",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c38"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-22T11:34:02.293Z",
-        "updatedAt": "2026-10-22T11:34:02.293Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c45",
-        "tourId": "6ad59b96ad4a8b3d27faa056",
-        "duration": {
-          "days": 4,
-          "nights": 3
-        },
-        "departureDate": "2026-10-27T00:00:00.000Z",
-        "endDate": "2026-10-30T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa06b",
-        "totalPassengers": 3,
-        "bookings": [
-          "6ad9f4aa88a617c1db7c1c11"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c11",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "079095012345",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c46"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c11",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c47"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c11",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "child",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c48"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-22T11:34:02.301Z",
-        "updatedAt": "2026-10-22T11:34:02.301Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c49",
-        "tourId": "6ad59b96ad4a8b3d27faa021",
-        "duration": {
-          "days": 4,
-          "nights": 3
-        },
-        "departureDate": "2026-10-25T00:00:00.000Z",
-        "endDate": "2026-10-28T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa069",
-        "totalPassengers": 2,
-        "bookings": [
-          "6ad9f4aa88a617c1db7c1c12"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c12",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "079095012345",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c4a"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c12",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c4b"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-22T11:34:02.303Z",
-        "updatedAt": "2026-10-22T11:34:02.303Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c4c",
-        "tourId": "6ad59b96ad4a8b3d27faa04f",
-        "duration": {
-          "days": 3,
-          "nights": 2
-        },
-        "departureDate": "2026-10-29T00:00:00.000Z",
-        "endDate": "2026-10-31T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa06a",
-        "totalPassengers": 1,
-        "bookings": [
-          "6ad9f4aa88a617c1db7c1c13"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c13",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "079095012345",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c4d"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-22T11:34:02.306Z",
-        "updatedAt": "2026-10-22T11:34:02.306Z",
-        "__v": 0
-      },
-      {
-        "_id": "6ad9f4aa88a617c1db7c1c4e",
-        "tourId": "6ad59b96ad4a8b3d27faa04a",
-        "duration": {
-          "days": 2,
-          "nights": 1
-        },
-        "departureDate": "2026-10-31T00:00:00.000Z",
-        "endDate": "2026-11-01T00:00:00.000Z",
-        "guideId": "6ad59b96ad4a8b3d27faa067",
-        "totalPassengers": 3,
-        "bookings": [
-          "6ad9f4aa88a617c1db7c1c14"
-        ],
-        "passengersList": [
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c14",
-            "fullName": "Nguyễn Văn An",
-            "gender": "other",
-            "idCardNumber": "079095012345",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c4f"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c14",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 2)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c50"
-          },
-          {
-            "bookingId": "6ad9f4aa88a617c1db7c1c14",
-            "fullName": "Nguyễn Văn An (Khách đi kèm 3)",
-            "gender": "other",
-            "idCardNumber": "",
-            "passengerType": "adult",
-            "phone": "0912345678",
-            "_id": "6ad9f4aa88a617c1db7c1c51"
-          }
-        ],
-        "status": "scheduled",
-        "createdAt": "2026-10-22T11:34:02.308Z",
-        "updatedAt": "2026-10-22T11:34:02.308Z",
-        "__v": 0
-      }
-    ]
+    "bookings": [],
+    "bookingPlans": []
   }
 }

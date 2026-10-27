@@ -17,6 +17,7 @@ export const useDestinations = (initialFilters = {}) => {
       if (filters.theme && filters.theme !== 'Tất cả') params.theme = filters.theme;
       if (filters.budget && filters.budget !== 'Tất cả') params.budgetBand = filters.budget;
       if (filters.season && filters.season !== 'Tất cả') params.bestSeason = filters.season;
+      params.limit = filters.limit || 100;
 
       const res = await destinationApi.getAll(params);
       const items = res.items || (Array.isArray(res) ? res : []);

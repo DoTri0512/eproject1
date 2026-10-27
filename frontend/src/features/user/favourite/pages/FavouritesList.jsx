@@ -29,24 +29,24 @@ export const FavouritesList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-[115px] pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pt-[110px] pb-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* Header Banner */}
         <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-rose-400 text-xs font-semibold mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md text-white-200 font-medium mb-3">
               <span
-                className="material-symbols-outlined text-[16px]"
+                className="material-symbols-outlined text-[14px]"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
                 favorite
               </span>
-              <span>BỘ SƯU TẬP CỦA BẠN</span>
+              <span className="text-[14px]">BỘ SƯU TẬP CỦA BẠN</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 text-white">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-3 text-white">
               Danh Sách Điểm Đến Yêu Thích
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-4">
+            <p className="text-slate-200 text-sm sm:text-base leading-relaxed mb-4">
               Nơi lưu trữ những thắng cảnh mà bạn ấp ủ ghé thăm trong những
               chuyến phiêu lưu sắp tới.
             </p>

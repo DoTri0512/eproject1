@@ -33,9 +33,9 @@ export const useAdminBookingPlans = () => {
     try {
       setIsLoading(true);
       const [plansRes, toursRes, guidesRes] = await Promise.allSettled([
-        adminApi.getBookingPlans(),
-        adminApi.getTours(),
-        adminApi.getGuides(),
+        adminApi.getBookingPlans({ limit: 1000 }),
+        adminApi.getTours({ limit: 1000 }),
+        adminApi.getGuides({ limit: 1000 }),
       ]);
 
       if (plansRes.status === 'fulfilled' && plansRes.value) {

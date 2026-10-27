@@ -9,6 +9,7 @@ import RegionExplorer from '../features/user/region/pages/RegionExplorer';
 import FavouritesList from '../features/user/favourite/pages/FavouritesList';
 import TourBooking from '../features/user/booking/pages/TourBooking';
 import MyBookings from '../features/user/booking/pages/MyBookings';
+import TripPlanner from '../features/user/booking/pages/TripPlanner';
 import MyProfile from '../features/user/profile/pages/MyProfile';
 import Login from '../features/auth/pages/Login';
 import Register from '../features/auth/pages/Register';
@@ -17,6 +18,9 @@ import AdminDestinations from '../features/admin/destination/pages/AdminDestinat
 import AdminTours from '../features/admin/tour/pages/AdminTours';
 import AdminBookings from '../features/admin/booking/pages/AdminBookings';
 import AdminBookingPlans from '../features/admin/bookingPlan/pages/AdminBookingPlans';
+import AdminGuides from '../features/admin/guide/pages/AdminGuides';
+import AdminCollections from '../features/admin/collection/pages/AdminCollections';
+import AdminContacts from '../features/admin/contact/pages/AdminContacts';
 
 export const routesConfig = {
   public: [
@@ -70,6 +74,14 @@ export const routesConfig = {
       element: MyBookings,
     },
     {
+      path: '/my-bookings/:bookingId',
+      element: TripPlanner,
+    },
+    {
+      path: '/trip-planner/:bookingId',
+      element: TripPlanner,
+    },
+    {
       path: '/profile',
       element: MyProfile,
     },
@@ -114,6 +126,18 @@ export const routesConfig = {
     {
       path: '/admin/booking-plans',
       element: AdminBookingPlans,
+    },
+    {
+      path: '/admin/guides',
+      element: AdminGuides,
+    },
+    {
+      path: '/admin/collections',
+      element: AdminCollections,
+    },
+    {
+      path: '/admin/contacts',
+      element: AdminContacts,
     },
   ],
 };

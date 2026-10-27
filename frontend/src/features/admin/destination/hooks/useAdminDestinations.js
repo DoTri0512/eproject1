@@ -6,10 +6,21 @@ export const useAdminDestinations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [limit, setLimit] = useState(10);
+
   // Filters & search
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('all');
   const [selectedTheme, setSelectedTheme] = useState('all');
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedRegion, selectedTheme, limit]);
 
   // Modal states
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -29,14 +40,21 @@ export const useAdminDestinations = () => {
     try {
       setIsLoading(true);
       setError(null);
-      const params = {};
+      const params = {
+        page: currentPage,
+        limit,
+      };
       if (selectedRegion && selectedRegion !== 'all') params.region = selectedRegion;
       if (selectedTheme && selectedTheme !== 'all') params.theme = selectedTheme;
       if (searchTerm.trim()) params.search = searchTerm.trim();
 
       const res = await destinationApi.getAll(params);
       const items = res?.items || res?.data?.items || (Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : []);
+      const paginationInfo = res?.pagination || res?.data?.pagination;
+
       setDestinations(items);
+      setTotalItems(paginationInfo?.totalItems ?? res?.totalItems ?? items.length);
+      setTotalPages(paginationInfo?.totalPages ?? (Math.ceil((items.length) / limit) || 1));
     } catch (err) {
       console.error('Error loading destinations:', err);
       setError(err.message);
@@ -45,7 +63,7 @@ export const useAdminDestinations = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [searchTerm, selectedRegion, selectedTheme]);
+  }, [currentPage, limit, searchTerm, selectedRegion, selectedTheme]);
 
   useEffect(() => {
     loadDestinations();
@@ -117,6 +135,12 @@ export const useAdminDestinations = () => {
     destinations,
     isLoading,
     error,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalItems,
+    limit,
+    setLimit,
     searchTerm,
     setSearchTerm,
     selectedRegion,

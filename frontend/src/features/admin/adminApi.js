@@ -91,12 +91,110 @@ export const adminApi = {
     return response.data || response;
   },
 
-  // --- HELPERS (Guides & Destinations for dropdowns) ---
+  // --- GUIDES ---
   getGuides: async (params = {}) => {
     const response = await axiosClient.get(ENDPOINTS.GUIDES.BASE, { params });
     return response.data || response;
   },
 
+  getGuideByIdOrSlug: async (idOrSlug) => {
+    const response = await axiosClient.get(ENDPOINTS.GUIDES.DETAIL(idOrSlug));
+    return response.data || response;
+  },
+
+  createGuide: async (guideData) => {
+    const response = await axiosClient.post(ENDPOINTS.GUIDES.BASE, guideData);
+    return response.data || response;
+  },
+
+  updateGuide: async (id, guideData) => {
+    const response = await axiosClient.put(ENDPOINTS.GUIDES.DETAIL(id), guideData);
+    return response.data || response;
+  },
+
+  deleteGuide: async (id) => {
+    const response = await axiosClient.delete(ENDPOINTS.GUIDES.DETAIL(id));
+    return response.data || response;
+  },
+
+  getGuideDestinations: async (idOrSlug) => {
+    const response = await axiosClient.get(ENDPOINTS.GUIDES.DESTINATIONS(idOrSlug));
+    return response.data || response;
+  },
+
+  addDestinationsToGuide: async (id, destinationIds) => {
+    const response = await axiosClient.post(ENDPOINTS.GUIDES.DESTINATIONS(id), { destinationIds });
+    return response.data || response;
+  },
+
+  setGuideDestinations: async (id, destinationIds) => {
+    const response = await axiosClient.put(ENDPOINTS.GUIDES.DESTINATIONS(id), { destinationIds });
+    return response.data || response;
+  },
+
+  removeDestinationFromGuide: async (id, destinationId) => {
+    const response = await axiosClient.delete(ENDPOINTS.GUIDES.REMOVE_DESTINATION(id, destinationId));
+    return response.data || response;
+  },
+
+  // --- COLLECTIONS ---
+  getCollections: async (params = {}) => {
+    const response = await axiosClient.get(ENDPOINTS.COLLECTIONS.BASE, { params });
+    return response.data || response;
+  },
+
+  getCollectionByIdOrSlug: async (idOrSlug) => {
+    const response = await axiosClient.get(ENDPOINTS.COLLECTIONS.DETAIL(idOrSlug));
+    return response.data || response;
+  },
+
+  createCollection: async (collectionData) => {
+    const response = await axiosClient.post(ENDPOINTS.COLLECTIONS.BASE, collectionData);
+    return response.data || response;
+  },
+
+  updateCollection: async (id, collectionData) => {
+    const response = await axiosClient.put(ENDPOINTS.COLLECTIONS.DETAIL(id), collectionData);
+    return response.data || response;
+  },
+
+  deleteCollection: async (id) => {
+    const response = await axiosClient.delete(ENDPOINTS.COLLECTIONS.DETAIL(id));
+    return response.data || response;
+  },
+
+  getCollectionDestinations: async (idOrSlug) => {
+    const response = await axiosClient.get(ENDPOINTS.COLLECTIONS.DESTINATIONS(idOrSlug));
+    return response.data || response;
+  },
+
+  addDestinationsToCollection: async (id, destinationIds) => {
+    const response = await axiosClient.post(ENDPOINTS.COLLECTIONS.DESTINATIONS(id), { destinationIds });
+    return response.data || response;
+  },
+
+  removeDestinationFromCollection: async (id, destinationId) => {
+    const response = await axiosClient.delete(ENDPOINTS.COLLECTIONS.REMOVE_DESTINATION(id, destinationId));
+    return response.data || response;
+  },
+
+  // --- CONTACTS ---
+  getContacts: async (params = {}) => {
+    const response = await axiosClient.get(ENDPOINTS.CONTACTS.BASE, { params });
+    return response.data || response;
+  },
+
+  updateContactStatus: async (id, status) => {
+    const response = await axiosClient.put(ENDPOINTS.CONTACTS.UPDATE_STATUS(id), { status });
+    return response.data || response;
+  },
+
+  deleteContact: async (id) => {
+    const response = await axiosClient.delete(ENDPOINTS.CONTACTS.DETAIL(id));
+    return response.data || response;
+  },
+
+  // --- HELPERS (Destinations for dropdowns) ---
   getDestinations: async (params = {}) => {
     const response = await axiosClient.get(ENDPOINTS.DESTINATIONS.BASE, { params });
     return response.data || response;

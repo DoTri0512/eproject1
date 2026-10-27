@@ -41,21 +41,23 @@ export const SeasonalCollections = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-[115px] pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pt-[110px] pb-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* 1. HERO SECTION */}
         <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-teal-300 text-xs font-semibold mb-3">
-              <span className="material-symbols-outlined text-[16px]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md text-white font-medium mb-3">
+              <span className="material-symbols-outlined text-[14px]">
                 auto_awesome
               </span>
-              <span>Ý TƯỞNG DU LỊCH TRUYỀN CẢM HỨNG</span>
+              <span className="text-[14px]">
+                Ý TƯỞNG DU LỊCH TRUYỀN CẢM HỨNG
+              </span>
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-white">
               Bộ Sưu Tập Du Lịch Theo Chủ Đề
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
               Những gợi ý hành trình đặc sắc được tuyển chọn kỹ lưỡng, phù hợp
               với sở thích xê dịch, mùa trong năm và lịch trình nghỉ ngơi của
               bạn.

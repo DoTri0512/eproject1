@@ -1,0 +1,1074 @@
+{
+  "database": "traveltrail",
+  "exportedAt": "2026-10-27T11:44:36.757Z",
+  "note": "10 Destinations và 10 Tours mới để nhập liệu CRUD thủ công trên web TravelTrail.",
+  "summary": {
+    "destinations": 10,
+    "tours": 10
+  },
+  "destinations": [
+    {
+      "name": "Mũi Né - Phan Thiết",
+      "slug": "mui-ne-phan-thiet",
+      "region": "Miền Nam",
+      "theme": "Biển đảo",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+      "location": "Bình Thuận, Việt Nam",
+      "climate": "Khí hậu nhiệt đới khô hạn, nhiều nắng gió quanh năm, ít mưa bão, biển êm từ tháng 11 đến tháng 4.",
+      "overview": "Mũi Né nổi danh với những đồi cát bay vàng óng trải dài bất tận, bãi biển trong xanh lộng gió cùng làng chài rực rỡ sắc màu ghe thuyền mỗi sớm bình minh.",
+      "attractions": [
+        "Đồi Cát Bay (Đồi Cát Đỏ)",
+        "Bàu Trắng (Bạch Hồ)",
+        "Suối Tiên Mũi Né",
+        "Làng Chài Mũi Né",
+        "Hải đăng Kê Gà"
+      ],
+      "activities": [
+        "Trượt cát và lái xe địa hình trên cồn cát",
+        "Chèo SUP và lướt ván diều (Kitesurfing)",
+        "Lội suối Tiên ngắm thạch nhũ đất sét",
+        "Thưởng thức hải sản tươi sống làng chài"
+      ],
+      "bestSeason": "Tháng 11 - Tháng 4",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Phổ thông",
+      "transport": "Tàu hỏa SPT hoặc xe Limousine từ TP. Hồ Chí Minh theo cao tốc Dầu Giây - Phan Thiết (khoảng 2.5 giờ)",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bờ biển xanh ngát nắng vàng Mũi Né",
+          "alt": "Bờ biển Mũi Né",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Đồi cát Bàu Trắng mênh mông như sa mạc nhỏ",
+          "alt": "Bàu Trắng Mũi Né",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Khung cảnh bình minh trên làng chài",
+          "alt": "Làng chài Mũi Né",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Côn Đảo - Thiên Đường Hoang Sơ",
+      "slug": "con-dao-thien-duong-hoang-so",
+      "region": "Miền Nam",
+      "theme": "Biển đảo & Nghỉ dưỡng cao cấp",
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80",
+      "location": "Bà Rịa - Vũng Tàu, Việt Nam",
+      "climate": "Khí hậu á xích đạo - hải dương mát mẻ, mùa khô từ tháng 12 đến tháng 4, thời điểm lý tưởng biển lặng từ tháng 3 đến tháng 9.",
+      "overview": "Quần đảo Côn Đảo hoang sơ giữa đại dương với bãi biển cát trắng tinh khôi, rạn san hô nguyên vẹn, cánh rừng nhiệt đới bạt ngàn cùng các di tích lịch sử linh thiêng.",
+      "attractions": [
+        "Bãi Đầm Trầu",
+        "Hòn Bảy Cạnh (Xem rùa đẻ trứng)",
+        "Nghĩa trang Hàng Dương",
+        "Hệ thống Nhà tù Côn Đảo",
+        "Mũi Cá Mập"
+      ],
+      "activities": [
+        "Lặn biển ngắm rạn san hô nguyên sinh",
+        "Xem rùa biển đẻ trứng vào ban đêm tại Hòn Bảy Cạnh",
+        "Viếng mộ anh hùng Võ Thị Sáu tại nghĩa trang Hàng Dương",
+        "Trekking đường mòn rừng quốc gia Côn Đảo"
+      ],
+      "bestSeason": "Tháng 3 - Tháng 9",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Cao cấp",
+      "transport": "Bay thẳng bằng máy bay phản lực từ TP.HCM / Hà Nội tới Sân bay Cỏ Ống, hoặc đi tàu cao tốc từ Vũng Tàu / Cần Thơ",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bãi biển Đầm Trầu với làn nước trong vắt",
+          "alt": "Bãi Đầm Trầu Côn Đảo",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hệ sinh thái san hô phong phú Côn Đảo",
+          "alt": "San hô Côn Đảo",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hoàng hôn lãng mạn tại Bãi Nhát",
+          "alt": "Bãi Nhát Côn Đảo",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Nha Trang - Vịnh Biển Thiên Đường",
+      "slug": "nha-trang-vinh-bien-thien-duong",
+      "region": "Miền Trung",
+      "theme": "Biển & Nghỉ dưỡng hiện đại",
+      "image": "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1200&q=80",
+      "location": "Khánh Hòa, Việt Nam",
+      "climate": "Khí hậu nhiệt đới ôn hòa, chịu ảnh hưởng của khí hậu đại dương, nắng ấm quanh năm với hơn 300 ngày nắng.",
+      "overview": "Nha Trang được mệnh danh là hòn ngọc biển Đông với vịnh biển hình trăng khuyết thơ mộng, các khu vui chơi giải trí quốc tế trên đảo và văn hóa Chăm pa ngàn đời.",
+      "attractions": [
+        "VinWonders Nha Trang (Hòn Tre)",
+        "Tháp Bà Ponagar",
+        "Đảo Hòn Mun",
+        "Viện Hải dương học",
+        "Vịnh Ninh Vân"
+      ],
+      "activities": [
+        "Trải nghiệm cáp treo vượt biển tới VinWonders",
+        "Lặn biển bình khí ngắm san hô tại Hòn Mun",
+        "Tắm bùn khoáng nóng tự nhiên Tháp Bà",
+        "Thưởng thức nem nướng Ninh Hòa và bún sứa"
+      ],
+      "bestSeason": "Tháng 1 - Tháng 8",
+      "visitDuration": "4 ngày 3 đêm",
+      "budgetBand": "Phổ thông",
+      "transport": "Chuyến bay nội địa đến Sân bay Quốc tế Cam Ranh, hoặc tàu hỏa Bắc - Nam dừng tại ga Nha Trang",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bờ biển Nha Trang trải dài cùng rặng dừa xanh",
+          "alt": "Bờ biển Nha Trang",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Quần thể Tháp Bà Ponagar cổ kính linh thiêng",
+          "alt": "Tháp Bà Ponagar",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1520454974749-611d7d931db0?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Biển đảo Hòn Mun nước xanh ngọc bích",
+          "alt": "Hòn Mun Nha Trang",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Quy Nhơn - Xứ Nẫu Kỳ Thú",
+      "slug": "quy-nhon-xu-nau-ky-thu",
+      "region": "Miền Trung",
+      "theme": "Biển & Nghỉ dưỡng hiện đại",
+      "image": "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80",
+      "location": "Bình Định, Việt Nam",
+      "climate": "Nhiệt đới ẩm gió mùa duyên hải, mùa nắng kéo dài từ tháng 3 đến tháng 9, biển êm đềm trong xanh.",
+      "overview": "Quy Nhơn quyến rũ với vẻ đẹp mộc mạc nguyên sơ của cung đường biển Eo Gió lộng gió, bãi tắm Kỳ Co ví như Maldives của Việt Nam và dấu ấn tháp Chăm trầm mặc.",
+      "attractions": [
+        "Eo Gió Nhơn Lý",
+        "Bãi biển Kỳ Co",
+        "Ghềnh Ráng Tiên Sa",
+        "Tháp Đôi Quy Nhơn",
+        "Khu dã ngoại Trung Lương"
+      ],
+      "activities": [
+        "Đi cano siêu tốc ra bãi tắm Kỳ Co",
+        "Đi bộ trên con đường ven biển ngắm sóng vỗ Eo Gió",
+        "Viếng mộ nhà thơ Hàn Mặc Tử tại Ghềnh Ráng",
+        "Thưởng thức bánh xèo tôm nhảy và chả ram tôm đất"
+      ],
+      "bestSeason": "Tháng 3 - Tháng 8",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Phổ thông",
+      "transport": "Đường bay thẳng đến Sân bay Phù Cát (Bình Định) hoặc tàu hỏa tuyến Bắc - Nam ghé ga Diêu Trì",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bờ biển Kỳ Co với vách đá độc đáo",
+          "alt": "Kỳ Co Quy Nhơn",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Cung đường đi dạo ven biển Eo Gió",
+          "alt": "Eo Gió Quy Nhơn",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1571591091674-a1d0c4484264?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Tháp Đôi Chăm Pa giữa lòng thành phố",
+          "alt": "Tháp Đôi Quy Nhơn",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Mộc Châu - Cao Nguyên Xanh",
+      "slug": "moc-chau-cao-nguyen-xanh",
+      "region": "Miền Bắc",
+      "theme": "Núi rừng & Bản sắc",
+      "image": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=1200&q=80",
+      "location": "Sơn La, Việt Nam",
+      "climate": "Khí hậu ôn đới vùng cao mát mẻ quanh năm, bốn mùa sắc hoa rực rỡ, mùa đông có sương mù bồng bềnh lãng mạn.",
+      "overview": "Cao nguyên Mộc Châu ngút ngàn những đồi chè xanh mướt uốn lượn, thung lũng mận trắng tinh khôi mùa xuân và những bản làng người Thái, người Mông mộc mạc hiếu khách.",
+      "attractions": [
+        "Đồi chè Trái Tim Mộc Châu",
+        "Thung lũng mận Nà Ka",
+        "Thác Dải Yếm (Cầu kính Tình Yêu)",
+        "Rừng thông Bản Áng",
+        "Đỉnh Pha Luông"
+      ],
+      "activities": [
+        "Chụp ảnh mùa hoa mận hoa mơ nở trắng thung lũng",
+        "Thưởng thức sữa tươi nóng nguyên chất và dâu tây hái tại vườn",
+        "Trekking chinh phục đỉnh Pha Luông hùng vĩ",
+        "Trải nghiệm đốt lửa trại và múa sạp vùng Tây Bắc"
+      ],
+      "bestSeason": "Tháng 11 - Tháng 3",
+      "visitDuration": "2 ngày 1 đêm",
+      "budgetBand": "Tiết kiệm",
+      "transport": "Xe khách Limousine hoặc xe ô tô tự lái từ Hà Nội theo Quốc lộ 6 qua đèo Thung Khe (khoảng 4 giờ)",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Đồi chè xanh mướt ngút ngàn trên cao nguyên",
+          "alt": "Đồi chè Mộc Châu",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hoa mận nở trắng xóa thung lũng Nà Ka",
+          "alt": "Thung lũng Nà Ka Mộc Châu",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Rừng thông Bản Áng soi bóng hồ nước thơ mộng",
+          "alt": "Rừng thông Bản Áng",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Buôn Ma Thuột - Thủ Phủ Cà Phê",
+      "slug": "buon-ma-thuot-thu-phu-ca-phe",
+      "region": "Tây Nguyên",
+      "theme": "Sinh thái & Bản sắc đại ngàn",
+      "image": "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1200&q=80",
+      "location": "Đắk Lắk, Việt Nam",
+      "climate": "Cao nguyên nhiệt đới gió mùa mát mẻ, mùa khô từ tháng 12 đến tháng 4 với mùa hoa cà phê nở trắng muốt đất trời.",
+      "overview": "Mảnh đất đại ngàn Tây Nguyên hùng tráng với những ngọn thác cuồn cuộn gầm vang, không gian văn hóa cồng chiêng được UNESCO vinh danh và hương vị cà phê đậm đà khó quên.",
+      "attractions": [
+        "Cụm thác Dray Nur - Dray Sáp",
+        "Bảo tàng Thế giới Cà phê",
+        "Khu du lịch Buôn Đôn",
+        "Hồ Lắk & Biệt điện Bảo Đại",
+        "Đá Voi Mẹ Yang Tao"
+      ],
+      "activities": [
+        "Thưởng thức cà phê Robusta rang xay nguyên chất",
+        "Chèo thuyền độc mộc trên mặt Hồ Lắk thơ mộng",
+        "Giao lưu nhảy cồng chiêng và uống rượu cần cùng người Ê Đê",
+        "Chinh phục đỉnh tảng đá nguyên khối Đá Voi Mẹ"
+      ],
+      "bestSeason": "Tháng 12 - Tháng 4",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Tiết kiệm",
+      "transport": "Đường bay thẳng đến Cảng hàng không Buôn Ma Thuột hoặc xe giường nằm cao cấp từ TP.HCM / Đà Nẵng",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Thác nước đại ngàn cuồn cuộn tung bọt trắng",
+          "alt": "Thác nước Dray Nur",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hồ Lắk thanh bình trong chiều hoàng hôn",
+          "alt": "Hồ Lắk Đắk Lắk",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Nhà dài truyền thống của người Ê Đê",
+          "alt": "Nhà dài Buôn Ma Thuột",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Đảo Lý Sơn - Vương Quốc Tỏi",
+      "slug": "dao-ly-son-vuong-quoc-toi",
+      "region": "Miền Trung",
+      "theme": "Biển đảo",
+      "image": "https://images.unsplash.com/photo-1586500036706-41963de24d8b?auto=format&fit=crop&w=1200&q=80",
+      "location": "Quảng Ngãi, Việt Nam",
+      "climate": "Nhiệt đới biển đảo mát mẻ, mùa khô kéo dài từ tháng 3 đến tháng 8 với biển phẳng lặng như gương.",
+      "overview": "Được hình thành từ 5 miệng núi lửa cổ đại đã tắt, đảo Lý Sơn mang vẻ đẹp kỳ vĩ độc nhất vô nhị với các vách đá bazan sừng sững, nước biển ngọc bích và cánh đồng tỏi xanh rì trên nền cát trắng san hô.",
+      "attractions": [
+        "Cổng Tò Vò đá bazan",
+        "Đỉnh núi Thới Lới & Cột cờ Tổ quốc",
+        "Đảo Bé (An Bình)",
+        "Hang Câu",
+        "Chùa Hang"
+      ],
+      "activities": [
+        "Lặn ngắm san hô biển cạn tại Đảo Bé",
+        "Ngắm hoàng hôn tráng lệ qua vòm Cổng Tò Vò",
+        "Chụp ảnh hồ nước ngọt trên miệng núi lửa Thới Lới",
+        "Thưởng thức gỏi tỏi non Lý Sơn và cua huỳnh đế"
+      ],
+      "bestSeason": "Tháng 4 - Tháng 8",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Phổ thông",
+      "transport": "Đi máy bay đến Sân bay Chu Lai (Quảng Nam), xe buýt đến Cảng Sa Kỳ rồi đi tàu cao tốc ra đảo (khoảng 35 phút)",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1586500036706-41963de24d8b?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Cổng Tò Vò kỳ vĩ tạo nên từ nham thạch núi lửa",
+          "alt": "Cổng Tò Vò Lý Sơn",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bãi biển Đảo Bé trong vắt tận đáy",
+          "alt": "Đảo Bé Lý Sơn",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1520454974749-611d7d931db0?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Vách đá Hang Câu sừng sững bên bờ sóng",
+          "alt": "Hang Câu Lý Sơn",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Vũng Tàu - Phố Biển Năng Động",
+      "slug": "vung-tau-pho-bien-nang-dong",
+      "region": "Miền Nam",
+      "theme": "Biển đảo & Nghỉ dưỡng cuối tuần",
+      "image": "https://images.unsplash.com/photo-1476673160081-cf065607f449?auto=format&fit=crop&w=1200&q=80",
+      "location": "Bà Rịa - Vũng Tàu, Việt Nam",
+      "climate": "Nhiệt đới gió mùa biển, ấm áp quanh năm, mùa mưa tháng 5 đến tháng 10 nhưng mưa rào nhanh tạnh, rất lý tưởng đổi gió cuối tuần.",
+      "overview": "Bán đảo nghỉ dưỡng sôi động ngay cạnh Sài Gòn với những bãi tắm trải dài, cung đường biển ven núi lãng mạn, ẩm thực hải sản phong phú và biểu tượng Tượng Chúa Kito dang tay nổi tiếng.",
+      "attractions": [
+        "Tượng Chúa Kito Vua trên đỉnh Tao Phùng",
+        "Mũi Nghinh Phong & Cổng Trời",
+        "Ngọn Hải Đăng Vũng Tàu",
+        "Bạch Dinh (Villa Blanche)",
+        "Bãi Sau (Bãi Thùy Vân)"
+      ],
+      "activities": [
+        "Leo 847 bậc thang lên vai Tượng Chúa ngắm trọn biển",
+        "Chạy xe ngắm hoàng hôn trên cung đường Trần Phú ven biển",
+        "Thưởng thức bánh khọt Gốc Vú Sữa và lẩu cá đuối",
+        "Check-in ngọn hải đăng cổ kính nhất Việt Nam"
+      ],
+      "bestSeason": "Quanh năm (Lý tưởng nhất tháng 11 - tháng 4)",
+      "visitDuration": "2 ngày 1 đêm",
+      "budgetBand": "Tiết kiệm",
+      "transport": "Tàu cao tốc Greenlines DP từ Bến Bạch Đằng (2 giờ) hoặc xe Limousine cao tốc Long Thành (khoảng 1.5 - 2 giờ)",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1476673160081-cf065607f449?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Bờ biển Vũng Tàu sóng vỗ rì rào",
+          "alt": "Bãi biển Vũng Tàu",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Ngọn Hải đăng cổ kính sừng sững trên đỉnh Núi Nhỏ",
+          "alt": "Hải đăng Vũng Tàu",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1519684139555-11dc2a2ff27f?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Mũi Nghinh Phong đón gió biển bốn mùa",
+          "alt": "Mũi Nghinh Phong",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Tây Ninh - Nóc Nhà Nam Bộ",
+      "slug": "tay-ninh-noc-nha-nam-bo",
+      "region": "Miền Nam",
+      "theme": "Tâm linh & Sinh thái",
+      "image": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1200&q=80",
+      "location": "Tây Ninh, Việt Nam",
+      "climate": "Nhiệt đới gió mùa khô ráo ấm áp, trên đỉnh núi Bà Đen quanh năm mát lạnh, nhiệt độ thấp hơn chân núi từ 8 - 10 độ C.",
+      "overview": "Miền đất địa linh nhân kiệt nổi tiếng với ngọn Núi Bà Đen cao nhất Đông Nam Bộ, quần thể tâm linh Sun World tráng lệ với Tượng Phật Bà Tây Bổ Đà Sơn bằng đồng cao nhất châu Á và Tòa Thánh Cao Đài nguy nga.",
+      "attractions": [
+        "Núi Bà Đen & Tượng Phật Bà Tây Bổ Đà Sơn",
+        "Tòa Thánh Cao Đài Tây Ninh",
+        "Hồ Dầu Tiếng",
+        "Thung lũng Ma Thiên Lãnh",
+        "Chùa Gò Kén"
+      ],
+      "activities": [
+        "Đi hệ thống cáp treo Sun World hiện đại săn mây đỉnh núi",
+        "Chiêm bái Tượng Phật Bà Tây Bổ Đà Sơn kỷ lục",
+        "Dự lễ cúng ngọ trưa trang nghiêm tại Tòa Thánh Cao Đài",
+        "Thưởng thức đặc sản bò tơ Tây Ninh và bánh tráng phơi sương Trảng Bàng"
+      ],
+      "bestSeason": "Tháng 11 - Tháng 5",
+      "visitDuration": "2 ngày 1 đêm",
+      "budgetBand": "Tiết kiệm",
+      "transport": "Xe Limousine hoặc xe buýt du lịch từ TP. Hồ Chí Minh theo Quốc lộ 22 (khoảng 2 giờ)",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1509023464722-18d996393ca8?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Núi Bà Đen uy nghiêm vươn mình giữa mây trời",
+          "alt": "Núi Bà Đen Tây Ninh",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Biển mây bồng bềnh buổi sáng trên đỉnh núi Bà Đen",
+          "alt": "Săn mây Tây Ninh",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hồ Dầu Tiếng rộng mênh mông phẳng lặng",
+          "alt": "Hồ Dầu Tiếng Tây Ninh",
+          "credit": "Unsplash"
+        }
+      ]
+    },
+    {
+      "name": "Hà Nội - Trái Tim Đất Nước",
+      "slug": "ha-noi-trai-tim-dat-nuoc",
+      "region": "Miền Bắc",
+      "theme": "Văn hóa & Lịch sử nghìn năm",
+      "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=80",
+      "location": "Hà Nội, Việt Nam",
+      "climate": "Nhiệt đới gió mùa 4 mùa phân hóa rõ rệt, mùa thu (tháng 9 - tháng 11) tiết trời se lạnh ngập tràn hương hoa sữa là mùa quyến rũ nhất.",
+      "overview": "Thủ đô nghìn năm văn hiến lưu giữ vẻ đẹp cổ kính rêu phong của 36 phố phường, Hồ Gươm trầm mặc, các công trình kiến trúc Pháp hoài niệm cùng nền tinh hoa ẩm thực đường phố danh tiếng toàn cầu.",
+      "attractions": [
+        "Hồ Hoàn Kiếm & Đền Ngọc Sơn",
+        "Phố Cổ Hà Nội (36 Phố Phường)",
+        "Quần thể Lăng Chủ tịch Hồ Chí Minh",
+        "Văn Miếu - Quốc Tử Giám",
+        "Hoàng Thành Thăng Long"
+      ],
+      "activities": [
+        "Dạo bộ ngắm tháp Rùa và thưởng thức kem Tràng Tiền",
+        "Trải nghiệm tour xích lô quanh khu phố cổ",
+        "Uống cà phê trứng Giảng trứ danh",
+        "Thưởng thức Phở bò Bát Đàn, bún chả Hương Liên và chả cá Lã Vọng"
+      ],
+      "bestSeason": "Tháng 9 - Tháng 11 & Tháng 2 - Tháng 4",
+      "visitDuration": "3 ngày 2 đêm",
+      "budgetBand": "Phổ thông",
+      "transport": "Cảng hàng không Quốc tế Nội Bài, ga tàu hỏa Hà Nội kết nối mạng lưới giao thông toàn quốc",
+      "gallery": [
+        {
+          "url": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Hồ Hoàn Kiếm ngát xanh với Cầu Thê Húc son đỏ",
+          "alt": "Hồ Hoàn Kiếm Hà Nội",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Khu phố cổ nhộn nhịp đặc trưng Hà Nội",
+          "alt": "Phố cổ Hà Nội",
+          "credit": "Unsplash"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&w=1400&q=85",
+          "caption": "Văn Miếu Quốc Tử Giám cổ kính uy nghiêm",
+          "alt": "Văn Miếu Hà Nội",
+          "credit": "Unsplash"
+        }
+      ]
+    }
+  ],
+  "tours": [
+    {
+      "destinationSlug": "mui-ne-phan-thiet",
+      "title": "Tour Mũi Né - Bàu Trắng - Trượt Cát & Lướt Sóng Biển Xanh 3N2Đ",
+      "slug": "tour-mui-ne-bau-trang-truot-cat-luot-song-bien-xanh-3n2d",
+      "overview": "Khám phá sa mạc cát Bàu Trắng ngút ngàn, trải nghiệm xe jeep địa hình cảm giác mạnh, lội suối Tiên và nghỉ dưỡng resort sát biển Mũi Né.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1850000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2750000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 3600000
+        }
+      ],
+      "departureDates": [
+        "2026-11-05T00:00:00.000Z",
+        "2026-11-12T00:00:00.000Z",
+        "2026-11-19T00:00:00.000Z",
+        "2026-11-26T00:00:00.000Z"
+      ],
+      "maxPassengers": 25,
+      "availableSeats": 25,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "TP.HCM - Phan Thiết - Nhận Phòng Resort - Tắm Biển",
+          "description": "Xe du lịch đời mới đón khách tại TP.HCM đi theo cao tốc tới Phan Thiết. Dùng bữa trưa hải sản, nhận phòng resort 4 sao view biển và tự do tắm biển Mũi Né."
+        },
+        {
+          "day": 2,
+          "title": "Săn Bình Minh Bàu Trắng Xe Jeep - Suối Tiên - Làng Chài",
+          "description": "4h30 sáng xe Jeep đưa đoàn đi săn bình minh tại Bàu Trắng, trải nghiệm lái môtô cát. Trưa lội Suối Tiên ngắm nhũ cát đỏ và chiều tham quan làng chài Mũi Né."
+        },
+        {
+          "day": 3,
+          "title": "Lâu Đài Rượu Vang RD - Mua Đặc Sản Nước Mắm - Về TP.HCM",
+          "description": "Khám phá Lâu đài Rượu vang phong cách châu Âu thời Trung cổ, thưởng thức rượu vang hảo hạng, mua sắm thanh long và nước mắm Phan Thiết trước khi lên xe về."
+        }
+      ],
+      "includes": [
+        "Xe du lịch đời mới đưa đón khứ hồi TP.HCM - Mũi Né",
+        "Resort 4 sao sát biển Mũi Né (2 người/phòng)",
+        "Vé xe Jeep địa hình khám phá Bàu Trắng",
+        "Các bữa ăn chính đặc sản hải sản địa phương",
+        "Hướng dẫn viên chuyên nghiệp suốt tuyến"
+      ],
+      "excludes": [
+        "Thuê môtô địa hình cá nhân trên đồi cát",
+        "Đồ uống gọi riêng trong bữa ăn",
+        "Tiền tip cho hướng dẫn viên và lái xe"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "con-dao-thien-duong-hoang-so",
+      "title": "Tour Côn Đảo - Huyền Thoại Đại Dương & Lặn Ngắm San Hô 3N2Đ",
+      "slug": "tour-con-dao-huyen-thoai-dai-duong-lan-ngam-san-ho-3n2d",
+      "overview": "Hành trình linh thiêng và kỳ vĩ viếng nghĩa trang Hàng Dương, khám phá hệ thống di tích nhà tù và trải nghiệm lặn biển san hô nguyên sinh tại Côn Đảo.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 4200000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 5800000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 7500000
+        }
+      ],
+      "departureDates": [
+        "2026-11-06T00:00:00.000Z",
+        "2026-11-13T00:00:00.000Z",
+        "2026-11-20T00:00:00.000Z",
+        "2026-11-27T00:00:00.000Z"
+      ],
+      "maxPassengers": 20,
+      "availableSeats": 20,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Bay Côn Đảo - Di Tích Nhà Tù - Viếng Mộ Cô Sáu Đêm",
+          "description": "Đáp chuyến bay tới sân bay Côn Sơn, xe đưa về resort. Chiều tham quan trại Phú Hải, chuồng cọp Pháp - Mỹ. Tối 22h viếng mộ anh hùng liệt sĩ Võ Thị Sáu tại nghĩa trang Hàng Dương."
+        },
+        {
+          "day": 2,
+          "title": "Cano Khám Phá Hòn Bảy Cạnh - Lặn Biển - Bãi Đầm Trầu",
+          "description": "Đi cano ra Hòn Bảy Cạnh ngắm rừng ngập mặn trên đảo đá, lặn biển ngắm rạn san hô nhiệt đới đầy sắc màu. Buổi chiều ngắm máy bay hạ cánh cực sát bãi biển Đầm Trầu."
+        },
+        {
+          "day": 3,
+          "title": "Chợ Côn Đảo Mua Hạt Bàng - Mũi Cá Mập - Bay Về",
+          "description": "Dạo chợ Côn Đảo mua mứt hạt bàng rang muối ớt đặc sản, check-in Mũi Cá Mập ngoạn mục trước khi xe đưa đoàn ra sân bay trở về."
+        }
+      ],
+      "includes": [
+        "Vé máy bay khứ hồi (đã bao gồm hành lý)",
+        "Khách sạn hoặc resort 4 sao trung tâm Côn Đảo",
+        "Cano cao tốc và thiết bị lặn ngắm san hô",
+        "Lễ viếng tâm linh nghĩa trang Hàng Dương",
+        "Bảo hiểm du lịch mức cao nhất"
+      ],
+      "excludes": [
+        "Đồ lễ tâm linh sắm riêng",
+        "Chi phí ăn uống ngoài chương trình",
+        "Phí dịch vụ phòng đơn"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "nha-trang-vinh-bien-thien-duong",
+      "title": "Tour Nha Trang - Du Ngoạn 3 Đảo - Vui Chơi VinWonders 4N3Đ",
+      "slug": "tour-nha-trang-du-ngoan-3-dao-vui-choi-vinwonders-4n3d",
+      "overview": "Kỳ nghỉ biển trọn gói đẳng cấp khám phá vịnh Nha Trang bằng cano tốc độ cao, tắm bùn khoáng nóng và thỏa sức vui chơi tại thiên đường giải trí VinWonders.",
+      "durationOptions": [
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 3450000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 4750000
+        },
+        {
+          "days": 5,
+          "nights": 4,
+          "price": 5950000
+        }
+      ],
+      "departureDates": [
+        "2026-11-04T00:00:00.000Z",
+        "2026-11-11T00:00:00.000Z",
+        "2026-11-18T00:00:00.000Z",
+        "2026-11-25T00:00:00.000Z"
+      ],
+      "maxPassengers": 30,
+      "availableSeats": 30,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Đón Khách Nha Trang - Tháp Bà Ponagar - Tắm Bùn Khoáng",
+          "description": "Xe đón khách tại sân bay Cam Ranh về khách sạn 4 sao mặt biển Trần Phú. Chiều viếng quần thể Tháp Bà Ponagar ngàn năm và thư giãn phục hồi tại suối khoáng nóng Tháp Bà."
+        },
+        {
+          "day": 2,
+          "title": "Cano Cao Tốc Du Ngoạn 3 Đảo: Hòn Mun - Làng Chài - Bãi Tranh",
+          "description": "Khám phá Hòn Mun lặn ngắm san hô bằng tàu đáy kính, dùng bữa trưa trên bè nổi hải sản làng chài, chiều tắm biển thư giãn và tham gia thể thao dù lượn tại Bãi Tranh."
+        },
+        {
+          "day": 3,
+          "title": "Trải Nghiệm Cả Ngày Tại Công Viên Giải Trí VinWonders Hòn Tre",
+          "description": "Cáp treo vượt biển đến Hòn Tre, trải nghiệm vịnh phao nổi khổng lồ, công viên nước, vườn thú Quý Vương và xem show diễn triệu đô Tata Show lúc 19h30."
+        },
+        {
+          "day": 4,
+          "title": "Viện Hải Dương Học - Chợ Đầm - Tiễn Đoàn Ra Sân Bay",
+          "description": "Chiêm ngưỡng hàng ngàn mẫu vật sinh vật biển tại Viện Hải dương học, mua quà hải sản khô tại Chợ Đầm và xe đưa đoàn ra sân bay Cam Ranh."
+        }
+      ],
+      "includes": [
+        "Khách sạn 4 sao mặt đường biển Trần Phú",
+        "Vé vào cổng trọn gói VinWonders và cáp treo khứ hồi",
+        "Cano cao tốc và vé tham quan các đảo trong vịnh",
+        "Suất tắm bùn khoáng phục hồi sức khỏe",
+        "Xe đưa đón sân bay và các điểm tham quan"
+      ],
+      "excludes": [
+        "Vé máy bay tới Cam Ranh",
+        "Trò chơi thể thao nước cá nhân (dù bay, moto nước)",
+        "Chi phí phát sinh cá nhân"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "quy-nhon-xu-nau-ky-thu",
+      "title": "Tour Quy Nhơn - Kỳ Co Eo Gió - Lặn San Hô Hòn Khô 3N2Đ",
+      "slug": "tour-quy-nhon-ky-co-eo-gio-lan-san-ho-hon-kho-3n2d",
+      "overview": "Đến với miền đất võ trời văn Bình Định: check-in con đường ven biển lộng gió Eo Gió, thả mình trong làn nước lam ngọc Kỳ Co và thưởng thức mâm tiệc 8 món hải sản biển.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1950000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2850000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 3750000
+        }
+      ],
+      "departureDates": [
+        "2026-11-07T00:00:00.000Z",
+        "2026-11-14T00:00:00.000Z",
+        "2026-11-21T00:00:00.000Z",
+        "2026-11-28T00:00:00.000Z"
+      ],
+      "maxPassengers": 24,
+      "availableSeats": 24,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Sân Bay Phù Cát - Ghềnh Ráng Tiên Sa - Tháp Đôi",
+          "description": "Đón khách từ sân bay Phù Cát, viếng mộ nhà thơ Hàn Mặc Tử tại Ghềnh Ráng, bãi đá Trứng Nam Phương Hoàng Hậu. Chiều ngắm kiến trúc Chăm pa cổ tại Tháp Đôi."
+        },
+        {
+          "day": 2,
+          "title": "Cano Cao Tốc Kỳ Co - Lặn Ngắm San Hô - Chiều Eo Gió",
+          "description": "Vượt biển bằng cano tới bãi tắm thiên đường Kỳ Co. Trưa cano đưa đoàn lặn ngắm san hô Bãi Dứa. Chiều ngắm cảnh hoàng hôn ngoạn mục tại eo biển lộng gió Eo Gió."
+        },
+        {
+          "day": 3,
+          "title": "Cồn Cát Phương Mai - Mua Đặc Sản Xứ Nẫu - Tiễn Đoàn",
+          "description": "Trượt cát tại đồi cát Phương Mai cao nhất miền Trung. Ghé cơ sở mua chả ram tôm đất, rượu Bàu Đá, tré Bình Định trước khi xe tiễn ra sân bay."
+        }
+      ],
+      "includes": [
+        "Xe du lịch máy lạnh chất lượng cao suốt lịch trình",
+        "Khách sạn 3-4 sao gần bờ biển Quy Nhơn",
+        "Cano khứ hồi đi Kỳ Co và phí tham quan Eo Gió",
+        "Bữa trưa hải sản tươi sống 8 món cao cấp",
+        "Áo phao và kính lặn ngắm san hô"
+      ],
+      "excludes": [
+        "Vé máy bay khứ hồi đến Quy Nhơn",
+        "Chi phí trượt cát và môtô nước",
+        "Đồ uống bia nước ngọt cá nhân"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "moc-chau-cao-nguyen-xanh",
+      "title": "Tour Mộc Châu - Mùa Hoa Mận Trắng & Đồi Chè Trái Tim 2N1Đ",
+      "slug": "tour-moc-chau-mua-hoa-man-trang-doi-che-trai-tim-2n1d",
+      "overview": "Trải nghiệm không khí trong lành miền sơn cước Tây Bắc, lạc vào thung lũng hoa mận trắng xóa Nà Ka, hái dâu tây chín mọng và check-in đồi chè xanh mướt.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1450000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2250000
+        }
+      ],
+      "departureDates": [
+        "2026-11-07T00:00:00.000Z",
+        "2026-11-14T00:00:00.000Z",
+        "2026-11-21T00:00:00.000Z",
+        "2026-11-28T00:00:00.000Z"
+      ],
+      "maxPassengers": 25,
+      "availableSeats": 25,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Hà Nội - Đèo Thung Khe - Thác Dải Yếm - Rừng Thông Bản Áng",
+          "description": "Xe khởi hành từ Hà Nội, dừng chân chụp ảnh đèo đá trắng Thung Khe. Đến Mộc Châu dùng cơm lam, thịt lợn mán. Chiều tham quan thác Dải Yếm và đạp xe quanh hồ rừng thông Bản Áng."
+        },
+        {
+          "day": 2,
+          "title": "Đồi Chè Trái Tim - Thung Lũng Mận Nà Ka - Về Hà Nội",
+          "description": "Đón sớm mai trong trẻo tại Đồi chè Trái Tim, chụp ảnh trong thung lũng mận Nà Ka. Thưởng thức sữa chua nếp cẩm, mua dâu tây tươi và cải mèo trước khi xe đưa về Hà Nội."
+        }
+      ],
+      "includes": [
+        "Xe Limousine giường nằm cao cấp khứ hồi Hà Nội - Mộc Châu",
+        "Khách sạn hoặc resort boutique phong cách Tây Bắc",
+        "Vé tham quan thác Dải Yếm và rừng thông Bản Áng",
+        "Các bữa ăn chính mang đậm hương vị ẩm thực người Thái",
+        "Hướng dẫn viên am hiểu phong tục vùng cao"
+      ],
+      "excludes": [
+        "Vé tham quan Cầu kính Tình Yêu (tự chọn)",
+        "Chi phí thuê trang phục dân tộc chụp ảnh",
+        "Chi tiêu cá nhân ngoài tour"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "buon-ma-thuot-thu-phu-ca-phe",
+      "title": "Tour Buôn Ma Thuột - Khám Phá Thác Dray Nur & Văn Hóa Cồng Chiêng 3N2Đ",
+      "slug": "tour-buon-ma-thuot-kham-pha-thac-dray-nur-van-hoa-cong-chieng-3n2d",
+      "overview": "Lắng nghe tiếng gọi đại ngàn hùng tráng: chiêm ngưỡng thác nước Dray Nur kỳ vĩ, thưởng thức cà phê tại bảo tàng độc đáo bậc nhất thế giới và trải nghiệm chèo thuyền trên Hồ Lắk.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1890000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2890000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 3890000
+        }
+      ],
+      "departureDates": [
+        "2026-11-06T00:00:00.000Z",
+        "2026-11-13T00:00:00.000Z",
+        "2026-11-20T00:00:00.000Z",
+        "2026-11-27T00:00:00.000Z"
+      ],
+      "maxPassengers": 20,
+      "availableSeats": 20,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Đón Sân Bay Buôn Ma Thuột - Bảo Tàng Cà Phê - Buôn Ako Dhông",
+          "description": "Xe đón khách tại sân bay, nhận phòng khách sạn. Chiều tham quan kiến trúc nhà dài cách điệu tại Bảo tàng Thế giới Cà phê, ghé buôn cổ Ako Dhông thưởng thức cà phê nguyên bản."
+        },
+        {
+          "day": 2,
+          "title": "Chinh Phục Thác Dray Nur - Hồ Lắk - Đi Thuyền Độc Mộc",
+          "description": "Ngắm bọt nước trắng xóa cuồn cuộn của thác Dray Nur hùng vĩ. Chiều đến Hồ Lắk, chèo thuyền độc mộc ngắm bình yên mặt nước và đêm giao lưu lửa trại cồng chiêng Ê Đê."
+        },
+        {
+          "day": 3,
+          "title": "Núi Đá Voi Mẹ - Mua Đặc Sản Cà Phê Bơ Sáp - Tiễn Đoàn",
+          "description": "Leo đỉnh tảng đá granite nguyên khối Đá Voi Mẹ ngắm toàn cảnh thung lũng Yang Tao. Ghé mua cà phê chồn, bơ sáp Đắk Lắk trước khi xe đưa ra sân bay."
+        }
+      ],
+      "includes": [
+        "Xe đưa đón phục vụ máy lạnh suốt tuyến tại Đắk Lắk",
+        "Khách sạn 4 sao trung tâm thành phố Buôn Ma Thuột",
+        "Vé tham quan Bảo tàng Cà phê, thác Dray Nur, Hồ Lắk",
+        "Trải nghiệm chèo thuyền độc mộc và đêm hội cồng chiêng",
+        "Bữa ăn gà nướng cơm lam và cá lăng sông Sêrêpôk"
+      ],
+      "excludes": [
+        "Vé máy bay khứ hồi",
+        "Chi phí cưỡi voi (ủng hộ mô hình du lịch thân thiện)",
+        "Đồ uống gọi thêm"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "dao-ly-son-vuong-quoc-toi",
+      "title": "Tour Lý Sơn - Thiên Đường Biển Đảo Núi Lửa & Đảo Bé An Bình 3N2Đ",
+      "slug": "tour-ly-son-thien-duong-bien-dao-nui-lua-dao-be-an-binh-3n2d",
+      "overview": "Hành trình ra khơi chạm vào di sản địa chất núi lửa kỳ quan: check-in Cổng Tò Vò hoàng hôn, ngắm biển xanh ngọc Đảo Bé và tìm hiểu nghề trồng tỏi truyền thống.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 2150000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 3150000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 4150000
+        }
+      ],
+      "departureDates": [
+        "2026-11-05T00:00:00.000Z",
+        "2026-11-12T00:00:00.000Z",
+        "2026-11-19T00:00:00.000Z",
+        "2026-11-26T00:00:00.000Z"
+      ],
+      "maxPassengers": 22,
+      "availableSeats": 22,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Cảng Sa Kỳ - Tàu Siêu Tốc Ra Đảo Lý Sơn - Hoàng Hôn Cổng Tò Vò",
+          "description": "Lên tàu siêu tốc tại cảng Sa Kỳ rẽ sóng ra đảo Lý Sơn. Nhận phòng khách sạn, buổi chiều tham quan Chùa Đục và đón khoảnh khắc hoàng hôn tráng lệ tại Cổng Tò Vò."
+        },
+        {
+          "day": 2,
+          "title": "Khám Phá Đảo Bé An Bình - Cano Lặn San Hô - Đỉnh Thới Lới",
+          "description": "Sáng đi cano sang Đảo Bé tắm biển bãi đá cổ và đi thuyền thúng lặn ngắm san hô. Chiều trở lại đảo Lớn chinh phục đỉnh núi Thới Lới ngắm hồ nước miệng núi lửa và Hang Câu."
+        },
+        {
+          "day": 3,
+          "title": "Chùa Hang - Cánh Đồng Tỏi - Tàu Về Sa Kỳ - Tiễn Sân Bay Chu Lai",
+          "description": "Thăm Chùa Hang linh thiêng bên bờ sóng, tìm hiểu quy trình trồng tỏi cô đơn độc đáo. Lên tàu siêu tốc về đất liền, xe đưa đoàn ra sân bay Chu Lai."
+        }
+      ],
+      "includes": [
+        "Vé tàu siêu tốc khứ hồi Cảng Sa Kỳ - Đảo Lý Sơn",
+        "Cano di chuyển khứ hồi Đảo Lớn - Đảo Bé",
+        "Khách sạn hoặc resort 3-4 sao mặt biển Lý Sơn",
+        "Các bữa ăn hải sản: cua huỳnh đế, ốc cừ, tôm hùm, gỏi rong biển",
+        "Xe đưa đón trọn gói từ sân bay Chu Lai đến cảng"
+      ],
+      "excludes": [
+        "Vé máy bay khứ hồi tới Chu Lai",
+        "Chi phí thuê xe máy tự do dạo đảo",
+        "Chi phí mua sắm tỏi và hành đặc sản"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "vung-tau-pho-bien-nang-dong",
+      "title": "Tour Vũng Tàu - Tượng Chúa Kito & Cung Đường Ven Biển Nghỉ Dưỡng 2N1Đ",
+      "slug": "tour-vung-tau-tuong-chua-kito-cung-duong-ven-bien-nghi-duong-2n1d",
+      "overview": "Chuyến nghỉ dưỡng ngắn ngày đổi gió hoàn hảo: leo núi ngắm toàn cảnh vịnh biển từ vai Tượng Chúa Kito, thưởng thức ẩm thực bánh khọt trứ danh và tắm biển Bãi Sau mát rượi.",
+      "durationOptions": [
+        {
+          "days": 1,
+          "nights": 0,
+          "price": 850000
+        },
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1650000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2350000
+        }
+      ],
+      "departureDates": [
+        "2026-11-01T00:00:00.000Z",
+        "2026-11-08T00:00:00.000Z",
+        "2026-11-15T00:00:00.000Z",
+        "2026-11-22T00:00:00.000Z",
+        "2026-11-29T00:00:00.000Z"
+      ],
+      "maxPassengers": 35,
+      "availableSeats": 35,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "TP.HCM - Cao Tốc - Đồi Cừu Suối Nghệ - Bãi Sau Vũng Tàu",
+          "description": "Khởi hành từ TP.HCM, dừng chân chụp ảnh cùng đàn cừu dễ thương tại Đồi Cừu Suối Nghệ. Trưa nhận phòng khách sạn Bãi Sau, chiều tự do tắm biển và tối thưởng thức lẩu cá đuối."
+        },
+        {
+          "day": 2,
+          "title": "Chinh Phục Tượng Chúa Kito - Mũi Nghinh Phong - Về Lại TP.HCM",
+          "description": "Buổi sáng mát mẻ chinh phục 847 bậc đá lên Tượng Chúa dang tay ngắm biển Đông. Ghé Mũi Nghinh Phong chụp ảnh Cổng Trời và ăn bánh khọt giòn rụm trước khi về Sài Gòn."
+        }
+      ],
+      "includes": [
+        "Xe du lịch đời mới đưa đón hai chiều TP.HCM - Vũng Tàu",
+        "Khách sạn 3-4 sao trung tâm Bãi Sau",
+        "Vé tham quan tất cả các điểm trong hành trình",
+        "Bữa trưa và tối hải sản thơm ngon",
+        "Nước suối và khăn lạnh phục vụ trên xe"
+      ],
+      "excludes": [
+        "Vé cáp treo Hồ Mây (nếu có nhu cầu)",
+        "Chi phí ăn uống hải sản chợ đêm tự do",
+        "Tiền bồi dưỡng cho bác tài và hướng dẫn viên"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "tay-ninh-noc-nha-nam-bo",
+      "title": "Tour Tây Ninh - Cáp Treo Săn Mây Núi Bà Đen & Tòa Thánh Cao Đài 2N1Đ",
+      "slug": "tour-tay-ninh-cap-treo-san-may-nui-ba-den-toa-thanh-cao-dai-2n1d",
+      "overview": "Hành hương miền đất thiêng Nam Bộ: lướt cáp treo Sun World xuyên mây lên nóc nhà Đông Nam Bộ, chiêm bái tượng Phật Bà kỷ lục và tìm hiểu tôn giáo Cao Đài độc đáo.",
+      "durationOptions": [
+        {
+          "days": 1,
+          "nights": 0,
+          "price": 790000
+        },
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1590000
+        }
+      ],
+      "departureDates": [
+        "2026-11-01T00:00:00.000Z",
+        "2026-11-08T00:00:00.000Z",
+        "2026-11-15T00:00:00.000Z",
+        "2026-11-22T00:00:00.000Z"
+      ],
+      "maxPassengers": 30,
+      "availableSeats": 30,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "TP.HCM - Tòa Thánh Cao Đài - Nhận Phòng Khách Sạn - Hồ Dầu Tiếng",
+          "description": "Khởi hành từ TP.HCM đến Tây Ninh, tham dự lễ cúng trưa trang nghiêm tại Tòa Thánh Cao Đài. Chiều nhận phòng nghỉ ngơi và ngắm hoàng hôn lãng mạn bên mép nước Hồ Dầu Tiếng."
+        },
+        {
+          "day": 2,
+          "title": "Cáp Treo Sun World Chinh Phục Đỉnh Núi Bà Đen - Về TP.HCM",
+          "description": "Đi tuyến cáp treo Vân Sơn hiện đại lên độ cao 986m, săn biển mây bồng bềnh, chiêm bái Đại Tượng Phật Bà Tây Bổ Đà Sơn. Chiều ghé ăn bò tơ Tây Ninh trước khi trở về Sài Gòn."
+        }
+      ],
+      "includes": [
+        "Xe đưa đón chất lượng cao TP.HCM - Tây Ninh",
+        "Vé cáp treo khứ hồi Sun World đỉnh Núi Bà Đen",
+        "Khách sạn 3 sao trung tâm TP. Tây Ninh",
+        "Bữa ăn đặc sản bánh tráng phơi sương cuốn thịt luộc và bò tơ",
+        "Bảo hiểm du lịch trọn gói"
+      ],
+      "excludes": [
+        "Đồ lễ thắp hương cá nhân",
+        "Vé cáp treo tuyến Chùa Hang (nếu đi thêm)",
+        "Chi tiêu cá nhân ngoài chương trình"
+      ],
+      "status": "active"
+    },
+    {
+      "destinationSlug": "ha-noi-trai-tim-dat-nuoc",
+      "title": "Tour Hà Nội - Dấu Ấn Thăng Long & Tinh Hoa Phố Cổ 3N2Đ",
+      "slug": "tour-ha-noi-dau-an-thang-long-tinh-hoa-pho-co-3n2d",
+      "overview": "Lắng đọng cùng hồn thiêng đất Tràng An: dạo quanh bờ Hồ Gươm, viếng Lăng Bác kính yêu, tìm hiểu Văn Miếu nghìn năm và thưởng thức trọn vẹn ẩm thực phố cổ nức tiếng.",
+      "durationOptions": [
+        {
+          "days": 2,
+          "nights": 1,
+          "price": 1850000
+        },
+        {
+          "days": 3,
+          "nights": 2,
+          "price": 2850000
+        },
+        {
+          "days": 4,
+          "nights": 3,
+          "price": 3850000
+        }
+      ],
+      "departureDates": [
+        "2026-11-06T00:00:00.000Z",
+        "2026-11-13T00:00:00.000Z",
+        "2026-11-20T00:00:00.000Z",
+        "2026-11-27T00:00:00.000Z"
+      ],
+      "maxPassengers": 25,
+      "availableSeats": 25,
+      "itinerary": [
+        {
+          "day": 1,
+          "title": "Đón Sân Bay Nội Bài - Hồ Hoàn Kiếm - Xích Lô Phố Cổ",
+          "description": "Xe đón khách tại sân bay Nội Bài về khách sạn trung tâm phố cổ. Chiều dạo quanh Hồ Gươm viếng Đền Ngọc Sơn, trải nghiệm ngồi xích lô qua các ngõ phố Hàng Mã, Hàng Gai, uống cà phê trứng."
+        },
+        {
+          "day": 2,
+          "title": "Lăng Chủ Tịch Hồ Chí Minh - Văn Miếu - Hoàng Thành Thăng Long",
+          "description": "Buổi sáng viếng Lăng Bác, Nhà sàn, Chùa Một Cột. Trưa thưởng thức Bún chả Hà Nội. Chiều khám phá Văn Miếu - Quốc Tử Giám - trường đại học đầu tiên và Hoàng Thành Thăng Long di sản thế giới."
+        },
+        {
+          "day": 3,
+          "title": "Hồ Tây - Chùa Trấn Quốc - Mua Quà Ô Mai - Tiễn Sân Bay",
+          "description": "Thưởng ngoạn gió mát Hồ Tây, viếng Chùa Trấn Quốc cổ kính nhất thủ đô. Ghé Hàng Đường mua ô mai sấu, bánh cốm Làng Vòng trước khi xe tiễn đoàn ra sân bay Nội Bài."
+        }
+      ],
+      "includes": [
+        "Xe ô tô du lịch đời mới máy lạnh đón tiễn sân bay và tham quan",
+        "Khách sạn 3-4 sao tọa lạc ngay trung tâm Phố Cổ",
+        "Vé vào cổng tất cả các di tích lịch sử trong chương trình",
+        "Vé xích lô dạo quanh 36 phố phường Hà Nội",
+        "Các bữa ăn đặc sản: Phở Thìn, Bún chả, Chả cá Lã Vọng"
+      ],
+      "excludes": [
+        "Vé máy bay khứ hồi tới Hà Nội",
+        "Vé xem Múa Rối Nước Thăng Long (tự chọn)",
+        "Đồ uống và chi tiêu cá nhân"
+      ],
+      "status": "active"
+    }
+  ]
+}

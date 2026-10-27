@@ -46,6 +46,51 @@ class GuideController {
       next(error);
     }
   }
+
+  async getGuideDestinations(req, res, next) {
+    try {
+      const destinations = await guideService.getGuideDestinations(req.params.idOrSlug);
+      return successResponse(res, destinations, 'Guide destinations retrieved successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addDestinations(req, res, next) {
+    try {
+      const guide = await guideService.addDestinationsToGuide(
+        req.params.id,
+        req.body.destinationIds
+      );
+      return successResponse(res, guide, 'Destinations added to guide successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async setGuideDestinations(req, res, next) {
+    try {
+      const guide = await guideService.setGuideDestinations(
+        req.params.id,
+        req.body.destinationIds
+      );
+      return successResponse(res, guide, 'Guide destinations updated successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeDestination(req, res, next) {
+    try {
+      const guide = await guideService.removeDestinationFromGuide(
+        req.params.id,
+        req.params.destinationId
+      );
+      return successResponse(res, guide, 'Destination removed from guide successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = new GuideController();

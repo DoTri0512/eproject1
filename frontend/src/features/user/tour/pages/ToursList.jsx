@@ -15,7 +15,7 @@ const ToursList = () => {
   const [visibleCount, setVisibleCount] = useState(9);
 
   useEffect(() => {
-    dispatch(fetchTours({ status: 'active' }));
+    dispatch(fetchTours({ status: 'active', limit: 100 }));
   }, [dispatch]);
 
   // Client-side search

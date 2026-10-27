@@ -231,11 +231,19 @@ export const MyBookings = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Link
+                        to={`/my-bookings/${booking._id}`}
+                        className="px-3.5 py-2 rounded-xl bg-primary text-white hover:bg-primary-dark font-bold text-xs transition-colors flex items-center gap-1.5 shadow-xs"
+                      >
+                        <span className="material-symbols-outlined text-[15px]">route</span>
+                        <span>Kế hoạch chuyến đi</span>
+                      </Link>
+
                       <button
                         type="button"
                         onClick={() => setSelectedVoucher(booking)}
-                        className="px-4 py-2 rounded-xl bg-sky-50 text-primary hover:bg-primary hover:text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-xs"
+                        className="px-3.5 py-2 rounded-xl bg-sky-50 text-primary hover:bg-primary hover:text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-xs"
                       >
                         <span className="material-symbols-outlined text-[15px]">confirmation_number</span>
                         <span>Vé / Voucher</span>

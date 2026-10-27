@@ -14,6 +14,7 @@ const contactRoute = require("../modules/contact/contact.route");
 const adminRoute = require("../modules/admin/admin.route");
 const uploadRoute = require("../modules/upload/upload.route");
 const chatbotRoute = require("../modules/chatbot/chatbot.route");
+const statsRoute = require("../modules/stats/stats.route");
 
 // API Health Check
 router.get("/health", (req, res) => {
@@ -38,5 +39,6 @@ router.use("/contacts", contactRoute);
 router.use("/admin", adminRoute);
 router.use("/upload", uploadRoute);
 router.use("/chatbot", chatbotRoute);
+router.use("/stats", statsRoute);
 
 module.exports = router;

@@ -17,6 +17,9 @@ export const AdminSidebar = ({ isMobileOpen, onCloseMobile }) => {
     { to: '/admin/tours', label: 'Quản lý Tours', icon: 'calendar_month' },
     { to: '/admin/bookings', label: 'Quản lý Đơn hàng', icon: 'receipt_long' },
     { to: '/admin/booking-plans', label: 'Quản lý Đoàn khởi hành', icon: 'groups' },
+    { to: '/admin/guides', label: 'Quản lý Hướng dẫn viên', icon: 'badge' },
+    { to: '/admin/collections', label: 'Quản lý Bộ sưu tập', icon: 'collections_bookmark' },
+    { to: '/admin/contacts', label: 'Quản lý Liên hệ', icon: 'mail' },
   ];
 
   return (

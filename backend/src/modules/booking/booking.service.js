@@ -147,10 +147,10 @@ class BookingService {
     const booking = await Booking.findById(id)
       .populate({
         path: 'tourId',
-        populate: { path: 'destinationId', select: 'name slug image location' },
+        populate: { path: 'destinationId', select: 'name slug image location gallery region theme' },
       })
       .populate('customerId')
-      .populate('guide_id', 'name specialisation phone languages');
+      .populate('guide_id', 'name specialisation languages background biography');
 
     if (!booking) {
       const error = new Error('Booking not found');
@@ -167,7 +167,7 @@ class BookingService {
     return booking;
   }
 
-  async cancelBooking(id, userId) {
+  async cancelBooking(id, userId, reason = '') {
     const booking = await Booking.findById(id);
     if (!booking) {
       const error = new Error('Booking not found');
@@ -188,6 +188,12 @@ class BookingService {
     }
 
     booking.bookingStatus = 'cancelled';
+    if (reason && typeof reason === 'string' && reason.trim()) {
+      const trimmedReason = reason.trim();
+      booking.notes = booking.notes
+        ? `${booking.notes}\n[Lý do hủy: ${trimmedReason}]`
+        : `[Lý do hủy: ${trimmedReason}]`;
+    }
     await booking.save();
 
     // Hoàn trả lại số chỗ còn trống cho tour

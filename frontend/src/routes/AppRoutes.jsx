@@ -15,8 +15,10 @@ import RegionExplorer from '../features/user/region/pages/RegionExplorer';
 import FavouritesList from '../features/user/favourite/pages/FavouritesList';
 import TourBooking from '../features/user/booking/pages/TourBooking';
 import MyBookings from '../features/user/booking/pages/MyBookings';
+import TripPlanner from '../features/user/booking/pages/TripPlanner';
 import MyProfile from '../features/user/profile/pages/MyProfile';
 import About from '../features/user/static/pages/About';
+import Contact from '../features/user/static/pages/Contact';
 import Login from '../features/auth/pages/Login';
 import Register from '../features/auth/pages/Register';
 
@@ -26,6 +28,9 @@ import AdminDestinations from '../features/admin/destination/pages/AdminDestinat
 import AdminTours from '../features/admin/tour/pages/AdminTours';
 import AdminBookings from '../features/admin/booking/pages/AdminBookings';
 import AdminBookingPlans from '../features/admin/bookingPlan/pages/AdminBookingPlans';
+import AdminGuides from '../features/admin/guide/pages/AdminGuides';
+import AdminCollections from '../features/admin/collection/pages/AdminCollections';
+import AdminContacts from '../features/admin/contact/pages/AdminContacts';
 
 export const AppRoutes = () => {
   return (
@@ -50,6 +55,22 @@ export const AppRoutes = () => {
           element={
             <PrivateRoute>
               <MyBookings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/my-bookings/:bookingId"
+          element={
+            <PrivateRoute>
+              <TripPlanner />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trip-planner/:bookingId"
+          element={
+            <PrivateRoute>
+              <TripPlanner />
             </PrivateRoute>
           }
         />
@@ -78,7 +99,7 @@ export const AppRoutes = () => {
 
         {/* Static fallback */}
         <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
       </Route>
 
       {/* Admin Panel Routes with AdminRoute guard */}
@@ -95,6 +116,9 @@ export const AppRoutes = () => {
         <Route path="/admin/tours" element={<AdminTours />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
         <Route path="/admin/booking-plans" element={<AdminBookingPlans />} />
+        <Route path="/admin/guides" element={<AdminGuides />} />
+        <Route path="/admin/collections" element={<AdminCollections />} />
+        <Route path="/admin/contacts" element={<AdminContacts />} />
       </Route>
 
       {/* Fallback route */}

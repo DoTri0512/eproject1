@@ -64,19 +64,19 @@ export const RegionExplorer = () => {
   }, [currentRegion]);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-[115px] pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pt-[110px] pb-20">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* 1. HERO SECTION */}
-      <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
+        <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-sky-300 text-xs font-semibold mb-3">
-              <span className="material-symbols-outlined text-[16px]">map</span>
-              <span>ĐỊA LÝ & KHÍ HẬU VIỆT NAM</span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-medium mb-3">
+              <span className="material-symbols-outlined text-[14px]">map</span>
+              <span className="text-[14px]">ĐỊA LÝ & KHÍ HẬU VIỆT NAM</span>
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-white">
               Khám Phá Vùng Miền Việt Nam
             </h1>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
               Mỗi vùng miền mang một sắc thái riêng biệt về cảnh sắc non nước,
               khí hậu và nét văn hóa ẩm thực truyền thống phong phú.
             </p>

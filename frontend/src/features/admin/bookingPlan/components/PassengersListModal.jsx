@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from '../../../../components/common/Modal';
 import formatDate from '../../../../utils/formatDate';
 
@@ -6,31 +6,18 @@ export const PassengersListModal = ({
   isOpen,
   onClose,
   plan,
-  onOpenAssignGuide,
-  onUpdateStatus,
 }) => {
-  const [checkedInIds, setCheckedInIds] = useState({});
-
   if (!plan) return null;
 
   const passengers = plan.passengersList || [];
   const guide = plan.guideId || null;
   const tour = plan.tourId || {};
 
-  const toggleCheckIn = (idx) => {
-    setCheckedInIds((prev) => ({
-      ...prev,
-      [idx]: !prev[idx],
-    }));
-  };
-
-  const checkedCount = Object.values(checkedInIds).filter(Boolean).length;
-
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Danh Sách Hành Khách & Điểm Danh Đoàn Khởi Hành"
+      title="Thông Tin Chi Tiết Đoàn Khởi Hành & Danh Sách Hành Khách"
       size="2xl"
     >
       <div className="space-y-6">
@@ -44,9 +31,13 @@ export const PassengersListModal = ({
               {tour.title || 'Tour Du Lịch'}
             </h3>
             <p className="text-xs text-slate-300 mt-1 flex flex-wrap items-center gap-3">
-              <span>Khởi hành: <strong className="text-cyan-300">{formatDate(plan.departureDate)}</strong></span>
+              <span>
+                Khởi hành: <strong className="text-cyan-300">{formatDate(plan.departureDate)}</strong>
+              </span>
               {plan.endDate && (
-                <span>Về ngày: <strong className="text-cyan-300">{formatDate(plan.endDate)}</strong></span>
+                <span>
+                  Về ngày: <strong className="text-cyan-300">{formatDate(plan.endDate)}</strong>
+                </span>
               )}
             </p>
           </div>
@@ -56,7 +47,10 @@ export const PassengersListModal = ({
               <div className="flex items-center gap-2.5 p-2 px-3 rounded-xl bg-white/10 border border-white/10 text-xs">
                 <div className="w-8 h-8 rounded-full overflow-hidden bg-slate-700">
                   <img
-                    src={guide.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                    src={
+                      guide.avatar ||
+                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'
+                    }
                     alt={guide.name}
                     className="w-full h-full object-cover"
                   />
@@ -67,53 +61,22 @@ export const PassengersListModal = ({
                 </div>
               </div>
             ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  onClose();
-                  onOpenAssignGuide(plan);
-                }}
-                className="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs flex items-center gap-1 shadow-sm"
-              >
-                <span className="material-symbols-outlined text-[16px]">person_add</span>
-                <span>Phân công HDV ngay</span>
-              </button>
+              <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 border border-white/15 text-amber-300 text-xs font-semibold">
+                <span className="material-symbols-outlined text-[16px]">person_off</span>
+                <span>Chưa phân công HDV</span>
+              </div>
             )}
           </div>
         </div>
 
-        {/* Quick Attendance Stats */}
-        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
-          <div className="flex items-center gap-4">
-            <span>
-              Tổng số khách đoàn: <strong className="text-slate-900 font-bold">{passengers.length || plan.totalPassengers || 0} người</strong>
-            </span>
-            <span>
-              Đã điểm danh: <strong className="text-emerald-600 font-bold">{checkedCount} / {passengers.length}</strong>
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                const all = {};
-                passengers.forEach((_, i) => (all[i] = true));
-                setCheckedInIds(all);
-              }}
-              className="text-xs font-semibold text-primary hover:underline"
-            >
-              Điểm danh tất cả
-            </button>
-            <span className="text-slate-300">•</span>
-            <button
-              type="button"
-              onClick={() => setCheckedInIds({})}
-              className="text-xs font-semibold text-slate-500 hover:underline"
-            >
-              Bỏ chọn
-            </button>
-          </div>
+        {/* Quick Info Bar */}
+        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+          <span className="text-slate-600">
+            Tổng số khách đoàn: <strong className="text-slate-900 font-bold text-sm">{passengers.length || plan.totalPassengers || 0} người</strong>
+          </span>
+          <span className="text-[11px] text-slate-500 font-medium">
+            Mã đoàn: <span className="font-mono font-bold text-primary">#{plan._id ? plan._id.slice(-6).toUpperCase() : 'PLAN'}</span>
+          </span>
         </div>
 
         {/* Passengers Table */}
@@ -131,8 +94,7 @@ export const PassengersListModal = ({
           <div className="overflow-x-auto rounded-2xl border border-slate-200">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-[11px] font-bold uppercase text-slate-500 border-b border-slate-200">
-                <tr>
-                  <th className="py-2.5 px-3 text-center">Điểm danh</th>
+                <tr className="whitespace-nowrap">
                   <th className="py-2.5 px-3">STT</th>
                   <th className="py-2.5 px-3">Họ và tên hành khách</th>
                   <th className="py-2.5 px-3">Giới tính</th>
@@ -145,7 +107,6 @@ export const PassengersListModal = ({
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {passengers.map((p, i) => {
-                  const isChecked = Boolean(checkedInIds[i]);
                   const bCode = p.bookingId
                     ? `#BK-${(typeof p.bookingId === 'object' ? p.bookingId._id : p.bookingId).slice(-6).toUpperCase()}`
                     : '—';
@@ -153,18 +114,8 @@ export const PassengersListModal = ({
                   return (
                     <tr
                       key={i}
-                      className={`transition-colors ${
-                        isChecked ? 'bg-emerald-50/50' : 'hover:bg-slate-50'
-                      }`}
+                      className="hover:bg-slate-50 transition-colors"
                     >
-                      <td className="py-2.5 px-3 text-center">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => toggleCheckIn(i)}
-                          className="w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer"
-                        />
-                      </td>
                       <td className="py-2.5 px-3 font-mono text-slate-400">{i + 1}</td>
                       <td className="py-2.5 px-3 font-bold text-slate-900">
                         {p.fullName}
@@ -205,7 +156,7 @@ export const PassengersListModal = ({
             className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-sm"
           >
             <span className="material-symbols-outlined text-[16px]">print</span>
-            <span>In Danh Sách Điểm Danh / Tải PDF</span>
+            <span>In Danh Sách Khách Đoàn</span>
           </button>
 
           <button

@@ -23,7 +23,7 @@ export const DestinationFormModal = ({
 }) => {
   const isEditing = !!destination;
 
-  const [activeTab, setActiveTab] = useState("basic"); // basic | details | gallery | related
+  const [activeTab, setActiveTab] = useState("basic"); // basic | details | gallery
   const [formData, setFormData] = useState({
     name: "",
     region: "Miền Bắc",
@@ -39,7 +39,6 @@ export const DestinationFormModal = ({
     budgetBand: "Phổ thông",
     transport: "",
     gallery: [],
-    relatedDestinations: [],
   });
 
   const [newGalleryItem, setNewGalleryItem] = useState({
@@ -72,9 +71,6 @@ export const DestinationFormModal = ({
         budgetBand: destination.budgetBand || "Phổ thông",
         transport: destination.transport || "",
         gallery: Array.isArray(destination.gallery) ? destination.gallery : [],
-        relatedDestinations: Array.isArray(destination.relatedDestinations)
-          ? destination.relatedDestinations.map((d) => (typeof d === "object" ? d._id : d))
-          : [],
       });
     } else {
       setFormData({
@@ -92,7 +88,6 @@ export const DestinationFormModal = ({
         budgetBand: "Phổ thông",
         transport: "",
         gallery: [],
-        relatedDestinations: [],
       });
     }
     setNewGalleryItem({ url: "", caption: "", alt: "", credit: "" });
@@ -133,18 +128,7 @@ export const DestinationFormModal = ({
     }));
   };
 
-  // Related Destinations handler
-  const handleToggleRelated = (destId) => {
-    setFormData((prev) => {
-      const exists = prev.relatedDestinations.includes(destId);
-      return {
-        ...prev,
-        relatedDestinations: exists
-          ? prev.relatedDestinations.filter((id) => id !== destId)
-          : [...prev.relatedDestinations, destId],
-      };
-    });
-  };
+
 
   const validate = () => {
     const errs = {};
@@ -183,15 +167,12 @@ export const DestinationFormModal = ({
         alt: g.alt || formData.name,
         credit: g.credit || "TravelTrail",
       })),
-      relatedDestinations: formData.relatedDestinations,
     };
 
     onSave(payload);
   };
 
-  const availableRelatedDestinations = allDestinations.filter(
-    (d) => !destination || d._id !== destination._id
-  );
+
 
   return (
     <Modal
@@ -209,7 +190,6 @@ export const DestinationFormModal = ({
             { id: "basic", label: "1. Thông tin chung", icon: "badge" },
             { id: "details", label: "2. Chi tiết & Trải nghiệm", icon: "explore" },
             { id: "gallery", label: `3. Gallery (${formData.gallery.length})`, icon: "photo_library" },
-            { id: "related", label: `4. Điểm liên quan (${formData.relatedDestinations.length})`, icon: "share_location" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -514,51 +494,7 @@ export const DestinationFormModal = ({
           </div>
         )}
 
-        {/* TAB 4: RELATED DESTINATIONS */}
-        {activeTab === "related" && (
-          <div className="flex flex-col gap-3 animate-in fade-in duration-150">
-            <p className="text-xs text-slate-500">
-              Chọn các điểm đến liên quan để hiển thị gợi ý tại trang chi tiết:
-            </p>
-            {availableRelatedDestinations.length === 0 ? (
-              <p className="text-slate-400 text-xs text-center py-6">
-                Chưa có điểm đến nào khác trong hệ thống để liên kết.
-              </p>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-64 overflow-y-auto p-1">
-                {availableRelatedDestinations.map((d) => {
-                  const isChecked = formData.relatedDestinations.includes(d._id);
-                  return (
-                    <label
-                      key={d._id}
-                      className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                        isChecked
-                          ? "bg-sky-50 border-primary ring-1 ring-primary/30"
-                          : "bg-white border-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => handleToggleRelated(d._id)}
-                        className="rounded text-primary focus:ring-primary w-4 h-4"
-                      />
-                      <img
-                        src={d.image || "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=100&q=80"}
-                        alt={d.name}
-                        className="w-10 h-10 rounded-lg object-cover shrink-0"
-                      />
-                      <div className="min-w-0 flex-1">
-                        <div className="font-bold text-slate-800 text-xs truncate">{d.name}</div>
-                        <div className="text-[10px] text-slate-400 truncate">{d.region} • {d.theme || "Chung"}</div>
-                      </div>
-                    </label>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        )}
+
 
         {/* Form Actions */}
         <div className="flex items-center justify-between pt-4 border-t border-slate-100">

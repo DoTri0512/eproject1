@@ -45,6 +45,19 @@ export const useChatbot = () => {
     fetchSuggestions();
   }, []);
 
+  // Listen for global open-chatbot event
+  useEffect(() => {
+    const handleOpenChatbot = (e) => {
+      setIsOpen(true);
+      setIsMinimized(false);
+      if (e?.detail?.query) {
+        setInput(e.detail.query);
+      }
+    };
+    window.addEventListener('open-chatbot', handleOpenChatbot);
+    return () => window.removeEventListener('open-chatbot', handleOpenChatbot);
+  }, []);
+
   // Load existing session history when sessionId is set
   useEffect(() => {
     if (!sessionId) return;
