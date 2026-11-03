@@ -26,6 +26,11 @@ export const favouriteApi = {
     const response = await axiosClient.post(ENDPOINTS.FAVOURITES.SYNC, { destinationIds });
     return response.data || response;
   },
+
+  clearAll: async () => {
+    const response = await axiosClient.delete(ENDPOINTS.FAVOURITES.BASE);
+    return response.data || response;
+  },
 };
 
 export default favouriteApi;

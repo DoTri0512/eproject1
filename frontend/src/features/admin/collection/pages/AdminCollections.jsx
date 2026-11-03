@@ -76,16 +76,17 @@ export const AdminCollections = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button
+        <div className="flex items-center gap-3 shrink-0">
+          <button
             type="button"
-            variant="primary"
             onClick={handleOpenCreate}
-            className="flex items-center gap-2 shadow-md shadow-sky-500/20"
+            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[20px]">add_photo_alternate</span>
-            <span>Thêm Bộ Sưu Tập</span>
-          </Button>
+            <span className="material-symbols-outlined text-[20px] leading-none select-none flex items-center justify-center">
+              add_photo_alternate
+            </span>
+            <span className="leading-none flex items-center">Thêm Bộ Sưu Tập</span>
+          </button>
         </div>
       </div>
 
@@ -205,9 +206,9 @@ export const AdminCollections = () => {
                             type="button"
                             onClick={() => handleOpenDetail(col)}
                             title="Xem chi tiết & Quản lý điểm đến trong BST"
-                            className="p-2 rounded-lg text-slate-500 hover:text-primary hover:bg-sky-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-sky-50 text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               visibility
                             </span>
                           </button>
@@ -217,9 +218,9 @@ export const AdminCollections = () => {
                             type="button"
                             onClick={() => handleOpenEdit(col)}
                             title="Chỉnh sửa thông tin"
-                            className="p-2 rounded-lg text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               edit
                             </span>
                           </button>
@@ -229,9 +230,9 @@ export const AdminCollections = () => {
                             type="button"
                             onClick={() => handleOpenDelete(col)}
                             title="Xóa bộ sưu tập"
-                            className="p-2 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               delete
                             </span>
                           </button>

@@ -2,6 +2,27 @@ const guideService = require('./guide.service');
 const { successResponse } = require('../../utils/response');
 
 class GuideController {
+  async checkGuideAvailability(req, res, next) {
+    try {
+      const { idOrSlug } = req.params;
+      const { departureDate, endDate } = req.query;
+      if (!departureDate) {
+        return res.status(400).json({
+          success: false,
+          message: 'departureDate is required in query params',
+        });
+      }
+      const result = await guideService.checkGuideAvailability(
+        idOrSlug,
+        departureDate,
+        endDate
+      );
+      return successResponse(res, result, 'Guide availability checked successfully');
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getAllGuides(req, res, next) {
     try {
       const result = await guideService.getAllGuides(req.query);

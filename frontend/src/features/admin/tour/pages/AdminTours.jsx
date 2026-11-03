@@ -2,6 +2,7 @@ import React from "react";
 import useAdminTours from "../hooks/useAdminTours";
 import TourFormModal from "../components/TourFormModal";
 import TourDeleteModal from "../components/TourDeleteModal";
+import TourDetailModal from "../components/TourDetailModal";
 import Badge from "../../../../components/common/Badge";
 import Pagination from "../../../../components/common/Pagination";
 import formatCurrency from "../../../../utils/formatCurrency";
@@ -29,12 +30,15 @@ export const AdminTours = () => {
     setIsFormModalOpen,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
+    isDetailModalOpen,
+    setIsDetailModalOpen,
     selectedTour,
     isSubmitting,
     toastMessage,
     handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
+    handleOpenDetail,
     handleSaveTour,
     handleDeleteTour,
     handleToggleStatus,
@@ -86,23 +90,23 @@ export const AdminTours = () => {
             onClick={() =>
               alert("Đang xuất danh sách Tour du lịch ra file Excel / CSV...")
             }
-            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-colors"
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">
               file_download
             </span>
-            <span>Xuất Excel</span>
+            <span className="leading-none flex items-center">Xuất Excel</span>
           </button>
 
           <button
             type="button"
             onClick={handleOpenCreate}
-            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all"
+            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[20px]">
+            <span className="material-symbols-outlined text-[20px] leading-none select-none flex items-center justify-center">
               add_circle
             </span>
-            <span>+ Thêm Tour Mới</span>
+            <span className="leading-none flex items-center">Thêm Tour Mới</span>
           </button>
         </div>
       </div>
@@ -444,9 +448,19 @@ export const AdminTours = () => {
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             type="button"
+                            onClick={() => handleOpenDetail(tour)}
+                            title="Xem chi tiết Tour"
+                            className="w-8 h-8 rounded-lg bg-sky-50 text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                          >
+                            <span className="material-symbols-outlined text-[17px]">
+                              visibility
+                            </span>
+                          </button>
+                          <button
+                            type="button"
                             onClick={() => handleOpenEdit(tour)}
                             title="Chỉnh sửa Tour"
-                            className="w-8 h-8 rounded-lg bg-sky-50 text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                            className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-colors"
                           >
                             <span className="material-symbols-outlined text-[17px]">
                               edit
@@ -504,6 +518,17 @@ export const AdminTours = () => {
           onConfirm={handleDeleteTour}
           tour={selectedTour}
           isSubmitting={isSubmitting}
+        />
+      )}
+
+      {/* Detail Modal */}
+      {isDetailModalOpen && (
+        <TourDetailModal
+          isOpen={isDetailModalOpen}
+          onClose={() => setIsDetailModalOpen(false)}
+          tour={selectedTour}
+          onEdit={handleOpenEdit}
+          onDelete={handleOpenDelete}
         />
       )}
     </div>

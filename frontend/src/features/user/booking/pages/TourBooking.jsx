@@ -103,25 +103,7 @@ export const TourBooking = () => {
           setSelectedDate(currentTour.departureDates[0]);
         }
 
-        // Fetch guides assigned specifically to this tour's destination
-        try {
-          const destId = currentTour?.destinationId?._id || currentTour?.destinationId;
-          let gRes = null;
-          if (destId) {
-            gRes = await guideApi.getAll({ destinationId: destId, limit: 20 });
-          }
-          let gItems = gRes?.items || (Array.isArray(gRes) ? gRes : []);
-
-          // Fallback to all guides if none specifically assigned to this destination
-          if (!gItems || gItems.length === 0) {
-            const fallbackRes = await guideApi.getAll({ limit: 6 });
-            gItems = fallbackRes?.items || (Array.isArray(fallbackRes) ? fallbackRes : []);
-          }
-          setGuides(gItems);
-        } catch (err) {
-          console.error('Failed to load guides:', err);
-          setGuides([]);
-        }
+        // Guides will be loaded reactively based on tour, selectedDate and endDate
       } catch (err) {
         console.error('Failed to load tour booking details:', err);
       } finally {
@@ -173,6 +155,70 @@ export const TourBooking = () => {
     return d.toISOString();
   }, [selectedDate, selectedDuration]);
 
+  // Guide schedule availability state
+  const [isGuidesLoading, setIsGuidesLoading] = useState(false);
+  const [guideScheduleNotice, setGuideScheduleNotice] = useState('');
+
+  // 1b. Fetch or re-check Guides schedule availability whenever tour, selectedDate or endDate changes
+  useEffect(() => {
+    if (!tour) return;
+    let isCancelled = false;
+
+    const fetchGuidesWithAvailability = async () => {
+      setIsGuidesLoading(true);
+      try {
+        const destId = tour?.destinationId?._id || tour?.destinationId;
+        const params = {
+          limit: 20,
+        };
+        if (destId) params.destinationId = destId;
+        if (selectedDate) params.departureDate = selectedDate;
+        if (endDate) params.endDate = endDate;
+
+        let gRes = null;
+        if (destId) {
+          gRes = await guideApi.getAll(params);
+        }
+        let gItems = gRes?.items || (Array.isArray(gRes) ? gRes : []);
+
+        // Fallback to all guides if none specifically assigned to this destination
+        if (!gItems || gItems.length === 0) {
+          const fallbackParams = { limit: 8 };
+          if (selectedDate) fallbackParams.departureDate = selectedDate;
+          if (endDate) fallbackParams.endDate = endDate;
+          const fallbackRes = await guideApi.getAll(fallbackParams);
+          gItems = fallbackRes?.items || (Array.isArray(fallbackRes) ? fallbackRes : []);
+        }
+
+        if (isCancelled) return;
+        setGuides(gItems);
+
+        // Check if currently selected guide is still available with new dates
+        setSelectedGuide((prevSelected) => {
+          if (!prevSelected) return null;
+          const updated = gItems.find((g) => g._id === prevSelected._id);
+          if (updated && updated.isAvailable === false) {
+            setGuideScheduleNotice(
+              `Hướng dẫn viên ${prevSelected.name} đã kín lịch trong thời gian tour này (${updated.busyReason || 'Trùng lịch'}). Hệ thống đã tự động chuyển về "Hệ thống phân công".`
+            );
+            return null;
+          }
+          return updated || prevSelected;
+        });
+      } catch (err) {
+        console.error('Failed to load guides availability:', err);
+      } finally {
+        if (!isCancelled) setIsGuidesLoading(false);
+      }
+    };
+
+    fetchGuidesWithAvailability();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [tour, selectedDate, endDate]);
+
   // Compute total (theo backend: selectedDuration.price * số khách)
   const calculatedTotal = useMemo(() => {
     if (!selectedDuration) return 0;
@@ -214,6 +260,17 @@ export const TourBooking = () => {
       }
       if (totalGuests > tour.availableSeats) {
         setErrorMessage(`Tour chỉ còn ${tour.availableSeats} chỗ trống, không đủ cho ${totalGuests} khách. Vui lòng giảm số lượng khách!`);
+        return;
+      }
+    }
+
+    // Kiểm tra lịch trống của hướng dẫn viên đã chọn
+    if (selectedGuide) {
+      const guideInList = guides.find((g) => g._id === selectedGuide._id);
+      if (guideInList && guideInList.isAvailable === false) {
+        setErrorMessage(
+          `Hướng dẫn viên ${selectedGuide.name} đã kín lịch trong thời gian tour này (${guideInList.busyReason || 'Trùng lịch'}). Vui lòng chọn hướng dẫn viên khác hoặc chọn "Hệ thống phân công"!`
+        );
         return;
       }
     }
@@ -567,21 +624,55 @@ export const TourBooking = () => {
 
             {/* BƯỚC 1b: CHỌN NGƯỜI HƯỚNG DẪN TOUR */}
             <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm">
-              <div className="flex items-center gap-3 pb-5 mb-6 border-b border-slate-100">
-                <div className="w-8 h-8 rounded-full bg-primary text-white font-bold text-sm flex items-center justify-center shrink-0">
-                  2
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 mb-6 border-b border-slate-100 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-primary text-white font-bold text-sm flex items-center justify-center shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">
+                      Chọn Người Hướng Dẫn Đồng Hành
+                    </h2>
+                    <p className="text-xs text-slate-400">
+                      {tour?.destinationId?.name
+                        ? `Lựa chọn hướng dẫn viên am hiểu tuyến điểm ${tour.destinationId.name} hoặc để hệ thống tự động phân công`
+                        : 'Lựa chọn hướng dẫn viên bạn tin tưởng hoặc để hệ thống tự động phân công'}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-lg sm:text-xl font-extrabold text-slate-900">
-                    Chọn Người Hướng Dẫn Đồng Hành
-                  </h2>
-                  <p className="text-xs text-slate-400">
-                    {tour?.destinationId?.name
-                      ? `Lựa chọn hướng dẫn viên am hiểu tuyến điểm ${tour.destinationId.name} hoặc để hệ thống tự động phân công`
-                      : 'Lựa chọn hướng dẫn viên bạn tin tưởng hoặc để hệ thống tự động phân công'}
-                  </p>
+
+                {/* Status indicator of schedule checking */}
+                <div className="flex items-center gap-2">
+                  {isGuidesLoading ? (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200">
+                      <span className="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+                      Đang kiểm tra lịch trống HDV...
+                    </span>
+                  ) : selectedDate ? (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-slate-50 text-slate-600 border border-slate-200">
+                      <span className="material-symbols-outlined text-[14px] text-primary">event</span>
+                      Khởi hành: {formatDate(selectedDate)} {endDate ? `- ${formatDate(endDate)}` : ''}
+                    </span>
+                  ) : null}
                 </div>
               </div>
+
+              {/* Notice if guide became unavailable */}
+              {guideScheduleNotice && (
+                <div className="mb-4 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center justify-between gap-3 animate-in fade-in">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-amber-600 text-[18px] shrink-0">info</span>
+                    <span>{guideScheduleNotice}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setGuideScheduleNotice('')}
+                    className="text-amber-500 hover:text-amber-700 font-bold px-1"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Option 1: Hệ thống phân công */}
@@ -598,8 +689,13 @@ export const TourBooking = () => {
                       <span className="material-symbols-outlined text-[24px]">support_agent</span>
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-sm">Hệ thống phân công</h4>
-                      <p className="text-[11px] text-slate-400">Chọn HDV kinh nghiệm tốt nhất</p>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-bold text-slate-900 text-sm">Hệ thống phân công</h4>
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700">
+                          Luôn sẵn sàng
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">Chọn HDV kinh nghiệm rảnh lịch tốt nhất</p>
                     </div>
                   </div>
                   {selectedGuide === null && (
@@ -611,50 +707,96 @@ export const TourBooking = () => {
                 {guides.map((guide, idx) => {
                   const isSelected = selectedGuide?._id === guide._id;
                   const avatarUrl = getGuideAvatar(guide, idx);
+                  const isAvailable = guide.isAvailable !== false;
+
                   return (
                     <div
                       key={guide._id}
-                      onClick={() => setSelectedGuide(guide)}
-                      className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
-                        isSelected
-                          ? 'border-primary bg-sky-50/70 ring-2 ring-primary/20 shadow-xs'
-                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                      onClick={() => {
+                        if (!isAvailable) {
+                          setErrorMessage(
+                            `Hướng dẫn viên ${guide.name} đã kín lịch trong khoảng thời gian này (${guide.busyReason || 'Trùng lịch tour'}). Vui lòng chọn hướng dẫn viên khác hoặc chọn "Hệ thống phân công"!`
+                          );
+                          return;
+                        }
+                        setSelectedGuide(guide);
+                      }}
+                      className={`p-4 rounded-2xl border transition-all flex flex-col justify-between ${
+                        !isAvailable
+                          ? 'border-rose-200/80 bg-slate-50/80 opacity-75 cursor-not-allowed hover:border-rose-300'
+                          : isSelected
+                          ? 'border-primary bg-sky-50/70 ring-2 ring-primary/20 shadow-xs cursor-pointer'
+                          : 'border-slate-200 hover:border-slate-300 bg-white cursor-pointer'
                       }`}
                     >
-                      <div className="flex items-start justify-between gap-2 mb-2">
-                        <div className="flex items-center gap-3">
-                          <img
-                            src={avatarUrl}
-                            alt={guide.name}
-                            className="w-12 h-12 rounded-full object-cover shrink-0 ring-2 ring-slate-100"
-                          />
-                          <div>
-                            <h4 className="font-bold text-slate-900 text-sm truncate max-w-[130px]">
-                              {guide.name}
-                            </h4>
-                            <div className="flex items-center gap-1 text-[11px] text-amber-500 font-bold">
-                              <span>★ {guide.rating || '4.9'}</span>
-                              <span className="text-slate-400 font-normal">({guide.reviewCount || 85})</span>
+                      <div>
+                        <div className="flex items-start justify-between gap-2 mb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <img
+                                src={avatarUrl}
+                                alt={guide.name}
+                                className={`w-12 h-12 rounded-full object-cover shrink-0 ring-2 ${
+                                  !isAvailable ? 'ring-rose-200 grayscale-30' : 'ring-slate-100'
+                                }`}
+                              />
+                              <span
+                                className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-white ${
+                                  isAvailable ? 'bg-emerald-500' : 'bg-rose-500'
+                                }`}
+                                title={isAvailable ? 'Lịch trống' : 'Đã kín lịch'}
+                              />
+                            </div>
+                            <div>
+                              <h4 className="font-bold text-slate-900 text-sm truncate max-w-[130px]">
+                                {guide.name}
+                              </h4>
+                              <div className="flex items-center gap-1 text-[11px] text-amber-500 font-bold">
+                                <span>★ {guide.rating || '4.9'}</span>
+                                <span className="text-slate-400 font-normal">({guide.reviewCount || 85})</span>
+                              </div>
                             </div>
                           </div>
+
+                          {/* Availability Badge */}
+                          {isSelected ? (
+                            <span className="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                          ) : isAvailable ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                              Lịch trống
+                            </span>
+                          ) : (
+                            <span
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-rose-50 text-rose-600 border border-rose-200"
+                              title={guide.busyReason}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                              Đã kín lịch
+                            </span>
+                          )}
                         </div>
 
-                        {isSelected ? (
-                          <span className="material-symbols-outlined text-primary text-[20px]">check_circle</span>
-                        ) : (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-600">
-                            Chuyên tuyến
-                          </span>
+                        {guide.specialisation && (
+                          <p className="text-[11px] text-slate-600 line-clamp-1 mb-1.5">
+                            {guide.specialisation}
+                          </p>
+                        )}
+
+                        {/* Busy Reason banner if not available */}
+                        {!isAvailable && (
+                          <div className="mt-1 mb-2 p-1.5 rounded-lg bg-rose-50 border border-rose-100 text-[11px] text-rose-700 flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-[14px] shrink-0 text-rose-500">
+                              event_busy
+                            </span>
+                            <span className="truncate" title={guide.busyReason}>
+                              {guide.busyReason || 'Đã có lịch tour khác trong thời gian này'}
+                            </span>
+                          </div>
                         )}
                       </div>
 
-                      {guide.specialisation && (
-                        <p className="text-[11px] text-slate-600 line-clamp-1 mb-2">
-                          {guide.specialisation}
-                        </p>
-                      )}
-
-                      <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px]">
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px] mt-2">
                         <span className="text-slate-500 truncate max-w-[150px]">
                           {guide.languages?.join(', ') || 'Tiếng Việt'}
                         </span>
@@ -664,9 +806,9 @@ export const TourBooking = () => {
                             e.stopPropagation();
                             setGuideDetailModal(guide);
                           }}
-                          className="font-bold text-primary hover:underline"
+                          className="font-bold text-primary hover:underline cursor-pointer"
                         >
-                          Hồ sơ
+                          Hồ sơ & Lịch
                         </button>
                       </div>
                     </div>
@@ -836,6 +978,12 @@ export const TourBooking = () => {
                       desc: 'Hỗ trợ thẻ VISA, MasterCard, JCB, Napas bảo mật 3D Secure.',
                       icon: 'credit_card',
                     },
+                    {
+                      id: 'e_wallet',
+                      title: 'Ví điện tử (MoMo / ZaloPay / VNPay)',
+                      desc: 'Thanh toán siêu tốc không dùng tiền mặt qua các ứng dụng ví điện tử phổ biến.',
+                      icon: 'account_balance_wallet',
+                    },
                   ].map((method) => {
                     const isSelected = paymentMethod === method.id;
                     return (
@@ -861,6 +1009,16 @@ export const TourBooking = () => {
                               <p className="font-semibold text-slate-900">Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)</p>
                               <p>Số tài khoản: <strong className="text-primary font-mono text-sm">1029384756</strong></p>
                               <p>Chủ tài khoản: <strong>CÔNG TY CỔ PHẦN DU LỊCH TRAVELTRAIL</strong></p>
+                              <p className="text-[11px] text-slate-400">Nội dung CK: Họ tên + SĐT đặt tour</p>
+                            </div>
+                          )}
+
+                          {/* E-wallet preview when selected */}
+                          {isSelected && method.id === 'e_wallet' && (
+                            <div className="mt-3 p-3 rounded-xl bg-white border border-sky-200 text-xs text-slate-700 space-y-1">
+                              <p className="font-semibold text-slate-900">Thanh toán quét mã MoMo / ZaloPay / VNPay</p>
+                              <p>Số tài khoản ví / SĐT: <strong className="text-primary font-mono text-sm">0988 123 456</strong></p>
+                              <p>Người nhận: <strong>CÔNG TY CỔ PHẦN DU LỊCH TRAVELTRAIL</strong></p>
                               <p className="text-[11px] text-slate-400">Nội dung CK: Họ tên + SĐT đặt tour</p>
                             </div>
                           )}
@@ -947,41 +1105,79 @@ export const TourBooking = () => {
       )}
 
       {/* GUIDE PROFILE DETAIL MODAL */}
-      {guideDetailModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs"
-            onClick={() => setGuideDetailModal(null)}
-          />
-          <div className="relative w-full max-w-md bg-white rounded-3xl p-6 z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <img
-                src={getGuideAvatar(guideDetailModal)}
-                alt={guideDetailModal.name}
-                className="w-16 h-16 rounded-full object-cover ring-2 ring-primary"
-              />
-              <div>
-                <h4 className="font-bold text-lg text-slate-900">{guideDetailModal.name}</h4>
-                <p className="text-xs text-primary font-semibold">{guideDetailModal.specialisation}</p>
-                <div className="text-xs text-amber-500 font-bold mt-0.5">★ {guideDetailModal.rating || '4.9'} (Đánh giá cao)</div>
+      {guideDetailModal && (() => {
+        const isModalGuideFree = guideDetailModal.isAvailable !== false;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs"
+              onClick={() => setGuideDetailModal(null)}
+            />
+            <div className="relative w-full max-w-md bg-white rounded-3xl p-6 z-10 shadow-xl border border-slate-100">
+              <div className="flex items-center gap-3 mb-4">
+                <img
+                  src={getGuideAvatar(guideDetailModal)}
+                  alt={guideDetailModal.name}
+                  className={`w-16 h-16 rounded-full object-cover ring-2 ${
+                    isModalGuideFree ? 'ring-primary' : 'ring-rose-300 grayscale-30'
+                  }`}
+                />
+                <div>
+                  <h4 className="font-bold text-lg text-slate-900">{guideDetailModal.name}</h4>
+                  <p className="text-xs text-primary font-semibold">{guideDetailModal.specialisation}</p>
+                  <div className="text-xs text-amber-500 font-bold mt-0.5">★ {guideDetailModal.rating || '4.9'} (Đánh giá cao)</div>
+                </div>
+              </div>
+
+              {/* Status Banner */}
+              {isModalGuideFree ? (
+                <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl mb-4">
+                  <span className="material-symbols-outlined text-[18px] text-emerald-600">event_available</span>
+                  <span>Lịch trình trống • Sẵn sàng đồng hành cùng bạn</span>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2 text-xs font-medium text-rose-700 bg-rose-50 border border-rose-200 px-3 py-2 rounded-xl mb-4">
+                  <span className="material-symbols-outlined text-[18px] text-rose-600 shrink-0 mt-0.5">event_busy</span>
+                  <div>
+                    <span className="font-bold">Đã có lịch bận tour khác:</span>
+                    <p className="text-[11px] mt-0.5 text-rose-600">{guideDetailModal.busyReason || 'Hướng dẫn viên đã kín lịch trong thời gian này.'}</p>
+                  </div>
+                </div>
+              )}
+
+              <p className="text-xs text-slate-600 leading-relaxed mb-5">
+                {guideDetailModal.biography || guideDetailModal.background || 'Hướng dẫn viên giàu kinh nghiệm và tận tâm đồng hành.'}
+              </p>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setGuideDetailModal(null)}
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors"
+                >
+                  Đóng
+                </button>
+                <button
+                  type="button"
+                  disabled={!isModalGuideFree}
+                  onClick={() => {
+                    if (!isModalGuideFree) return;
+                    setSelectedGuide(guideDetailModal);
+                    setGuideDetailModal(null);
+                  }}
+                  className={`flex-1 py-2.5 rounded-xl font-bold text-xs shadow-xs transition-all ${
+                    isModalGuideFree
+                      ? 'bg-primary text-white hover:bg-primary/95 cursor-pointer'
+                      : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                  }`}
+                >
+                  {isModalGuideFree ? 'Chọn hướng dẫn viên này' : 'HDV Đã Kín Lịch'}
+                </button>
               </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
-              {guideDetailModal.biography || guideDetailModal.background || 'Hướng dẫn viên giàu kinh nghiệm và tận tâm đồng hành.'}
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedGuide(guideDetailModal);
-                setGuideDetailModal(null);
-              }}
-              className="w-full py-2.5 rounded-xl bg-primary text-white font-bold text-xs shadow-xs"
-            >
-              Chọn hướng dẫn viên này
-            </button>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 };

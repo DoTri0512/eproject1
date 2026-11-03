@@ -321,7 +321,7 @@ export const DestinationDetail = () => {
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               <FavouriteButton
                 destination={destination}
-                className="w-12 h-12 bg-white/90 text-slate-700 hover:text-rose-500 hover:bg-white shadow-lg text-[24px]"
+                className="!w-12 !h-12 shadow-lg"
               />
 
               <button

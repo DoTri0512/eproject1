@@ -60,24 +60,28 @@ export const useAdminBookings = () => {
     const completed = bookings.filter((b) => b.bookingStatus === 'completed').length;
     const cancelled = bookings.filter((b) => b.bookingStatus === 'cancelled').length;
 
-    // Total confirmed/completed revenue
+    // Payment statistics
+    const paidCount = bookings.filter((b) => ['confirmed', 'completed'].includes(b.paymentStatus)).length;
+    const unpaidCount = bookings.filter((b) => (b.paymentStatus || 'pending') === 'pending').length;
+
+    // Total confirmed/completed revenue based strictly on paymentStatus
     const totalRevenue = bookings
-      .filter((b) => ['confirmed', 'completed'].includes(b.bookingStatus))
+      .filter((b) => ['confirmed', 'completed'].includes(b.paymentStatus))
       .reduce((sum, b) => sum + (b.totalAmount || 0), 0);
 
-    return { total, pending, confirmed, completed, cancelled, totalRevenue };
+    return { total, pending, confirmed, completed, cancelled, paidCount, unpaidCount, totalRevenue };
   }, [bookings]);
 
   // Filtered list
   const filteredBookings = useMemo(() => {
     return bookings.filter((b) => {
-      // Tab filter
+      // Tab filter (bookingStatus)
       const bStatus = (b.bookingStatus || 'pending').toLowerCase();
       if (activeTab !== 'all' && bStatus !== activeTab) {
         return false;
       }
 
-      // Payment filter
+      // Payment filter (paymentStatus)
       if (paymentFilter !== 'all' && (b.paymentStatus || 'pending') !== paymentFilter) {
         return false;
       }
@@ -120,10 +124,11 @@ export const useAdminBookings = () => {
   const handleUpdateStatus = async (bookingId, { bookingStatus, paymentStatus }) => {
     setIsSubmitting(true);
     try {
-      const res = await adminApi.updateBookingStatus(bookingId, {
-        bookingStatus,
-        paymentStatus,
-      });
+      const payload = {};
+      if (bookingStatus !== undefined) payload.bookingStatus = bookingStatus;
+      if (paymentStatus !== undefined) payload.paymentStatus = paymentStatus;
+
+      const res = await adminApi.updateBookingStatus(bookingId, payload);
       const updated = res.data || res;
       setBookings((prev) =>
         prev.map((b) => (b._id === bookingId ? { ...b, ...updated } : b))
@@ -141,19 +146,24 @@ export const useAdminBookings = () => {
     }
   };
 
-  // Quick Approve: pending -> confirmed, paymentStatus -> confirmed
+  // Quick Approve: duyệt chỗ (bookingStatus -> confirmed), độc lập với paymentStatus
   const handleQuickApprove = async (booking) => {
     return handleUpdateStatus(booking._id, {
       bookingStatus: 'confirmed',
-      paymentStatus: 'confirmed',
     });
   };
 
-  // Quick Complete: confirmed -> completed, paymentStatus -> completed
+  // Quick Complete: hoàn thành chuyến đi (bookingStatus -> completed), độc lập với paymentStatus
   const handleQuickComplete = async (booking) => {
     return handleUpdateStatus(booking._id, {
       bookingStatus: 'completed',
-      paymentStatus: 'completed',
+    });
+  };
+
+  // Quick Mark as Paid: xác nhận thu tiền (paymentStatus -> confirmed)
+  const handleQuickMarkPaid = async (booking) => {
+    return handleUpdateStatus(booking._id, {
+      paymentStatus: 'confirmed',
     });
   };
 
@@ -192,6 +202,7 @@ export const useAdminBookings = () => {
     handleUpdateStatus,
     handleQuickApprove,
     handleQuickComplete,
+    handleQuickMarkPaid,
     handleQuickCancel,
     reloadBookings: loadBookings,
   };

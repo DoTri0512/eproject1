@@ -93,16 +93,28 @@ export const AdminGuides = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Button
+        <div className="flex items-center gap-3 shrink-0">
+          <button
             type="button"
-            variant="primary"
-            onClick={handleOpenCreate}
-            className="flex items-center gap-2 shadow-md shadow-sky-500/20"
+            onClick={() => alert("Đang xuất danh sách hướng dẫn viên ra file Excel...")}
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[20px]">person_add</span>
-            <span>Thêm Hướng Dẫn Viên</span>
-          </Button>
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">
+              file_download
+            </span>
+            <span className="leading-none flex items-center">Xuất Excel</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleOpenCreate}
+            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[20px] leading-none select-none flex items-center justify-center">
+              person_add
+            </span>
+            <span className="leading-none flex items-center">Thêm Hướng Dẫn Viên</span>
+          </button>
         </div>
       </div>
 
@@ -276,9 +288,9 @@ export const AdminGuides = () => {
                             type="button"
                             onClick={() => handleOpenDetail(guide)}
                             title="Xem chi tiết & Quản lý điểm đến phụ trách"
-                            className="p-2 rounded-lg text-slate-500 hover:text-primary hover:bg-sky-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-sky-50 text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               visibility
                             </span>
                           </button>
@@ -288,9 +300,9 @@ export const AdminGuides = () => {
                             type="button"
                             onClick={() => handleOpenEdit(guide)}
                             title="Chỉnh sửa thông tin"
-                            className="p-2 rounded-lg text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               edit
                             </span>
                           </button>
@@ -300,9 +312,9 @@ export const AdminGuides = () => {
                             type="button"
                             onClick={() => handleOpenDelete(guide)}
                             title="Xóa hướng dẫn viên"
-                            className="p-2 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-all"
+                            className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <span className="material-symbols-outlined text-[19px]">
+                            <span className="material-symbols-outlined text-[17px]">
                               delete
                             </span>
                           </button>

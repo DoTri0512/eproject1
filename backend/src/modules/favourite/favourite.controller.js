@@ -47,6 +47,15 @@ class FavouriteController {
     }
   }
 
+  async clearAllFavourites(req, res, next) {
+    try {
+      const result = await favouriteService.clearAllFavourites(req.user.id);
+      return successResponse(res, result, 'All favourites removed');
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async checkFavourite(req, res, next) {
     try {
       const result = await favouriteService.checkIsFavourite(

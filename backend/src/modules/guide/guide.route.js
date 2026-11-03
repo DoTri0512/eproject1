@@ -7,6 +7,7 @@ const { authenticate, authorize } = require('../../middlewares/auth.middleware')
 // Public routes
 router.get('/', guideController.getAllGuides);
 router.get('/:idOrSlug/destinations', guideController.getGuideDestinations);
+router.get('/:idOrSlug/availability', guideController.checkGuideAvailability);
 router.get('/:idOrSlug', guideController.getGuide);
 
 // Admin-only routes

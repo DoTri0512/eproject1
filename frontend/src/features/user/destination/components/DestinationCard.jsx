@@ -8,7 +8,10 @@ export const DestinationCard = ({ destination }) => {
   const idOrSlug = destination.slug || destination._id;
 
   return (
-    <div className="group flex flex-col bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+    <Link
+      to={`/destinations/${idOrSlug}`}
+      className="group flex flex-col bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-hover hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer"
+    >
       {/* 16:9 Image Container */}
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
         <img
@@ -38,7 +41,13 @@ export const DestinationCard = ({ destination }) => {
         </div>
 
         {/* Favorite Heart Button */}
-        <div className="absolute top-3 right-3 z-10">
+        <div
+          className="absolute top-3 right-3 z-10"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
           <FavouriteButton destination={destination} />
         </div>
       </div>
@@ -65,9 +74,7 @@ export const DestinationCard = ({ destination }) => {
 
         {/* Destination Name */}
         <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1 mb-2">
-          <Link to={`/destinations/${idOrSlug}`}>
-            {destination.name}
-          </Link>
+          {destination.name}
         </h3>
 
         {/* Overview (2 lines) */}
@@ -82,18 +89,15 @@ export const DestinationCard = ({ destination }) => {
               Chi phí: <span className="font-semibold text-slate-700">{destination.budgetBand}</span>
             </div>
           )}
-          <Link
-            to={`/destinations/${idOrSlug}`}
-            className="ml-auto inline-flex items-center gap-1.5 text-xs font-bold text-primary group-hover:text-primary-dark transition-colors"
-          >
+          <span className="ml-auto inline-flex items-center gap-1.5 text-xs font-bold text-primary group-hover:text-primary-dark transition-colors">
             <span>Khám phá chi tiết</span>
             <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">
               arrow_forward
             </span>
-          </Link>
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export const PassengerForm = ({ guests, onChange }) => {
   const handleGuestChange = (index, field, value) => {
@@ -25,11 +25,17 @@ export const PassengerForm = ({ guests, onChange }) => {
                   {idx + 1}
                 </span>
                 <span>
-                  {isLeader ? 'Hành khách 1 (Trưởng đoàn)' : `Hành khách ${idx + 1}`}
+                  {isLeader
+                    ? "Hành khách 1 (Trưởng đoàn)"
+                    : `Hành khách ${idx + 1}`}
                 </span>
               </span>
               <span className="text-[11px] font-semibold text-slate-400">
-                {guest.type === 'child' ? 'Trẻ em' : guest.type === 'infant' ? 'Em bé' : 'Người lớn'}
+                {guest.type === "child"
+                  ? "Trẻ em"
+                  : guest.type === "infant"
+                    ? "Em bé"
+                    : "Người lớn"}
               </span>
             </div>
 
@@ -41,8 +47,10 @@ export const PassengerForm = ({ guests, onChange }) => {
                 <input
                   type="text"
                   required
-                  value={guest.fullName || ''}
-                  onChange={(e) => handleGuestChange(idx, 'fullName', e.target.value)}
+                  value={guest.fullName || ""}
+                  onChange={(e) =>
+                    handleGuestChange(idx, "fullName", e.target.value)
+                  }
                   placeholder="NGUYEN VAN A"
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm uppercase font-semibold text-slate-800 focus:outline-none focus:ring-1 focus:ring-primary bg-white"
                 />
@@ -53,8 +61,10 @@ export const PassengerForm = ({ guests, onChange }) => {
                   Giới tính
                 </label>
                 <select
-                  value={guest.gender || 'Nam'}
-                  onChange={(e) => handleGuestChange(idx, 'gender', e.target.value)}
+                  value={guest.gender || "Nam"}
+                  onChange={(e) =>
+                    handleGuestChange(idx, "gender", e.target.value)
+                  }
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-700 focus:outline-none focus:ring-1 focus:ring-primary bg-white"
                 >
                   <option value="Nam">Nam</option>
@@ -65,19 +75,19 @@ export const PassengerForm = ({ guests, onChange }) => {
 
               <div>
                 <label className="block text-[11px] font-semibold text-slate-600 mb-1">
-                  {isLeader ? 'Số CCCD / Hộ chiếu *' : 'Ngày sinh / Năm sinh'}
+                  {isLeader ? "Số CCCD / Hộ chiếu *" : "Ngày sinh / Năm sinh"}
                 </label>
                 <input
-                  type="text"
-                  value={isLeader ? guest.idCardNumber || '' : guest.dob || ''}
+                  type={isLeader ? "text" : "date"}
+                  value={isLeader ? guest.idCardNumber || "" : guest.dob || ""}
                   onChange={(e) =>
                     handleGuestChange(
                       idx,
-                      isLeader ? 'idCardNumber' : 'dob',
-                      e.target.value
+                      isLeader ? "idCardNumber" : "dob",
+                      e.target.value,
                     )
                   }
-                  placeholder={isLeader ? '079095012345' : 'DD/MM/YYYY'}
+                  placeholder={isLeader ? "079095012345" : "DD/MM/YYYY"}
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-primary bg-white"
                 />
               </div>

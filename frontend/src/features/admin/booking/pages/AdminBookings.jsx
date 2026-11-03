@@ -51,10 +51,15 @@ export const AdminBookings = () => {
   const getPaymentBadge = (status) => {
     switch (status) {
       case "confirmed":
-      case "completed":
         return (
           <Badge variant="success" size="sm">
-            Đã thanh toán
+            Đã xác nhận
+          </Badge>
+        );
+      case "completed":
+        return (
+          <Badge variant="info" size="sm">
+            Đã hoàn thành
           </Badge>
         );
       case "pending":
@@ -113,12 +118,12 @@ export const AdminBookings = () => {
             onClick={() =>
               alert("Đang xuất danh sách đơn đặt tour ra file Excel / CSV...")
             }
-            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-colors"
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">
               file_download
             </span>
-            <span>Xuất Excel</span>
+            <span className="leading-none flex items-center">Xuất Excel</span>
           </button>
         </div>
       </div>
@@ -166,10 +171,14 @@ export const AdminBookings = () => {
           </div>
           <div>
             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
-              Doanh Thu Đã Xác Nhận
+              Doanh Thu Đã Thu
             </div>
             <div className="text-xl font-black text-emerald-600">
               {formatCurrency(stats.totalRevenue)}
+            </div>
+            <div className="text-[11px] text-slate-400 font-medium mt-0.5">
+              {stats.paidCount || 0} đơn đã nộp tiền • {stats.unpaidCount || 0}{" "}
+              chờ thu
             </div>
           </div>
         </div>
@@ -182,16 +191,19 @@ export const AdminBookings = () => {
           </div>
           <div>
             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
-              Đã Hoàn Thành
+              Tour Đã Hoàn Thành
             </div>
             <div className="text-2xl font-black text-cyan-600">
               {stats.completed}
+            </div>
+            <div className="text-[11px] text-slate-400 font-medium mt-0.5">
+              Khách đã hoàn tất chuyến đi
             </div>
           </div>
         </div>
       </div>
 
-      {/* 3. Filter Tabs */}
+      {/* 3. Filter Tabs (Booking Progress Status) */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
@@ -238,16 +250,22 @@ export const AdminBookings = () => {
           />
         </div>
 
-        <div className="w-full md:w-56 shrink-0">
+        <div className="w-full md:w-64 shrink-0 flex items-center gap-2">
+          <span className="text-xs font-bold text-slate-500 shrink-0 flex items-center gap-1">
+            <span className="material-symbols-outlined text-[16px]">
+              payments
+            </span>
+            <span>Thanh toán:</span>
+          </span>
           <select
             value={paymentFilter}
             onChange={(e) => setPaymentFilter(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm bg-white font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
           >
             <option value="all">Tất cả thanh toán</option>
-            <option value="pending">Chưa thanh toán</option>
-            <option value="confirmed">Đã thanh toán</option>
-            <option value="completed">Đã quyết toán</option>
+            <option value="pending">Chờ thanh toán</option>
+            <option value="confirmed">Đã xác nhận</option>
+            <option value="completed">Đã hoàn thành</option>
           </select>
         </div>
       </div>
@@ -397,7 +415,24 @@ export const AdminBookings = () => {
 
                       {/* 7. Trạng Thái Thanh Toán */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div>{getPaymentBadge(b.paymentStatus)}</div>
+                        <select
+                          value={b.paymentStatus || "pending"}
+                          onChange={(e) =>
+                            handleUpdateStatus(b._id, {
+                              paymentStatus: e.target.value,
+                            })
+                          }
+                          className={`text-[11px] font-bold rounded-lg px-2.5 py-1 border transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer ${
+                            b.paymentStatus === "confirmed" ||
+                            b.paymentStatus === "completed"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                              : "bg-amber-50 text-amber-700 border-amber-200"
+                          }`}
+                        >
+                          <option value="pending">Chờ thanh toán</option>
+                          <option value="confirmed">Đã xác nhận</option>
+                          <option value="completed">Đã hoàn thành</option>
+                        </select>
                         <div className="text-[10px] text-slate-500 font-medium mt-1 flex items-center gap-1">
                           <span className="material-symbols-outlined text-[12px]">
                             payments
@@ -413,10 +448,6 @@ export const AdminBookings = () => {
                           onChange={(newStatus) =>
                             handleUpdateStatus(b._id, {
                               bookingStatus: newStatus,
-                              paymentStatus:
-                                newStatus === "confirmed"
-                                  ? "confirmed"
-                                  : b.paymentStatus,
                             })
                           }
                         />

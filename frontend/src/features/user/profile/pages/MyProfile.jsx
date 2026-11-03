@@ -1,14 +1,14 @@
-﻿import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import useProfile from '../hooks/useProfile';
-import ProfileHero from '../components/ProfileHero';
-import PersonalInfoTab from '../components/PersonalInfoTab';
-import CustomerInfoTab from '../components/CustomerInfoTab';
-import SecurityTab from '../components/SecurityTab';
+﻿import React, { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import useProfile from "../hooks/useProfile";
+import ProfileHero from "../components/ProfileHero";
+import PersonalInfoTab from "../components/PersonalInfoTab";
+import CustomerInfoTab from "../components/CustomerInfoTab";
+import SecurityTab from "../components/SecurityTab";
 
 export const MyProfile = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialTab = searchParams.get('tab') || 'personal';
+  const initialTab = searchParams.get("tab") || "personal";
   const [activeTab, setActiveTab] = useState(initialTab);
 
   const {
@@ -35,21 +35,21 @@ export const MyProfile = () => {
 
   const tabs = [
     {
-      id: 'personal',
-      label: 'Thông tin cá nhân',
-      icon: 'person',
+      id: "personal",
+      label: "Thông tin cá nhân",
+      icon: "person",
       badge: null,
     },
     {
-      id: 'customer',
-      label: 'Hồ sơ khách hàng',
-      icon: 'badge',
-      badge: 'Đặt tour',
+      id: "customer",
+      label: "Hồ sơ khách hàng",
+      icon: "badge",
+      badge: "Đặt tour",
     },
     {
-      id: 'security',
-      label: 'Đổi mật khẩu',
-      icon: 'shield_lock',
+      id: "security",
+      label: "Đổi mật khẩu",
+      icon: "shield_lock",
       badge: null,
     },
   ];
@@ -61,21 +61,25 @@ export const MyProfile = () => {
         <div className="fixed top-24 right-4 sm:right-8 z-50 animate-in fade-in slide-in-from-top-4 duration-300">
           <div
             className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-xl border backdrop-blur-md ${
-              toast.type === 'success'
-                ? 'bg-emerald-500/95 text-white border-emerald-400'
-                : 'bg-rose-500/95 text-white border-rose-400'
+              toast.type === "success"
+                ? "bg-emerald-500/95 text-white border-emerald-400"
+                : "bg-rose-500/95 text-white border-rose-400"
             }`}
           >
             <span className="material-symbols-outlined text-[22px]">
-              {toast.type === 'success' ? 'check_circle' : 'error'}
+              {toast.type === "success" ? "check_circle" : "error"}
             </span>
-            <span className="text-xs sm:text-sm font-semibold">{toast.message}</span>
+            <span className="text-xs sm:text-sm font-semibold">
+              {toast.message}
+            </span>
             <button
               type="button"
               onClick={clearToast}
               className="ml-2 hover:opacity-80 transition-opacity"
             >
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <span className="material-symbols-outlined text-[18px]">
+                close
+              </span>
             </button>
           </div>
         </div>
@@ -83,11 +87,13 @@ export const MyProfile = () => {
 
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6">
         {/* Breadcrumb Navigation */}
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-6 font-medium">
+        <div className="flex items-center gap-2 text-[14px] text-slate-400 mb-6 font-medium">
           <Link to="/" className="hover:text-primary transition-colors">
             Trang chủ
           </Link>
-          <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+          <span className="material-symbols-outlined text-[14px]">
+            chevron_right
+          </span>
           <span className="text-slate-800 font-bold">Hồ sơ cá nhân</span>
         </div>
 
@@ -119,8 +125,8 @@ export const MyProfile = () => {
                     onClick={() => handleSelectTab(tab.id)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all ${
                       isActive
-                        ? 'bg-primary text-white shadow-md shadow-sky-500/20'
-                        : 'text-slate-600 hover:bg-slate-50'
+                        ? "bg-primary text-white shadow-md shadow-sky-500/20"
+                        : "text-slate-600 hover:bg-slate-50"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -133,8 +139,8 @@ export const MyProfile = () => {
                       <span
                         className={`text-[10px] px-2 py-0.5 rounded-full font-extrabold ${
                           isActive
-                            ? 'bg-white/20 text-white'
-                            : 'bg-sky-50 text-primary'
+                            ? "bg-white/20 text-white"
+                            : "bg-sky-50 text-primary"
                         }`}
                       >
                         {tab.badge}
@@ -211,7 +217,7 @@ export const MyProfile = () => {
               </div>
             ) : (
               <>
-                {activeTab === 'personal' && (
+                {activeTab === "personal" && (
                   <PersonalInfoTab
                     user={user}
                     isUpdating={isUpdatingUser}
@@ -221,7 +227,7 @@ export const MyProfile = () => {
                   />
                 )}
 
-                {activeTab === 'customer' && (
+                {activeTab === "customer" && (
                   <CustomerInfoTab
                     customer={customerProfile}
                     isSaving={isSavingCustomer}
@@ -229,7 +235,7 @@ export const MyProfile = () => {
                   />
                 )}
 
-                {activeTab === 'security' && (
+                {activeTab === "security" && (
                   <SecurityTab
                     isChanging={isChangingPassword}
                     onSubmit={handleChangePassword}

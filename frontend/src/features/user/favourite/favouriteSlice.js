@@ -96,6 +96,33 @@ export const syncGuestFavourites = createAsyncThunk(
   }
 );
 
+export const clearAllFavourites = createAsyncThunk(
+  'favourite/clearAllFavourites',
+  async (_, { getState, rejectWithValue }) => {
+    const { auth, favourite } = getState();
+    if (!auth.isAuthenticated) {
+      saveGuestFavourites([]);
+      return { isGuest: true };
+    }
+
+    try {
+      try {
+        await favouriteApi.clearAll();
+      } catch (err) {
+        // Fallback: delete each favourite item individually
+        const ids = favourite.items
+          .map((item) => item.destinationId?._id || item.destinationId || item._id)
+          .filter(Boolean);
+        await Promise.all(ids.map((id) => favouriteApi.remove(id)));
+      }
+      saveGuestFavourites([]);
+      return { isGuest: false };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const favouriteSlice = createSlice({
   name: 'favourite',
   initialState: {
@@ -145,6 +172,18 @@ const favouriteSlice = createSlice({
         if (action.payload?.length) {
           state.items = action.payload;
         }
+      })
+      // clearAllFavourites
+      .addCase(clearAllFavourites.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(clearAllFavourites.fulfilled, (state) => {
+        state.isLoading = false;
+        state.items = [];
+      })
+      .addCase(clearAllFavourites.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

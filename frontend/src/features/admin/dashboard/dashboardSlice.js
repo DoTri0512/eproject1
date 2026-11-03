@@ -32,6 +32,7 @@ const dashboardSlice = createSlice({
         completed: 0,
         cancelled: 0,
       },
+      monthlyStats: [],
       recentBookings: [],
     },
     isLoading: false,

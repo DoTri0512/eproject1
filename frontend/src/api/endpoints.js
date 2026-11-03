@@ -45,6 +45,7 @@ export const ENDPOINTS = {
   GUIDES: {
     BASE: '/guides',
     DETAIL: (idOrSlug) => `/guides/${idOrSlug}`,
+    AVAILABILITY: (idOrSlug) => `/guides/${idOrSlug}/availability`,
     DESTINATIONS: (idOrSlug) => `/guides/${idOrSlug}/destinations`,
     REMOVE_DESTINATION: (id, destinationId) => `/guides/${id}/destinations/${destinationId}`,
   },

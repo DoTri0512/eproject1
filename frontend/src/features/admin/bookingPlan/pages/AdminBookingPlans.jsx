@@ -3,6 +3,8 @@ import useAdminBookingPlans from "../hooks/useAdminBookingPlans";
 import AssignGuideModal from "../components/AssignGuideModal";
 import PassengersListModal from "../components/PassengersListModal";
 import CreateBookingPlanModal from "../components/CreateBookingPlanModal";
+import BookingPlanStatusControl from "../components/BookingPlanStatusControl";
+import Pagination from "../../../../components/common/Pagination";
 import Badge from "../../../../components/common/Badge";
 import formatDate from "../../../../utils/formatDate";
 
@@ -14,6 +16,12 @@ export const AdminBookingPlans = () => {
     stats,
     isLoading,
     isSyncing,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalItems,
+    limit,
+    setLimit,
     selectedTourId,
     setSelectedTourId,
     selectedStatus,
@@ -116,12 +124,12 @@ export const AdminBookingPlans = () => {
             onClick={() =>
               alert("Đang xuất danh sách các đợt khởi hành ra file Excel...")
             }
-            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-colors"
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">
               file_download
             </span>
-            <span>Xuất Excel</span>
+            <span className="leading-none flex items-center">Xuất Excel</span>
           </button>
         </div>
       </div>
@@ -145,7 +153,7 @@ export const AdminBookingPlans = () => {
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">
               schedule
             </span>
@@ -154,7 +162,7 @@ export const AdminBookingPlans = () => {
             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
               Sắp Khởi Hành
             </div>
-            <div className="text-2xl font-black text-emerald-600">
+            <div className="text-2xl font-black text-blue-600">
               {stats.scheduled}
             </div>
           </div>
@@ -176,21 +184,18 @@ export const AdminBookingPlans = () => {
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4 relative overflow-hidden">
-          {stats.unassignedGuides > 0 && (
-            <div className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping" />
-          )}
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
+          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-[26px]">
-              person_alert
+              task_alt
             </span>
           </div>
           <div>
             <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">
-              Chưa Gán HDV
+              Đã Hoàn Thành
             </div>
-            <div className="text-2xl font-black text-amber-600">
-              {stats.unassignedGuides}
+            <div className="text-2xl font-black text-emerald-600">
+              {stats.completed}
             </div>
           </div>
         </div>
@@ -418,7 +423,12 @@ export const AdminBookingPlans = () => {
 
                       {/* Status */}
                       <td className="py-3.5 px-4 whitespace-nowrap">
-                        {getStatusBadge(plan.status)}
+                        <BookingPlanStatusControl
+                          status={plan.status}
+                          onChange={(newStatus) =>
+                            handleUpdateStatus(plan._id, newStatus)
+                          }
+                        />
                       </td>
 
                       {/* Actions */}
@@ -442,6 +452,17 @@ export const AdminBookingPlans = () => {
             </table>
           </div>
         )}
+
+        {/* Table Pagination Footer */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          limit={limit}
+          onPageChange={setCurrentPage}
+          onLimitChange={setLimit}
+          showingCount={filteredPlans.length}
+        />
       </div>
 
       {/* Passengers Modal */}
@@ -450,6 +471,7 @@ export const AdminBookingPlans = () => {
           isOpen={isPassengersModalOpen}
           onClose={() => setIsPassengersModalOpen(false)}
           plan={selectedPlan}
+          onUpdateStatus={handleUpdateStatus}
         />
       )}
 

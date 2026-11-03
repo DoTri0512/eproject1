@@ -7,11 +7,20 @@ export const useAdminBookingPlans = () => {
   const [guides, setGuides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
   // Filters
   const [selectedTourId, setSelectedTourId] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedDate, setSelectedDate] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedTourId, selectedStatus, selectedDate, searchTerm, limit]);
 
   // Modals
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -75,12 +84,13 @@ export const useAdminBookingPlans = () => {
     const total = plans.length;
     const scheduled = plans.filter((p) => (p.status || 'scheduled') === 'scheduled').length;
     const inProgress = plans.filter((p) => p.status === 'in_progress').length;
+    const completed = plans.filter((p) => p.status === 'completed').length;
     const unassignedGuides = plans.filter(
       (p) => !p.guideId && ['scheduled', 'in_progress'].includes(p.status || 'scheduled')
     ).length;
     const totalPassengers = plans.reduce((sum, p) => sum + (p.totalPassengers || 0), 0);
 
-    return { total, scheduled, inProgress, unassignedGuides, totalPassengers };
+    return { total, scheduled, inProgress, completed, unassignedGuides, totalPassengers };
   }, [plans]);
 
   // Filtered list
@@ -114,6 +124,14 @@ export const useAdminBookingPlans = () => {
       return true;
     });
   }, [plans, selectedTourId, selectedStatus, selectedDate, searchTerm]);
+
+  // Paginated plans
+  const totalItems = filteredPlans.length;
+  const totalPages = Math.ceil(totalItems / limit) || 1;
+  const paginatedPlans = useMemo(() => {
+    const start = (currentPage - 1) * limit;
+    return filteredPlans.slice(start, start + limit);
+  }, [filteredPlans, currentPage, limit]);
 
   // Open Passengers Modal
   const handleOpenPassengers = (plan) => {
@@ -160,12 +178,33 @@ export const useAdminBookingPlans = () => {
       const res = await adminApi.updatePlanStatus(planId, status);
       const updated = res.data || res;
       setPlans((prev) =>
-        prev.map((p) => (p._id === planId ? { ...p, ...updated } : p))
+        prev.map((p) => {
+          if (p._id === planId) {
+            return {
+              ...p,
+              ...updated,
+              tourId:
+                typeof updated.tourId === 'object' && updated.tourId !== null
+                  ? updated.tourId
+                  : p.tourId,
+              guideId: updated.guideId || p.guideId,
+            };
+          }
+          return p;
+        })
       );
       if (selectedPlan?._id === planId) {
-        setSelectedPlan((prev) => ({ ...prev, ...updated }));
+        setSelectedPlan((prev) => ({
+          ...prev,
+          ...updated,
+          tourId:
+            typeof updated.tourId === 'object' && updated.tourId !== null
+              ? updated.tourId
+              : prev.tourId,
+          guideId: updated.guideId || prev.guideId,
+        }));
       }
-      showToast('Cập nhật trạng thái chuyến đi thành công!');
+      showToast('Cập nhật trạng thái đoàn khởi hành thành công!');
       return true;
     } catch (err) {
       showToast(err.response?.data?.message || 'Cập nhật trạng thái thất bại', 'error');
@@ -222,12 +261,19 @@ export const useAdminBookingPlans = () => {
 
   return {
     plans,
-    filteredPlans,
+    filteredPlans: paginatedPlans,
+    allFilteredCount: filteredPlans.length,
     tours,
     guides,
     stats,
     isLoading,
     isSyncing,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalItems,
+    limit,
+    setLimit,
     selectedTourId,
     setSelectedTourId,
     selectedStatus,

@@ -6,6 +6,107 @@ const { getPagination, formatPaginationResponse } = require('../../utils/paginat
 
 class GuideService {
   /**
+   * Helper: Check if guide is occupied by any active BookingPlan or Booking during [departureDate, endDate]
+   */
+  async getGuideScheduleConflicts(guideId, departureDate, endDate) {
+    if (!guideId || !departureDate) {
+      return { isAvailable: true, conflicts: [], busyReason: '' };
+    }
+
+    const Booking = require('../booking/booking.model');
+    const BookingPlan = require('../bookingPlan/bookingPlan.model');
+
+    const dep = new Date(departureDate);
+    dep.setUTCHours(0, 0, 0, 0);
+
+    const end = new Date(endDate || departureDate);
+    end.setUTCHours(23, 59, 59, 999);
+
+    const guideObjId = typeof guideId === 'string' ? new mongoose.Types.ObjectId(guideId) : guideId;
+
+    // 1. Check in BookingPlan (scheduled or in_progress)
+    const conflictingPlans = await BookingPlan.find({
+      guideId: guideObjId,
+      status: { $nin: ['cancelled', 'completed'] },
+      departureDate: { $lte: end },
+      $expr: {
+        $gte: [{ $ifNull: ['$endDate', '$departureDate'] }, dep],
+      },
+    }).populate('tourId', 'title slug');
+
+    // 2. Check in Booking (pending or confirmed)
+    const conflictingBookings = await Booking.find({
+      guide_id: guideObjId,
+      bookingStatus: { $in: ['pending', 'confirmed'] },
+      departureDate: { $lte: end },
+      $expr: {
+        $gte: [{ $ifNull: ['$endDate', '$departureDate'] }, dep],
+      },
+    }).populate('tourId', 'title slug');
+
+    const conflicts = [];
+    const fmt = (d) => {
+      if (!d) return '';
+      const dt = new Date(d);
+      return String(dt.getUTCDate()).padStart(2, '0') + '/' + String(dt.getUTCMonth() + 1).padStart(2, '0') + '/' + dt.getUTCFullYear();
+    };
+
+    for (const plan of conflictingPlans) {
+      conflicts.push({
+        type: 'booking_plan',
+        id: plan._id,
+        tourTitle: plan.tourId?.title || 'Tour theo đoàn',
+        departureDate: plan.departureDate,
+        endDate: plan.endDate || plan.departureDate,
+      });
+    }
+
+    for (const b of conflictingBookings) {
+      const alreadyInPlan = conflictingPlans.some((p) =>
+        p.bookings && p.bookings.some((bid) => bid.toString() === b._id.toString())
+      );
+      if (!alreadyInPlan) {
+        conflicts.push({
+          type: 'booking',
+          id: b._id,
+          tourTitle: b.tourId?.title || 'Đơn đặt tour',
+          departureDate: b.departureDate,
+          endDate: b.endDate || b.departureDate,
+        });
+      }
+    }
+
+    const isAvailable = conflicts.length === 0;
+    let busyReason = '';
+    if (!isAvailable) {
+      const first = conflicts[0];
+      const startStr = fmt(first.departureDate);
+      const endStr = fmt(first.endDate);
+      const dateText = startStr === endStr ? startStr : startStr + ' - ' + endStr;
+      busyReason = 'Đã có lịch bận tour "' + first.tourTitle + '" (' + dateText + ')';
+    }
+
+    return { isAvailable, conflicts, busyReason };
+  }
+
+  async checkGuideAvailability(idOrSlug, departureDate, endDate) {
+    const guide = await this.getGuideByIdOrSlug(idOrSlug);
+    const availability = await this.getGuideScheduleConflicts(
+      guide._id,
+      departureDate,
+      endDate
+    );
+    return {
+      guideId: guide._id,
+      name: guide.name,
+      slug: guide.slug,
+      departureDate,
+      endDate: endDate || departureDate,
+      ...availability,
+    };
+  }
+
+  /**
    * Helper: Check if all destination IDs exist in Destination collection
    */
   async validateDestinationsExist(destinationIds) {
@@ -60,6 +161,26 @@ class GuideService {
         .sort({ createdAt: -1 }),
       Guide.countDocuments(filter),
     ]);
+
+    if (query.departureDate) {
+      const depDate = query.departureDate;
+      const endDate = query.endDate || depDate;
+
+      const itemsWithAvailability = await Promise.all(
+        items.map(async (guide) => {
+          const gObj = guide.toObject ? guide.toObject() : { ...guide };
+          const availability = await this.getGuideScheduleConflicts(guide._id, depDate, endDate);
+          return {
+            ...gObj,
+            isAvailable: availability.isAvailable,
+            busyReason: availability.busyReason,
+            conflicts: availability.conflicts,
+          };
+        })
+      );
+
+      return formatPaginationResponse(itemsWithAvailability, totalItems, page, limit);
+    }
 
     return formatPaginationResponse(items, totalItems, page, limit);
   }

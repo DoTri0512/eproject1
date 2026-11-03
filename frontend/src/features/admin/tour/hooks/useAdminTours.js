@@ -26,6 +26,7 @@ export const useAdminTours = () => {
   // Modals
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -134,6 +135,11 @@ export const useAdminTours = () => {
     setIsDeleteModalOpen(true);
   };
 
+  const handleOpenDetail = (tour) => {
+    setSelectedTour(tour);
+    setIsDetailModalOpen(true);
+  };
+
   const handleSaveTour = async (tourData) => {
     setIsSubmitting(true);
     try {
@@ -214,6 +220,8 @@ export const useAdminTours = () => {
     setIsFormModalOpen,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
+    isDetailModalOpen,
+    setIsDetailModalOpen,
     selectedTour,
     isSubmitting,
     toastMessage,
@@ -221,6 +229,7 @@ export const useAdminTours = () => {
     handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
+    handleOpenDetail,
     handleSaveTour,
     handleDeleteTour,
     handleToggleStatus,

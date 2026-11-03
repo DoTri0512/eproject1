@@ -109,9 +109,9 @@ export const BookingDetailModal = ({
                 onChange={(e) => setPaymentStatus(e.target.value)}
                 className="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-bold bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
-                <option value="pending">Chưa thanh toán / Chờ (Pending)</option>
+                <option value="pending">Chờ thanh toán (Pending)</option>
                 <option value="confirmed">Đã thanh toán (Confirmed)</option>
-                <option value="completed">Hoàn tất quyết toán (Completed)</option>
+                <option value="completed">Hoàn tất thanh toán (Completed)</option>
               </select>
             </div>
           </div>

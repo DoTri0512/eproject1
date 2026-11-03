@@ -52,6 +52,11 @@ class FavouriteService {
     return this.getUserFavourites(userId);
   }
 
+  async clearAllFavourites(userId) {
+    await Favourite.deleteMany({ userId });
+    return { message: 'All favourites cleared successfully' };
+  }
+
   async checkIsFavourite(userId, destinationId) {
     const count = await Favourite.countDocuments({ userId, destinationId });
     return { isFavourite: count > 0 };

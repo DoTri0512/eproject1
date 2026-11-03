@@ -522,8 +522,13 @@
         },
         {
           "day": 3,
-          "title": "Lâu Đài Rượu Vang RD - Mua Đặc Sản Nước Mắm - Về TP.HCM",
-          "description": "Khám phá Lâu đài Rượu vang phong cách châu Âu thời Trung cổ, thưởng thức rượu vang hảo hạng, mua sắm thanh long và nước mắm Phan Thiết trước khi lên xe về."
+          "title": "Lâu Đài Rượu Vang RD - Tháp Chàm Poshanư - Thư Giãn Tắm Biển",
+          "description": "Khám phá Lâu đài Rượu vang phong cách châu Âu thời Trung cổ, thưởng thức rượu vang hảo hạng và chiêm ngưỡng kiến trúc bí ẩn nghìn năm của Tháp Chàm Poshanư."
+        },
+        {
+          "day": 4,
+          "title": "Chợ Phan Thiết Mua Đặc Sản Nước Mắm - Trở Về TP.HCM",
+          "description": "Tự do dạo biển sớm, ghé chợ Phan Thiết mua sắm đặc sản thanh long, hải sản khô và nước mắm truyền thống trước khi xe đưa đoàn về TP.HCM."
         }
       ],
       "includes": [
@@ -583,8 +588,13 @@
         },
         {
           "day": 3,
-          "title": "Chợ Côn Đảo Mua Hạt Bàng - Mũi Cá Mập - Bay Về",
-          "description": "Dạo chợ Côn Đảo mua mứt hạt bàng rang muối ớt đặc sản, check-in Mũi Cá Mập ngoạn mục trước khi xe đưa đoàn ra sân bay trở về."
+          "title": "Chinh Phục Đỉnh Tình Yêu - Mũi Cá Mập - Bãi Nhát Hoàng Hôn",
+          "description": "Khám phá cung đường ven biển tuyệt đẹp ngắm Đỉnh Tình Yêu, chiêm ngưỡng vẻ đẹp hoang sơ của Mũi Cá Mập và ngắm hoàng hôn rực rỡ tại Bãi Nhát."
+        },
+        {
+          "day": 4,
+          "title": "Chợ Côn Đảo Mua Hạt Bàng - Tiễn Sân Bay Bay Về",
+          "description": "Dạo chợ Côn Đảo mua đặc sản mứt hạt bàng rang muối gừng, hải sản tươi ngon và xe đưa đoàn ra sân bay Côn Sơn làm thủ tục trở về."
         }
       ],
       "includes": [
@@ -649,8 +659,13 @@
         },
         {
           "day": 4,
-          "title": "Viện Hải Dương Học - Chợ Đầm - Tiễn Đoàn Ra Sân Bay",
-          "description": "Chiêm ngưỡng hàng ngàn mẫu vật sinh vật biển tại Viện Hải dương học, mua quà hải sản khô tại Chợ Đầm và xe đưa đoàn ra sân bay Cam Ranh."
+          "title": "Viện Hải Dương Học - Chùa Long Sơn - Lặn Biển Tự Do",
+          "description": "Chiêm ngưỡng hàng ngàn mẫu vật sinh vật biển tại Viện Hải dương học, chiêm bái tượng Kim Thân Phật Tổ tại Chùa Long Sơn và tự do tắm biển Nha Trang."
+        },
+        {
+          "day": 5,
+          "title": "Chợ Đầm Mua Đặc Sản Hải Sản Khô - Tiễn Sân Bay Cam Ranh",
+          "description": "Thưởng thức bún sứa đặc sản buổi sáng, mua quà mực một nắng, yến sào tại Chợ Đầm và xe đưa đoàn ra sân bay Cam Ranh kết thúc chuyến đi."
         }
       ],
       "includes": [
@@ -710,8 +725,13 @@
         },
         {
           "day": 3,
-          "title": "Cồn Cát Phương Mai - Mua Đặc Sản Xứ Nẫu - Tiễn Đoàn",
-          "description": "Trượt cát tại đồi cát Phương Mai cao nhất miền Trung. Ghé cơ sở mua chả ram tôm đất, rượu Bàu Đá, tré Bình Định trước khi xe tiễn ra sân bay."
+          "title": "Bảo Tàng Quang Trung - Xem Biểu Diễn Võ Thuật - Hầm Hô Khúc Tráng Ca",
+          "description": "Về đất Tây Sơn viếng Đền thờ Tây Sơn Tam Kiệt, thưởng thức nhạc võ trống trận hào hùng và trải nghiệm chèo thuyền giữa dòng suối xanh Hầm Hô."
+        },
+        {
+          "day": 4,
+          "title": "Cồn Cát Phương Mai - Mua Đặc Sản Xứ Nẫu - Tiễn Đoàn Sân Bay",
+          "description": "Trượt cát tại đồi cát Phương Mai cao nhất miền Trung, ghé mua chả ram tôm đất, tré rơm, bánh ít lá gai trước khi xe tiễn ra sân bay Phù Cát."
         }
       ],
       "includes": [
@@ -761,8 +781,13 @@
         },
         {
           "day": 2,
-          "title": "Đồi Chè Trái Tim - Thung Lũng Mận Nà Ka - Về Hà Nội",
-          "description": "Đón sớm mai trong trẻo tại Đồi chè Trái Tim, chụp ảnh trong thung lũng mận Nà Ka. Thưởng thức sữa chua nếp cẩm, mua dâu tây tươi và cải mèo trước khi xe đưa về Hà Nội."
+          "title": "Đồi Chè Trái Tim - Thung Lũng Mận Nà Ka - Hang Dơi Kỳ Vĩ",
+          "description": "Đón sớm mai trong trẻo tại Đồi chè Trái Tim, chụp ảnh trong thung lũng mận Nà Ka nở trắng muốt và khám phá quần thể thạch nhũ kỳ ảo tại Hang Dơi Mộc Châu."
+        },
+        {
+          "day": 3,
+          "title": "Vườn Dâu Tây Chimi - Mua Đặc Sản Mộc Châu - Về Lại Hà Nội",
+          "description": "Trải nghiệm hái dâu tây chín mọng tại trang trại Chimi, thưởng thức sữa chua nếp cẩm trứ danh, mua thịt trâu gác bếp và lên xe trở về Hà Nội."
         }
       ],
       "includes": [
@@ -822,8 +847,13 @@
         },
         {
           "day": 3,
-          "title": "Núi Đá Voi Mẹ - Mua Đặc Sản Cà Phê Bơ Sáp - Tiễn Đoàn",
-          "description": "Leo đỉnh tảng đá granite nguyên khối Đá Voi Mẹ ngắm toàn cảnh thung lũng Yang Tao. Ghé mua cà phê chồn, bơ sáp Đắk Lắk trước khi xe đưa ra sân bay."
+          "title": "Hồ Lắk Chèo Thuyền Độc Mộc - Buôn Jun - Núi Đá Voi Mẹ",
+          "description": "Chèo thuyền độc mộc đón bình minh mặt hồ Lắk phẳng lặng, tìm hiểu phong tục người M'Nông tại Buôn Jun và leo đỉnh khối cự thạch Đá Voi Mẹ ngắm trọn thung lũng."
+        },
+        {
+          "day": 4,
+          "title": "Làng Cà Phê Trung Nguyên - Mua Quà Đặc Sản Đại Ngàn - Tiễn Sân Bay",
+          "description": "Thưởng thức ly cà phê đậm đà giữa không gian kiến trúc nhà cổ Làng Cà phê Trung Nguyên, mua bơ sáp, tiêu rừng và xe đưa đoàn ra sân bay Buôn Ma Thuột."
         }
       ],
       "includes": [
@@ -883,6 +913,11 @@
         },
         {
           "day": 3,
+          "title": "Hang Câu Vách Đá Triệu Năm - Hải Đăng Lý Sơn - Lặn San Hô Đảo Bé",
+          "description": "Chiêm ngưỡng vết tích phun trào nham thạch kỳ vĩ tại Hang Câu, leo tháp Hải Đăng ngắm trọn vẹn biển khơi và tự do chèo thuyền kayak lặn san hô."
+        },
+        {
+          "day": 4,
           "title": "Chùa Hang - Cánh Đồng Tỏi - Tàu Về Sa Kỳ - Tiễn Sân Bay Chu Lai",
           "description": "Thăm Chùa Hang linh thiêng bên bờ sóng, tìm hiểu quy trình trồng tỏi cô đơn độc đáo. Lên tàu siêu tốc về đất liền, xe đưa đoàn ra sân bay Chu Lai."
         }
@@ -940,8 +975,13 @@
         },
         {
           "day": 2,
-          "title": "Chinh Phục Tượng Chúa Kito - Mũi Nghinh Phong - Về Lại TP.HCM",
-          "description": "Buổi sáng mát mẻ chinh phục 847 bậc đá lên Tượng Chúa dang tay ngắm biển Đông. Ghé Mũi Nghinh Phong chụp ảnh Cổng Trời và ăn bánh khọt giòn rụm trước khi về Sài Gòn."
+          "title": "Chinh Phục Tượng Chúa Kito - Mũi Nghinh Phong - Ngọn Hải Đăng Cổ",
+          "description": "Buổi sáng chinh phục 847 bậc đá lên Tượng Chúa Kito dang tay, ghé Cổng Trời Mũi Nghinh Phong lộng gió và ngắm toàn cảnh thành phố biển từ ngọn Hải đăng cổ kính."
+        },
+        {
+          "day": 3,
+          "title": "Khu Du Lịch Cáp Treo Hồ Mây - Mua Đặc Sản Bánh Khọt - Về TP.HCM",
+          "description": "Đi cáp treo lên đỉnh núi Lớn vui chơi tại Hồ Mây Park, thưởng thức bánh khọt cô Ba giòn rụm và mua hải sản chợ Xóm Lưới trước khi xe đưa về TP.HCM."
         }
       ],
       "includes": [
@@ -1052,8 +1092,13 @@
         },
         {
           "day": 3,
-          "title": "Hồ Tây - Chùa Trấn Quốc - Mua Quà Ô Mai - Tiễn Sân Bay",
-          "description": "Thưởng ngoạn gió mát Hồ Tây, viếng Chùa Trấn Quốc cổ kính nhất thủ đô. Ghé Hàng Đường mua ô mai sấu, bánh cốm Làng Vòng trước khi xe tiễn đoàn ra sân bay Nội Bài."
+          "title": "Hồ Tây - Chùa Trấn Quốc - Bảo Tàng Dân Tộc Học Việt Nam",
+          "description": "Thưởng ngoạn gió mát Hồ Tây, viếng Chùa Trấn Quốc cổ kính nhất thủ đô và khám phá các nét văn hóa đặc sắc của 54 dân tộc anh em tại Bảo tàng Dân tộc học."
+        },
+        {
+          "day": 4,
+          "title": "Làng Gốm Bát Tràng - Mua Quà Ô Mai Hàng Đường - Tiễn Sân Bay",
+          "description": "Trải nghiệm vuốt gốm thủ công tại làng cổ Bát Tràng, mua ô mai sấu và bánh cốm Làng Vòng làm quà trước khi xe tiễn đoàn ra sân bay Nội Bài."
         }
       ],
       "includes": [

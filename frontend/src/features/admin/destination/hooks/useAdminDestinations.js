@@ -25,6 +25,7 @@ export const useAdminDestinations = () => {
   // Modal states
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -85,6 +86,12 @@ export const useAdminDestinations = () => {
   const handleOpenDelete = (dest) => {
     setSelectedDestination(dest);
     setIsDeleteModalOpen(true);
+  };
+
+  // Open Detail Modal
+  const handleOpenDetail = (dest) => {
+    setSelectedDestination(dest);
+    setIsDetailModalOpen(true);
   };
 
   // Save (Create or Update)
@@ -151,12 +158,15 @@ export const useAdminDestinations = () => {
     setIsFormModalOpen,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
+    isDetailModalOpen,
+    setIsDetailModalOpen,
     selectedDestination,
     isSubmitting,
     toastMessage,
     handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
+    handleOpenDetail,
     handleSaveDestination,
     handleDeleteDestination,
     refetch: loadDestinations,

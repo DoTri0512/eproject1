@@ -387,7 +387,7 @@ Quản lý thông tin đơn đặt tour và trạng thái giao dịch đặt ch�
 - `numberOfGuests`: Object `{ adults: Number, children: Number }` – Số lượng hành khách tham gia (phân định Người lớn và Trẻ em).
 - `totalAmount`: Number (Required) – Tổng số tiền hóa đơn cần thanh toán (tự động tính: `selectedDuration.price * số lượng khách`, đơn vị: VNĐ).
 - `paymentMethod`: String (Enum: `'cash'`, `'credit_card'`, `'bank_transfer'`, `'e_wallet'`, Default: `'cash'`) – Phương thức thanh toán khách hàng lựa chọn khi thực hiện đặt tour này (`cash`: thanh toán tiền mặt trực tiếp tại quầy, `credit_card`: thanh toán qua thẻ tín dụng/ghi nợ, `bank_transfer`: chuyển khoản ngân hàng, `e_wallet`: thanh toán qua ví điện tử như MoMo, ZaloPay, VNPay).
-- `paymentStatus`: String (Enum: `'pending'`, `'confirmed'`, `'completed'`, Default: `'pending'`) – Trạng thái thanh toán hóa đơn (`pending`: chờ duyệt, `confirmed`: đã xác nhận, `completed`: hoàn thành).
+- `paymentStatus`: String (Enum: `'pending'`, `'confirmed'`, `'completed'`, Default: `'pending'`) – Trạng thái thanh toán hóa đơn (`pending`: chờ thanh toán, `confirmed`: đã xác nhận thanh toán, `completed`: hoàn tất thanh toán).
 - `bookingStatus`: String (Enum: `'pending'`, `'confirmed'`, `'completed'`, `'cancelled'`, Default: `'pending'`) – Trạng thái xử lý đơn hàng (`pending`: chờ duyệt, `confirmed`: đã xác nhận, `completed`: hoàn thành, `cancelled`: đã hủy).
 - `notes`: String – Ghi chú thêm của khách hàng khi đặt chỗ (ví dụ: ăn chay, phòng tầng cao).
 - `guide_id`: ObjectId (Ref: Guide, Optional) – Mã hướng dẫn viên mà khách hàng mong muốn được phục vụ cho chuyến đi này (nếu có).

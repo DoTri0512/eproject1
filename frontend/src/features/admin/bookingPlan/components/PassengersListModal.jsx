@@ -1,11 +1,13 @@
 import React from 'react';
 import Modal from '../../../../components/common/Modal';
 import formatDate from '../../../../utils/formatDate';
+import BookingPlanStatusControl from './BookingPlanStatusControl';
 
 export const PassengersListModal = ({
   isOpen,
   onClose,
   plan,
+  onUpdateStatus,
 }) => {
   if (!plan) return null;
 
@@ -70,13 +72,25 @@ export const PassengersListModal = ({
         </div>
 
         {/* Quick Info Bar */}
-        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
-          <span className="text-slate-600">
-            Tổng số khách đoàn: <strong className="text-slate-900 font-bold text-sm">{passengers.length || plan.totalPassengers || 0} người</strong>
-          </span>
-          <span className="text-[11px] text-slate-500 font-medium">
-            Mã đoàn: <span className="font-mono font-bold text-primary">#{plan._id ? plan._id.slice(-6).toUpperCase() : 'PLAN'}</span>
-          </span>
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-xs">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+            <span className="text-slate-600">
+              Tổng số khách đoàn: <strong className="text-slate-900 font-bold text-sm">{passengers.length || plan.totalPassengers || 0} người</strong>
+            </span>
+            <span className="text-[11px] text-slate-500 font-medium">
+              Mã đoàn: <span className="font-mono font-bold text-primary">#{plan._id ? plan._id.slice(-6).toUpperCase() : 'PLAN'}</span>
+            </span>
+          </div>
+
+          {onUpdateStatus && (
+            <div className="flex items-center gap-2">
+              <span className="text-slate-500 font-semibold text-[11px]">Trạng thái:</span>
+              <BookingPlanStatusControl
+                status={plan.status}
+                onChange={(newStatus) => onUpdateStatus(plan._id, newStatus)}
+              />
+            </div>
+          )}
         </div>
 
         {/* Passengers Table */}

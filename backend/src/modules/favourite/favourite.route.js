@@ -10,6 +10,7 @@ router.get('/', favouriteController.getMyFavourites);
 router.post('/', validateFavourite, favouriteController.addFavourite);
 router.post('/sync', favouriteController.syncFavourites);
 router.get('/check/:destinationId', favouriteController.checkFavourite);
+router.delete('/', favouriteController.clearAllFavourites);
 router.delete('/:destinationId', favouriteController.removeFavourite);
 
 module.exports = router;

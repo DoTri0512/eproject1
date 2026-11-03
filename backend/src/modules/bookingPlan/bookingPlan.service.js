@@ -109,7 +109,7 @@ class BookingPlanService {
       planId,
       { guideId },
       { new: true, runValidators: true }
-    ).populate('guideId', 'name slug specialisation avatar phone');
+    ).populate({ path: 'tourId', select: 'title slug durationOptions overview destinationId' }).populate('guideId', 'name slug specialisation avatar phone');
 
     if (!plan) {
       const error = new Error('Booking plan not found');

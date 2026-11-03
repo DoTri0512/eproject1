@@ -70,11 +70,9 @@ export const DestinationsList = () => {
         <div className="relative rounded-3xl overflow-hidden mb-8 bg-gradient-to-r from-sky-600 via-sky-500 to-sky-400 text-white p-8 sm:p-12 shadow-md">
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px]" />
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <span className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-medium mb-3">
-              <span className="material-symbols-outlined text-[14px]">
-                travel_explore
-              </span>
-              <span className="text-[14px]">KHÁM PHÁ VIỆT NAM</span>
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-semibold tracking-wider uppercase mb-5 shadow-sm animate-in fade-in">
+              <span className="material-symbols-outlined">travel_explore</span>
+              <span>KHÁM PHÁ VIỆT NAM</span>
             </span>
             <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 text-white">
               Danh Sách Điểm Đến Du Lịch

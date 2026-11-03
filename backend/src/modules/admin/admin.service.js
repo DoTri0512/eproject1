@@ -8,6 +8,19 @@ const { getPagination, formatPaginationResponse } = require('../../utils/paginat
 
 class AdminService {
   async getDashboardStats() {
+    // Generate the last 6 months window
+    const now = new Date();
+    const months = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      months.push({
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        key: `T${d.getMonth() + 1}`,
+      });
+    }
+    const startDate = new Date(months[0].year, months[0].month - 1, 1);
+
     const [
       totalUsers,
       totalCustomers,
@@ -20,6 +33,7 @@ class AdminService {
       completedBookings,
       cancelledBookings,
       revenueResult,
+      monthlyAggregation,
       recentBookings,
     ] = await Promise.all([
       User.countDocuments(),
@@ -35,13 +49,38 @@ class AdminService {
       Booking.aggregate([
         {
           $match: {
-            bookingStatus: { $in: ['confirmed', 'completed'] },
+            bookingStatus: 'completed',
           },
         },
         {
           $group: {
             _id: null,
             totalRevenue: { $sum: '$totalAmount' },
+          },
+        },
+      ]),
+      Booking.aggregate([
+        {
+          $match: {
+            createdAt: { $gte: startDate },
+          },
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: '$createdAt' },
+              month: { $month: '$createdAt' },
+            },
+            bookings: { $sum: 1 },
+            revenue: {
+              $sum: {
+                $cond: [
+                  { $eq: ['$bookingStatus', 'completed'] },
+                  '$totalAmount',
+                  0,
+                ],
+              },
+            },
           },
         },
       ]),
@@ -54,6 +93,18 @@ class AdminService {
     ]);
 
     const totalRevenue = revenueResult.length > 0 ? revenueResult[0].totalRevenue : 0;
+
+    const monthlyStats = months.map((m) => {
+      const found = monthlyAggregation.find(
+        (item) => item._id.year === m.year && item._id.month === m.month
+      );
+      return {
+        month: m.key,
+        year: m.year,
+        revenue: found ? found.revenue : 0,
+        bookings: found ? found.bookings : 0,
+      };
+    });
 
     return {
       kpi: {
@@ -71,6 +122,7 @@ class AdminService {
         completed: completedBookings,
         cancelled: cancelledBookings,
       },
+      monthlyStats,
       recentBookings,
     };
   }

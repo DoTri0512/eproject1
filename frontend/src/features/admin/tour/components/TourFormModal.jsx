@@ -443,7 +443,7 @@ export const TourFormModal = ({
                   <input
                     type="number"
                     min={0}
-                    step={100000}
+                    step="any"
                     value={opt.price}
                     onChange={(e) => handleDurationOptionChange(idx, 'price', e.target.value)}
                     className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white font-bold text-primary"

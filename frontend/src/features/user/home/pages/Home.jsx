@@ -111,7 +111,7 @@ export const Home = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-5xl md:text-[54px] font-extrabold text-white tracking-tight leading-tight max-w-4xl mb-4 drop-shadow-md">
+          <h1 className="text-3xl sm:text-3xl md:text-[40px] font-extrabold text-white tracking-tight !leading-[42px] max-w-3xl mb-4 drop-shadow-md">
             Khám Phá Vẻ Đẹp Thế Giới Cùng{" "}
             <span className="text-sky-400">TravelTrail</span>
           </h1>
@@ -404,76 +404,74 @@ export const Home = () => {
           {/* Tours Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {hotTours.length > 0
-              ? hotTours.map((tour) => (
-                  <TourCard key={tour._id} tour={tour} />
-                ))
+              ? hotTours.map((tour) => <TourCard key={tour._id} tour={tour} />)
               : mockHotTours.map((tour) => (
-              <div
-                key={tour.id}
-                className="bg-white rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-hover transition-all duration-300 overflow-hidden flex flex-col group"
-              >
-                <div className="relative h-52 overflow-hidden bg-slate-100">
-                  <img
-                    src={tour.image}
-                    alt={tour.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 bg-amber-500 text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
-                    {tour.tag}
-                  </div>
-                  <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg">
-                    {tour.duration}
-                  </div>
-                </div>
-
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1 mb-2">
-                      {tour.title}
-                    </h3>
-                    <div className="flex items-center gap-4 text-xs text-slate-500 mb-3">
-                      <div className="flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[16px] text-slate-400">
-                          calendar_month
-                        </span>
-                        <span>{tour.departure}</span>
+                  <div
+                    key={tour.id}
+                    className="bg-white rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-hover transition-all duration-300 overflow-hidden flex flex-col group"
+                  >
+                    <div className="relative h-52 overflow-hidden bg-slate-100">
+                      <img
+                        src={tour.image}
+                        alt={tour.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-3 left-3 bg-amber-500 text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
+                        {tour.tag}
                       </div>
-                      <div className="flex items-center gap-1">
-                        <span
-                          className="material-symbols-outlined text-[16px] text-amber-400"
-                          style={{ fontVariationSettings: "'FILL' 1" }}
+                      <div className="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-2.5 py-1 rounded-lg">
+                        {tour.duration}
+                      </div>
+                    </div>
+
+                    <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-base font-bold text-slate-900 group-hover:text-primary transition-colors line-clamp-1 mb-2">
+                          {tour.title}
+                        </h3>
+                        <div className="flex items-center gap-4 text-xs text-slate-500 mb-3">
+                          <div className="flex items-center gap-1">
+                            <span className="material-symbols-outlined text-[16px] text-slate-400">
+                              calendar_month
+                            </span>
+                            <span>{tour.departure}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <span
+                              className="material-symbols-outlined text-[16px] text-amber-400"
+                              style={{ fontVariationSettings: "'FILL' 1" }}
+                            >
+                              star
+                            </span>
+                            <span className="font-bold text-slate-700">
+                              {tour.rating}
+                            </span>
+                            <span>({tour.reviews})</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                          <span className="text-[11px] text-slate-400 block">
+                            Giá từ
+                          </span>
+                          <span className="text-lg font-extrabold text-primary">
+                            {formatCurrency(tour.price)}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => navigate("/tours")}
+                          className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-bold text-xs hover:opacity-95 shadow-sm transition-all"
                         >
-                          star
-                        </span>
-                        <span className="font-bold text-slate-700">
-                          {tour.rating}
-                        </span>
-                        <span>({tour.reviews})</span>
+                          Đặt Tour ngay
+                        </button>
                       </div>
                     </div>
                   </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[11px] text-slate-400 block">
-                        Giá từ
-                      </span>
-                      <span className="text-lg font-extrabold text-primary">
-                        {formatCurrency(tour.price)}
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => navigate("/tours")}
-                      className="px-4 py-2 rounded-lg bg-gradient-to-r from-primary to-secondary text-white font-bold text-xs hover:opacity-95 shadow-sm transition-all"
-                    >
-                      Đặt Tour ngay
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </div>
         </div>
       </section>

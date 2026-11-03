@@ -35,6 +35,24 @@ class BookingService {
     const endDate = new Date(departure);
     endDate.setDate(departure.getDate() + Math.max(tourDays - 1, 0));
 
+    // Validate guide availability if requested
+    const requestedGuideId = bookingData.guide_id || bookingData.guideId;
+    if (requestedGuideId) {
+      const guideService = require('../guide/guide.service');
+      const availability = await guideService.getGuideScheduleConflicts(
+        requestedGuideId,
+        departure,
+        endDate
+      );
+      if (!availability.isAvailable) {
+        const error = new Error(
+          'Hướng dẫn viên đã có lịch bận trong thời gian này (' + (availability.busyReason || 'Trùng lịch') + '). Vui lòng chọn hướng dẫn viên khác hoặc để Hệ thống tự động phân công!'
+        );
+        error.statusCode = 400;
+        throw error;
+      }
+    }
+
     let customerId = bookingData.customerId;
     if (!customerId && bookingData.customer) {
       const customer = await Customer.create({
@@ -124,6 +142,10 @@ class BookingService {
 
     if (query.bookingStatus) {
       filter.bookingStatus = query.bookingStatus;
+    }
+
+    if (query.paymentStatus) {
+      filter.paymentStatus = query.paymentStatus;
     }
 
     const [items, totalItems] = await Promise.all([

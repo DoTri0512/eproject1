@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StatCard from "../components/StatCard";
 import AnalyticsChart from "../components/AnalyticsChart";
 import useAdminStats from "../hooks/useAdminStats";
@@ -6,29 +6,28 @@ import formatCurrency from "../../../../utils/formatCurrency";
 
 export const AdminDashboard = () => {
   const { stats, isLoading, refetch } = useAdminStats();
-  const [activeRange, setActiveRange] = useState("month");
 
   const kpi = stats?.kpi || {
-    totalUsers: 24,
-    totalCustomers: 18,
-    totalDestinations: 64,
-    totalTours: 128,
-    totalGuides: 16,
-    totalBookings: 342,
-    totalRevenue: 4250000000,
+    totalUsers: 0,
+    totalCustomers: 0,
+    totalDestinations: 0,
+    totalTours: 0,
+    totalGuides: 0,
+    totalBookings: 0,
+    totalRevenue: 0,
   };
 
   const breakdown = stats?.bookingsBreakdown || {
-    pending: 38,
-    confirmed: 215,
-    completed: 74,
-    cancelled: 15,
+    pending: 0,
+    confirmed: 0,
+    completed: 0,
+    cancelled: 0,
   };
 
   return (
     <div className="flex flex-col gap-8 pb-12">
-      {/* Top Title & Filters Bar */}
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+      {/* Top Title & Refresh Action */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
             <span className="text-primary">TravelTrail Analytics Suite</span>
@@ -44,42 +43,22 @@ export const AdminDashboard = () => {
           </p>
         </div>
 
-        {/* Range Filters & Actions */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <div className="inline-flex p-1 rounded-xl bg-slate-200/70 border border-slate-200">
-            {["today", "7days", "month", "year"].map((rangeKey) => {
-              const label = {
-                today: "Hôm nay",
-                "7days": "7 ngày",
-                month: "Tháng này",
-                year: "Năm 2026",
-              }[rangeKey];
-              return (
-                <button
-                  key={rangeKey}
-                  type="button"
-                  onClick={() => setActiveRange(rangeKey)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                    activeRange === rangeKey
-                      ? "bg-white text-primary shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-
+        {/* Action Button */}
+        <div className="flex items-center gap-2.5">
           <button
             type="button"
             onClick={refetch}
-            className="h-9.5 px-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors"
+            disabled={isLoading}
+            className="h-9.5 px-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors disabled:opacity-50 cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px] text-primary">
+            <span
+              className={`material-symbols-outlined text-[18px] text-primary ${
+                isLoading ? "animate-spin" : ""
+              }`}
+            >
               sync
             </span>
-            <span>Làm mới</span>
+            <span>{isLoading ? "Đang tải..." : "Làm mới"}</span>
           </button>
         </div>
       </div>
@@ -88,50 +67,46 @@ export const AdminDashboard = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
         <StatCard
           title="Tổng Điểm Đến"
-          value={kpi.totalDestinations || 64}
+          value={kpi.totalDestinations ?? 0}
           unit="địa danh"
-          change="+14.2%"
-          changeType="up"
-          note="+4 điểm đến mới"
+          note={`${kpi.totalDestinations ?? 0} điểm đến khả dụng`}
           icon="location_on"
           iconBg="bg-sky-50 text-sky-600"
         />
 
         <StatCard
           title="Tour Đang Mở Bán"
-          value={kpi.totalTours || 128}
+          value={kpi.totalTours ?? 0}
           unit="gói tour"
-          change="+8.5%"
-          changeType="up"
-          note="92% hoạt động"
+          note={`${kpi.totalTours ?? 0} chương trình tour`}
           icon="explore"
           iconBg="bg-blue-50 text-secondary"
         />
 
         <StatCard
           title="Tổng Đơn Đặt Tour"
-          value={kpi.totalBookings || 342}
+          value={kpi.totalBookings ?? 0}
           unit="đơn"
-          change="+24.0%"
-          changeType="up"
-          note={`${breakdown.pending || 38} đơn chờ phê duyệt`}
+          note={`${breakdown.pending ?? 0} đơn chờ duyệt`}
           icon="receipt_long"
           iconBg="bg-amber-50 text-amber-600"
         />
 
         <StatCard
-          title="Doanh Thu Ước Tính"
-          value={formatCurrency(kpi.totalRevenue || 4250000000)}
-          change="+18.4%"
-          changeType="up"
-          note="Doanh thu thanh toán"
+          title="Doanh Thu Thực Tế"
+          value={formatCurrency(kpi.totalRevenue ?? 0)}
+          note="Chỉ tính đơn đã hoàn thành"
           icon="payments"
           iconBg="bg-emerald-50 text-emerald-600"
         />
       </div>
 
       {/* Analytics Charts Section */}
-      <AnalyticsChart breakdown={breakdown} totalRevenue={kpi.totalRevenue} />
+      <AnalyticsChart
+        breakdown={breakdown}
+        totalRevenue={kpi.totalRevenue}
+        monthlyStats={stats?.monthlyStats}
+      />
     </div>
   );
 };

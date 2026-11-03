@@ -4,7 +4,7 @@ import {
   fetchFavourites,
   toggleFavourite,
   syncGuestFavourites,
-  clearAllLocalFavourites,
+  clearAllFavourites,
 } from '../favouriteSlice';
 import useAuth from '../../../../hooks/useAuth';
 
@@ -36,7 +36,7 @@ export const useFavourites = () => {
   };
 
   const handleClearAll = () => {
-    dispatch(clearAllLocalFavourites());
+    return dispatch(clearAllFavourites());
   };
 
   return {

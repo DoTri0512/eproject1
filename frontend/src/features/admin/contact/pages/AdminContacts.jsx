@@ -122,22 +122,22 @@ export const AdminContacts = () => {
             type="button"
             onClick={refreshContacts}
             disabled={isLoading}
-            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
             title="Làm mới danh sách"
           >
-            <span className={`material-symbols-outlined text-[18px] ${isLoading ? 'animate-spin' : ''}`}>
+            <span className={`material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center ${isLoading ? 'animate-spin' : ''}`}>
               refresh
             </span>
-            <span className="hidden sm:inline">Làm mới</span>
+            <span className="leading-none hidden sm:inline-flex items-center">Làm mới</span>
           </button>
 
           <button
             type="button"
             onClick={handleExportCSV}
-            className="h-11 px-4 rounded-xl bg-primary hover:bg-sky-600 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm shadow-sky-500/20 transition-all"
+            className="h-11 px-4 rounded-xl bg-primary hover:bg-sky-600 text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-sm shadow-sky-500/20 transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px]">file_download</span>
-            <span>Xuất CSV</span>
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">file_download</span>
+            <span className="leading-none flex items-center">Xuất CSV</span>
           </button>
         </div>
       </div>

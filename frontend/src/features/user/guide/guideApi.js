@@ -11,6 +11,13 @@ export const guideApi = {
     const response = await axiosClient.get(ENDPOINTS.GUIDES.DETAIL(idOrSlug));
     return response.data || response;
   },
+
+  checkAvailability: async (idOrSlug, departureDate, endDate) => {
+    const response = await axiosClient.get(ENDPOINTS.GUIDES.AVAILABILITY(idOrSlug), {
+      params: { departureDate, endDate },
+    });
+    return response.data || response;
+  },
 };
 
 export default guideApi;

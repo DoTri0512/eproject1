@@ -2,6 +2,7 @@ import React from "react";
 import useAdminDestinations from "../hooks/useAdminDestinations";
 import DestinationFormModal from "../components/DestinationFormModal";
 import DestinationDeleteModal from "../components/DestinationDeleteModal";
+import DestinationDetailModal from "../components/DestinationDetailModal";
 import Badge from "../../../../components/common/Badge";
 import Pagination from "../../../../components/common/Pagination";
 
@@ -25,12 +26,15 @@ export const AdminDestinations = () => {
     setIsFormModalOpen,
     isDeleteModalOpen,
     setIsDeleteModalOpen,
+    isDetailModalOpen,
+    setIsDetailModalOpen,
     selectedDestination,
     isSubmitting,
     toastMessage,
     handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
+    handleOpenDetail,
     handleSaveDestination,
     handleDeleteDestination,
   } = useAdminDestinations();
@@ -109,110 +113,117 @@ export const AdminDestinations = () => {
           <button
             type="button"
             onClick={() => alert("Đang xuất tệp Excel danh sách điểm đến...")}
-            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center gap-2 transition-colors"
+            className="h-11 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[18px]">
+            <span className="material-symbols-outlined text-[18px] leading-none select-none flex items-center justify-center">
               file_download
             </span>
-            <span>Xuất Excel</span>
+            <span className="leading-none flex items-center">Xuất Excel</span>
           </button>
 
           <button
             type="button"
             onClick={handleOpenCreate}
-            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all"
+            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all cursor-pointer"
           >
-            <span className="material-symbols-outlined text-[20px]">
+            <span className="material-symbols-outlined text-[20px] leading-none select-none flex items-center justify-center">
               add_location_alt
             </span>
-            <span>+ Thêm Điểm Đến Mới</span>
+            <span className="leading-none flex items-center">Thêm Điểm Đến Mới</span>
           </button>
         </div>
       </div>
 
       {/* 2. Metric Quick Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">map</span>
+        {/* Card 1: Tổng Điểm Đến */}
+        <div className="relative overflow-hidden bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-md hover:border-sky-200 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              Tổng Điểm Đến
+            </span>
+            <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 text-sky-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <span className="material-symbols-outlined text-[22px]">map</span>
+            </div>
           </div>
-          <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-              Tổng điểm đến
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              {totalItems || destinations.length}
             </span>
-            <span className="text-xl font-extrabold text-slate-900">
-              {totalItems || destinations.length} Địa danh
-            </span>
-            <span className="text-[11px] text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[12px]">
-                check
-              </span>{" "}
-              Đồng bộ MongoDB
-            </span>
+            <span className="text-xs font-semibold text-slate-400">Địa danh</span>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+            <span className="truncate">Đồng bộ MongoDB</span>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">
-              verified
-            </span>
-          </div>
-          <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+        {/* Card 2: Vùng Miền */}
+        <div className="relative overflow-hidden bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-md hover:border-amber-200 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Vùng Miền Phủ Sóng
             </span>
-            <span className="text-xl font-extrabold text-slate-900">
-              {new Set(destinations.map((d) => d.region).filter(Boolean)).size}{" "}
-              Miền
+            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <span className="material-symbols-outlined text-[22px]">travel_explore</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              {new Set(destinations.map((d) => d.region).filter(Boolean)).size || 4}
             </span>
-            <span className="text-[11px] text-slate-500">
-              Bắc • Trung • Nam • Tây Nguyên
-            </span>
+            <span className="text-xs font-semibold text-slate-400">Vùng miền</span>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <span className="material-symbols-outlined text-[15px] text-amber-500 shrink-0">public</span>
+            <span className="truncate" title="Bắc • Trung • Nam • Tây Nguyên">Bắc • Trung • Nam • Tây Nguyên</span>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">
-              category
-            </span>
-          </div>
-          <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+        {/* Card 3: Chủ Đề */}
+        <div className="relative overflow-hidden bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-md hover:border-indigo-200 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Chủ Đề Du Lịch
             </span>
-            <span className="text-xl font-extrabold text-slate-900">
-              {new Set(destinations.map((d) => d.theme).filter(Boolean)).size ||
-                6}{" "}
-              Chủ đề
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <span className="material-symbols-outlined text-[22px]">category</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              {new Set(destinations.map((d) => d.theme).filter(Boolean)).size || 6}
             </span>
-            <span className="text-[11px] text-blue-600 font-semibold">
-              Đa dạng trải nghiệm
-            </span>
+            <span className="text-xs font-semibold text-slate-400">Chủ đề</span>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-semibold text-indigo-600">
+            <span className="material-symbols-outlined text-[15px] text-indigo-500 shrink-0">auto_awesome</span>
+            <span className="truncate">Đa dạng trải nghiệm</span>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-[26px]">
-              photo_camera
-            </span>
-          </div>
-          <div>
-            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+        {/* Card 4: Kho Ảnh */}
+        <div className="relative overflow-hidden bg-white p-5 rounded-2xl border border-slate-200/80 shadow-soft hover:shadow-md hover:border-purple-200 transition-all duration-300 group">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               Kho Ảnh & Gallery
             </span>
-            <span className="text-xl font-extrabold text-slate-900">
+            <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <span className="material-symbols-outlined text-[22px]">photo_library</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               {destinations.reduce(
                 (acc, d) => acc + (d.gallery?.length || 0) + (d.image ? 1 : 0),
                 0,
-              )}{" "}
-              Media
+              )}
             </span>
-            <span className="text-[11px] text-slate-500">
-              Đồng bộ Cloud/CDN
-            </span>
+            <span className="text-xs font-semibold text-slate-400">Tệp media</span>
+          </div>
+          <div className="mt-3 pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+            <span className="material-symbols-outlined text-[15px] text-purple-500 shrink-0">cloud_done</span>
+            <span className="truncate">Đồng bộ Cloud / CDN</span>
           </div>
         </div>
       </div>
@@ -388,21 +399,31 @@ export const AdminDestinations = () => {
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           type="button"
+                          onClick={() => handleOpenDetail(dest)}
+                          className="w-8 h-8 rounded-lg bg-sky-50 text-primary hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                          title="Xem chi tiết điểm đến"
+                        >
+                          <span className="material-symbols-outlined text-[17px]">
+                            visibility
+                          </span>
+                        </button>
+                        <button
+                          type="button"
                           onClick={() => handleOpenEdit(dest)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-primary hover:bg-sky-50 transition-colors"
+                          className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 hover:bg-amber-500 hover:text-white flex items-center justify-center transition-colors"
                           title="Chỉnh sửa điểm đến"
                         >
-                          <span className="material-symbols-outlined text-[19px]">
+                          <span className="material-symbols-outlined text-[17px]">
                             edit
                           </span>
                         </button>
                         <button
                           type="button"
                           onClick={() => handleOpenDelete(dest)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                          className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white flex items-center justify-center transition-colors"
                           title="Xóa điểm đến"
                         >
-                          <span className="material-symbols-outlined text-[19px]">
+                          <span className="material-symbols-outlined text-[17px]">
                             delete
                           </span>
                         </button>
@@ -443,6 +464,14 @@ export const AdminDestinations = () => {
         destination={selectedDestination}
         onConfirm={handleDeleteDestination}
         isLoading={isSubmitting}
+      />
+
+      <DestinationDetailModal
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+        destination={selectedDestination}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
       />
     </div>
   );
