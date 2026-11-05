@@ -1,34 +1,27 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import adminApi from '../../adminApi';
+import { useState } from 'react';
+import useGetAdminBookingPlans from './useGetAdminBookingPlans';
+import useCreateBookingPlan from './useCreateBookingPlan';
+import useUpdateBookingPlan from './useUpdateBookingPlan';
+import useDeleteBookingPlan from './useDeleteBookingPlan';
+
+export {
+  useGetAdminBookingPlans,
+  useCreateBookingPlan,
+  useUpdateBookingPlan,
+  useDeleteBookingPlan,
+};
 
 export const useAdminBookingPlans = () => {
-  const [plans, setPlans] = useState([]);
-  const [tours, setTours] = useState([]);
-  const [guides, setGuides] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-
-  // Filters
-  const [selectedTourId, setSelectedTourId] = useState('all');
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedTourId, selectedStatus, selectedDate, searchTerm, limit]);
+  const query = useGetAdminBookingPlans();
+  const { createBookingPlan, isCreating } = useCreateBookingPlan();
+  const { assignGuideToPlan, updatePlanStatus, syncBookingPlans, isUpdating, isSyncing } = useUpdateBookingPlan();
+  const { deleteBookingPlan, isDeleting } = useDeleteBookingPlan();
 
   // Modals
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [isPassengersModalOpen, setIsPassengersModalOpen] = useState(false);
   const [isAssignGuideModalOpen, setIsAssignGuideModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSyncing, setIsSyncing] = useState(false);
 
   // Toast
   const [toastMessage, setToastMessage] = useState(null);
@@ -38,120 +31,20 @@ export const useAdminBookingPlans = () => {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const loadAllData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const [plansRes, toursRes, guidesRes] = await Promise.allSettled([
-        adminApi.getBookingPlans({ limit: 1000 }),
-        adminApi.getTours({ limit: 1000 }),
-        adminApi.getGuides({ limit: 1000 }),
-      ]);
-
-      if (plansRes.status === 'fulfilled' && plansRes.value) {
-        const items = Array.isArray(plansRes.value)
-          ? plansRes.value
-          : plansRes.value.items || plansRes.value.data || [];
-        setPlans(items);
-      }
-
-      if (toursRes.status === 'fulfilled' && toursRes.value) {
-        const tourItems = Array.isArray(toursRes.value)
-          ? toursRes.value
-          : toursRes.value.items || toursRes.value.data || [];
-        setTours(tourItems);
-      }
-
-      if (guidesRes.status === 'fulfilled' && guidesRes.value) {
-        const guideItems = Array.isArray(guidesRes.value)
-          ? guidesRes.value
-          : guidesRes.value.items || guidesRes.value.data || [];
-        setGuides(guideItems);
-      }
-    } catch (err) {
-      console.error('Error loading booking plans data:', err);
-      showToast('Không thể tải dữ liệu đoàn khởi hành', 'error');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadAllData();
-  }, [loadAllData]);
-
-  // Statistics
-  const stats = useMemo(() => {
-    const total = plans.length;
-    const scheduled = plans.filter((p) => (p.status || 'scheduled') === 'scheduled').length;
-    const inProgress = plans.filter((p) => p.status === 'in_progress').length;
-    const completed = plans.filter((p) => p.status === 'completed').length;
-    const unassignedGuides = plans.filter(
-      (p) => !p.guideId && ['scheduled', 'in_progress'].includes(p.status || 'scheduled')
-    ).length;
-    const totalPassengers = plans.reduce((sum, p) => sum + (p.totalPassengers || 0), 0);
-
-    return { total, scheduled, inProgress, completed, unassignedGuides, totalPassengers };
-  }, [plans]);
-
-  // Filtered list
-  const filteredPlans = useMemo(() => {
-    return plans.filter((p) => {
-      // Tour filter
-      const tId = typeof p.tourId === 'object' ? p.tourId?._id : p.tourId;
-      if (selectedTourId !== 'all' && tId !== selectedTourId) {
-        return false;
-      }
-
-      // Status filter
-      if (selectedStatus !== 'all' && (p.status || 'scheduled') !== selectedStatus) {
-        return false;
-      }
-
-      // Date filter
-      if (selectedDate && p.departureDate) {
-        const depStr = new Date(p.departureDate).toISOString().slice(0, 10);
-        if (depStr !== selectedDate) return false;
-      }
-
-      // Search keyword
-      if (searchTerm.trim()) {
-        const query = searchTerm.trim().toLowerCase();
-        const tourTitle = (p.tourId?.title || '').toLowerCase();
-        const guideName = (p.guideId?.name || '').toLowerCase();
-        return tourTitle.includes(query) || guideName.includes(query);
-      }
-
-      return true;
-    });
-  }, [plans, selectedTourId, selectedStatus, selectedDate, searchTerm]);
-
-  // Paginated plans
-  const totalItems = filteredPlans.length;
-  const totalPages = Math.ceil(totalItems / limit) || 1;
-  const paginatedPlans = useMemo(() => {
-    const start = (currentPage - 1) * limit;
-    return filteredPlans.slice(start, start + limit);
-  }, [filteredPlans, currentPage, limit]);
-
-  // Open Passengers Modal
   const handleOpenPassengers = (plan) => {
     setSelectedPlan(plan);
     setIsPassengersModalOpen(true);
   };
 
-  // Open Assign Guide Modal
   const handleOpenAssignGuide = (plan) => {
     setSelectedPlan(plan);
     setIsAssignGuideModalOpen(true);
   };
 
-  // Assign Guide with conflict check
   const handleAssignGuide = async (planId, guideId) => {
-    setIsSubmitting(true);
     try {
-      const res = await adminApi.assignGuideToPlan(planId, guideId);
-      const updated = res.data || res;
-      setPlans((prev) =>
+      const updated = await assignGuideToPlan(planId, guideId);
+      query.setPlans((prev) =>
         prev.map((p) => (p._id === planId ? { ...p, ...updated } : p))
       );
       if (selectedPlan?._id === planId) {
@@ -161,23 +54,16 @@ export const useAdminBookingPlans = () => {
       setIsAssignGuideModalOpen(false);
       return true;
     } catch (err) {
-      const msg =
-        err.response?.data?.message ||
-        err.message ||
-        'Không thể phân công Hướng dẫn viên';
+      const msg = err.response?.data?.message || err.message || 'Không thể phân công Hướng dẫn viên';
       showToast(msg, 'error');
       return false;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // Update Status
   const handleUpdateStatus = async (planId, status) => {
     try {
-      const res = await adminApi.updatePlanStatus(planId, status);
-      const updated = res.data || res;
-      setPlans((prev) =>
+      const updated = await updatePlanStatus(planId, status);
+      query.setPlans((prev) =>
         prev.map((p) => {
           if (p._id === planId) {
             return {
@@ -212,46 +98,37 @@ export const useAdminBookingPlans = () => {
     }
   };
 
-  // Sync booking plans from bookings
   const handleSyncPlans = async () => {
     try {
-      setIsSyncing(true);
-      const res = await adminApi.syncBookingPlans();
+      const res = await syncBookingPlans();
       showToast(res.message || 'Đồng bộ đoàn khởi hành từ các đơn tour thành công!');
-      await loadAllData();
+      await query.refetch();
       return true;
     } catch (err) {
       showToast(err.response?.data?.message || 'Đồng bộ thất bại', 'error');
       return false;
-    } finally {
-      setIsSyncing(false);
     }
   };
 
-  // Create Manual Plan
   const handleCreatePlan = async (planData) => {
-    setIsSubmitting(true);
     try {
-      await adminApi.createBookingPlan(planData);
+      await createBookingPlan(planData);
       showToast('Tạo đoàn khởi hành mới thành công!');
       setIsCreateModalOpen(false);
-      await loadAllData();
+      await query.refetch();
       return true;
     } catch (err) {
       showToast(err.response?.data?.message || err.message || 'Không thể tạo đoàn khởi hành', 'error');
       return false;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // Delete Plan
   const handleDeletePlan = async (planId) => {
     if (!window.confirm('Bạn có chắc chắn muốn xóa đoàn khởi hành này?')) return false;
     try {
-      await adminApi.deleteBookingPlan(planId);
+      await deleteBookingPlan(planId);
       showToast('Đã xóa đoàn khởi hành thành công!');
-      setPlans((prev) => prev.filter((p) => p._id !== planId));
+      query.setPlans((prev) => prev.filter((p) => p._id !== planId));
       return true;
     } catch (err) {
       showToast(err.response?.data?.message || 'Xóa đoàn khởi hành thất bại', 'error');
@@ -259,29 +136,12 @@ export const useAdminBookingPlans = () => {
     }
   };
 
+  const isSubmitting = isCreating || isUpdating || isDeleting;
+
   return {
-    plans,
-    filteredPlans: paginatedPlans,
-    allFilteredCount: filteredPlans.length,
-    tours,
-    guides,
-    stats,
-    isLoading,
+    ...query,
     isSyncing,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    totalItems,
-    limit,
-    setLimit,
-    selectedTourId,
-    setSelectedTourId,
-    selectedStatus,
-    setSelectedStatus,
-    selectedDate,
-    setSelectedDate,
-    searchTerm,
-    setSearchTerm,
+    isSubmitting,
     selectedPlan,
     isPassengersModalOpen,
     setIsPassengersModalOpen,
@@ -289,7 +149,6 @@ export const useAdminBookingPlans = () => {
     setIsAssignGuideModalOpen,
     isCreateModalOpen,
     setIsCreateModalOpen,
-    isSubmitting,
     toastMessage,
     showToast,
     handleOpenPassengers,
@@ -299,7 +158,7 @@ export const useAdminBookingPlans = () => {
     handleSyncPlans,
     handleCreatePlan,
     handleDeletePlan,
-    reloadPlans: loadAllData,
+    reloadPlans: query.refetch,
   };
 };
 

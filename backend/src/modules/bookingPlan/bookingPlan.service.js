@@ -108,7 +108,7 @@ class BookingPlanService {
     const plan = await BookingPlan.findByIdAndUpdate(
       planId,
       { guideId },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate({ path: 'tourId', select: 'title slug durationOptions overview destinationId' }).populate('guideId', 'name slug specialisation avatar phone');
 
     if (!plan) {
@@ -124,7 +124,7 @@ class BookingPlanService {
     const plan = await BookingPlan.findByIdAndUpdate(
       planId,
       { status },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     ).populate('guideId', 'name slug specialisation avatar phone');
 
     if (!plan) {

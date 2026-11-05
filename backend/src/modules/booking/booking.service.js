@@ -267,7 +267,7 @@ class BookingService {
     }
 
     const booking = await Booking.findByIdAndUpdate(id, fieldsToUpdate, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }).populate('customerId tourId guide_id');
 

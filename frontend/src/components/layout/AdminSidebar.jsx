@@ -13,13 +13,13 @@ export const AdminSidebar = ({ isMobileOpen, onCloseMobile, isCollapsed = false 
 
   const navItems = [
     { to: '/admin/dashboard', label: 'Tổng quan', icon: 'dashboard' },
-    { to: '/admin/destinations', label: 'Quản lý Điểm đến', icon: 'landscape' },
-    { to: '/admin/tours', label: 'Quản lý Tours', icon: 'calendar_month' },
-    { to: '/admin/bookings', label: 'Quản lý Đơn hàng', icon: 'receipt_long' },
-    { to: '/admin/booking-plans', label: 'Đoàn khởi hành', icon: 'groups' },
-    { to: '/admin/guides', label: 'Hướng dẫn viên', icon: 'badge' },
-    { to: '/admin/collections', label: 'Bộ sưu tập', icon: 'collections_bookmark' },
-    { to: '/admin/contacts', label: 'Quản lý Liên hệ', icon: 'mail' },
+    { to: '/admin/destinations', label: 'Quản lý điểm đến', icon: 'landscape' },
+    { to: '/admin/tours', label: 'Quản lý tours', icon: 'calendar_month' },
+    { to: '/admin/bookings', label: 'Quản lý đơn hàng', icon: 'receipt_long' },
+    { to: '/admin/booking-plans', label: 'Quản lý đoàn khởi hành', icon: 'groups' },
+    { to: '/admin/guides', label: 'Quản lý hướng dẫn viên', icon: 'badge' },
+    { to: '/admin/collections', label: 'Quản lý bộ sưu tập', icon: 'collections_bookmark' },
+    { to: '/admin/contacts', label: 'Quản lý liên hệ', icon: 'mail' },
   ];
 
   return (

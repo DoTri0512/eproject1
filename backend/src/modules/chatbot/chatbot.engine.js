@@ -3,19 +3,68 @@ const Tour = require('../tour/tour.model');
 const env = require('../../config/env');
 
 /**
+ * Helper to remove Vietnamese diacritics for flexible fuzzy matching
+ */
+const removeAccents = (str) => {
+  return (str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
+};
+
+/**
  * Intelligent AI Travel Consultant Engine
  * Combines RAG (Retrieval-Augmented Generation) with MongoDB knowledge base & Gemini LLM
  */
 class ChatbotEngine {
   /**
+   * Helper parse string to monetary VND number
+   */
+  parseMoney(numStr, unitStr) {
+    if (!numStr) return null;
+    let cleanStr = numStr.toString().trim();
+    // Remove thousand separators: 10.000.000 or 10,000,000
+    if (/\d+\.\d{3}/.test(cleanStr)) {
+      cleanStr = cleanStr.replace(/\./g, '');
+    } else if (/\d+,\d{3}/.test(cleanStr)) {
+      cleanStr = cleanStr.replace(/,/g, '');
+    } else {
+      cleanStr = cleanStr.replace(',', '.');
+    }
+    let num = parseFloat(cleanStr);
+    if (isNaN(num)) return null;
+
+    const unit = (unitStr || '').toLowerCase().trim();
+    if (unit === 'trieu' || unit === 'triệu' || unit === 'tr') {
+      return num * 1000000;
+    }
+    if (unit === 'k') {
+      return num * 1000;
+    }
+    if (unit === 'vnd' || unit === 'vnđ' || unit === 'đ' || unit === 'd') {
+      return num >= 10000 ? num : num * 1000000;
+    }
+    if (!unit && num < 100) {
+      return num * 1000000;
+    }
+    return num;
+  }
+
+  /**
    * Extract keywords, budget, duration and preferences from user query
+   * Supports both accented and unaccented Vietnamese
    */
   extractUserIntent(text) {
     const lower = text.toLowerCase();
+    const rawNoAccent = removeAccents(lower);
+
     const intent = {
       keywords: [],
+      budgetMin: null,
       budgetMax: null,
       durationDays: null,
+      durationNights: null,
       region: null,
       theme: null,
       isItineraryRequest: false,
@@ -25,71 +74,97 @@ class ChatbotEngine {
     };
 
     // Greetings
-    if (/^(xin chào|chào bạn|chào|hello|hi|alo|hey|bot ơi|ad ơi|tư vấn giúp)/i.test(lower.trim())) {
+    if (/^(xin chao|chao ban|chao|hello|hi|alo|hey|bot oi|ad oi|tu van giup|xin chào|chào bạn|chào|tư vấn giúp)/i.test(rawNoAccent.trim())) {
       intent.isGreeting = true;
     }
 
     // Itinerary & Plan
-    if (/lịch trình|kế hoạch|gợi ý đi|chơi gì|ăn gì|tham quan|hành trình|lịch trình chi tiết/i.test(lower)) {
+    if (/lich trinh|ke hoach|goi y di|choi gi|an gi|tham quan|hanh trinh|lịch trình|kế hoạch|gợi ý đi|chơi gì|ăn gì|tham quan|hành trình/i.test(rawNoAccent)) {
       intent.isItineraryRequest = true;
     }
 
-    // Price & Budget
-    if (/giá|chi phí|ngân sách|bao nhiêu tiền|rẻ|tiết kiệm|dưới|triệu|tr|vnd|đ/i.test(lower)) {
+    // Season & Weather
+    if (/mua nay|mua he|mua thu|mua dong|mua xuan|thoi tiet|thoi diem|o dau dep|di dau dep|thang \d+|mùa này|mùa hè|mùa thu|mùa đông|mùa xuân|thời tiết|thời điểm|ở đâu đẹp|đi đâu đẹp|tháng \d+/i.test(rawNoAccent)) {
+      intent.isSeasonRequest = true;
+    }
+
+    // Duration extraction: e.g. "3 ngay 2 dem", "3n2d", "3 ngày 2 đêm", "3n2đ", "3 ngày", "2n1d", "cuoi tuan"
+    const durationMatch = rawNoAccent.match(/(\d+)\s*(?:ngay|n)(?:\s*(\d+)\s*(?:dem|d))?/i);
+    if (durationMatch) {
+      intent.durationDays = parseInt(durationMatch[1], 10);
+      if (durationMatch[2]) {
+        intent.durationNights = parseInt(durationMatch[2], 10);
+      }
+    } else if (/cuoi tuan|cuối tuần/i.test(rawNoAccent)) {
+      intent.durationDays = 2;
+      intent.durationNights = 1;
+    }
+
+    // Price & Budget detection
+    if (/gia|chi phi|ngan sach|bao nhieu tien|re|tiet kiem|duoi|tren|hon|tu|trieu|tr|vnd|đ|d|giá|chi phí|ngân sách|bao nhiêu tiền|rẻ|tiết kiệm|dưới|trên|hơn|từ|triệu/i.test(rawNoAccent)) {
       intent.isPriceRequest = true;
     }
 
-    // Extract numerical budget
-    // e.g. "dưới 5 triệu", "5tr", "5.000.000", "5000000"
-    const budgetMatch = lower.match(/(?:dưới|tầm|khoảng|tối đa)?\s*(\d+(?:[.,]\d+)?)\s*(triệu|tr|k|000|000\.000)?/i);
-    if (budgetMatch) {
-      let num = parseFloat(budgetMatch[1].replace(',', '.'));
-      const unit = budgetMatch[2]?.toLowerCase();
-      if (unit === 'triệu' || unit === 'tr') {
-        intent.budgetMax = num * 1000000;
-      } else if (unit === 'k') {
-        intent.budgetMax = num * 1000;
-      } else if (num < 100) {
-        // usually people say "dưới 5" or "5tr"
-        if (/triệu|tr/i.test(lower)) {
-          intent.budgetMax = num * 1000000;
+    // 1. Budget Range: e.g. "tu 3 den 5 trieu", "từ 3 đến 5tr", "3 - 5 trieu", "3 đến 5 triệu"
+    const rangeMatch = rawNoAccent.match(/(?:tu|từ|tam|tầm|khoang|khoảng)?\s*(\d+(?:[.,]\d+)*)\s*(?:den|đến|-)\s*(\d+(?:[.,]\d+)*)\s*(trieu|triệu|tr|k|vnd|vnđ|d|đ)?/i);
+    if (rangeMatch && rangeMatch[1] && rangeMatch[2]) {
+      const unit = rangeMatch[3] || 'trieu';
+      intent.budgetMin = this.parseMoney(rangeMatch[1], unit);
+      intent.budgetMax = this.parseMoney(rangeMatch[2], unit);
+    } else {
+      // 2. Budget Min (>=): e.g. "tren 5 trieu", "hơn 5tr", "từ 5 triệu", "tối thiểu 5tr", "lon hon 5tr", ">= 10tr", "> 10 triệu"
+      const minMatch = rawNoAccent.match(/(?:tren|trên|hon|hơn|tu|từ|toi thieu|tối thiểu|lon hon|lớn hơn|cao hon|cao hơn|>=|>)\s*(\d+(?:[.,]\d+)*)\s*(trieu|triệu|tr|k|vnd|vnđ|d|đ)?/i);
+      if (minMatch) {
+        const unit = minMatch[2] || 'trieu';
+        intent.budgetMin = this.parseMoney(minMatch[1], unit);
+      }
+
+      // 3. Budget Max (<=): e.g. "duoi 5 trieu", "tối đa 5 triệu", "tam 5tr", "khoang 5 trieu", "<= 5tr", "< 5 triệu"
+      const maxMatch = rawNoAccent.match(/(?:duoi|dưới|toi da|tối đa|tam|tầm|khoang|khoảng|<=|<)\s*(\d+(?:[.,]\d+)*)\s*(trieu|triệu|tr|k|vnd|vnđ|d|đ)?/i);
+      if (maxMatch) {
+        const unit = maxMatch[2] || 'trieu';
+        intent.budgetMax = this.parseMoney(maxMatch[1], unit);
+      }
+
+      // 4. Exact / Standalone Budget: e.g. "10 trieu", "gia 10 trieu", "5tr"
+      if (!intent.budgetMin && !intent.budgetMax) {
+        const exactMatch = rawNoAccent.match(/(?:gia|giá|tam|tầm|khoang|khoảng|muc|mức)?\s*(\d+(?:[.,]\d+)*)\s*(trieu|triệu|tr|vnd|vnđ|d|đ)\b/i);
+        if (exactMatch) {
+          const unit = exactMatch[2];
+          const amount = this.parseMoney(exactMatch[1], unit);
+          if (/(?:duoi|dưới|toi da|tối đa|<=|<)/i.test(rawNoAccent)) {
+            intent.budgetMax = amount;
+          } else if (/(?:tren|trên|hon|hơn|tu|từ|toi thieu|tối thiểu|>=|>)/i.test(rawNoAccent)) {
+            intent.budgetMin = amount;
+          } else {
+            intent.budgetTarget = amount;
+            intent.budgetMin = amount * 0.8;
+            intent.budgetMax = amount * 1.2;
+          }
         }
-      } else if (num >= 100000) {
-        intent.budgetMax = num;
       }
     }
 
-    // Extract duration (days)
-    const durationMatch = lower.match(/(\d+)\s*(?:ngày|n|d)/i);
-    if (durationMatch) {
-      intent.durationDays = parseInt(durationMatch[1], 10);
-    } else if (/cuối tuần/i.test(lower)) {
-      intent.durationDays = 2;
-    }
-
     // Regions
-    if (/miền bắc|bắc bộ|hà nội|hạ long|sa pa|hà giang|ninh bình/i.test(lower)) {
+    if (/mien bac|bac bo|ha noi|ha long|sa pa|sapa|ha giang|ninh binh|miền bắc|bắc bộ|hà nội|hạ long|hà giang|ninh bình/i.test(rawNoAccent)) {
       intent.region = 'Miền Bắc';
-    } else if (/miền trung|đà nẵng|hội an|huế|nha trang|quy nhơn|đà lạt/i.test(lower)) {
+    } else if (/mien trung|da nang|hoi an|hue|nha trang|quy nhon|miền trung|đà nẵng|hội an|huế|quy nhơn/i.test(rawNoAccent)) {
       intent.region = 'Miền Trung';
-    } else if (/miền nam|nam bộ|phú quốc|sài gòn|cần thơ|miền tây/i.test(lower)) {
+    } else if (/tay nguyen|da lat|tây nguyên|đà lạt/i.test(rawNoAccent)) {
+      intent.region = 'Tây Nguyên';
+    } else if (/mien nam|nam bo|phu quoc|sai gon|can tho|mien tay|mui ne|phan thiet|miền nam|nam bộ|phú quốc|sài gòn|cần thơ|miền tây|mũi né|phan thiết/i.test(rawNoAccent)) {
       intent.region = 'Miền Nam';
     }
 
     // Themes
-    if (/biển|đảo|lặn san hô|bãi tắm|du thuyền/i.test(lower)) {
-      intent.theme = 'Biển đảo';
-    } else if (/núi|rừng|trekking|leo núi|săn mây/i.test(lower)) {
-      intent.theme = 'Núi rừng & Bản sắc';
-    } else if (/di sản|văn hóa|lịch sử|phố cổ/i.test(lower)) {
-      intent.theme = 'Văn hóa & Di sản';
-    } else if (/nghỉ dưỡng|resort|spa|thư giãn/i.test(lower)) {
-      intent.theme = 'Nghỉ dưỡng';
-    }
-
-    // Best Season
-    if (/mùa này|mùa hè|mùa thu|mùa đông|mùa xuân|thời tiết|tháng \d+/i.test(lower)) {
-      intent.isSeasonRequest = true;
+    if (/bien|dao|bai tam|du thuyen|lan san ho|biển|đảo|bãi tắm|du thuyền|lặn san hô/i.test(rawNoAccent)) {
+      intent.theme = 'biển';
+    } else if (/nui|rung|trekking|leo nui|san may|phuot|núi|rừng|leo núi|săn mây|phượt/i.test(rawNoAccent)) {
+      intent.theme = 'núi';
+    } else if (/di san|van hoa|lich su|pho co|co do|di sản|văn hóa|lịch sử|phố cổ|cố đô/i.test(rawNoAccent)) {
+      intent.theme = 'di sản';
+    } else if (/nghi duong|resort|spa|thu gian|nghỉ dưỡng|thư giãn/i.test(rawNoAccent)) {
+      intent.theme = 'nghỉ dưỡng';
     }
 
     return intent;
@@ -100,17 +175,56 @@ class ChatbotEngine {
    */
   async retrieveContext(text, intent) {
     const lower = text.toLowerCase();
+    const rawNoAccent = removeAccents(lower);
 
     // 1. Fetch all active destinations
     const allDestinations = await Destination.find({}).lean();
-    
-    // Find destinations mentioned directly in query or matching region/theme
-    let matchedDestinations = allDestinations.filter((d) => {
-      const nameMatch = lower.includes(d.name.toLowerCase());
-      const slugMatch = lower.includes(d.slug.toLowerCase().replace(/-/g, ' '));
-      const locMatch = d.location && lower.includes(d.location.toLowerCase());
-      return nameMatch || slugMatch || locMatch;
+
+    const normalizeDestName = (str) =>
+      removeAccents(str || '')
+        .toLowerCase()
+        .replace(/^(thanh pho|tinh|dao ngoc|vinh|co do|thi xa|pho co)\s+/i, '')
+        .replace(/\s*-\s*.*$/, '')
+        .trim();
+
+    // Check if user explicitly asked for a specific destination by name or slug
+    const explicitlyMentionedDests = allDestinations.filter((d) => {
+      const rawName = (d.name || '').toLowerCase();
+      const rawNameNoAccent = removeAccents(rawName);
+      const cleanName = normalizeDestName(d.name);
+      const slugClean = removeAccents((d.slug || '').replace(/-/g, ' ').toLowerCase());
+      const locMatch = d.location && rawNoAccent.includes(removeAccents(d.location.toLowerCase()));
+
+      const nameMatch = rawName && lower.includes(rawName);
+      const nameNoAccentMatch = rawNameNoAccent && rawNoAccent.includes(rawNameNoAccent);
+      const cleanNameMatch = cleanName && cleanName.length > 2 && rawNoAccent.includes(cleanName);
+      const slugMatch = slugClean && rawNoAccent.includes(slugClean);
+
+      return nameMatch || nameNoAccentMatch || cleanNameMatch || slugMatch || locMatch;
     });
+
+    let matchedDestinations = [...explicitlyMentionedDests];
+
+    // If no specific destination mentioned, match by theme or region
+    if (matchedDestinations.length === 0 && intent.theme) {
+      matchedDestinations = allDestinations.filter((d) => {
+        const dTheme = removeAccents((d.theme || '').toLowerCase());
+        const dName = removeAccents((d.name || '').toLowerCase());
+        if (intent.theme === 'biển') {
+          return dTheme.includes('bien') || dTheme.includes('dao') || dName.includes('ha long') || dName.includes('phu quoc') || dName.includes('mui ne') || dName.includes('da nang');
+        }
+        if (intent.theme === 'núi') {
+          return dTheme.includes('nui') || dTheme.includes('may') || dTheme.includes('phuot') || dName.includes('sa pa') || dName.includes('ha giang');
+        }
+        if (intent.theme === 'di sản') {
+          return dTheme.includes('di san') || dTheme.includes('van hoa') || dTheme.includes('co') || dTheme.includes('lich su') || dName.includes('hoi an') || dName.includes('ninh binh') || dName.includes('hue');
+        }
+        if (intent.theme === 'nghỉ dưỡng') {
+          return dTheme.includes('nghi duong') || dTheme.includes('lang man');
+        }
+        return false;
+      });
+    }
 
     if (matchedDestinations.length === 0 && intent.region) {
       matchedDestinations = allDestinations.filter(
@@ -118,51 +232,115 @@ class ChatbotEngine {
       );
     }
 
-    if (matchedDestinations.length === 0 && intent.theme) {
-      matchedDestinations = allDestinations.filter(
-        (d) => d.theme && d.theme.toLowerCase().includes(intent.theme.toLowerCase())
-      );
-    }
-
-    // Default to popular ones if still empty
+    // Default to diverse destinations if still empty
     if (matchedDestinations.length === 0) {
-      matchedDestinations = allDestinations.slice(0, 4);
+      matchedDestinations = allDestinations;
     }
 
     const matchedDestIds = matchedDestinations.map((d) => d._id);
 
     // 2. Query tours corresponding to matched destinations or filters
     let tourQuery = { status: 'active' };
-    if (matchedDestIds.length > 0) {
+    if (explicitlyMentionedDests.length > 0) {
+      tourQuery.destinationId = { $in: matchedDestIds };
+    } else if (intent.theme || intent.region) {
       tourQuery.destinationId = { $in: matchedDestIds };
     }
 
     let tours = await Tour.find(tourQuery)
-      .populate('destinationId', 'name slug region image location')
+      .populate('destinationId', 'name slug region image location theme bestSeason')
       .lean();
 
-    // If query has budget filter, filter tours having at least one duration option <= budget
-    if (intent.budgetMax) {
-      const filteredByBudget = tours.filter((t) =>
-        t.durationOptions && t.durationOptions.some((opt) => opt.price <= intent.budgetMax)
+    if (tours.length === 0) {
+      tours = await Tour.find({ status: 'active' })
+        .populate('destinationId', 'name slug region image location theme bestSeason')
+        .lean();
+    }
+
+    // Calculate global price range across all available tours
+    const allPrices = [];
+    tours.forEach((t) => {
+      (t.durationOptions || []).forEach((opt) => {
+        if (opt.price) allPrices.push(opt.price);
+      });
+    });
+    const minAvailablePrice = allPrices.length > 0 ? Math.min(...allPrices) : 950000;
+    const maxAvailablePrice = allPrices.length > 0 ? Math.max(...allPrices) : 8600000;
+
+    let isBudgetMatched = true;
+
+    // Filter tours by durationDays if requested
+    if (intent.durationDays) {
+      const filtered = tours.filter((t) =>
+        t.durationOptions && t.durationOptions.some((opt) => opt.days === intent.durationDays)
       );
-      if (filteredByBudget.length > 0) {
-        tours = filteredByBudget;
+      if (filtered.length > 0) {
+        tours = filtered;
       }
     }
 
-    // If query has duration filter, sort/prioritize tours having that day count
-    if (intent.durationDays) {
-      tours.sort((a, b) => {
-        const aHas = a.durationOptions?.some((opt) => opt.days === intent.durationDays) ? 1 : 0;
-        const bHas = b.durationOptions?.some((opt) => opt.days === intent.durationDays) ? 1 : 0;
-        return bHas - aHas;
-      });
+    // Filter tours by budget (Min and/or Max)
+    if (intent.budgetMin || intent.budgetMax) {
+      const matched = tours.filter((t) =>
+        t.durationOptions && t.durationOptions.some((opt) => {
+          let match = true;
+          if (intent.durationDays && opt.days !== intent.durationDays) match = false;
+          if (intent.budgetMin && opt.price < intent.budgetMin) match = false;
+          if (intent.budgetMax && opt.price > intent.budgetMax) match = false;
+          return match;
+        })
+      );
+
+      if (matched.length > 0) {
+        tours = matched;
+        isBudgetMatched = true;
+
+        if (intent.budgetMin && !intent.budgetMax) {
+          // Sort starting from the ones closest above budgetMin
+          tours.sort((a, b) => {
+            const minA = Math.min(...(a.durationOptions?.filter((o) => o.price >= intent.budgetMin).map((o) => o.price) || [Infinity]));
+            const minB = Math.min(...(b.durationOptions?.filter((o) => o.price >= intent.budgetMin).map((o) => o.price) || [Infinity]));
+            return minA - minB;
+          });
+        } else if (intent.budgetMax && !intent.budgetMin) {
+          // Sort ascending (cheapest first)
+          tours.sort((a, b) => {
+            const minA = Math.min(...(a.durationOptions?.map((o) => o.price) || [Infinity]));
+            const minB = Math.min(...(b.durationOptions?.map((o) => o.price) || [Infinity]));
+            return minA - minB;
+          });
+        }
+      } else {
+        // NO tour matched the requested budget!
+        isBudgetMatched = false;
+
+        // Provide closest available tours as fallback:
+        if (intent.budgetMin && !intent.budgetMax) {
+          // User asked for high budget: sort descending so luxury/premium tours show up
+          tours.sort((a, b) => {
+            const maxA = Math.max(...(a.durationOptions?.map((o) => o.price) || [0]));
+            const maxB = Math.max(...(b.durationOptions?.map((o) => o.price) || [0]));
+            return maxB - maxA;
+          });
+        } else {
+          // User asked for very low budget: sort ascending so budget tours show up
+          tours.sort((a, b) => {
+            const minA = Math.min(...(a.durationOptions?.map((o) => o.price) || [Infinity]));
+            const minB = Math.min(...(b.durationOptions?.map((o) => o.price) || [Infinity]));
+            return minA - minB;
+          });
+        }
+      }
     }
 
     return {
-      destinations: matchedDestinations.slice(0, 4),
-      tours: tours.slice(0, 4),
+      destinations: matchedDestinations,
+      tours,
+      isBudgetMatched,
+      minAvailablePrice,
+      maxAvailablePrice,
+      hasExplicitDest: explicitlyMentionedDests.length > 0,
+      explicitDestName: explicitlyMentionedDests[0]?.name || null,
     };
   }
 
@@ -209,88 +387,242 @@ class ChatbotEngine {
   }
 
   /**
-   * Fallback Smart Local Travel Consultant Generator
+   * Smart Local Travel Consultant Generator
    */
   generateLocalConsultation(text, intent, context) {
-    const { destinations, tours } = context;
-    const targetDest = destinations[0];
-    const recommendedTour = tours[0];
+    const {
+      destinations,
+      tours,
+      hasExplicitDest,
+      isBudgetMatched = true,
+      minAvailablePrice = 950000,
+      maxAvailablePrice = 8600000,
+    } = context;
 
-    // Case 1: Simple Greeting
-    if (intent.isGreeting && text.trim().split(/\s+/).length <= 4) {
+    // Helper format VND
+    const formatMoney = (amount) => new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
+
+    // SCENARIO 1: Season Request ("Mùa này nên đi du lịch ở đâu đẹp nhất?", "thời tiết mùa hè", etc.)
+    if (intent.isSeasonRequest && !hasExplicitDest) {
+      let reply = `Dạ, chào bạn! Mỗi mùa trong năm Việt Nam lại sở hữu những cung đường tuyệt đẹp. Dưới đây là những gợi ý điểm đến lý tưởng nhất từ hệ thống TravelTrail:\n\n`;
+
+      const popularDests = destinations.slice(0, 4);
+      popularDests.forEach((d) => {
+        reply += `✨ **${d.name} (${d.region})**\n`;
+        reply += `- 🌤️ **Mùa đẹp nhất**: ${d.bestSeason || 'Quanh năm'}.\n`;
+        if (d.overview) {
+          reply += `- 📌 **Đặc sắc**: ${d.overview}\n`;
+        }
+        if (d.attractions?.length > 0) {
+          reply += `- 📍 **Điểm nổi bật**: ${d.attractions.slice(0, 3).join(', ')}.\n`;
+        }
+        reply += `\n`;
+      });
+
+      if (tours.length > 0) {
+        reply += `🎯 **Các tour du lịch nổi bật phù hợp để khởi hành:**\n`;
+        tours.slice(0, 3).forEach((t) => {
+          const minPrice = t.durationOptions?.length > 0
+            ? Math.min(...t.durationOptions.map((o) => o.price))
+            : 0;
+          reply += `- **${t.title}**: Giá chỉ từ **${formatMoney(minPrice)}** (${t.availableSeats} chỗ còn nhận).\n`;
+        });
+        reply += `\n👉 _Bạn có thể bấm vào các thẻ tour bên dưới để xem chi tiết lịch trình và đặt chỗ ngay nhé!_`;
+      }
+
       return {
-        reply: `Xin chào quý khách! 👋 Em là **Trợ lý du lịch TravelTrail AI**.
-
-Rất vui được đồng hành cùng bạn! Bạn có thể hỏi em bất cứ điều gì về du lịch Việt Nam, ví dụ như:
-- 🏝️ **Gợi ý điểm đến**: Đi biển mùa hè, săn mây vùng cao, khám phá di sản cổ kính.
-- 💰 **Tư vấn theo ngân sách**: Tìm tour dưới 3 triệu, 5 triệu hoặc các gói nghỉ dưỡng cao cấp.
-- 📅 **Lên lịch trình**: Lên kế hoạch chi tiết từng ngày (2N1Đ, 3N2Đ, 4N3Đ) cho gia đình, cặp đôi hay nhóm bạn.
-
-Bạn đang dự định đi du lịch ở đâu hoặc có ngân sách khoảng bao nhiêu để em tư vấn chi tiết nhé!`,
-        suggestedTours: tours.slice(0, 3).map((t) => t._id),
-        suggestedDestinations: destinations.slice(0, 2).map((d) => d._id),
+        reply,
+        suggestedTours: tours.slice(0, 4).map((t) => t._id),
+        suggestedDestinations: [],
       };
     }
 
-    // Case 2: Specific Destination / Tour / Itinerary consultation
-    let reply = '';
-    const destName = targetDest ? targetDest.name : 'Việt Nam';
-    const regionName = targetDest ? targetDest.region : 'cả nước';
-    const season = targetDest?.bestSeason || 'quanh năm';
+    // SCENARIO 2: Filter by Duration, Budget (Min/Max), Theme, or Price Inquiry
+    const isCriteriaSearch = (
+      intent.durationDays ||
+      intent.budgetMin ||
+      intent.budgetMax ||
+      intent.theme ||
+      (intent.isPriceRequest && !hasExplicitDest)
+    );
 
-    reply += `Dạ, chào bạn! Dưới đây là tư vấn chi tiết cho chuyến đi **${destName}** (${regionName}):\n\n`;
-
-    // Destination highlight
-    if (targetDest?.overview) {
-      reply += `🌟 **Điểm nổi bật tại ${destName}**:\n${targetDest.overview}\n\n`;
-    }
-
-    if (targetDest?.bestSeason) {
-      reply += `🌤️ **Thời điểm lý tưởng nhất**: ${targetDest.bestSeason}. Khí hậu ${targetDest.climate || 'rất thuận lợi để tham quan và chụp ảnh'}.\n\n`;
-    }
-
-    // Highlight Attractions & Activities
-    if (targetDest?.attractions?.length > 0) {
-      reply += `📍 **Địa điểm không thể bỏ qua**: ${targetDest.attractions.slice(0, 4).join(', ')}.\n`;
-    }
-    if (targetDest?.activities?.length > 0) {
-      reply += `🎯 **Trải nghiệm đáng thử**: ${targetDest.activities.slice(0, 4).join(', ')}.\n\n`;
-    }
-
-    // Custom Itinerary recommendation
-    const durationDays = intent.durationDays || (recommendedTour?.durationOptions?.[0]?.days) || 3;
-    reply += `🗓️ **Gợi ý lịch trình du lịch thông minh (${durationDays} Ngày ${durationDays > 1 ? durationDays - 1 : 1} Đêm)**:\n`;
-    
-    if (recommendedTour?.itinerary?.length > 0) {
-      recommendedTour.itinerary.slice(0, durationDays).forEach((day) => {
-        reply += `- **Ngày ${day.day}: ${day.title}**\n  _${day.description || 'Tham quan danh thắng nổi tiếng và thưởng thức ẩm thực địa phương.'}_\n`;
-      });
-    } else {
-      reply += `- **Ngày 1: Khởi hành & Nhận phòng** – Di chuyển đến ${destName}, ăn trưa đặc sản địa phương, check-in và dạo quanh trung tâm.\n`;
-      reply += `- **Ngày 2: Trải nghiệm & Khám phá chính** – Tham quan các điểm nổi tiếng (${targetDest?.attractions?.[0] || 'danh lam thắng cảnh'}), tham gia hoạt động trải nghiệm (${targetDest?.activities?.[0] || 'check-in, chụp ảnh'}), ngắm hoàng hôn và thưởng thức tiệc tối.\n`;
-      if (durationDays >= 3) {
-        reply += `- **Ngày 3: Mua sắm quà lưu niệm & Kết thúc** – Thưởng thức cafe sáng, mua sắm đặc sản làm quà, trả phòng và trở về.\n`;
+    if (isCriteriaSearch && !hasExplicitDest) {
+      let filterDesc = [];
+      if (intent.theme) filterDesc.push(`du lịch **${intent.theme === 'biển' ? 'biển đảo' : intent.theme}**`);
+      if (intent.durationDays) filterDesc.push(`thời lượng **${intent.durationDays} Ngày ${intent.durationNights || intent.durationDays - 1} Đêm**`);
+      
+      let requestedBudgetDesc = '';
+      if (intent.budgetMin && intent.budgetMax) {
+        requestedBudgetDesc = `từ **${formatMoney(intent.budgetMin)}** đến **${formatMoney(intent.budgetMax)}/khách**`;
+        filterDesc.push(`mức giá ${requestedBudgetDesc}`);
+      } else if (intent.budgetMin) {
+        requestedBudgetDesc = `từ **${formatMoney(intent.budgetMin)} trở lên/khách**`;
+        filterDesc.push(`mức giá ${requestedBudgetDesc}`);
+      } else if (intent.budgetMax) {
+        requestedBudgetDesc = `dưới **${formatMoney(intent.budgetMax)}/khách**`;
+        filterDesc.push(`mức giá ${requestedBudgetDesc}`);
+      } else if (intent.isPriceRequest) {
+        filterDesc.push(`bảng giá và các gói tour đang mở bán`);
       }
+
+      let reply = '';
+
+      if (!isBudgetMatched && (intent.budgetMin || intent.budgetMax || intent.budgetTarget)) {
+        let budgetDesc = '';
+        if (intent.budgetTarget) {
+          budgetDesc = `tầm **${formatMoney(intent.budgetTarget)}/khách**`;
+        } else if (intent.budgetMin && intent.budgetMax) {
+          budgetDesc = `từ **${formatMoney(intent.budgetMin)}** đến **${formatMoney(intent.budgetMax)}/khách**`;
+        } else if (intent.budgetMin) {
+          budgetDesc = `từ **${formatMoney(intent.budgetMin)} trở lên/khách**`;
+        } else if (intent.budgetMax) {
+          budgetDesc = `dưới **${formatMoney(intent.budgetMax)}/khách**`;
+        }
+
+        let notFoundReply = `Dạ, rất tiếc hiện tại hệ thống TravelTrail **không có kết quả nào** phù hợp với mức giá ${budgetDesc}.\n\n`;
+        notFoundReply += `📊 **Khoảng giá các tour hiện có tại hệ thống:**\n`;
+        notFoundReply += `- Gói tour tiết kiệm nhất: từ **${formatMoney(minAvailablePrice)}/khách**\n`;
+        notFoundReply += `- Gói tour cao cấp nhất: lên tới **${formatMoney(maxAvailablePrice)}/khách**\n\n`;
+        notFoundReply += `💡 Bạn có thể thử tìm kiếm với mức ngân sách khác trong khoảng giá trên hoặc hỏi em về điểm đến cụ thể (như Phú Quốc, Đà Nẵng, Hạ Long, Sa Pa...) nhé!`;
+
+        return {
+          reply: notFoundReply,
+          suggestedTours: [],
+          suggestedDestinations: [],
+        };
+      }
+
+      reply = `Dạ, chào bạn! Dựa trên yêu cầu ${filterDesc.join(', ')}, TravelTrail đã chọn lọc các tour phù hợp nhất trong hệ thống:\n\n`;
+
+      if (tours.length === 0) {
+        reply = `Dạ, rất tiếc hiện tại chưa có tour nào khớp với yêu cầu này. Bạn vui lòng thử tìm kiếm với điểm đến hoặc khoảng thời gian khác nhé!\n`;
+        return {
+          reply,
+          suggestedTours: [],
+          suggestedDestinations: [],
+        };
+      } else {
+        tours.slice(0, 4).forEach((t, index) => {
+          // Find option matching criteria
+          let matchedOpt = t.durationOptions?.find((o) => {
+            let ok = true;
+            if (intent.durationDays && o.days !== intent.durationDays) ok = false;
+            if (intent.budgetMin && o.price < intent.budgetMin) ok = false;
+            if (intent.budgetMax && o.price > intent.budgetMax) ok = false;
+            return ok;
+          });
+
+          if (!matchedOpt) {
+            matchedOpt = t.durationOptions?.[0];
+          }
+
+          const priceStr = matchedOpt ? formatMoney(matchedOpt.price) : 'Liên hệ';
+          const optStr = matchedOpt ? `${matchedOpt.days}N${matchedOpt.nights}Đ` : '';
+
+          reply += `🌟 **${index + 1}. ${t.title}**\n`;
+          reply += `- 💰 **Gói đề xuất (${optStr})**: **${priceStr}/khách**\n`;
+          reply += `- 📍 **Điểm đến**: ${t.destinationId?.name || 'Việt Nam'} (${t.destinationId?.region || ''})\n`;
+          reply += `- 🎟️ **Chỗ trống khả dụng**: ${t.availableSeats} chỗ\n`;
+          if (t.overview) {
+            reply += `- 📝 _${t.overview}_\n`;
+          }
+          reply += `\n`;
+        });
+
+        reply += `💡 **Gợi ý thêm**: Các gói tour trên đã bao gồm vé tham quan trọn gói, phương tiện đưa đón và dịch vụ hướng dẫn viên theo chương trình.\n`;
+        reply += `👉 _Bạn có thể bấm trực tiếp vào thẻ tour bên dưới để xem chi tiết lịch trình và đặt vé!_`;
+      }
+
+      return {
+        reply,
+        suggestedTours: tours.slice(0, 4).map((t) => t._id),
+        suggestedDestinations: [],
+      };
     }
+
+    // SCENARIO 3: User explicitly asked about a specific destination (e.g. "Hạ Long", "Đà Nẵng", "Sa Pa", "Phú Quốc")
+    if (hasExplicitDest) {
+      const targetDest = destinations[0] || {};
+      const destName = targetDest.name || 'Điểm đến du lịch';
+      const regionName = targetDest.region || 'Việt Nam';
+
+      let reply = `Dạ, chào bạn! Dưới đây là thông tin tư vấn chi tiết cho chuyến đi **${destName}** (${regionName}):\n\n`;
+
+      if (targetDest.overview) {
+        reply += `🌟 **Điểm nổi bật tại ${destName}**:\n${targetDest.overview}\n\n`;
+      }
+
+      if (targetDest.bestSeason) {
+        reply += `🌤️ **Thời điểm lý tưởng nhất**: ${targetDest.bestSeason}. Khí hậu ${targetDest.climate || 'rất thuận lợi để tham quan và trải nghiệm'}.\n\n`;
+      }
+
+      if (targetDest.attractions?.length > 0) {
+        reply += `📍 **Địa điểm không thể bỏ qua**: ${targetDest.attractions.slice(0, 4).join(', ')}.\n`;
+      }
+      if (targetDest.activities?.length > 0) {
+        reply += `🎯 **Trải nghiệm đáng thử**: ${targetDest.activities.slice(0, 4).join(', ')}.\n\n`;
+      }
+
+      // Custom Itinerary recommendation
+      const recommendedTour = tours[0];
+      const durationDays = intent.durationDays || recommendedTour?.durationOptions?.[0]?.days || 3;
+      reply += `🗓️ **Gợi ý lịch trình du lịch thông minh (${durationDays} Ngày ${durationDays > 1 ? durationDays - 1 : 1} Đêm)**:\n`;
+
+      if (recommendedTour?.itinerary?.length > 0) {
+        recommendedTour.itinerary.slice(0, durationDays).forEach((day) => {
+          reply += `- **Ngày ${day.day}: ${day.title}**\n  _${day.description || 'Tham quan danh thắng nổi tiếng và thưởng thức ẩm thực đặc sắc.'}_\n`;
+        });
+      } else {
+        reply += `- **Ngày 1: Khởi hành & Nhận phòng** – Di chuyển đến ${destName}, ăn trưa đặc sản địa phương, nhận phòng và thư giãn.\n`;
+        reply += `- **Ngày 2: Khám phá trọn vẹn** – Tham quan các danh thắng tiêu biểu (${targetDest.attractions?.[0] || 'điểm check-in nổi tiếng'}), trải nghiệm ẩm thực và ngắm hoàng hôn.\n`;
+        if (durationDays >= 3) {
+          reply += `- **Ngày 3: Mua sắm đặc sản & Kết thúc** – Thưởng thức cafe sáng, mua quà lưu niệm, trả phòng và trở về.\n`;
+        }
+      }
+      reply += `\n`;
+
+      if (tours.length > 0) {
+        reply += `💡 **Gói tour đề xuất & Chi phí dự kiến:**\n`;
+        tours.slice(0, 2).forEach((t) => {
+          const minPrice = t.durationOptions?.length > 0
+            ? Math.min(...t.durationOptions.map((o) => o.price))
+            : 0;
+          reply += `- **${t.title}**: Giá chỉ từ **${formatMoney(minPrice)}** (${t.availableSeats} chỗ khả dụng).\n`;
+        });
+        reply += `\n👉 _Bạn có thể xem chi tiết hoặc bấm **Đặt ngay** ở các thẻ tour bên dưới để giữ chỗ nhé!_`;
+      }
+
+      return {
+        reply,
+        suggestedTours: tours.slice(0, 3).map((t) => t._id),
+        suggestedDestinations: [],
+      };
+    }
+
+    // SCENARIO 4: General Consultation Fallback (No specific filters, general greetings or browse)
+    let reply = `Dạ, chào bạn! Em là **Trợ lý du lịch TravelTrail AI**. Hệ thống TravelTrail hiện đang cung cấp rất nhiều tour du lịch trọn gói trải dài khắp ba miền đất nước:\n\n`;
+
+    reply += `🌟 **Các điểm đến nổi bật đang được yêu thích nhất:**\n`;
+    destinations.slice(0, 4).forEach((d) => {
+      reply += `- **${d.name} (${d.region})**: ${d.theme || 'Điểm đến hấp dẫn'}, mùa đẹp: ${d.bestSeason || 'quanh năm'}.\n`;
+    });
     reply += `\n`;
 
-    // Pricing & Tours info
     if (tours.length > 0) {
-      reply += `💡 **Gói tour đề xuất & Chi phí dự kiến**:\n`;
-      tours.slice(0, 2).forEach((t) => {
-        const minPrice = t.durationOptions?.length > 0 
-          ? Math.min(...t.durationOptions.map((o) => o.price)) 
+      reply += `💡 **Các gói tour bán chạy hiện nay:**\n`;
+      tours.slice(0, 3).forEach((t) => {
+        const minPrice = t.durationOptions?.length > 0
+          ? Math.min(...t.durationOptions.map((o) => o.price))
           : 0;
-        const formattedPrice = minPrice > 0 ? `${new Intl.NumberFormat('vi-VN').format(minPrice)}đ/khách` : 'Liên hệ';
-        reply += `- **${t.title}**: Giá chỉ từ **${formattedPrice}** (Chỗ trống khả dụng: ${t.availableSeats} chỗ).\n`;
+        reply += `- **${t.title}**: Giá chỉ từ **${formatMoney(minPrice)}** (${t.availableSeats} chỗ còn nhận).\n`;
       });
-      reply += `\n👉 _Bạn có thể xem chi tiết hoặc bấm **Đặt ngay** ở các thẻ tour bên dưới để giữ chỗ sớm nhé!_`;
+      reply += `\n👉 _Bạn có thể nhắn cho em ngân sách dự kiến, thời gian hoặc điểm đến bạn muốn đi để em tư vấn chi tiết hơn nhé!_`;
     }
 
     return {
       reply,
       suggestedTours: tours.slice(0, 3).map((t) => t._id),
-      suggestedDestinations: destinations.slice(0, 2).map((d) => d._id),
+      suggestedDestinations: [],
     };
   }
 
@@ -332,7 +664,8 @@ ${toursSummary || 'Hệ thống có nhiều tour trọn gói đa dạng ngày kh
 LƯU Ý QUAN TRỌNG:
 1. Hãy khéo léo giới thiệu các tour có sẵn ở trên nếu phù hợp với nhu cầu của du khách.
 2. Không bịa đặt thông tin tour không có trong dữ liệu nếu khách hỏi giá chính xác.
-3. Luôn giữ phong thái nồng nhiệt, nhiệt tình hỗ trợ.`;
+3. Nếu du khách hỏi mức giá mà không có tour nào trong dữ liệu đáp ứng (ví dụ: đòi hỏi giá cao hơn mức cao nhất hoặc thấp hơn mức thấp nhất trong danh sách), bạn phải giải thích rõ ràng rằng hiện tại hệ thống chưa có tour trong tầm giá đó và nêu rõ khoảng giá hiện có của các tour, sau đó mới gợi ý các tour cao cấp nhất hoặc tiết kiệm nhất gần với ngân sách của họ.
+4. Luôn giữ phong thái nồng nhiệt, nhiệt tình hỗ trợ.`;
 
     // Try Gemini API first
     let llmReply = await this.callGeminiLLM(systemPrompt, message);
@@ -341,9 +674,10 @@ LƯU Ý QUAN TRỌNG:
       return {
         reply: llmReply,
         suggestedTours: dbContext.tours.slice(0, 3).map((t) => t._id),
-        suggestedDestinations: dbContext.destinations.slice(0, 2).map((d) => d._id),
+        suggestedDestinations: [],
         context: {
-          budget: intent.budgetMax || context.budget,
+          budgetMin: intent.budgetMin || context.budgetMin,
+          budgetMax: intent.budgetMax || context.budgetMax,
           durationDays: intent.durationDays || context.durationDays,
           targetRegion: intent.region || context.targetRegion,
           travelTheme: intent.theme || context.travelTheme,
@@ -351,14 +685,15 @@ LƯU Ý QUAN TRỌNG:
       };
     }
 
-    // Fallback to intelligent local rule + knowledge generator
+    // Smart local rule + knowledge generator
     const localResult = this.generateLocalConsultation(message, intent, dbContext);
     return {
       reply: localResult.reply,
       suggestedTours: localResult.suggestedTours,
       suggestedDestinations: localResult.suggestedDestinations,
       context: {
-        budget: intent.budgetMax || context.budget,
+        budgetMin: intent.budgetMin || context.budgetMin,
+        budgetMax: intent.budgetMax || context.budgetMax,
         durationDays: intent.durationDays || context.durationDays,
         targetRegion: intent.region || context.targetRegion,
         travelTheme: intent.theme || context.travelTheme,

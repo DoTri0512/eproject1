@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import chatbotApi from '../../../../api/chatbotApi';
 
 const SESSION_STORAGE_KEY = 'traveltrail_chat_session_id';
@@ -13,6 +14,17 @@ export const useChatbot = () => {
   const [sessionId, setSessionId] = useState('');
 
   const messagesEndRef = useRef(null);
+  const location = useLocation();
+  const prevPathRef = useRef(location.pathname + location.search);
+
+  // Auto close chatbot whenever changing routes / pages
+  useEffect(() => {
+    const currentPath = location.pathname + location.search;
+    if (prevPathRef.current !== currentPath) {
+      prevPathRef.current = currentPath;
+      setIsOpen(false);
+    }
+  }, [location.pathname, location.search]);
 
   // Initialize or load sessionId from storage
   useEffect(() => {
@@ -79,7 +91,7 @@ Rất vui được đồng hành cùng bạn! Bạn có thể hỏi em bất c�
 - 💰 **Gợi ý tour trọn gói theo ngân sách** (ví dụ: dưới 3 triệu, 5 triệu)
 - 🗺️ **Lên lịch trình thông minh chi tiết** (2N1Đ, 3N2Đ, 4N3Đ)
 
-Bạn muốn bắt đầu chuyến đi tới đâu, hãy nhắn tin hoặc chọn các gợi ý bên dưới nhé!`,
+Bạn đang quan tâm đến chuyến đi nào hoặc muốn tìm tour theo sở thích, hãy nhắn cho em biết nhé!`,
               suggestedTours: [],
               suggestedDestinations: [],
               timestamp: new Date().toISOString(),
@@ -172,7 +184,14 @@ Bạn muốn bắt đầu chuyến đi tới đâu, hãy nhắn tin hoặc chọ
     setMessages([
       {
         sender: 'assistant',
-        content: 'Cuộc trò chuyện đã được làm mới. Em có thể giúp gì tiếp theo cho chuyến du lịch của bạn?',
+        content: `Xin chào quý khách! 👋 Em là **Trợ lý du lịch TravelTrail AI**.
+
+Rất vui được đồng hành cùng bạn! Bạn có thể hỏi em bất cứ điều gì về du lịch Việt Nam:
+- 🏖️ **Tư vấn điểm đến & mùa du lịch đẹp nhất**
+- 💰 **Gợi ý tour trọn gói theo ngân sách** (ví dụ: dưới 3 triệu, 5 triệu)
+- 🗺️ **Lên lịch trình thông minh chi tiết** (2N1Đ, 3N2Đ, 4N3Đ)
+
+Bạn đang quan tâm đến chuyến đi nào hoặc muốn tìm tour theo sở thích, hãy nhắn cho em biết nhé!`,
         suggestedTours: [],
         suggestedDestinations: [],
         timestamp: new Date().toISOString(),

@@ -1,26 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import adminApi from '../../adminApi';
+import useGetAdminCollections from './useGetAdminCollections';
+import useUpdateCollection from './useUpdateCollection';
+import useDeleteCollection from './useDeleteCollection';
+
+export {
+  useGetAdminCollections,
+  useUpdateCollection,
+  useDeleteCollection,
+};
 
 export const useAdminCollections = () => {
-  const [collections, setCollections] = useState([]);
-  const [allDestinations, setAllDestinations] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(10);
-
-  // Filters
-  const [searchTerm, setSearchTerm] = useState('');
-
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchTerm, limit]);
+  const query = useGetAdminCollections();
+  const { updateCollection, isUpdating } = useUpdateCollection();
+  const { deleteCollection, isDeleting } = useDeleteCollection();
 
   // Modals & Selection
   const [selectedCollection, setSelectedCollection] = useState(null);
@@ -31,62 +24,17 @@ export const useAdminCollections = () => {
   // Toast feedback
   const [toastMessage, setToastMessage] = useState(null);
 
+  // Sync selectedCollection khi collections list được refetch
+  useEffect(() => {
+    if (selectedCollection?._id && query.collections?.length > 0) {
+      const updated = query.collections.find((c) => c._id === selectedCollection._id);
+      if (updated) setSelectedCollection(updated);
+    }
+  }, [query.collections]);
+
   const showToast = (message, type = 'success') => {
     setToastMessage({ message, type });
     setTimeout(() => setToastMessage(null), 4000);
-  };
-
-  // Load collections
-  const loadCollections = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      const params = {
-        page: currentPage,
-        limit,
-      };
-      if (searchTerm.trim()) params.search = searchTerm.trim();
-
-      const res = await adminApi.getCollections(params);
-      const items = res?.items || res?.data?.items || (Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : []);
-      const paginationInfo = res?.pagination || res?.data?.pagination;
-
-      setCollections(items);
-      setTotalItems(paginationInfo?.totalItems ?? res?.totalItems ?? items.length);
-      setTotalPages(paginationInfo?.totalPages ?? (Math.ceil((items.length) / limit) || 1));
-    } catch (err) {
-      console.error('Error loading collections:', err);
-      setError(err.message || 'Không thể tải danh sách bộ sưu tập');
-      showToast(err.message || 'Không thể tải danh sách bộ sưu tập', 'error');
-      setCollections([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentPage, limit, searchTerm]);
-
-  // Load all destinations for selection
-  const loadDestinations = useCallback(async () => {
-    try {
-      const res = await adminApi.getDestinations({ limit: 100 });
-      const items = res?.items || res?.data?.items || (Array.isArray(res?.data) ? res.data : Array.isArray(res) ? res : []);
-      setAllDestinations(items);
-    } catch (err) {
-      console.error('Error loading destinations:', err);
-    }
-  }, []);
-
-  useEffect(() => {
-    loadCollections();
-  }, [loadCollections]);
-
-  useEffect(() => {
-    loadDestinations();
-  }, [loadDestinations]);
-
-  // Modal handlers
-  const handleOpenCreate = () => {
-    setSelectedCollection(null);
-    setIsFormModalOpen(true);
   };
 
   const handleOpenEdit = (collection) => {
@@ -99,112 +47,69 @@ export const useAdminCollections = () => {
     setIsDeleteModalOpen(true);
   };
 
-  const handleOpenDetail = async (collection) => {
-    try {
-      // Fetch fresh detail with populated destinations
-      const fresh = await adminApi.getCollectionByIdOrSlug(collection._id || collection.slug);
-      const data = fresh?.data || fresh;
-      setSelectedCollection(data);
-      setIsDetailModalOpen(true);
-    } catch (err) {
-      setSelectedCollection(collection);
-      setIsDetailModalOpen(true);
-    }
+  const handleOpenDetail = (collection) => {
+    setSelectedCollection(collection);
+    setIsDetailModalOpen(true);
   };
 
-  // Save (Create or Update)
   const handleSaveCollection = async (formData) => {
+    if (!selectedCollection?._id) return;
     try {
-      setIsSubmitting(true);
-      if (selectedCollection?._id) {
-        await adminApi.updateCollection(selectedCollection._id, formData);
-        showToast('Cập nhật bộ sưu tập thành công!', 'success');
-      } else {
-        await adminApi.createCollection(formData);
-        showToast('Tạo mới bộ sưu tập thành công!', 'success');
-      }
+      await updateCollection(selectedCollection._id, formData);
+      showToast('Cập nhật bộ sưu tập thành công!', 'success');
       setIsFormModalOpen(false);
       setSelectedCollection(null);
-      await loadCollections();
+      await query.refetch();
     } catch (err) {
-      const msg = err.response?.data?.message || err.message || 'Lỗi khi lưu bộ sưu tập';
+      const msg = err.response?.data?.message || err.message || 'Lỗi khi lưu thông tin bộ sưu tập';
       showToast(msg, 'error');
       throw err;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // Delete
   const handleDeleteCollection = async () => {
     if (!selectedCollection?._id) return;
     try {
-      setIsSubmitting(true);
-      await adminApi.deleteCollection(selectedCollection._id);
+      await deleteCollection(selectedCollection._id);
       showToast('Đã xóa bộ sưu tập thành công!', 'success');
       setIsDeleteModalOpen(false);
       setSelectedCollection(null);
-      await loadCollections();
+      await query.refetch();
     } catch (err) {
       const msg = err.response?.data?.message || err.message || 'Lỗi khi xóa bộ sưu tập';
       showToast(msg, 'error');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // Thêm danh sách điểm đến vào collection (nếu chưa có trong collection khác)
   const handleAddDestinationsToCollection = async (collectionId, destinationIds) => {
     try {
-      setIsSubmitting(true);
-      const res = await adminApi.addDestinationsToCollection(collectionId, destinationIds);
-      const updated = res?.data || res;
-      setSelectedCollection(updated);
-      showToast('Đã thêm các điểm đến vào bộ sưu tập thành công!', 'success');
-      await loadCollections();
-      return updated;
+      await adminApi.addDestinationsToCollection(collectionId, destinationIds);
+      showToast('Thêm điểm đến vào bộ sưu tập thành công!', 'success');
+      await query.refetch();
     } catch (err) {
-      const msg = err.response?.data?.message || err.message || 'Lỗi khi thêm điểm đến vào bộ sưu tập';
+      const msg = err.response?.data?.message || err.message || 'Lỗi khi thêm điểm đến';
       showToast(msg, 'error');
       throw err;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
-  // Xóa điểm đến khỏi collection
   const handleRemoveDestinationFromCollection = async (collectionId, destinationId) => {
     try {
-      setIsSubmitting(true);
-      const res = await adminApi.removeDestinationFromCollection(collectionId, destinationId);
-      const updated = res?.data || res;
-      setSelectedCollection(updated);
+      await adminApi.removeDestinationFromCollection(collectionId, destinationId);
       showToast('Đã xóa điểm đến khỏi bộ sưu tập!', 'success');
-      await loadCollections();
-      return updated;
+      await query.refetch();
     } catch (err) {
-      const msg = err.response?.data?.message || err.message || 'Lỗi khi xóa điểm đến khỏi bộ sưu tập';
+      const msg = err.response?.data?.message || err.message || 'Lỗi khi xóa điểm đến';
       showToast(msg, 'error');
       throw err;
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
+  const isSubmitting = isUpdating || isDeleting;
+
   return {
-    collections,
-    allDestinations,
-    isLoading,
+    ...query,
     isSubmitting,
-    error,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    totalItems,
-    limit,
-    setLimit,
-    searchTerm,
-    setSearchTerm,
     selectedCollection,
     setSelectedCollection,
     isFormModalOpen,
@@ -214,7 +119,6 @@ export const useAdminCollections = () => {
     isDetailModalOpen,
     setIsDetailModalOpen,
     toastMessage,
-    handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
     handleOpenDetail,
@@ -222,7 +126,7 @@ export const useAdminCollections = () => {
     handleDeleteCollection,
     handleAddDestinationsToCollection,
     handleRemoveDestinationFromCollection,
-    refreshCollections: loadCollections,
+    refreshCollections: query.refetch,
   };
 };
 

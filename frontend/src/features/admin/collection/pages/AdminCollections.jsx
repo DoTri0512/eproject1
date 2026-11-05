@@ -3,7 +3,6 @@ import useAdminCollections from '../hooks/useAdminCollections';
 import CollectionFormModal from '../components/CollectionFormModal';
 import CollectionDeleteModal from '../components/CollectionDeleteModal';
 import CollectionDetailModal from '../components/CollectionDetailModal';
-import Button from '../../../../components/common/Button';
 import LoadingSpinner from '../../../../components/common/LoadingSpinner';
 import Pagination from '../../../../components/common/Pagination';
 
@@ -29,7 +28,6 @@ export const AdminCollections = () => {
     isDetailModalOpen,
     setIsDetailModalOpen,
     toastMessage,
-    handleOpenCreate,
     handleOpenEdit,
     handleOpenDelete,
     handleOpenDetail,
@@ -76,18 +74,7 @@ export const AdminCollections = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <button
-            type="button"
-            onClick={handleOpenCreate}
-            className="h-11 px-5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white text-xs sm:text-sm font-bold inline-flex items-center justify-center gap-2 shadow-md shadow-sky-500/20 hover:opacity-95 transition-all cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-[20px] leading-none select-none flex items-center justify-center">
-              add_photo_alternate
-            </span>
-            <span className="leading-none flex items-center">Thêm Bộ Sưu Tập</span>
-          </button>
-        </div>
+
       </div>
 
       {/* 2. Search */}
@@ -133,7 +120,7 @@ export const AdminCollections = () => {
               Không tìm thấy bộ sưu tập nào
             </h3>
             <p className="text-xs text-slate-500 max-w-sm mt-1">
-              Nhấn "Thêm Bộ Sưu Tập" để tạo mới bộ sưu tập điểm đến đầu tiên.
+              Hiện chưa có bộ sưu tập nào trong hệ thống.
             </p>
           </div>
         ) : (

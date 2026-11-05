@@ -28,21 +28,7 @@ export const CollectionDetailModal = ({
     (typeof d === 'object' ? d._id : d).toString()
   );
 
-  // Map to determine which other collection owns a destination
-  // otherCollections: collections where _id !== collection._id
-  const destinationToOtherCollectionMap = {};
-  allCollections.forEach((col) => {
-    if (col._id !== collection._id && Array.isArray(col.destinations)) {
-      col.destinations.forEach((d) => {
-        const dId = (typeof d === 'object' ? d._id : d).toString();
-        destinationToOtherCollectionMap[dId] = col.name;
-      });
-    }
-  });
-
   const handleToggleAddSelect = (destId) => {
-    // If it belongs to another collection, ignore click
-    if (destinationToOtherCollectionMap[destId]) return;
     if (currentDestIds.includes(destId)) return;
 
     setSelectedToAdd((prev) =>
@@ -198,32 +184,18 @@ export const CollectionDetailModal = ({
                 {allDestinations.map((dest) => {
                   const destId = dest._id.toString();
                   const isCurrent = currentDestIds.includes(destId);
-                  const otherCollectionName = destinationToOtherCollectionMap[destId];
-                  const isConflict = !!otherCollectionName;
                   const isSelected = selectedToAdd.includes(destId);
+                  const isDisabled = isCurrent;
 
-                  let statusBadge = null;
-                  if (isCurrent) {
-                    statusBadge = (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-600">
-                        Đã trong BST này
-                      </span>
-                    );
-                  } else if (isConflict) {
-                    statusBadge = (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700 truncate max-w-[130px] block" title={`Đã thuộc bộ sưu tập "${otherCollectionName}"`}>
-                        Đã thuộc: {otherCollectionName}
-                      </span>
-                    );
-                  } else {
-                    statusBadge = (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700">
-                        Khả dụng
-                      </span>
-                    );
-                  }
-
-                  const isDisabled = isCurrent || isConflict;
+                  const statusBadge = isCurrent ? (
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-600">
+                      Đã trong BST này
+                    </span>
+                  ) : (
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700">
+                      Khả dụng
+                    </span>
+                  );
 
                   return (
                     <div

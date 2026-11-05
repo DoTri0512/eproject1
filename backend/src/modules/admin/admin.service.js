@@ -154,7 +154,7 @@ class AdminService {
     const user = await User.findByIdAndUpdate(
       userId,
       { role },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     if (!user) {

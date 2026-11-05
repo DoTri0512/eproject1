@@ -229,7 +229,7 @@ class GuideService {
     }
 
     const guide = await Guide.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }).populate('destinations', 'name slug image location region theme');
 

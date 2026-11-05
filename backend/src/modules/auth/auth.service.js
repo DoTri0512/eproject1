@@ -90,7 +90,7 @@ class AuthService {
     }
 
     const user = await User.findByIdAndUpdate(userId, filteredUpdate, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     });
 

@@ -164,7 +164,7 @@ export const ChatbotWidget = () => {
                 key={index}
                 message={msg}
                 onSelectCard={() => {
-                  // Optional: minimize on click to let user browse
+                  setIsOpen(false);
                 }}
               />
             ))}
@@ -190,28 +190,6 @@ export const ChatbotWidget = () => {
 
             <div ref={messagesEndRef} />
           </div>
-
-          {/* Quick Suggestions Chips */}
-          {suggestions && suggestions.length > 0 && (
-            <div className="bg-white border-t border-slate-100 px-3 py-2 shrink-0">
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 mb-1.5">
-                <Compass className="w-3.5 h-3.5 text-sky-500" />
-                <span>Gợi ý câu hỏi phổ biến:</span>
-              </div>
-              <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-                {suggestions.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => handleSuggestionClick(item.text)}
-                    disabled={loading}
-                    className="shrink-0 text-left bg-sky-50 hover:bg-sky-100 border border-sky-200/70 text-sky-800 text-[11px] font-medium px-2.5 py-1 rounded-full transition-all duration-150 active:scale-95 disabled:opacity-50"
-                  >
-                    {item.text}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Input Box Footer */}
           <div className="p-3 bg-white border-t border-slate-100 shrink-0">

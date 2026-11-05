@@ -125,7 +125,7 @@ class CollectionService {
     }
 
     const collection = await Collection.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     }).populate('destinations', 'name slug image location region theme overview');
 
@@ -150,7 +150,7 @@ class CollectionService {
   }
 
   /**
-   * Thêm danh sách điểm đến vào collection (nếu chưa có trong collection khác)
+   * Thêm danh sách điểm đến vào collection
    */
   async addDestinationsToCollection(id, destinationIds) {
     const collection = await Collection.findById(id);
@@ -160,13 +160,19 @@ class CollectionService {
       throw error;
     }
 
-    // Đảm bảo không điểm đến nào nằm trong collection khác
-    await this.validateDestinationsNotInOtherCollections(destinationIds, collection._id);
+    // Chỉ kiểm tra điểm đến có tồn tại không (bỏ kiểm tra thuộc BST khác)
+    const stringIds = destinationIds.map((d) => d.toString());
+    const validDestinations = await Destination.find({ _id: { $in: stringIds } }).select('_id');
+    if (validDestinations.length !== stringIds.length) {
+      const foundIds = validDestinations.map((d) => d._id.toString());
+      const missingIds = stringIds.filter((id) => !foundIds.includes(id));
+      const error = new Error(`Không tìm thấy điểm đến với ID: ${missingIds.join(', ')}`);
+      error.statusCode = 404;
+      throw error;
+    }
 
     const currentIds = (collection.destinations || []).map((d) => d.toString());
-    const newIds = destinationIds
-      .map((d) => d.toString())
-      .filter((destId) => !currentIds.includes(destId));
+    const newIds = stringIds.filter((destId) => !currentIds.includes(destId));
 
     if (newIds.length > 0) {
       collection.destinations.push(...newIds);

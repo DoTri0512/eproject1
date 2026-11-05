@@ -53,7 +53,7 @@ class CustomerService {
 
   async updateCustomer(id, data) {
     const customer = await Customer.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     });
     if (!customer) {

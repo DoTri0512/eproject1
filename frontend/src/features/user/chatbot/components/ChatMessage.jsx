@@ -1,7 +1,6 @@
 import React from 'react';
 import { Bot, User, Sparkles } from 'lucide-react';
 import TourCard from './TourCard';
-import DestinationCard from './DestinationCard';
 
 /**
  * Format markdown text with bold, italic, lists, and line breaks
@@ -119,20 +118,7 @@ export const ChatMessage = ({ message, onSelectCard }) => {
           </div>
         )}
 
-        {/* Suggested Destinations */}
-        {!isUser && message.suggestedDestinations && message.suggestedDestinations.length > 0 && (
-          <div className="mt-2.5 w-full">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 mb-2 px-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              <span>Điểm đến nổi bật:</span>
-            </div>
-            <div className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-200">
-              {message.suggestedDestinations.map((dest) => (
-                <DestinationCard key={dest._id || dest.id} destination={dest} onSelect={onSelectCard} />
-              ))}
-            </div>
-          </div>
-        )}
+
 
         {/* Timestamp */}
         <span className="text-[10px] text-slate-400 mt-1 px-1">

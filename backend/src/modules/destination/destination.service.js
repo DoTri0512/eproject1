@@ -77,7 +77,7 @@ class DestinationService {
     }
 
     const destination = await Destination.findByIdAndUpdate(id, data, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     });
 
