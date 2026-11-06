@@ -3,7 +3,6 @@ import authApi from './authApi';
 import { storage } from '../../utils/storage';
 
 const initialUser = storage.getUser();
-const initialToken = storage.getToken();
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -45,8 +44,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: initialUser,
-    token: initialToken,
-    isAuthenticated: !!initialToken,
+    token: null,
+    isAuthenticated: !!initialUser,
     isLoading: false,
     error: null,
     successMessage: null,
@@ -61,10 +60,9 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       const { user, token } = action.payload;
       state.user = user;
-      state.token = token;
+      state.token = token || null;
       state.isAuthenticated = true;
       storage.setUser(user);
-      storage.setToken(token);
     },
     forceLogout: (state) => {
       state.user = null;
@@ -89,10 +87,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.token || null;
         state.error = null;
         storage.setUser(action.payload.user);
-        storage.setToken(action.payload.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -107,10 +104,9 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isAuthenticated = true;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.token || null;
         state.successMessage = 'Đăng ký tài khoản thành công!';
         storage.setUser(action.payload.user);
-        storage.setToken(action.payload.token);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;

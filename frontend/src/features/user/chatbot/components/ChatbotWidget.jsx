@@ -48,8 +48,8 @@ export const ChatbotWidget = () => {
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
           {/* Tooltip Badge */}
-          <div className="hidden sm:flex items-center gap-1.5 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-lg border border-sky-100 text-xs font-semibold text-slate-800 animate-bounce duration-1000">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-spin" style={{ animationDuration: '4s' }} />
+          <div className="hidden sm:flex items-center gap-1.5 bg-white px-3.5 py-1.5 rounded-full shadow-lg border border-sky-100 text-xs font-semibold text-slate-800 hover:border-sky-300 transition-colors">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
             <span>AI Tư vấn du lịch 24/7</span>
           </div>
 
@@ -59,9 +59,6 @@ export const ChatbotWidget = () => {
             title="Mở Chatbot AI Tư vấn Du lịch"
             aria-label="Mở Chatbot AI Tư vấn Du lịch"
           >
-            {/* Ping effect ring */}
-            <span className="absolute -inset-1 rounded-full bg-sky-400 opacity-40 group-hover:animate-ping -z-10" />
-
             <Bot className="w-7 h-7 text-white transition-transform duration-300 group-hover:scale-110" />
 
             {/* Notification Green Dot */}

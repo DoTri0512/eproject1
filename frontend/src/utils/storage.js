@@ -1,34 +1,38 @@
-// Utility for LocalStorage and Cookie authentication tokens
+// Utility for LocalStorage (User Profile) & Cookie-based Authentication
 
-const TOKEN_KEY = 'traveltrail_token';
 const USER_KEY = 'traveltrail_user';
+const LEGACY_TOKEN_KEY = 'traveltrail_token';
+
+// Automatically clean up any legacy token stored in localStorage for maximum security
+try {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    localStorage.removeItem(LEGACY_TOKEN_KEY);
+  }
+} catch {
+  // Ignore in SSR / restricted environments
+}
 
 export const storage = {
-  getToken: () => {
-    try {
-      return localStorage.getItem(TOKEN_KEY) || null;
-    } catch {
-      return null;
-    }
-  },
+  /**
+   * Token is handled securely via HttpOnly Cookies by the browser.
+   * We do NOT persist token in localStorage to prevent XSS theft.
+   */
+  getToken: () => null,
 
-  setToken: (token) => {
+  setToken: (_token) => {
+    // No-op: Token is kept in HttpOnly Cookie for security
     try {
-      if (token) {
-        localStorage.setItem(TOKEN_KEY, token);
-      } else {
-        localStorage.removeItem(TOKEN_KEY);
-      }
-    } catch (e) {
-      console.error('Storage setToken error:', e);
+      localStorage.removeItem(LEGACY_TOKEN_KEY);
+    } catch {
+      // Ignore
     }
   },
 
   removeToken: () => {
     try {
-      localStorage.removeItem(TOKEN_KEY);
-    } catch (e) {
-      console.error('Storage removeToken error:', e);
+      localStorage.removeItem(LEGACY_TOKEN_KEY);
+    } catch {
+      // Ignore
     }
   },
 
@@ -63,7 +67,7 @@ export const storage = {
 
   clearAuth: () => {
     try {
-      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(LEGACY_TOKEN_KEY);
       localStorage.removeItem(USER_KEY);
     } catch (e) {
       console.error('Storage clearAuth error:', e);

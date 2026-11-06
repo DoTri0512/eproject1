@@ -19,19 +19,12 @@ const ScrollToTop = () => {
       }
     }
 
-    // Otherwise, immediately scroll to the top of the page
+    // Otherwise, immediately scroll to the top of the page without forcing reflow
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'instant',
+      behavior: 'auto',
     });
-
-    if (document.documentElement) {
-      document.documentElement.scrollTop = 0;
-    }
-    if (document.body) {
-      document.body.scrollTop = 0;
-    }
   }, [pathname, hash]);
 
   return null;

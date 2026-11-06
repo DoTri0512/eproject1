@@ -12,13 +12,10 @@ const axiosClient = axios.create({
   timeout: 15000,
 });
 
-// Request interceptor to attach JWT Token
+// Request interceptor (Cookie withCredentials handles authentication)
 axiosClient.interceptors.request.use(
   (config) => {
-    const token = storage.getToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    // Authentication is handled securely via HttpOnly Cookie (withCredentials: true)
     return config;
   },
   (error) => {

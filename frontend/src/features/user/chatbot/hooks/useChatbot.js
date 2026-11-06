@@ -106,18 +106,23 @@ Bạn đang quan tâm đến chuyến đi nào hoặc muốn tìm tour theo sở
     loadHistory();
   }, [sessionId]);
 
-  // Auto-scroll to bottom of messages
-  const scrollToBottom = useCallback(() => {
+  // Auto-scroll to bottom of messages (optimized with requestAnimationFrame to avoid forced reflow)
+  const scrollToBottom = useCallback((instant = false) => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      requestAnimationFrame(() => {
+        messagesEndRef.current?.scrollIntoView({
+          behavior: instant ? 'auto' : 'smooth',
+          block: 'end',
+        });
+      });
     }
   }, []);
 
   useEffect(() => {
-    if (isOpen && !isMinimized) {
+    if (isOpen && !isMinimized && messages.length > 0) {
       scrollToBottom();
     }
-  }, [messages, isOpen, isMinimized, scrollToBottom]);
+  }, [messages.length, isOpen, isMinimized, scrollToBottom]);
 
   // Send message
   const sendMessage = async (textToSend) => {

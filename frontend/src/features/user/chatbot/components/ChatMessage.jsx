@@ -136,4 +136,4 @@ export const ChatMessage = ({ message, onSelectCard }) => {
   );
 };
 
-export default ChatMessage;
+export default React.memo(ChatMessage);
