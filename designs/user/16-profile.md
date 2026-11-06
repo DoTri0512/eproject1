@@ -1,6 +1,7 @@
 # Màn hình 16: Hồ Sơ Cá Nhân (My Profile Page)
 
 ## 1. Tổng quan màn hình
+
 - **Tên file:** `16-my-profile.md`
 - **Mục đích:** Cho phép người dùng đã đăng nhập xem, chỉnh sửa thông tin cá nhân (tên hiển thị, avatar), cập nhật hồ sơ khách hàng chi tiết (số điện thoại, địa chỉ, CCCD) và đổi mật khẩu tài khoản một cách an toàn.
 - **Quyền truy cập:** Người dùng đã đăng nhập (Registered User).
@@ -11,6 +12,7 @@
 ## 2. Bố cục & Các thành phần Giao diện (UI Components)
 
 ### 2.1. Header Banner – Profile Hero
+
 - Dải banner gradient đậm (`from-slate-900 via-sky-950 to-slate-900`) chiều cao vừa phải.
 - Hiển thị **Avatar tròn lớn** của user (lấy từ `user.avatar`), có nút bút chì overlay để đổi ảnh URL.
 - Tên hiển thị (`user.name`) – font bold lớn màu trắng.
@@ -18,13 +20,17 @@
 - Badge vai trò (`Admin` / `Thành viên`) màu sky/emerald.
 
 ### 2.2. Tabs Điều hướng (Profile Nav Tabs)
+
 Ba tab ngang đặt ngay bên dưới hero banner:
+
 - **`Thông tin cá nhân`** – Tab chứa form cập nhật tên & avatar (User model).
 - **`Hồ sơ khách hàng`** – Tab chứa form cập nhật thông tin liên hệ chi tiết (Customer model: phone, address, city, country, idCardNumber).
 - **`Đổi mật khẩu`** – Tab chứa form 3 trường: mật khẩu hiện tại, mật khẩu mới, xác nhận mật khẩu mới.
 
 ### 2.3. Tab 1 – Form Thông tin cá nhân
+
 Các trường:
+
 - **Tên hiển thị** (`name`): Input text, required.
 - **URL Avatar** (`avatar`): Input text với preview hình tròn realtime bên cạnh.
 - **Email** (`email`): Input text disabled (chỉ xem, không thể sửa).
@@ -32,7 +38,9 @@ Các trường:
 - Nút **`Lưu thay đổi`** → `PUT /api/auth/me` payload `{ name, avatar }`.
 
 ### 2.4. Tab 2 – Form Hồ sơ khách hàng
+
 Các trường:
+
 - **Họ và tên đầy đủ** (`fullName`): Input text, required.
 - **Email liên hệ** (`email`): Input text, required (có thể khác với email tài khoản).
 - **Số điện thoại** (`phone`): Input tel, required.
@@ -43,7 +51,9 @@ Các trường:
 - Nút **`Lưu hồ sơ`** → `POST /api/customers/me` (upsert).
 
 ### 2.5. Tab 3 – Form Đổi mật khẩu
+
 Các trường:
+
 - **Mật khẩu hiện tại** (`currentPassword`): Input password với toggle show/hide.
 - **Mật khẩu mới** (`newPassword`): Input password với toggle show/hide + Password strength indicator.
 - **Xác nhận mật khẩu mới** (`confirmPassword`): Input password với toggle show/hide.
@@ -54,13 +64,13 @@ Các trường:
 
 ## 3. Tương tác Dữ liệu & Kết nối Backend REST API
 
-| Action | Method | Endpoint | Payload |
-|---|---|---|---|
-| Lấy thông tin user hiện tại | `GET` | `/api/auth/me` | – (JWT Header) |
-| Lấy hồ sơ khách hàng | `GET` | `/api/customers/me` | – (JWT Header) |
-| Cập nhật tên & avatar | `PUT` | `/api/auth/me` | `{ name, avatar }` |
-| Lưu hồ sơ khách hàng | `POST` | `/api/customers/me` | `{ fullName, email, phone, address, city, country, idCardNumber }` |
-| Đổi mật khẩu | `PUT` | `/api/auth/change-password` | `{ currentPassword, newPassword }` |
+| Action                      | Method | Endpoint                    | Payload                                                            |
+| --------------------------- | ------ | --------------------------- | ------------------------------------------------------------------ |
+| Lấy thông tin user hiện tại | `GET`  | `/api/auth/me`              | – (JWT Header)                                                     |
+| Lấy hồ sơ khách hàng        | `GET`  | `/api/customers/me`         | – (JWT Header)                                                     |
+| Cập nhật tên & avatar       | `PUT`  | `/api/auth/me`              | `{ name, avatar }`                                                 |
+| Lưu hồ sơ khách hàng        | `POST` | `/api/customers/me`         | `{ fullName, email, phone, address, city, country, idCardNumber }` |
+| Đổi mật khẩu                | `PUT`  | `/api/auth/change-password` | `{ currentPassword, newPassword }`                                 |
 
 ---
 
