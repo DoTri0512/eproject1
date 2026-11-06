@@ -27,6 +27,82 @@ use[Entity]s.js         →  composer: gộp tất cả, quản lý modal & toas
 
 ---
 
+## Chi tiết Kiến trúc CRUD phía Admin (Admin CRUD Architecture)
+
+Hệ thống quản trị (Admin) áp dụng mô hình phân tách 4 tầng rõ rệt (**API Client** → **Atomic Hooks** → **Composer Hook** → **View/Modals**):
+
+```
+┌────────────────────────────────────────────────────────┐
+│                      UI View                           │
+│   (AdminPage: Toolbar, Search, Table, Pagination)      │
+└───────────┬────────────────────────────────┬───────────┘
+            │                                │
+            ▼                                ▼
+┌────────────────────────┐      ┌────────────────────────┐
+│      Action Modals     │      │   Composer Hook        │
+│  - FormModal (Add/Edit)│◄────►│   (useAdmin[Entity]s)  │
+│  - DeleteModal         │      │   - Modal state        │
+│  - Detail/AssignModal  │      │   - Selected item      │
+└────────────────────────┘      │   - Toast notification │
+                                │   - Refetch / Sync     │
+                                └────────────┬───────────┘
+                                             │
+      ┌──────────────────────────────────────┼──────────────────────────────────────┐
+      ▼                                      ▼                                      ▼
+┌──────────────────┐               ┌──────────────────┐                   ┌──────────────────┐
+│  useGetAdmin...  │               │  useCreate...    │                   │  useUpdate...    │
+│  - Query params  │               │  - POST payload  │                   │  - PUT payload   │
+│  - Pagination    │               │  - isCreating    │                   │  - isUpdating    │
+└─────────┬────────┘               └────────┬─────────┘                   └────────┬─────────┘
+          │                                 │                                      │
+          └─────────────────────────────────┼──────────────────────────────────────┘
+                                            ▼
+                                ┌────────────────────────┐
+                                │     adminApi.js        │
+                                │ (Axios central client) │
+                                └────────────────────────┘
+```
+
+### 1. Phân bổ trách nhiệm từng tầng
+
+| Tầng | Vai trò & Trách nhiệm |
+|---|---|
+| **1. API Client (`adminApi.js`)** | Điểm tập trung duy nhất gọi HTTP request sang backend cho toàn bộ nghiệp vụ admin. Tự động đính kèm token, chuẩn hóa endpoint và xử lý interceptor. |
+| **2. Atomic CRUD Hooks** | Mỗi hook độc lập chỉ làm **đúng 1 thao tác**: <br>• `useGetAdmin[Entity]`: fetch danh sách, phân trang (`page`, `limit`), tìm kiếm (`searchTerm`), loading & error.<br>• `useCreate[Entity]`: xử lý gửi payload tạo mới, trạng thái `isCreating`.<br>• `useUpdate[Entity]`: xử lý gửi payload cập nhật theo ID, trạng thái `isUpdating`.<br>• `useDelete[Entity]`: xử lý gọi API xóa theo ID, trạng thái `isDeleting`. |
+| **3. Composer Hook (`useAdmin[Entity]s`)** | **Bộ điều phối trung tâm** của trang:<br>• Tích hợp các atomic hook lại với nhau.<br>• Quản lý state đóng/mở các Modal (`isFormModalOpen`, `isDeleteModalOpen`, `isDetailModalOpen`).<br>• Quản lý đối tượng đang chọn (`selectedItem`).<br>• Quản lý thông báo toast phản hồi thành công / thất bại (`showToast`).<br>• Tự động kích hoạt `refetch()` làm mới bảng sau khi mutation hoàn tất.<br>• Tính toán cờ trạng thái tổng thể: `isSubmitting = isCreating \|\| isUpdating \|\| isDeleting`. |
+| **4. View & Modals** | • `Admin[Entity]Page.jsx`: Chỉ nhận dữ liệu từ composer hook, tập trung render giao diện, không chứa logic nghiệp vụ phức tạp.<br>• `[Entity]FormModal`: Form nhập liệu có validate client-side trước khi submit.<br>• `[Entity]DeleteModal`: Hộp thoại xác nhận thao tác xóa an toàn.<br>• `[Entity]DetailModal`: Xem thông tin sâu hoặc xử lý nghiệp vụ con (ví dụ: gắn/bỏ điểm đến trong BST, phân công HDV). |
+
+### 2. Vòng đời xử lý 1 thao tác CRUD (Lifecycle Flow)
+
+```
+[Người dùng click Sửa]
+       │
+       ▼
+handleOpenEdit(record)  ──► setSelected(record) ──► setIsFormModalOpen(true)
+       │
+[Người dùng ấn Lưu Form]
+       │
+       ▼
+handleSave(formData)    ──► Gọi useUpdate() ──► adminApi.update(id, formData)
+       │                                                 │
+       ▼                                                 ▼ (Thành công)
+Đóng Modal ◄── Hiển thị Toast ◄── query.refetch() ◄──────┘
+```
+
+### 3. Bảng tổng hợp CRUD các module Admin
+
+| Module | Read (Get) | Create (Post) | Update (Put) | Delete | Nghiệp vụ đặc thù |
+|---|---|---|---|---|---|
+| **Destination** | `useGetAdminDestinations` | `useCreateDestination` | `useUpdateDestination` | `useDeleteDestination` | Đã tách 3-tier: Page → List → Item |
+| **Tour** | `useGetAdminTours` | `useCreateTour` | `useUpdateTour` | `useDeleteTour` | Quản lý đa gói giá & thời lượng |
+| **Guide** | `useGetAdminGuides` | `useCreateGuide` | `useUpdateGuide` | `useDeleteGuide` | Quản lý kinh nghiệm, ngôn ngữ |
+| **BookingPlan** | `useGetAdminBookingPlans` | `useCreateBookingPlan` | `useUpdateBookingPlan` | `useDeleteBookingPlan` | Phân công HDV, danh sách hành khách |
+| **Collection** | `useGetAdminCollections` | ❌ *(Đã bỏ)* | `useUpdateCollection` | `useDeleteCollection` | Thêm / bớt điểm đến vào BST |
+| **Contact** | `useGetAdminContacts` | ❌ | `useUpdateContact` | `useDeleteContact` | Cập nhật trạng thái xử lý liên hệ |
+| **Booking** | `useGetAdminBookings` | ❌ *(Người dùng đặt)* | `useUpdateBooking` | ❌ | Duyệt / hủy / đổi trạng thái đặt chỗ |
+
+---
+
 ## Cây thư mục
 
 ```
